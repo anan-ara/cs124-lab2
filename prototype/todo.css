@@ -1,19 +1,19 @@
 body {
     flex-direction: column;
     align-items: stretch;
-    /* flex-flow: column; */
     /* justify-content: space-evenly; */
     flex-wrap: nowrap;
     display: flex;
     font-size: 60px;
-
+    font-family: "SF Pro Display","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif
+    /* font-family: "PT Sans", Calibri, Tahoma, sans-serif; */
 }
 
 
 #top_bar {
     order: 0;
-    flex: 0 0 auto; 
-    background: green;
+    flex: 0 0 initial; 
+    background: #999999;
     padding: 20px 0;
 
     /* top bar's own flexbox */
@@ -24,21 +24,28 @@ body {
 }
 
 #top_bar svg {
-    flex: 0 1 auto;
+    flex: 0 0 auto;
     height: 100px;
     width: auto;
+    fill: white;
 }
 
 #contents {
     order: 1;
-    flex: 4 0 auto;
+    flex: 4 1 auto;
     /* height: 1400px; */
-    background: red;
+
+/* 
+    display:flex;
+    flex-direction: column;
+    align-items: stretch;
+    overflow: scroll; */
 }
 
 #contents svg {
     height: 80px;
     width: auto;
+    fill: #999999;
 }
 
 
@@ -50,13 +57,18 @@ ul {
 
 #contents li {
     height: 100px;
-    background: yellow;
+    background: rgb(230, 230, 230);
     display: flex;
     align-items: center;
 }
 
 li {
     padding: 0 20px;
+    color: #494949;
+}
+
+li:nth-child(3) {
+    color: #8a8a8a; /* if completed do lighter grey */
 }
 
 li label {
@@ -70,14 +82,129 @@ li svg {
 
 #bottom_bar {
     order: 10; /* fix later */
-    flex: 0 0 auto;
-    height: 100px;
-    background: purple;
+    flex: 0 0 initial;
+    height: 50%;
+    background: #999999;
     display: flex;
     align-items: center;
+}
+
+#bottom_bar div {
+    /* Only when editing text for new attribute */
+    /* color: rgb(104, 104, 104); */
+    color: white;
+
 }
 
 #bottom_bar svg {
     height: 80px;
     width: auto;
+    fill: white;
 }
+
+/* Customize the label (the container) */
+.container {
+    display: block;
+    position: relative;
+    padding-left: 50px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  /* Hide the browser's default checkbox */
+  .container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  
+  /* Create a custom checkbox */
+  .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 50px;
+    width: 50px;
+    background-color: #eee;
+    border-radius:5px;
+    border:2px solid #555;
+  }
+  
+  /* On mouse-over, add a grey background color
+  .container:hover input ~ .checkmark {
+    background-color: rgb(126, 47, 47);
+  } */
+  
+  /* When the checkbox is checked, add a blue background */
+  .container input:checked ~ .checkmark {
+    background-color: #2196F3;
+  }
+  
+  /* Create the checkmark/indicator (hidden when not checked) */
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  
+  /* Show the checkmark when checked */
+  .container input:checked ~ .checkmark:after {
+    display: block;
+  }
+  
+  /* Style the checkmark/indicator */
+  .container .checkmark:after {
+    left: 15px;
+    top: 0px;
+    width: 13px;
+    height: 30px;
+    border: solid white;
+    border-width: 0 8px 8px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+
+
+li input[type='checkbox'] {
+    -webkit-appearance:none;
+    width:50px;
+    height:50px;
+    background:white;
+    border-radius:5px;
+    border:2px solid #555;
+}
+
+input[type='checkbox']:checked {
+    background: rgb(103, 118, 128);
+    content: "✔";
+    color: black;
+}
+
+/* input[type='checkbox']:checked:after {
+    content: "";
+    position: absolute;
+    left: 30px;
+    top: 10px;
+    width: 13px;
+    height: 30px;
+    border: solid blue;
+    border-width: 0 8px 8px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  } */
+
+/* input[type='checkbox']:checked:after {
+content: "✔";
+position: absolute;
+font-size: 90%;
+left: 0.0625em;
+top: -0.25em;
+} */
