@@ -1,16 +1,20 @@
 body {
     flex-direction: column;
-    align-items: center;
-    justify-content: space-evenly;
+    align-items: stretch;
+    /* flex-flow: column; */
+    /* justify-content: space-evenly; */
     flex-wrap: nowrap;
     display: flex;
+    font-size: 60px;
+
 }
 
 
 #top_bar {
     order: 0;
-    flex: 0 1 auto; 
+    flex: 0 0 auto; 
     background: green;
+    padding: 20px 0;
 
     /* top bar's own flexbox */
     flex-direction: row;
@@ -22,23 +26,58 @@ body {
 #top_bar svg {
     flex: 0 1 auto;
     height: 100px;
-    margin-right: 100px;
     width: auto;
 }
 
 #contents {
     order: 1;
-    flex: 0 1 auto; 
+    flex: 4 0 auto;
+    /* height: 1400px; */
     background: red;
 }
 
+#contents svg {
+    height: 80px;
+    width: auto;
+}
+
+
+ul {
+    list-style-type: none; /* Remove bullets */
+    padding: 0; /* Remove padding */
+    margin: 0; /* Remove margins */
+  }
+
 #contents li {
     height: 100px;
+    background: yellow;
+    display: flex;
+    align-items: center;
+}
+
+li {
+    padding: 0 20px;
+}
+
+li label {
+    margin-left: 20px;
+}
+
+li svg {
+    margin-left: auto;
 }
 
 
 #bottom_bar {
     order: 10; /* fix later */
-    flex: 0 1 auto;
+    flex: 0 0 auto;
+    height: 100px;
     background: purple;
+    display: flex;
+    align-items: center;
+}
+
+#bottom_bar svg {
+    height: 80px;
+    width: auto;
 }
