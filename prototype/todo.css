@@ -1,0 +1,44 @@
+body {
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-wrap: nowrap;
+    display: flex;
+}
+
+
+#top_bar {
+    order: 0;
+    flex: 0 1 auto; 
+    background: green;
+
+    /* top bar's own flexbox */
+    flex-direction: row;
+    align-items: center;
+    display: flex;
+    justify-content: space-around;
+}
+
+#top_bar svg {
+    flex: 0 1 auto;
+    height: 100px;
+    margin-right: 100px;
+    width: auto;
+}
+
+#contents {
+    order: 1;
+    flex: 0 1 auto; 
+    background: red;
+}
+
+#contents li {
+    height: 100px;
+}
+
+
+#bottom_bar {
+    order: 10; /* fix later */
+    flex: 0 1 auto;
+    background: purple;
+}
