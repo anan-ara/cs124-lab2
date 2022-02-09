@@ -35,17 +35,29 @@ body {
     flex: 4 1 auto;
     /* height: 1400px; */
 
-/* 
-    display:flex;
+
+    /* display:flex;
     flex-direction: column;
     align-items: stretch;
-    overflow: scroll; */
+    overflow-x: hidden; */
 }
 
 #contents svg {
     height: 80px;
     width: auto;
     fill: #999999;
+}
+/* 
+#contents div {
+    /* width: 100%; */
+    /* display: block;
+} */ 
+
+#contents .trash-icon {
+    /* display: none; */
+    fill: white; /* TODO change to once we get it to work properly */ 
+    background: red;
+    height: 80px;
 }
 
 
@@ -55,11 +67,19 @@ ul {
     margin: 0; /* Remove margins */
   }
 
-#contents li {
+#contents li, #contents #first-li div {
     height: 100px;
     background: rgb(230, 230, 230);
     display: flex;
     align-items: center;
+}
+
+/* experimenting */
+#contents #first-li {
+    display: initial;
+    width: 400px;
+    overflow-x: scroll;
+    white-space: nowrap;
 }
 
 li {
