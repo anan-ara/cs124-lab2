@@ -13,7 +13,7 @@ body {
 #top_bar {
     order: 0;
     /* TODO: figure out why warning sign next to flex when in inspect mode  */
-    flex: 0 0 initial; 
+    /* flex: 0 0 initial;  */
     background: #999999;
     padding: 20px 0;
 
@@ -24,7 +24,7 @@ body {
     justify-content: space-around;
 
     /* Make the top bar stay fixed at top of screen and take up whole width */
-    position: fixed;
+    /* position: fixed; */
     width: 100%;
 }
 
@@ -35,10 +35,30 @@ body {
     fill: white;
 }
 
+.top_bar_icon_div {
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.top_bar_icon_div label {
+  order: 1;
+  font-size: 30px;
+  color: white;
+  margin-top: 20px;
+}
+
+#top_bar .dropdown #top-menu-icon {
+  height: 160px;
+  margin-top: -20px;
+}
+
 #contents {
     order: 1;
     flex: 4 1 auto;
-    /* height: 1400px; */
+    height: 1360px;
+    overflow: scroll;
+    background-color: #e6e6e6;
 
 
     /* display:flex;
@@ -74,7 +94,7 @@ ul {
 
 #contents li, #contents #trash-icon-test-li div {
     height: 150px;
-    background: rgb(230, 230, 230);
+    background: #e6e6e6;
     display: flex;
     align-items: center;
 }
@@ -105,11 +125,13 @@ ul {
 
 li {
     padding: 0 20px;
-    color: #494949;
+    color: #555555;
+    border-bottom: 2px solid #999999;
 }
 
-li:nth-child(3) {
-    color: #8a8a8a; /* if completed do lighter grey */
+
+li:nth-child(1) {
+    color: #999999; 
 }
 
 li label {
@@ -129,24 +151,37 @@ li .dropdown {
 }
 
 #bottom_bar {
-    order: 10; /* fix later */
-    flex: 0 0 initial;
-    height: 120px;
+    order: 10;
+    /* flex: 0 0 initial; */
+    height: 150px;
     background: #999999;
     display: flex;
     align-items: center;
     /* following lines make the bottom bar stay put at bottom of screen */
-    position: fixed;
+    /* position: fixed; */
     width: 100%;
     bottom: 0;
 }
 
-#bottom_bar div {
-    /* Only when editing text for new attribute */
-    /* color: rgb(104, 104, 104); */
-    color: white;
+#bottom_bar input {
+    height: 100px;
+    font-size: 70px;
+    color: white; /* Text is white when shows up */
 
+    /* Get rid of border when typing in text */
+    background-color: transparent;
+    outline: none;
+    border: none;
 }
+
+/* Placeholder text for add item */
+::placeholder {
+  color: #e6e6e6;
+}
+
+/* #bottom_bar input:focus {
+  background: #ff0000;
+} */
 
 #bottom_bar svg {
     height: 100px;
@@ -154,8 +189,23 @@ li .dropdown {
     fill: white;
 }
 
+
+li input[type='checkbox'] {
+    -webkit-appearance:none;
+    width:50px;
+    height:50px;
+    background:white;
+    border-radius:5px;
+    border:2px solid #555555;
+}
+
+input[type='checkbox']:checked {
+    background: #999999;
+    content: "✔";
+    color: black;
+}
 /* Customize the label (the container) */
-.container {
+/* .container {
     display: block;
     position: relative;
     padding-left: 50px;
@@ -165,19 +215,19 @@ li .dropdown {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-  }
+  } */
   
   /* Hide the browser's default checkbox */
-  .container input {
+  /* .container input {
     position: absolute;
     opacity: 0;
     cursor: pointer;
     height: 0;
     width: 0;
-  }
+  } */
   
   /* Create a custom checkbox */
-  .checkmark {
+  /* .checkmark {
     position: absolute;
     top: 0;
     left: 0;
@@ -186,7 +236,7 @@ li .dropdown {
     background-color: #eee;
     border-radius:5px;
     border:2px solid #555;
-  }
+  } */
   
   /* On mouse-over, add a grey background color
   .container:hover input ~ .checkmark {
@@ -194,24 +244,24 @@ li .dropdown {
   } */
   
   /* When the checkbox is checked, add a blue background */
-  .container input:checked ~ .checkmark {
+  /* .container input:checked ~ .checkmark {
     background-color: #2196F3;
-  }
+  } */
   
   /* Create the checkmark/indicator (hidden when not checked) */
-  .checkmark:after {
+  /* .checkmark:after {
     content: "";
     position: absolute;
     display: none;
-  }
+  } */
   
   /* Show the checkmark when checked */
-  .container input:checked ~ .checkmark:after {
+  /* .container input:checked ~ .checkmark:after {
     display: block;
-  }
+  } */
   
   /* Style the checkmark/indicator */
-  .container .checkmark:after {
+  /* .container .checkmark:after {
     left: 15px;
     top: 0px;
     width: 13px;
@@ -221,23 +271,7 @@ li .dropdown {
     -webkit-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
-  }
-
-
-li input[type='checkbox'] {
-    -webkit-appearance:none;
-    width:50px;
-    height:50px;
-    background:white;
-    border-radius:5px;
-    border:2px solid #555;
-}
-
-input[type='checkbox']:checked {
-    background: rgb(103, 118, 128);
-    content: "✔";
-    color: black;
-}
+  } */
 
 /* input[type='checkbox']:checked:after {
     content: "";
@@ -268,6 +302,7 @@ top: -0.25em;
   .dropdown {
     position: relative;
     display: inline-block;
+    z-index: 20;
   }
   
   /* Dropdown Content (Hidden by Default) */
@@ -276,33 +311,115 @@ top: -0.25em;
     position: absolute;
     right: 10px;  /* otherwise it goes off right end of page TODO un-hard code this. */ 
     /* up: 10px; */
-    background-color: #f1f1f1;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
+    background-color: white;
+    /* box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); */
+    border-radius: 25px;
+    font-size: 50px;
+  }
+
+  .dropdown-content.main-menu {
+    min-width: 600px;
+  }
+
+  .dropdown-content.sub-menu {
+    min-width: 300px;
+    border: 2px solid #999999;
   }
   
   /* Stuff inside the dropdown */
-  .dropdown-content span {
-    color: black;
+  .dropdown-content div {
+    color: #555555;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
+    text-align: center;
+  }
+
+
+  div.bottom-line {
+    border-bottom: 2px solid #999999;
+  }
+
+  div.delete {
+    color: red;
+  }
+
+  div.priority-adjust {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .activated {
+    background-color: #999999;
+    border-radius: 20px;
   }
   
+  .dropdown-content::after {
+    z-index: -99;
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    margin-left: 0;
+    bottom: 0;
+    top: calc(25% - 5px);
+    left: 0;
+    box-sizing: border-box;
+    border: 5px solid #fff;
+    border-color: transparent transparent #fff #fff;
+    transform-origin: 0 0;
+    transform: rotate(45deg);
+    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.4);
+  }
+  
+  .dropdown-content.main-menu::before {
+    z-index: -10;
+    content: "";
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-color: white;
+    margin-left: 0;
+    bottom: 0;
+    top: -20px;
+    right: 18px;
+    box-sizing: border-box;
+    /* border: 5px solid black; */
+    /* border-color: transparent transparent black black; */
+    transform-origin: 0 0;
+    transform: rotate(45deg);
+  }
+
+  .dropdown-content.sub-menu::before {
+    z-index: -10;
+    content: "";
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-color: #999999;
+    margin-left: 0;
+    bottom: 0;
+    top: -20px;
+    right: 8px;
+    box-sizing: border-box;
+    /* border: 5px solid black; */
+    /* border-color: transparent transparent black black; */
+    transform-origin: 0 0;
+    transform: rotate(45deg);
+  }
   /* Change color of dropdown links on hover */
-  .dropdown-content span:hover {background-color: #ddd;}
+  /* .dropdown-content span:hover {background-color: #ddd;} */
   
   /* Show the dropdown menu on hover */
   .dropdown:hover .dropdown-content {display: block;}
   
   /* Change the background color of the dropdown button when the dropdown content is shown */
-  .dropdown:hover .dropbtn {background-color: #999999;}
+  /* .dropdown:hover .dropbtn {background-color: #999999;} */
 
     
   /* Change the background color of the dropdown button 
   when the dropdown content is shown for the top_bar*/
-  #top_bar .dropdown:hover .dropbtn {background-color: #585858;}
+  /* #top_bar .dropdown:hover .dropbtn {background-color: #585858;} */
 /* 
   #contents .dropdown {
     width: 50px;
@@ -310,13 +427,12 @@ top: -0.25em;
 
   /* Priority levels */
 
-  /* TODO: figure out how we will change the dot */
-  .dot {
-    margin-left: auto;
-    height: 35px;
-    width: 35px;
-    background-color: #bbb;
-    border-radius: 50%;
-    display: inline-block;
-    background-color: red;
-  }
+  /* TODO: figure out how we will change the dot
+  .dot { */
+    /* height: 35px;
+    width: 35px; */
+    /* background-color: #bbb; */
+    /* border-radius: 50%; */
+    /* display: inline-block; */
+    /* background-color: red; */
+  /* } */

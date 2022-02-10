@@ -14,3 +14,26 @@ Deleting all tasks that are completed is a hard task to show in a single icon. I
 # Task Element
 
 Clicking on the task (everywhere except the little hamburger) should mark the item as completed/not-completed because this is probably the most common action most users would want to do to this item.
+
+We decided to have different emojis (🔥, ⚠️, 💤) for the different priority levels for people who are color blind. This was a suggestion from Prof. Rhodes. 
+
+
+
+# TODOS
+- make the add item thing be a textbox when adding item - C DONE
+<!-- - make the menu, priority level, checkbox stuff, trash can, etc show up for everything not just 1 li -->
+- fix appearance of list items when you scroll - A DONE
+- change font color for add new item - C DONE
+- swipe?
+- traffic light appearance toggle - A DONE
+- menu contents (both big and small) - A DONE
+- make arrow - A DONE
+- style checkbox - A DONE
+- style popup menu - A DONE
+- make contents start after the top bar - A DONE
+- rename - A DONE
+- edit item - menu side done
+- reorder items for order by priority
+- color palette
+
+Colors: white, #e6e6e6, #999999, #494949, 
