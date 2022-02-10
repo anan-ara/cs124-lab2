@@ -4,7 +4,7 @@ body {
     /* justify-content: space-evenly; */
     flex-wrap: nowrap;
     display: flex;
-    font-size: 60px;
+    font-size: 70px;
     font-family: "SF Pro Display","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif
     /* font-family: "PT Sans", Calibri, Tahoma, sans-serif; */
 }
@@ -12,6 +12,7 @@ body {
 
 #top_bar {
     order: 0;
+    /* TODO: figure out why warning sign next to flex when in inspect mode  */
     flex: 0 0 initial; 
     background: #999999;
     padding: 20px 0;
@@ -21,11 +22,15 @@ body {
     align-items: center;
     display: flex;
     justify-content: space-around;
+
+    /* Make the top bar stay fixed at top of screen and take up whole width */
+    position: fixed;
+    width: 100%;
 }
 
 #top_bar svg, #top_bar .dropdown{
     flex: 0 0 auto;
-    height: 100px;
+    height: 120px;
     width: auto;
     fill: white;
 }
@@ -43,7 +48,7 @@ body {
 }
 
 #contents svg {
-    height: 80px;
+    height: 100px;
     width: auto;
     fill: #999999;
 }
@@ -57,7 +62,7 @@ body {
     /* display: none; */
     fill: white; /* TODO change to once we get it to work properly */ 
     background: red;
-    height: 80px;
+    height: 100px;
 }
 
 
@@ -68,7 +73,7 @@ ul {
   }
 
 #contents li, #contents #trash-icon-test-li div {
-    height: 100px;
+    height: 150px;
     background: rgb(230, 230, 230);
     display: flex;
     align-items: center;
@@ -111,19 +116,29 @@ li label {
     margin-left: 20px;
 }
 
-/* TODO:  later should prob just be #contents .dropdown if all svgs become dropdowns */
-li svg, #contents .dropdown{
+/* TODO:  later should prob just be #contents .dot if all svgs become dropdowns, 
+this is assuming we want the dot on the far right. */
+li svg, #contents .dot {
+/* #contents .dropdown{ */
     margin-left: auto;
 }
 
+/* Add space between the dot and the hamburger */
+li .dropdown {
+    margin-left: 30px;
+}
 
 #bottom_bar {
     order: 10; /* fix later */
     flex: 0 0 initial;
-    height: 50%;
+    height: 120px;
     background: #999999;
     display: flex;
     align-items: center;
+    /* following lines make the bottom bar stay put at bottom of screen */
+    position: fixed;
+    width: 100%;
+    bottom: 0;
 }
 
 #bottom_bar div {
@@ -134,7 +149,7 @@ li svg, #contents .dropdown{
 }
 
 #bottom_bar svg {
-    height: 80px;
+    height: 100px;
     width: auto;
     fill: white;
 }
@@ -288,3 +303,20 @@ top: -0.25em;
   /* Change the background color of the dropdown button 
   when the dropdown content is shown for the top_bar*/
   #top_bar .dropdown:hover .dropbtn {background-color: #585858;}
+/* 
+  #contents .dropdown {
+    width: 50px;
+  } */
+
+  /* Priority levels */
+
+  /* TODO: figure out how we will change the dot */
+  .dot {
+    margin-left: auto;
+    height: 35px;
+    width: 35px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    background-color: red;
+  }
