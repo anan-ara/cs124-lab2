@@ -4,7 +4,7 @@ body {
     /* justify-content: space-evenly; */
     flex-wrap: nowrap;
     display: flex;
-    font-size: 70px;
+    font-size: 50px;
     font-family: "SF Pro Display","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif
     /* font-family: "PT Sans", Calibri, Tahoma, sans-serif; */
 }
@@ -93,12 +93,20 @@ ul {
   }
 
 #contents li, #contents #trash-icon-test-li div {
-    height: 150px;
+    min-height: 150px;
     background: #e6e6e6;
     display: flex;
     align-items: center;
+    padding: 10px;
 }
 
+#contents li label {
+    /* display: block; */
+    /* white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden; */
+    /* width: 100%; */
+}
 /* experimenting */
 /* #contents #trash-icon-test-li {
     display: initial;
@@ -130,7 +138,7 @@ li {
 }
 
 
-li:nth-child(1) {
+.completed {
     color: #999999; 
 }
 
@@ -165,7 +173,7 @@ li .dropdown {
 
 #bottom_bar input {
     height: 100px;
-    font-size: 70px;
+    font-size: 50px;
     color: white; /* Text is white when shows up */
 
     /* Get rid of border when typing in text */
@@ -191,6 +199,7 @@ li .dropdown {
 
 
 li input[type='checkbox'] {
+    min-width: 50px;
     -webkit-appearance:none;
     width:50px;
     height:50px;
