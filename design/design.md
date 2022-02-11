@@ -2,7 +2,7 @@
 
 ## Element Placement
 
-On the top bar, we added toggle buttons that change how the tasks in the list are displayed. We have a toggle button for Sort by Priority, and a toggle button for Show/Hide Completed Tasks. We thought that these actions are actions a user may use often, so it is not hidden in a menu.
+On the top bar, we added toggle buttons that change how the tasks in the list are displayed. We have a toggle button for Sort by Priority, and a toggle button for Show/Hide Completed Tasks. We thought that these actions are actions a user may use often, so they are not hidden in the menu.
 
 Deleting all tasks that are completed is a destructive action, so it would be bad if the user accidentally clicked this icon without knowing what it does. Thus, we placed this action under the menu icon in the upper right corner along with a text description. Additionally, it is not a common action, so it is okay for it to take more clicks to activate.
 
@@ -24,7 +24,7 @@ The checkbox goes on the left of each task as that is where it is usually positi
 
 We decided to have different emojis (🔥, ⚠️, 💤) for the different priority levels for people who are color blind. This was a suggestion from Prof. Rhodes. 
 
-We made the 💤 the default priority level for tasks as if a user does not bother to change the priority level of a task, it is usually a safe assumption that it is unimportant.
+We made the 💤 the default priority level for tasks because if a user does not bother to change the priority level of a task, it is usually a safe assumption that it is unimportant.
 
 ## Color Palette
 
@@ -37,6 +37,8 @@ We chose a very neutral grey color palette as our app will have a lot of color f
 We also would like to implement a dark mode to invert the colors. Since our theme is greyscale, this should be easy to do without breaking the aesthetic of our app. 
 
 ## Swipe Quick Actions
+
+This has not yet been implemented.
 
 We also would like to implement a quick swipe action for each task item similar to how mail apps allow users to quick mark an email as unread or to quick delete a mail by swiping that mail left/right. 
 
@@ -74,4 +76,4 @@ By far the most difficult thing we tried to implement for this lab was the swipe
 
 We are especially proud of the emoji indicators for priority level, a well as the functionality to sort by the priority level of tasks. We thought that this would be a useful feature that we ourselves would like to see and use in a to-do list, so we decided to implement it.
 
-We are also happy with the grey theme we went with as it is very neutral and it should mesh well with any of the priority level icon emojis, especially since we are allowing users to change these emojis themselves if they would like to.
+We are also happy with the grey theme we went with as it is very neutral and it should mesh well with any of the priority level icon emojis, especially since we will allow users to change these emojis themselves if they would like to.
