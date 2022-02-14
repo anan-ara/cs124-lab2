@@ -1,0 +1,292 @@
+body {
+    flex-direction: column;
+    align-items: stretch;
+    /* justify-content: space-evenly; */
+    flex-wrap: nowrap;
+    display: flex;
+    font-size: 1.2rem;
+    font-family: "SF Pro Display","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif
+    /* font-family: "PT Sans", Calibri, Tahoma, sans-serif; */
+}
+
+
+#top_bar {
+    order: 0;
+    /* TODO: figure out why warning sign next to flex when in inspect mode  */
+    background: #999999;
+    padding: 1vh 0;
+    height: 10vh;
+
+    /* top bar's own flexbox */
+    flex-direction: row;
+    align-items: center;
+    display: flex;
+    justify-content: space-around;
+    /* take up whole width */
+    width: 100%;
+}
+
+#top_bar svg, #top_bar .dropdown{
+    flex: 0 0 auto;
+    height: 7vh;
+    width: auto;
+    fill: white;
+}
+
+.top_bar_icon_div {
+  width: 50vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.top_bar_icon_div label {
+  order: 1;
+  font-size: 0.7rem;
+  color: white;
+  margin-top: 0.5vh;
+}
+
+#top_bar .dropdown #top-menu-icon {
+  height: 9vh;
+  margin-top: -1vh;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+#contents::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+#contents {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+#contents {
+    order: 1;
+    flex: 4 1 auto;
+    height: 74vh;
+    overflow: scroll;
+    background-color: #e6e6e6;
+}
+
+#contents svg {
+    height: 5vh;
+    width: auto;
+    fill: #999999;
+}
+
+#contents .trash-icon {
+    /* display: none; */
+    fill: white; /* TODO change to once we get it to work properly */ 
+    background: red;
+}
+
+
+ul {
+    list-style-type: none; /* Remove bullets */
+    padding: 0; /* Remove padding */
+    margin: 0; /* Remove margins */
+  }
+
+#contents li, #contents #trash-icon-test-li div {
+    min-height: 7vh;
+    background: #e6e6e6;
+    display: flex;
+    align-items: center;
+    padding: 1vh;
+}
+
+li {
+    padding: 0 5vh;
+    color: #555555;
+    border-bottom: .1em solid #999999;
+}
+
+
+.completed {
+    color: #999999; 
+}
+
+li label {
+    margin-left: 2vw;
+}
+
+/* TODO:  later should prob just be #contents .dot if all svgs become dropdowns, 
+this is assuming we want the dot on the far right. */
+#contents .dot {
+    margin-left: auto;
+
+}
+
+/* Add space between the dot and the hamburger */
+li .dropdown, .burger {
+    margin-left: 1vw;
+}
+
+
+
+#bottom_bar {
+    order: 10;
+    /* flex: 0 0 initial; */
+    height: 10vh;
+    background: #999999;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    bottom: 0; /* make stay at bottom of screen */
+}
+
+#bottom_bar input {
+    font-size: 1.5rem;
+    color: white; /* Text is white when shows up */
+
+    /* Get rid of border when typing in text */
+    background-color: transparent;
+    outline: none;
+    border: none;
+}
+
+/* Placeholder text for add item */
+::placeholder {
+  color: #e6e6e6;
+}
+
+#bottom_bar svg {
+    height: 7vh;
+    width: auto;
+    fill: white;
+}
+
+
+li input[type='checkbox'] {
+    min-width: 4vh;
+    -webkit-appearance:none;
+    width:4vh;
+    height:4vh;
+    background:white;
+    border-radius:1vh;
+    border:0.4vh solid #555555;
+}
+
+input[type='checkbox']:checked {
+    background: #999999;
+    content: "✔";
+    color: black;
+}
+
+/* dropdown , from https://www.w3schools.com/howto/howto_css_dropdown.asp */
+  
+  /* The container <div> - needed to position the dropdown content */
+  .dropdown {
+    position: relative;
+    display: inline-block;
+    z-index: 20;
+  }
+  
+  /* Dropdown Content (Hidden by Default) */
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    right: 1vw; 
+    background-color: white;
+    border-radius: 3vw;
+    font-size: 1rem;
+    margin-top: -2vw;
+  }
+
+  .dropdown-content.main-menu {
+    min-width: 60vw;
+  }
+
+  .dropdown-content.sub-menu {
+    min-width: 30vw;
+    border: 0.1vh solid #999999;
+  }
+  
+  /* Stuff inside the dropdown */
+  .dropdown-content > div {
+    color: #555555;
+    padding: 2vw 1vw;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+  }
+
+
+  div.bottom-line {
+    border-bottom: 0.1vh solid #999999;
+  }
+
+  div.delete {
+    color: red;
+  }
+
+  div.priority-adjust {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  div.priority-adjust div {
+    height: 1.5rem;
+    width: 1.5rem;
+    text-align: center;
+  }
+
+  .activated {
+    background-color: #999999;
+    border-radius: 1vw;
+  }
+  
+  .dropdown-content::after {
+    z-index: -99;
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    margin-left: 0;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    box-sizing: border-box;
+    display: none;
+  }
+  
+  .dropdown-content.main-menu::before {
+    z-index: -10;
+    content: "";
+    position: absolute;
+    width: 3vw;
+    height: 3vw;
+    background-color: white;
+    margin-left: 0;
+    bottom: 0;
+    top: -2vw;
+    right: 3.5vw;
+    box-sizing: border-box;
+    transform-origin: 0 0;
+    transform: rotate(45deg);
+  }
+
+  .dropdown-content.sub-menu::before {
+    z-index: -10;
+    content: "";
+    position: absolute;
+    width: 3vw;
+    height: 3vw;
+    background-color: #999999;
+    margin-left: 0;
+    bottom: 0;
+    top: -2vw;
+    right: 0;
+    box-sizing: border-box;
+    /* border: 5px solid black; */
+    /* border-color: transparent transparent black black; */
+    transform-origin: 0 0;
+    transform: rotate(45deg);
+  }
+  /* Change color of dropdown links on hover */
+  /* .dropdown-content span:hover {background-color: #ddd;} */
+  
+  /* Show the dropdown menu on hover */
+  .dropdown:hover .dropdown-content {display: block;}

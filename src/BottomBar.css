@@ -1,0 +1,31 @@
+#bottom_bar {
+    order: 10;
+    /* flex: 0 0 initial; */
+    height: 10vh;
+    background: #999999;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    bottom: 0; /* make stay at bottom of screen */
+}
+
+#bottom_bar input {
+    font-size: 1.5rem;
+    color: white; /* Text is white when shows up */
+
+    /* Get rid of border when typing in text */
+    background-color: transparent;
+    outline: none;
+    border: none;
+}
+
+/* Placeholder text for add item */
+::placeholder {
+  color: #e6e6e6;
+}
+
+#bottom_bar svg {
+    height: 7vh;
+    width: auto;
+    fill: white;
+}
