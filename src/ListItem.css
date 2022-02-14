@@ -46,3 +46,17 @@ input[type='checkbox']:checked {
     color: black;
 }
 
+li input[type='checkbox'] {
+    min-width: 4vh;
+    -webkit-appearance:none;
+    width:4vh;
+    height:4vh;
+    background:white;
+    border-radius:1vh;
+    border:0.4vh solid #555555;
+}
+
+
+div.bottom-line {
+    border-bottom: 0.1vh solid #999999;
+  }

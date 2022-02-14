@@ -1,0 +1,40 @@
+#top_bar {
+    order: 0;
+    /* TODO: figure out why warning sign next to flex when in inspect mode  */
+    background: #999999;
+    padding: 1vh 0;
+    height: 10vh;
+
+    /* top bar's own flexbox */
+    flex-direction: row;
+    align-items: center;
+    display: flex;
+    justify-content: space-around;
+    /* take up whole width */
+    width: 100%;
+}
+
+#top_bar svg, #top_bar .dropdown{
+    flex: 0 0 auto;
+    height: 7vh;
+    width: auto;
+    fill: white;
+}
+
+.top_bar_icon_div {
+  width: 50vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.top_bar_icon_div label {
+  order: 1;
+  font-size: 0.7rem;
+  color: white;
+  margin-top: 0.5vh;
+}
+
+#top_bar .dropdown #top-menu-icon {
+  height: 9vh;
+  margin-top: -1vh;
+}

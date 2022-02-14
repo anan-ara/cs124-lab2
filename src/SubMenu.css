@@ -43,12 +43,9 @@ li .dropdown, .burger {
   }
 
 
-  div.bottom-line {
-    border-bottom: 0.1vh solid #999999;
-  }
-
-  div.delete {
-    color: red;
+   div.priority-adjust {
+    display: flex;
+    justify-content: space-around;
   }
 
   div.priority-adjust {

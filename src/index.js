@@ -23,8 +23,8 @@ reportWebVitals();
 //   {text:"Call Mom", priority:0, checked:false},
 //   {text:"john grism book thing and lots of text for a really long list item", priority:2, checked:true},
 //   {text:"workout", priority:2, checked:false},
-//   {text:"take vitamins", priority:1, checked:true}
+//   {text:"take vitamins", priority:1, checked:true},
 
 // ];
 
-// export default initialData;
+// export {initialData};
