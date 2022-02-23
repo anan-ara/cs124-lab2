@@ -7,7 +7,26 @@ import { initialData } from '.';
 
 
 function App() {
-  let [todos, setTodos] = useState(initialData);
+  const [todos, setTodos] = useState(initialData);
+  const [showCompleted, setShowCompleted] = useState(true);
+  const [sortPriority, setSortPriority] = useState(false);
+  const [dropDown, setDropDown] = useState(false);
+
+  function handleShowCompleted() {
+    setShowCompleted(!showCompleted);
+  }
+
+  function handleSortPriority() {
+    setSortPriority(!sortPriority);
+  }
+
+  function handleShowDropDown() {
+    setDropDown(true);
+  }
+
+  function handleHideDropDown() {
+    setDropDown(false);
+  }
 
   function addNewTodo(name) {
     // TODO: change to not be date.now
@@ -16,7 +35,15 @@ function App() {
  
   return (
     <>
-    <TopBar />
+    <TopBar
+        showCompleted={showCompleted}
+        sortPriority={sortPriority}
+        dropDown={dropDown}
+        onShowCompleted={handleShowCompleted}
+        onSortPriority={handleSortPriority}
+        onShowDropDown={handleShowDropDown}
+        onHideDropDown={handleHideDropDown}
+      />
     <Contents data={todos}/>
     <BottomBar onTextInput={addNewTodo}/>
     </>

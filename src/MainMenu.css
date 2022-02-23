@@ -1,11 +1,3 @@
-
-/* Add space between the dot and the hamburger */
-li .dropdown, .burger {
-    margin-left: 1vw;
-}
-
-/* dropdown , from https://www.w3schools.com/howto/howto_css_dropdown.asp */
-  
   /* The container <div> - needed to position the dropdown content */
   .dropdown {
     position: relative;
@@ -14,8 +6,8 @@ li .dropdown, .burger {
   }
   
   /* Dropdown Content (Hidden by Default) */
-  .dropdown-content {
-    display: none;
+  .dropdown-content.main-menu {
+    display: block;
     position: absolute;
     right: 1vw; 
     background-color: white;
@@ -24,11 +16,10 @@ li .dropdown, .burger {
     margin-top: -2vw;
   }
 
-  .dropdown-content.sub-menu {
-    min-width: 30vw;
-    border: 0.1vh solid #999999;
+  .dropdown-content.main-menu {
+    min-width: 60vw;
   }
-  
+
   /* Stuff inside the dropdown */
   .dropdown-content > div {
     color: #555555;
@@ -38,28 +29,6 @@ li .dropdown, .burger {
     text-align: center;
   }
 
-
-   div.priority-adjust {
-    display: flex;
-    justify-content: space-around;
-  }
-
-  div.priority-adjust {
-    display: flex;
-    justify-content: space-around;
-  }
-
-  div.priority-adjust div {
-    height: 1.5rem;
-    width: 1.5rem;
-    text-align: center;
-  }
-
-  .activated {
-    background-color: #999999;
-    border-radius: 1vw;
-  }
-  
   .dropdown-content::after {
     z-index: -99;
     content: "";
@@ -72,6 +41,22 @@ li .dropdown, .burger {
     left: 0;
     box-sizing: border-box;
     display: none;
+  }
+  
+  .dropdown-content.main-menu::before {
+    z-index: -10;
+    content: "";
+    position: absolute;
+    width: 3vw;
+    height: 3vw;
+    background-color: white;
+    margin-left: 0;
+    bottom: 0;
+    top: -2vw;
+    right: 3.5vw;
+    box-sizing: border-box;
+    transform-origin: 0 0;
+    transform: rotate(45deg);
   }
 
   .dropdown-content.sub-menu::before {
@@ -91,8 +76,3 @@ li .dropdown, .burger {
     transform-origin: 0 0;
     transform: rotate(45deg);
   }
-  /* Change color of dropdown links on hover */
-  /* .dropdown-content span:hover {background-color: #ddd;} */
-  
-  /* Show the dropdown menu on hover */
-  .dropdown:hover .dropdown-content {display: block;}
