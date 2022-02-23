@@ -14,7 +14,11 @@ function TopBar(props) {
         showCompleted={props.showCompleted}
         onShowCompleted={props.onShowCompleted}
       />
-      <MainMenu />
+      <MainMenu 
+        dropDown={props.dropDown}
+        onShowDropDown={props.onShowDropDown}
+        onHideDropDown={props.onHideDropDown}
+      />
     </div>
   );
 }

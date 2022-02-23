@@ -7,6 +7,7 @@ import { useState } from "react";
 function App() {
   const [showCompleted, setShowCompleted] = useState(true);
   const [sortPriority, setSortPriority] = useState(false);
+  const [dropDown, setDropDown] = useState(false);
 
   function handleShowCompleted() {
     setShowCompleted(!showCompleted);
@@ -16,13 +17,24 @@ function App() {
     setSortPriority(!sortPriority);
   }
 
+  function handleShowDropDown() {
+    setDropDown(true);
+  }
+
+  function handleHideDropDown() {
+    setDropDown(false);
+  }
+
   return (
     <>
       <TopBar
         showCompleted={showCompleted}
         sortPriority={sortPriority}
+        dropDown={dropDown}
         onShowCompleted={handleShowCompleted}
         onSortPriority={handleSortPriority}
+        onShowDropDown={handleShowDropDown}
+        onHideDropDown={handleHideDropDown}
       />
       <Contents />
       <BottomBar />
