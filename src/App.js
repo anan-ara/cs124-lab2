@@ -7,7 +7,7 @@ import { initialData } from '.';
 
 
 function App() {
-  const [todos, setTodos] = useState(initialData);
+  const [data, setData] = useState(initialData);
   const [showCompleted, setShowCompleted] = useState(true);
   const [sortPriority, setSortPriority] = useState(false);
   const [dropDown, setDropDown] = useState(false);
@@ -30,7 +30,7 @@ function App() {
 
   function addNewTodo(name) {
     // TODO: change to not be date.now
-    setTodos(todos.concat([{text:name, priority:0, checked:false, id:Date.now()}]));
+    setData(data.concat([{text:name, priority:0, checked:false, id:Date.now()}]));
   }
  
   return (
@@ -44,7 +44,7 @@ function App() {
         onShowDropDown={handleShowDropDown}
         onHideDropDown={handleHideDropDown}
       />
-    <Contents data={todos} sortPriority={sortPriority}/>
+    <Contents data={data} sortPriority={sortPriority} showCompleted={showCompleted}/>
     <BottomBar onTextInput={addNewTodo}/>
     </>
   );
