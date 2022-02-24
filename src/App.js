@@ -44,7 +44,7 @@ function App() {
         onShowDropDown={handleShowDropDown}
         onHideDropDown={handleHideDropDown}
       />
-    <Contents data={todos}/>
+    <Contents data={todos} sortPriority={sortPriority}/>
     <BottomBar onTextInput={addNewTodo}/>
     </>
   );
