@@ -1,10 +1,9 @@
-import './todo.css';
-import TopBar from './TopBar';
-import BottomBar from './BottomBar'
-import Contents from './Contents'
-import { useState } from 'react';
-import { initialData } from '.';
-
+import "./todo.css";
+import TopBar from "./TopBar";
+import BottomBar from "./BottomBar";
+import Contents from "./Contents";
+import { useState } from "react";
+import { initialData } from ".";
 
 function App() {
   const [data, setData] = useState(initialData);
@@ -30,12 +29,22 @@ function App() {
 
   function addNewTodo(name) {
     // TODO: change to not be date.now
-    setData(data.concat([{text:name, priority:0, checked:false, id:Date.now()}]));
+    setData(
+      data.concat([{ text: name, priority: 0, checked: false, id: Date.now() }])
+    );
   }
- 
+
+  function handleToggleChecked(id) {
+    setData(
+      data.map((task) => 
+        task.id === id ? { ...task, checked: !task.checked } : task
+      )
+    );
+  }
+
   return (
     <>
-    <TopBar
+      <TopBar
         showCompleted={showCompleted}
         sortPriority={sortPriority}
         dropDown={dropDown}
@@ -44,8 +53,13 @@ function App() {
         onShowDropDown={handleShowDropDown}
         onHideDropDown={handleHideDropDown}
       />
-    <Contents data={data} sortPriority={sortPriority} showCompleted={showCompleted}/>
-    <BottomBar onTextInput={addNewTodo}/>
+      <Contents
+        data={data}
+        sortPriority={sortPriority}
+        showCompleted={showCompleted}
+        onToggleChecked={handleToggleChecked}
+      />
+      <BottomBar onTextInput={addNewTodo} />
     </>
   );
 }

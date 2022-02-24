@@ -56,6 +56,9 @@ li input[type='checkbox'] {
     border:0.4vh solid #555555;
 }
 
+li.done label{
+    color: #999999;
+}
 
 div.bottom-line {
     border-bottom: 0.1vh solid #999999;
