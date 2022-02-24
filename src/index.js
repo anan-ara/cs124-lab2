@@ -9,9 +9,9 @@ let initialData = [
   {text:"Call Mom", priority:0, checked:false, id:1},
   {text:"john grism book thing and lots of text for a really long list item", priority:2, checked:true, id:2},
   {text:"make checkboxes work", priority:2, checked:false},
-  {text:" make popups close when click elsewhere", priority:1, checked:true},
+  {text:" make popups close when click elsewhere", priority:0, checked:true},
   {text:" plus button work and clear text bottom bar", priority:1, checked:true},
-  {text:"sorting + filter mechanism", priority:1, checked:true},
+  {text:"sorting + filter mechanism", priority:2, checked:true},
   {text:"menu actions", priority:1, checked:true}
 ];
 
