@@ -16,6 +16,7 @@ function ListItem(props) {
       <SubMenu
         priority={props.priority}
         onChangePriority={props.onChangePriority}
+        onDeleteTask={props.onDeleteTask}
         id={props.id}
       />
     </li>

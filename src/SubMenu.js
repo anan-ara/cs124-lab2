@@ -33,6 +33,7 @@ function SubMenu(props) {
         <SubMenuDropDown
           onChangePriority={props.onChangePriority}
           onHideDropDown={handleHideDropDown}
+          onDeleteTask={props.onDeleteTask}
           id={props.id}
         />
       ) : null}
