@@ -5,10 +5,16 @@ function SubMenuDropDown(props) {
     props.onChangePriority(props.id, priority);
     props.onHideDropDown();
   }
+
   return (
     <div className="dropdown-content sub-menu">
       <div className="bottom-line">Rename</div>
-      <div className="delete bottom-line">Delete</div>
+      <div
+        className="delete bottom-line"
+        onClick={() => props.onDeleteTask(props.id)}
+      >
+        Delete
+      </div>
       <div className="priority-adjust">
         <div
           className={props.priority === 0 ? "activated" : ""}

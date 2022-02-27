@@ -50,6 +50,14 @@ function App() {
     );
   }
 
+  function handleDeleteTask(id) {
+    setData(
+      data.filter(task => 
+        task.id !== id
+      )
+    );
+  }
+
   return (
     <>
       <TopBar
@@ -67,6 +75,7 @@ function App() {
         showCompleted={showCompleted}
         onToggleChecked={handleToggleChecked}
         onChangePriority={handleChangePriority}
+        onDeleteTask={handleDeleteTask}
       />
       <BottomBar onTextInput={addNewTodo} />
     </>
