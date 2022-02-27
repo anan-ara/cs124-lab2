@@ -48,7 +48,6 @@ function App() {
         task.id === id ? { ...task, priority: priority } : task
       )
     );
-    console.log(id)
   }
 
   return (
