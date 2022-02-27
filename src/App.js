@@ -42,6 +42,14 @@ function App() {
     );
   }
 
+  function handleChangePriority(id, priority) {
+    setData(
+      data.map((task) => 
+        task.id === id ? { ...task, priority: priority } : task
+      )
+    );
+  }
+
   return (
     <>
       <TopBar
@@ -58,6 +66,7 @@ function App() {
         sortPriority={sortPriority}
         showCompleted={showCompleted}
         onToggleChecked={handleToggleChecked}
+        onChangePriority={handleChangePriority}
       />
       <BottomBar onTextInput={addNewTodo} />
     </>

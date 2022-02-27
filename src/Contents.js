@@ -26,6 +26,7 @@ function Contents(props) {
             key={e.id}
             id={e.id}
             onToggleChecked={props.onToggleChecked}
+            onChangePriority={props.onChangePriority}
           />
         ))}
       </ul>
