@@ -15,7 +15,7 @@ li .dropdown, .burger {
   
   /* Dropdown Content (Hidden by Default) */
   .dropdown-content {
-    display: none;
+    display: block;
     position: absolute;
     right: 1vw; 
     background-color: white;
@@ -93,6 +93,3 @@ li .dropdown, .burger {
   }
   /* Change color of dropdown links on hover */
   /* .dropdown-content span:hover {background-color: #ddd;} */
-  
-  /* Show the dropdown menu on hover */
-  .dropdown:hover .dropdown-content {display: block;}
