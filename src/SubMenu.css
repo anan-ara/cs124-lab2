@@ -1,43 +1,18 @@
 
-/* Add space between the dot and the hamburger */
+/* Add space between the emojis and the hamburger */
 li .dropdown, .burger {
     margin-left: 1vw;
 }
-
-/* dropdown , from https://www.w3schools.com/howto/howto_css_dropdown.asp */
   
-  /* The container <div> - needed to position the dropdown content */
-  .dropdown {
-    position: relative;
-    display: inline-block;
-    z-index: 20;
-  }
-  
-  /* Dropdown Content (Hidden by Default) */
-  .dropdown-content {
-    display: none;
-    position: absolute;
-    right: 1vw; 
-    background-color: white;
-    border-radius: 3vw;
-    font-size: 1rem;
-    margin-top: -2vw;
+  .dropdown-content.sub-menu::before {
+    background-color: #999999;        
+    right: 0;
   }
 
   .dropdown-content.sub-menu {
     min-width: 30vw;
     border: 0.1vh solid #999999;
   }
-  
-  /* Stuff inside the dropdown */
-  .dropdown-content > div {
-    color: #555555;
-    padding: 2vw 1vw;
-    text-decoration: none;
-    display: block;
-    text-align: center;
-  }
-
 
    div.priority-adjust {
     display: flex;
@@ -60,37 +35,6 @@ li .dropdown, .burger {
     border-radius: 1vw;
   }
   
-  .dropdown-content::after {
-    z-index: -99;
-    content: "";
-    position: absolute;
-    width: 0;
-    height: 0;
-    margin-left: 0;
-    bottom: 0;
-    top: 0;
-    left: 0;
-    box-sizing: border-box;
-    display: none;
-  }
-
-  .dropdown-content.sub-menu::before {
-    z-index: -10;
-    content: "";
-    position: absolute;
-    width: 3vw;
-    height: 3vw;
-    background-color: #999999;
-    margin-left: 0;
-    bottom: 0;
-    top: -2vw;
-    right: 0;
-    box-sizing: border-box;
-    /* border: 5px solid black; */
-    /* border-color: transparent transparent black black; */
-    transform-origin: 0 0;
-    transform: rotate(45deg);
-  }
   /* Change color of dropdown links on hover */
   /* .dropdown-content span:hover {background-color: #ddd;} */
   

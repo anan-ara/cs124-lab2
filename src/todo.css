@@ -8,9 +8,3 @@ body {
     font-family: "SF Pro Display","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif
     /* font-family: "PT Sans", Calibri, Tahoma, sans-serif; */
 }
-
-/* TODO: ask prof. rhodes about precedence and see if this needs to be moved to individual css files so that delete will
-actually render as red./ */
-  div.delete {
-    color: red;
-  }

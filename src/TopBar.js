@@ -3,6 +3,7 @@ import PriorityToggle from "./PriorityToggle";
 import CompletedToggle from "./CompletedToggle";
 import MainMenuToggle from "./MainMenuToggle";
 import MainMenu from "./MainMenu";
+import Backdrop from "./Backdrop";
 
 function TopBar(props) {
   return (
@@ -16,12 +17,15 @@ function TopBar(props) {
         showCompleted={props.showCompleted}
         onShowCompleted={props.onShowCompleted}
       />
+      <div></div>
       <MainMenuToggle
       dropDown={props.dropDown}
         onShowDropDown={props.onShowDropDown}
         onHideDropDown={props.onHideDropDown}
       />
     </div>
+    {/* Conditionally show the drop down and backdrop  */}
+    {props.dropDown ? <Backdrop onClickBackdrop={props.onHideDropDown}/> : null} 
     {props.dropDown ? <MainMenu 
       dropDown={props.dropDown}
       onShowDropDown={props.onShowDropDown}
