@@ -1,44 +1,13 @@
-#contents svg {
-    height: 5vh;
-    width: auto;
-    fill: #999999;
-}
-
-#contents .trash-icon {
-    /* display: none; */
-    fill: white; /* TODO change to once we get it to work properly */ 
-    background: red;
-}
-
-#contents li, #contents #trash-icon-test-li div {
-    min-height: 7vh;
-    background: #e6e6e6;
-    display: flex;
-    align-items: center;
-    padding: 1vh;
-}
-
 li {
     padding: 0 5vh;
     color: #555555;
     border-bottom: .1em solid #999999;
 }
 
-
 .completed {
     color: #999999; 
 }
 
-li label {
-    margin-left: 2vw;
-}
-
-/* TODO:  later should prob just be #contents .dot if all svgs become dropdowns, 
-this is assuming we want the dot on the far right. */
-#contents .dot {
-    margin-left: auto;
-
-}
 
 input[type='checkbox']:checked {
     background: #999999;
@@ -56,10 +25,35 @@ li input[type='checkbox'] {
     border:0.4vh solid #555555;
 }
 
+li label {
+    margin-left: 2vw;
+    width: 68vw;
+}
+
 li.done label{
     color: #999999;
+}
+
+#contents svg {
+    height: 5vh;
+    width: auto;
+    fill: #999999;
+}
+
+/* TODO:  later should prob just be #contents .dot if all svgs become dropdowns, 
+this is assuming we want the dot on the far right. */
+#contents .dot {
+    margin-left: 2vw;
 }
 
 div.bottom-line {
     border-bottom: 0.1vh solid #999999;
   }
+
+#contents li, #contents #trash-icon-test-li div {
+    min-height: 7vh;
+    background: #e6e6e6;
+    display: flex;
+    align-items: center;
+    padding: 1vh;
+}
