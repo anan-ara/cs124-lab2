@@ -27,14 +27,14 @@ function TopBar(props) {
       </div>
       {/* Conditionally show the drop down and backdrop  */}
       {props.dropDown ? (
-        <Backdrop onClickBackdrop={props.onToggleDropdown} />
-      ) : null}
-      {props.dropDown ? (
-        <MainMenu
-          dropDown={props.dropDown}
-          onToggleDropdown={props.onToggleDropdown}
-          onDeleteCompleted={props.onDeleteCompleted}
-        />
+        <>
+          <Backdrop onClickBackdrop={props.onToggleDropdown} />
+          <MainMenu
+            dropDown={props.dropDown}
+            onToggleDropdown={props.onToggleDropdown}
+            onDeleteCompleted={props.onDeleteCompleted}
+          />
+        </>
       ) : null}
     </>
   );

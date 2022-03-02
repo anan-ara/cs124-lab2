@@ -1,41 +1,35 @@
-
-/* Add space between the emojis and the hamburger */
-li .dropdown, .burger {
-    margin-left: 1vw;
+.dropdown-content.sub-menu::before {
+  background-color: #999999;
+  right: 0;
 }
-  
-  .dropdown-content.sub-menu::before {
-    background-color: #999999;        
-    right: 0;
-  }
 
-  .dropdown-content.sub-menu {
-    min-width: 30vw;
-    border: 0.1vh solid #999999;
-    right: 2vw;
-    top: 4vh;
-  }
+.dropdown-content.sub-menu {
+  min-width: 30vw;
+  border: 0.1vh solid #999999;
+  right: 3vw;
+  top: 4vh;
+}
 
-   div.priority-adjust {
-    display: flex;
-    justify-content: space-around;
-  }
+div.priority-adjust {
+  display: flex;
+  justify-content: space-around;
+}
 
-  div.priority-adjust {
-    display: flex;
-    justify-content: space-around;
-  }
+div.priority-adjust {
+  display: flex;
+  justify-content: space-around;
+}
 
-  div.priority-adjust div {
-    height: 1.5rem;
-    width: 1.5rem;
-    text-align: center;
-  }
+div.priority-adjust div {
+  height: 1.5rem;
+  width: 1.5rem;
+  text-align: center;
+}
 
-  .activated {
-    background-color: #999999;
-    border-radius: 1vw;
-  }
-  
-  /* Change color of dropdown links on hover */
-  /* .dropdown-content span:hover {background-color: #ddd;} */
+.activated {
+  background-color: #999999;
+  border-radius: 1vw;
+}
+
+/* Change color of dropdown links on hover */
+/* .dropdown-content span:hover {background-color: #ddd;} */
