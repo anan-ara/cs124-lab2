@@ -6,14 +6,19 @@ function ListItem(props) {
     <li className={props.checked ? "done" : ""}>
       <input
         type="checkbox"
-        id="item1"
-        name="item1"
+        id={props.id}
+        name={props.id}
         checked={props.checked}
         onChange={() => props.onToggleChecked(props.id)}
       />
-      <label htmlFor="item1">{props.text}</label>
+      <label htmlFor={props.id}>{props.text}</label>
       <span className="dot">{priorityToIcon[props.priority]}</span>
-      <SubMenu priority={props.priority} />
+      <SubMenu
+        priority={props.priority}
+        onChangePriority={props.onChangePriority}
+        onDeleteTask={props.onDeleteTask}
+        id={props.id}
+      />
     </li>
   );
 }

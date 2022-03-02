@@ -42,6 +42,30 @@ function App() {
     );
   }
 
+  function handleChangePriority(id, priority) {
+    setData(
+      data.map((task) => 
+        task.id === id ? { ...task, priority: priority } : task
+      )
+    );
+  }
+
+  function handleDeleteTask(id) {
+    setData(
+      data.filter(task => 
+        task.id !== id
+      )
+    );
+  }
+
+  function handleDeleteCompletedTasks() {
+    setData(
+      data.filter(task => 
+        task.checked === false
+      )
+    );
+  }
+
   return (
     <>
       <TopBar
@@ -52,12 +76,15 @@ function App() {
         onSortPriority={handleSortPriority}
         onShowDropDown={handleShowDropDown}
         onHideDropDown={handleHideDropDown}
+        onDeleteCompleted={handleDeleteCompletedTasks}
       />
       <Contents
         data={data}
         sortPriority={sortPriority}
         showCompleted={showCompleted}
         onToggleChecked={handleToggleChecked}
+        onChangePriority={handleChangePriority}
+        onDeleteTask={handleDeleteTask}
       />
       <BottomBar onTextInput={addNewTodo} />
     </>
