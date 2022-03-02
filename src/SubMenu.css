@@ -12,6 +12,8 @@ li .dropdown, .burger {
   .dropdown-content.sub-menu {
     min-width: 30vw;
     border: 0.1vh solid #999999;
+    right: 2vw;
+    top: 4vh;
   }
 
    div.priority-adjust {

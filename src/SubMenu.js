@@ -1,45 +1,44 @@
 import "./SubMenu.css";
 import "./Dropdown.css";
-import SubMenuDropDown from "./SubMenuDropDown";
-import { useState } from "react";
-
 
 function SubMenu(props) {
-  const [dropDown, setDropDown] = useState(false);
-
-  function handleDropDown() {
-    setDropDown(!dropDown);
+  
+  function selectPriority(priority) {
+    props.onChangePriority(props.id, priority);
+    props.onHandleDropDown();
   }
-
-  // function handleShowDropDown() {
-  //   setDropDown(true);
-  // }
-
-  // function handleHideDropDown() {
-  //   setDropDown(false);
-  // }
 
   return (
     <div className="dropdown">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        className="bi bi-list dropbtn"
-        viewBox="0 0 16 16"
-        onClick={handleDropDown}
+        <div className="dropdown-content sub-menu">
+      <div className="bottom-line">Rename</div>
+      <div
+        className="delete bottom-line"
+        onClick={() => props.onDeleteTask(props.id)}
       >
-        <path
-          fillRule="evenodd"
-          d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"
-        />
-      </svg>
-      {dropDown ? (
-        <SubMenuDropDown
-          onChangePriority={props.onChangePriority}
-          onHideDropDown={handleDropDown}
-          onDeleteTask={props.onDeleteTask}
-          id={props.id}
-        />
-      ) : null}
+        Delete
+      </div>
+      <div className="priority-adjust">
+        <div
+          className={props.priority === 0 ? "activated" : ""}
+          onClick={() => selectPriority(0)}
+        >
+          💤
+        </div>
+        <div
+          className={props.priority === 1 ? "activated" : ""}
+          onClick={() => selectPriority(1)}
+        >
+          ⚠️
+        </div>
+        <div
+          className={props.priority === 2 ? "activated" : ""}
+          onClick={() => selectPriority(2)}
+        >
+          🔥
+        </div>
+      </div>
+    </div>
     </div>
   );
 }
