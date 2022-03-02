@@ -58,6 +58,14 @@ function App() {
     );
   }
 
+  function handleDeleteCompletedTasks() {
+    setData(
+      data.filter(task => 
+        task.checked === false
+      )
+    );
+  }
+
   return (
     <>
       <TopBar
@@ -68,6 +76,7 @@ function App() {
         onSortPriority={handleSortPriority}
         onShowDropDown={handleShowDropDown}
         onHideDropDown={handleHideDropDown}
+        onDeleteCompleted={handleDeleteCompletedTasks}
       />
       <Contents
         data={data}
