@@ -1,19 +1,22 @@
 import "./TopBar.css";
-import PriorityToggle from "./PriorityToggle";
-import CompletedToggle from "./CompletedToggle";
+import priorityToggle from "./PriorityToggle";
+import completedToggle from "./CompletedToggle";
 import MainMenu from "./MainMenu";
+import ToggleButton from "./ToggleButton";
 
 function TopBar(props) {
   return (
     <div id="top_bar">
-      <PriorityToggle
-        sortPriority={props.sortPriority}
-        onSortPriority={props.onSortPriority}
-      />
-      <CompletedToggle
-        showCompleted={props.showCompleted}
-        onShowCompleted={props.onShowCompleted}
-      />
+      <ToggleButton
+      data={priorityToggle}
+      onToggle={props.onSortPriority}
+      toggleState={props.sortPriority}
+      ></ToggleButton>
+      <ToggleButton
+      data={completedToggle}
+      onToggle={props.onShowCompleted}
+      toggleState={props.showCompleted}
+      ></ToggleButton>
       <MainMenu 
         dropDown={props.dropDown}
         onShowDropDown={props.onShowDropDown}
