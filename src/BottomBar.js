@@ -13,9 +13,7 @@ function BottomBar(props) {
   }
 
   function onTaskCreation(text) {
-    if (text !== "") {
       props.onTextInput(text)
-    }
   }
 
   return (

@@ -28,12 +28,13 @@ function App() {
     setDropDown(false);
   }
 
-  function addNewTodo(name) {
-    // TODO: change to not be date.now
-    setMaxID(maxID + 1)
-    setData(
-      data.concat([{ text: name, priority: 0, checked: false, id: maxID }])
+  function addNewTodo(text) {
+    if (text !== "") {
+      setMaxID(maxID + 1)
+      setData(
+        data.concat([{ text: text, priority: 0, checked: false, id: maxID }])
     );
+    }
   }
 
   function handleToggleChecked(id) {
