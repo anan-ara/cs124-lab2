@@ -12,6 +12,12 @@ function BottomBar(props) {
     setText(newValue);
   }
 
+  function onTaskCreation(text) {
+    if (text !== "") {
+      props.onTextInput(text)
+    }
+  }
+
   return (
     <div id="bottom_bar">
       <svg
@@ -22,7 +28,7 @@ function BottomBar(props) {
         className="bi bi-plus"
         viewBox="0 0 16 16"
         onClick={() => {
-          props.onTextInput(text);
+          onTaskCreation(text);
           clearText();
         }}
       >
@@ -35,7 +41,7 @@ function BottomBar(props) {
         onChange={(e) => onChange(e.target.value)}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
-            props.onTextInput(text);
+            onTaskCreation(text);
             clearText();
           }
         }}

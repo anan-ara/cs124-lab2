@@ -10,9 +10,9 @@ let initialData = [
   {text:"john grism book thing and lots of text for a really long list item", priority:2, checked:true, id:2},
   {text:"make popups close when click elsewhere", priority:0, checked:true, id:4},
   {text:"menu actions", priority:1, checked:true, id:6},
-  {text:"refactor menu", priority:1, checked:true, id:6},
-  {text:"refactor icons on top bar", priority:1, checked:true, id:6},
-  {text:"remove white space on bottom", priority:1, checked:true, id:6}
+  {text:"refactor menu", priority:1, checked:true, id:7},
+  {text:"refactor icons on top bar", priority:1, checked:true, id:8},
+  {text:"remove white space on bottom", priority:1, checked:true, id:9}
 ];
 
 ReactDOM.render(
