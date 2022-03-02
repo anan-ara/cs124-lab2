@@ -7,24 +7,25 @@ import { useState } from "react";
 function SubMenu(props) {
   const [dropDown, setDropDown] = useState(false);
 
-  function handleShowDropDown() {
-    setDropDown(true);
+  function handleDropDown() {
+    setDropDown(!dropDown);
   }
 
-  function handleHideDropDown() {
-    setDropDown(false);
-  }
+  // function handleShowDropDown() {
+  //   setDropDown(true);
+  // }
+
+  // function handleHideDropDown() {
+  //   setDropDown(false);
+  // }
 
   return (
     <div className="dropdown">
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="16"
-        height="16"
-        fill="currentColor"
         className="bi bi-list dropbtn"
         viewBox="0 0 16 16"
-        onClick={handleShowDropDown}
+        onClick={handleDropDown}
       >
         <path
           fillRule="evenodd"
@@ -34,7 +35,7 @@ function SubMenu(props) {
       {dropDown ? (
         <SubMenuDropDown
           onChangePriority={props.onChangePriority}
-          onHideDropDown={handleHideDropDown}
+          onHideDropDown={handleDropDown}
           onDeleteTask={props.onDeleteTask}
           id={props.id}
         />
