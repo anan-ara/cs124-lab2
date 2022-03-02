@@ -36,7 +36,7 @@
   }
     /* Dropdown Content (Hidden by Default) */
     .dropdown-content {
-        display: none;
+        /* display: none; */
         position: absolute;
         right: 1vw; 
         background-color: white;

@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 
 // Priority is 0 for zzz, 2 for flames
 let initialData = [
+  {text:"menu actions", priority:1, checked:true, id:6},
   {text:"Implement choose emoji", priority:2, checked:false, id:6},
   {text:"remove white space on bottom", priority:1, checked:false, id:9},
   {text:"Change cursor shape depending on hover location", priority:2, checked:false, id:10},
