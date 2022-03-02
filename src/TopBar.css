@@ -20,8 +20,3 @@
     width: auto;
     fill: white;
 }
-
-#top_bar .dropdown #top-menu-icon {
-  height: 9vh;
-  margin-top: -1vh;
-}

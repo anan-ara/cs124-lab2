@@ -1,90 +1,21 @@
   /* The container <div> - needed to position the dropdown content */
-  .opaque-screen {
-    /* Should fill entire screen */
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    /* above the rest of content but behind the dropdown */
-    z-index: 5; 
-    opacity: 50%;
-    background-color: #999999;
-  }
-  
-  .dropdown {
-    /* position: relative; */
-    display: inline-block;
-    /* z-index: 20; */
-  }
-  
+
   /* Dropdown Content (Hidden by Default) */
   .dropdown-content.main-menu {
-    z-index: 20;
     display: block;
-    position: absolute;
-    right: 1vw; 
     background-color: white;
-    border-radius: 3vw;
-    font-size: 1rem;
-    margin-top: -2vw;
     min-width: 60vw;
-
-  }
-
-  /* Stuff inside the dropdown */
-  .dropdown-content > div {
-    color: #555555;
-    padding: 2vw 1vw;
-    text-decoration: none;
-    display: block;
-    text-align: center;
-  }
-
-  .dropdown-content::after {
-    z-index: -99;
-    content: "";
-    position: absolute;
-    width: 0;
-    height: 0;
-    margin-left: 0;
-    bottom: 0;
-    top: 0;
-    left: 0;
-    box-sizing: border-box;
-    display: none;
+    /* Change location of dropdown */
+    right: -65vw; 
+    top: -2vh;
   }
   
   .dropdown-content.main-menu::before {
-    z-index: -10;
-    content: "";
-    position: absolute;
-    width: 3vw;
-    height: 3vw;
     background-color: white;
-    margin-left: 0;
-    bottom: 0;
-    top: -2vw;
     right: 3.5vw;
-    box-sizing: border-box;
-    transform-origin: 0 0;
-    transform: rotate(45deg);
   }
 
-  .dropdown-content.sub-menu::before {
-    z-index: -10;
-    content: "";
-    position: absolute;
-    width: 3vw;
-    height: 3vw;
-    background-color: #999999;
-    margin-left: 0;
-    bottom: 0;
-    top: -2vw;
-    right: 0;
-    box-sizing: border-box;
-    /* border: 5px solid black; */
-    /* border-color: transparent transparent black black; */
-    transform-origin: 0 0;
-    transform: rotate(45deg);
+  #top_bar .dropdown #top-menu-icon {
+    height: 9vh;
+    margin-top: -1vh;
   }
