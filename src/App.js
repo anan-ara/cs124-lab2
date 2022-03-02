@@ -10,6 +10,7 @@ function App() {
   const [showCompleted, setShowCompleted] = useState(true);
   const [sortPriority, setSortPriority] = useState(false);
   const [dropDown, setDropDown] = useState(false);
+  const [maxID, setMaxID] = useState(100);
 
   function handleShowCompleted() {
     setShowCompleted(!showCompleted);
@@ -29,8 +30,9 @@ function App() {
 
   function addNewTodo(name) {
     // TODO: change to not be date.now
+    setMaxID(maxID + 1)
     setData(
-      data.concat([{ text: name, priority: 0, checked: false, id: Date.now() }])
+      data.concat([{ text: name, priority: 0, checked: false, id: maxID }])
     );
   }
 
