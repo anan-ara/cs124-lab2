@@ -22,19 +22,17 @@ function TopBar(props) {
         ></ToggleButton>
         <MainMenuToggle
           dropDown={props.dropDown}
-          onShowDropDown={props.onShowDropDown}
-          onHideDropDown={props.onHideDropDown}
+          onToggleDropdown={props.onToggleDropdown}
         />
       </div>
       {/* Conditionally show the drop down and backdrop  */}
       {props.dropDown ? (
-        <Backdrop onClickBackdrop={props.onHideDropDown} />
+        <Backdrop onClickBackdrop={props.onToggleDropdown} />
       ) : null}
       {props.dropDown ? (
         <MainMenu
           dropDown={props.dropDown}
-          onShowDropDown={props.onShowDropDown}
-          onHideDropDown={props.onHideDropDown}
+          onToggleDropdown={props.onToggleDropdown}
           onDeleteCompleted={props.onDeleteCompleted}
         />
       ) : null}

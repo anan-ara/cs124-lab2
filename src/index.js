@@ -12,6 +12,7 @@ let initialData = [
   {text:"ASK Prof Rhodes: Figure out a good metric to use for defining distances", priority:2, checked:false, id:11},
   {text:"User testing", priority:1, checked:false, id:12},
   {text:"make textbox and rename feature", priority:1, checked:false, id:1000},
+  {text:"animation for after adding list item (scroll to bottom) and marking item as complete when in hide completed stage (slowly make item disappear)", priority:1, checked:false, id:1001},
   {text:"john grism book thing and lots of text for a really long list item", priority:0, checked:true, id:2},
 ];
 

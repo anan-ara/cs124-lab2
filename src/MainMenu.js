@@ -12,7 +12,7 @@ function MainMenu(props) {
                 className="delete-completed bottom-line delete"
                 onClick={() => {
                   props.onDeleteCompleted();
-                  props.onHideDropDown();
+                  props.onToggleDropdown();
                 }}
               >
                 Delete Completed

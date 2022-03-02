@@ -1,7 +1,6 @@
 function MainMenuToggle(props) {
     return (
-      <div className="top_bar_icon_div" onClick={() =>
-        props.dropDown ? props.onHideDropDown() : props.onShowDropDown()}>
+      <div className="top_bar_icon_div" onClick={props.onToggleDropdown}>
           <svg
           xmlns="http://www.w3.org/2000/svg"
           className="bi bi-list dropbtn"
