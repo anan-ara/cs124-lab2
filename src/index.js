@@ -14,7 +14,6 @@ let initialData = [
   {text:"make textarea not editable when not in rename mode", priority:1, checked:false, id:1000},
   {text:"animation for after adding list item (scroll to bottom) and marking item as complete when in hide completed stage (slowly make item disappear)", priority:0, checked:false, id:1001},
   {text:"enter on text field, maybe disable it?", priority:1, checked:false, id:103},
-  {text:"fix menu bug", priority:2, checked:false, id:99},
   {text:"no scrolling on menu", priority:1, checked:false, id:199},
 
   {text:"john grism book thing and lots of text for a really long list item", priority:0, checked:true, id:2},

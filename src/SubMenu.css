@@ -8,6 +8,8 @@
   border: 0.1vh solid #999999;
   right: 3vw;
   top: 4vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .poptop .dropdown-content.sub-menu {
@@ -24,7 +26,7 @@ div.priority-adjust {
   justify-content: space-around;
 }
 
-div.priority-adjust {
+button.priority-adjust {
   display: flex;
   justify-content: space-around;
 }

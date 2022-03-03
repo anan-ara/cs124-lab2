@@ -51,6 +51,7 @@
   text-decoration: none;
   display: block;
   text-align: center;
+  font-size: 1rem;
 }
 
 div.delete, button.delete {
