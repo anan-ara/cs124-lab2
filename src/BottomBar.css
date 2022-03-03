@@ -30,3 +30,9 @@
     width: auto;
     fill: white;
 }
+
+button {
+  border: none;
+  background: none;
+  padding: 0;
+}
