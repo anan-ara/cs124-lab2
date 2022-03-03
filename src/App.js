@@ -20,12 +20,16 @@ function App() {
     setSortPriority(!sortPriority);
   }
 
-  function handleShowDropDown() {
-    setDropDown(true);
-  }
+  // function handleShowDropDown() {
+  //   setDropDown(true);
+  // }
 
-  function handleHideDropDown() {
-    setDropDown(false);
+  // function handleHideDropDown() {
+  //   setDropDown(false);
+  // }
+
+  function handleDropDown() {
+    setDropDown(!dropDown);
   }
 
   function addNewTodo(text) {
@@ -36,6 +40,7 @@ function App() {
     );
     }
   }
+
 
   function handleToggleChecked(id) {
     setData(
@@ -85,8 +90,7 @@ function App() {
         dropDown={dropDown}
         onShowCompleted={handleShowCompleted}
         onSortPriority={handleSortPriority}
-        onShowDropDown={handleShowDropDown}
-        onHideDropDown={handleHideDropDown}
+        onToggleDropdown={handleDropDown}
         onDeleteCompleted={handleDeleteCompletedTasks}
       />
       <Contents
