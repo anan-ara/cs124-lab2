@@ -33,6 +33,7 @@ function Contents(props) {
             key={e.id}
             id={e.id}
             {...props}
+            onToggleScroll={handleToggleScroll}
           />
         ))}
       </ul>
