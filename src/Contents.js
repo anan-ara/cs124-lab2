@@ -28,14 +28,11 @@ function Contents(props) {
           <ListItem
             text={e.text}
             priority={e.priority}
+            // priorityToIcon={props.priorityToIcon}
             checked={e.checked}
             key={e.id}
             id={e.id}
-            onToggleChecked={props.onToggleChecked}
-            onChangePriority={props.onChangePriority}
-            onDeleteTask={props.onDeleteTask}
-            onChangeText={props.onChangeText}
-            onToggleScroll={handleToggleScroll}
+            {...props}
           />
         ))}
       </ul>

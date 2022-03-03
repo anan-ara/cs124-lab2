@@ -16,9 +16,16 @@ let initialData = [
   {text:"enter on text field, maybe disable it?", priority:1, checked:false, id:103},
   {text:"fix menu bug", priority:2, checked:false, id:99},
   {text:"no scrolling on menu", priority:1, checked:false, id:199},
-
   {text:"john grism book thing and lots of text for a really long list item", priority:0, checked:true, id:2},
 ];
+
+let initialLowPriorityIcon = "💤";
+let initialMedPriorityIcon = "⚠️";
+let initialHighPriorityIcon = "🔥";
+
+let lowPriorityOptions = ["🤖", "🤖", "🤖", "🤖", "🤖", "🤖", "🤖", "🤖", "🤖"];
+let medPriorityOptions = ["😀", "😃", "😄", "😁", "😆", "😅", "😂", "🤣", "🤣"];
+let highPriorityOptions = ["🤬", "🤬", "🤬", "🤬", "🤬", "🤬", "🤬", "🤬", "🤬"];
 
 ReactDOM.render(
   <React.StrictMode>
@@ -32,4 +39,4 @@ ReactDOM.render(
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
 
-export {initialData};
+export {initialData, initialLowPriorityIcon, initialMedPriorityIcon, initialHighPriorityIcon, lowPriorityOptions, medPriorityOptions, highPriorityOptions};
