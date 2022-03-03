@@ -1,9 +1,14 @@
-import { initialData } from "./index.js";
 import "./Contents.css";
 import ListItem from "./ListItem";
+import { useState } from "react";
 
 function Contents(props) {
-  console.log("in Contents, props.data is" + props.data);
+  const [scroll, setScroll] = useState(true)
+
+  function handleToggleScroll() {
+    setScroll(!scroll)
+  }
+
   let listData = props.data;
   if (props.sortPriority) {
     // Do a deep copy of listData, then sort it by priority.
@@ -15,8 +20,9 @@ function Contents(props) {
   if (!props.showCompleted) {
     listData = listData.filter((item) => !item.checked);
   }
+
   return (
-    <div id="contents">
+    <div id="contents" className={scroll ? "scroll" : ""}>
       <ul>
         {listData.map(e => (
           <ListItem
@@ -29,6 +35,7 @@ function Contents(props) {
             onChangePriority={props.onChangePriority}
             onDeleteTask={props.onDeleteTask}
             onChangeText={props.onChangeText}
+            onToggleScroll={handleToggleScroll}
           />
         ))}
       </ul>

@@ -10,6 +10,15 @@
   top: 4vh;
 }
 
+.poptop .dropdown-content.sub-menu {
+  top: -19vh;
+}
+
+.poptop .dropdown-content.sub-menu::before {
+  background-color: #999999;
+  top: 27vw;
+}
+
 div.priority-adjust {
   display: flex;
   justify-content: space-around;

@@ -34,9 +34,8 @@
   box-sizing: border-box;
   display: none;
 }
-/* Dropdown Content (Hidden by Default) */
+
 .dropdown-content {
-  /* display: none; */
   position: absolute;
   right: 1vw;
   background-color: white;
