@@ -39,7 +39,8 @@ function TopBar(props) {
           <MainMenu
             dropDown={dropDown}
             onToggleDropdown={handleDropDown}
-            onDeleteCompleted={props.onDeleteCompleted}
+            {...props}
+            // onDeleteCompleted={props.onDeleteCompleted}
           />
         </>
       ) : null}

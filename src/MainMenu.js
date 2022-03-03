@@ -1,8 +1,15 @@
 import "./MainMenu.css";
 import "./Dropdown.css";
+// import {useState} from "react";
 
 function MainMenu(props) {
+  // const [priorityPopup, setPriorityPopup] = useState(false);
   
+  // // Toggle the priority popup
+  // function handlePriorityPopup() {
+  //   setPriorityPopup(!priorityPopup);
+  // }
+
   return (
     <>
       <div className="top_bar_icon_div" onClick={props.onToggleDropdown}>
@@ -15,7 +22,7 @@ function MainMenu(props) {
               >
                 Delete Completed
               </div>
-              <div>Change Priority Emoji</div>
+              <div onClick={props.onTogglePriorityPopup}>Change Priority Emoji</div>
             </div>
           ) : null}
         </div>

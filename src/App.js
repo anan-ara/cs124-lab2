@@ -1,7 +1,9 @@
 import "./todo.css";
 import TopBar from "./TopBar";
 import BottomBar from "./BottomBar";
+import PriorityPopup from "./PriorityPopup";
 import Contents from "./Contents";
+import Backdrop  from "./Backdrop";
 import { useState } from "react";
 import {
   initialData,
@@ -15,6 +17,12 @@ function App() {
   const [showCompleted, setShowCompleted] = useState(true);
   const [sortPriority, setSortPriority] = useState(false);
   const [maxID, setMaxID] = useState(100);
+
+  // Priority popup
+  const [priorityPopup, setPriorityPopup] = useState(false);
+  function handlePriorityPopup() {
+    setPriorityPopup(!priorityPopup);
+  }
 
   // Priority icons
   const [lowPriorityIcon, setLowPriorityIcon] = useState(
@@ -82,12 +90,7 @@ function App() {
         onShowCompleted={handleShowCompleted}
         onSortPriority={handleSortPriority}
         onDeleteCompleted={handleDeleteCompletedTasks}
-        onChangeLowPriorityIcon={setLowPriorityIcon}
-        onChangeMedPriorityIcon={setMedPriorityIcon}
-        onChangeHighPriorityIcon={setHighPriorityIcon}
-        lowPriorityIcon={lowPriorityIcon}
-        medPriorityIcon={medPriorityIcon}
-        highPriorityIcon={highPriorityIcon}
+        onTogglePriorityPopup={handlePriorityPopup}
       />
       <Contents
         data={data}
@@ -102,6 +105,11 @@ function App() {
         highPriorityIcon={highPriorityIcon}
       />
       <BottomBar onTextInput={addNewTodo}/>
+      {priorityPopup ? (<>
+        <Backdrop/>
+        <PriorityPopup/>
+      </>)
+      : null }
     </>
   );
 }
