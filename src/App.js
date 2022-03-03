@@ -74,6 +74,14 @@ function App() {
     );
   }
 
+  function handleChangeText(id, newText) {
+    setData(
+      data.map(task => 
+        task.id === id ? { ...task, text: newText } : task
+      )
+    );
+  }
+
   return (
     <>
       <TopBar
@@ -92,6 +100,7 @@ function App() {
         onToggleChecked={handleToggleChecked}
         onChangePriority={handleChangePriority}
         onDeleteTask={handleDeleteTask}
+        onChangeText={handleChangeText}
       />
       <BottomBar onTextInput={addNewTodo} />
     </>
