@@ -24,6 +24,7 @@
 div.priority-adjust {
   display: flex;
   justify-content: space-around;
+  padding: 2vw 1vw;
 }
 
 div.priority-adjust button {
