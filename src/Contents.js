@@ -34,6 +34,7 @@ function Contents(props) {
             id={e.id}
             onToggleScroll={handleToggleScroll}
             {...props}
+            onToggleScroll={handleToggleScroll}
           />
         ))}
       </ul>
