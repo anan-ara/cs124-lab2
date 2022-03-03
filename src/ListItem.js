@@ -6,6 +6,7 @@ import { useEffect, useState, useRef } from "react";
 
 function ListItem(props) {
   const [dropDown, setDropDown] = useState(false);
+  const [editable, setEditable] = useState(false);
 
   // Local text field before it is saved in database
   const [text, setText] = useState(props.text);
@@ -30,18 +31,20 @@ function ListItem(props) {
   function handleStartRename() {
     // textArea.current.prop("readonly", false)
     // textArea.current.readonly = false;
-    textArea.current.focus()
+    setEditable(true);
+    textArea.current.focus();
   }
 
   function handleFinishRename() {
     // textArea.current.readonly = true;
     // textArea.current.prop("readonly", true)
-    props.onChangeText(props.id, text)
+    setEditable(false);
+    props.onChangeText(props.id, text);
   }
 
   function getToggleLocation() {
     const rect = subMenuToggle.current.getBoundingClientRect();
-    return rect.top
+    return rect.top;
   }
 
   // Called on every rerender
@@ -66,7 +69,13 @@ function ListItem(props) {
         ref={textArea}
         htmlFor={props.id}
         onChange={(e) => setText(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            handleFinishRename();
+          }
+        }}
         onBlur={handleFinishRename}
+        readOnly={!editable}
       />
       <span className="dot">{priorityToIcon[props.priority]}</span>
       <SubMenuToggle onToggle={handleDropDown} buttonLocation={subMenuToggle} />
