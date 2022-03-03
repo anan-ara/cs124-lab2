@@ -28,6 +28,7 @@ function Contents(props) {
             onToggleChecked={props.onToggleChecked}
             onChangePriority={props.onChangePriority}
             onDeleteTask={props.onDeleteTask}
+            onChangeText={props.onChangeText}
           />
         ))}
       </ul>

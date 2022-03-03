@@ -1,6 +1,5 @@
 li {
     padding: 0 5vh;
-    color: #555555;
     border-bottom: .1em solid #999999;
 }
 
@@ -25,12 +24,16 @@ li input[type='checkbox'] {
     border:0.4vh solid #555555;
 }
 
-li label {
+li textarea {
+    font-family: "SF Pro Display","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif;
     margin-left: 2vw;
     width: 68vw;
+    border:none;
+    background:none;
+    color: #555555;
 }
 
-li.done label{
+li.done textarea {
     color: #999999;
 }
 
@@ -43,7 +46,7 @@ li.done label{
 /* TODO:  later should prob just be #contents .dot if all svgs become dropdowns, 
 this is assuming we want the dot on the far right. */
 #contents .dot {
-    margin-left: 2vw;
+    margin-left: auto;
 }
 
 div.bottom-line {
