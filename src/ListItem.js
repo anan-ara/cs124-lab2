@@ -77,6 +77,7 @@ function ListItem(props) {
             onHandleDropDown={handleDropDown}
             onRename={handleStartRename}
             top={getToggleLocation()}
+            {...props}
           />
         </>
       ) : null}
