@@ -3,13 +3,16 @@ import TopBar from "./TopBar";
 import BottomBar from "./BottomBar";
 import PriorityPopup from "./PriorityPopup";
 import Contents from "./Contents";
-import Backdrop  from "./Backdrop";
+import Backdrop from "./Backdrop";
 import { useState } from "react";
 import {
   initialData,
   initialLowPriorityIcon,
   initialMedPriorityIcon,
   initialHighPriorityIcon,
+  lowPriorityOptions,
+  medPriorityOptions,
+  highPriorityOptions
 } from ".";
 
 function App() {
@@ -104,12 +107,20 @@ function App() {
         medPriorityIcon={medPriorityIcon}
         highPriorityIcon={highPriorityIcon}
       />
-      <BottomBar onTextInput={addNewTodo}/>
-      {priorityPopup ? (<>
-        <Backdrop/>
-        <PriorityPopup/>
-      </>)
-      : null }
+      <BottomBar onTextInput={addNewTodo} />
+      {/* {priorityPopup ? (
+        <>
+          <Backdrop />
+          <PriorityPopup
+            lowPriorityIcon={lowPriorityIcon}
+            medPriorityIcon={medPriorityIcon}
+            highPriorityIcon={highPriorityIcon}
+            lowPriorityOptions={lowPriorityOptions}
+            medPriorityOptions={medPriorityOptions}
+            highPriorityOptions={highPriorityOptions}
+          />
+        </>
+      ) : null} */}
     </>
   );
 }
