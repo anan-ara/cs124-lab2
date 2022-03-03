@@ -22,19 +22,19 @@ function SubMenu(props) {
             className={props.priority === 0 ? "activated" : ""}
             onClick={() => props.onChangePriority(props.id, 0)}
           >
-            💤
+            {props.lowPriorityIcon}
           </button>
           <button
             className={props.priority === 1 ? "activated" : ""}
             onClick={() => props.onChangePriority(props.id, 1)}
           >
-            ⚠️
+            {props.medPriorityIcon}
           </button>
           <button
             className={props.priority === 2 ? "activated" : ""}
             onClick={() => props.onChangePriority(props.id, 2)}
           >
-            🔥
+            {props.highPriorityIcon}
           </button>
         </div>
       </div>

@@ -13,6 +13,12 @@ function ListItem(props) {
   // reference to textArea
   const textArea = useRef();
 
+  // So that we can translate from priority number to the icon.
+  let priorityToIcon = {
+    0: props.lowPriorityIcon,
+    1: props.medPriorityIcon,
+    2: props.highPriorityIcon,
+  };
   // reference to subMenuToggle button
   const subMenuToggle = useRef();
 
@@ -68,24 +74,14 @@ function ListItem(props) {
         <>
           <Backdrop onClickBackdrop={handleDropDown} />
           <SubMenu
-            priority={props.priority}
-            onChangePriority={props.onChangePriority}
-            onDeleteTask={props.onDeleteTask}
             onHandleDropDown={handleDropDown}
             onRename={handleStartRename}
             top={getToggleLocation()}
-            id={props.id}
           />
         </>
       ) : null}
     </li>
   );
 }
-
-const priorityToIcon = {
-  0: "💤",
-  1: "⚠️",
-  2: "🔥",
-};
 
 export default ListItem;
