@@ -30,3 +30,9 @@
     width: auto;
     fill: white;
 }
+
+#bottom_bar button {
+  border: none;
+  background: none;
+  padding: 0;
+}

@@ -6,7 +6,8 @@
   }
 
   .dropdown-content.main-menu {
-    display: block;
+  display: flex;
+  flex-direction: column;
     background-color: white;
     min-width: 60vw;
     /* Change location of dropdown */

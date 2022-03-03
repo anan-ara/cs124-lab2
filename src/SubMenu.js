@@ -8,34 +8,34 @@ function SubMenu(props) {
       onClick={props.onHandleDropDown}
     >
       <div className="dropdown-content sub-menu">
-        <div className="bottom-line" onClick={props.onRename}>
+        <button className="bottom-line" onClick={props.onRename}>
           Rename
-        </div>
-        <div
+        </button>
+        <button
           className="delete bottom-line"
           onClick={() => props.onDeleteTask(props.id)}
         >
           Delete
-        </div>
+        </button>
         <div className="priority-adjust">
-          <div
+          <button
             className={props.priority === 0 ? "activated" : ""}
             onClick={() => props.onChangePriority(props.id, 0)}
           >
             {props.lowPriorityIcon}
-          </div>
-          <div
+          </button>
+          <button
             className={props.priority === 1 ? "activated" : ""}
             onClick={() => props.onChangePriority(props.id, 1)}
           >
-           {props.medPriorityIcon}
-          </div>
-          <div
+            {props.medPriorityIcon}
+          </button>
+          <button
             className={props.priority === 2 ? "activated" : ""}
             onClick={() => props.onChangePriority(props.id, 2)}
           >
             {props.highPriorityIcon}
-          </div>
+          </button>
         </div>
       </div>
     </div>

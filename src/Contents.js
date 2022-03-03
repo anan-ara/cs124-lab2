@@ -32,6 +32,7 @@ function Contents(props) {
             checked={e.checked}
             key={e.id}
             id={e.id}
+            onToggleScroll={handleToggleScroll}
             {...props}
             onToggleScroll={handleToggleScroll}
           />
