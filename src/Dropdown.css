@@ -45,15 +45,16 @@
 }
 
 /* Stuff inside the dropdown */
-.dropdown-content > button, .dropdown-content > div {
+.dropdown-content > button {
   color: #555555;
   padding: 2vw 1vw;
   text-decoration: none;
   display: block;
   text-align: center;
+  font-size: 1rem;
 }
 
-div.delete, button.delete {
+button.delete {
   color: red;
 }
 

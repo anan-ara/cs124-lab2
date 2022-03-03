@@ -16,13 +16,13 @@ function MainMenu(props) {
         <div className="dropdown">
           {props.dropDown ? (
             <div className="dropdown-content main-menu">
-              <div
+              <button
                 className="delete-completed bottom-line delete"
                 onClick={props.onDeleteCompleted}
               >
                 Delete Completed
-              </div>
-              <div onClick={props.onTogglePriorityPopup}>Change Priority Emoji</div>
+              </button>
+              <button onClick={props.onTogglePriorityPopup}>Change Priority Emoji</button>
             </div>
           ) : null}
         </div>
