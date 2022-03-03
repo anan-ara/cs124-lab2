@@ -8,14 +8,6 @@ function BottomBar(props) {
     setText("");
   }
 
-  function onChange(newValue) {
-    setText(newValue);
-  }
-
-  function onTaskCreation(text) {
-      props.onTextInput(text)
-  }
-
   return (
     <div id="bottom_bar">
       <svg
@@ -26,7 +18,7 @@ function BottomBar(props) {
         className="bi bi-plus"
         viewBox="0 0 16 16"
         onClick={() => {
-          onTaskCreation(text);
+          props.onTextInput(text);
           clearText();
         }}
       >
@@ -36,10 +28,10 @@ function BottomBar(props) {
         type="text"
         placeholder="Add new item..."
         value={text}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={(e) => setText(e.target.value)}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
-            onTaskCreation(text);
+            props.onTextInput(text);
             clearText();
           }
         }}

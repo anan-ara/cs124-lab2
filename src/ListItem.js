@@ -2,14 +2,40 @@ import "./ListItem.css";
 import SubMenu from "./SubMenu";
 import Backdrop from "./Backdrop";
 import SubMenuToggle from "./SubMenuToggle";
-import { useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 function ListItem(props) {
   const [dropDown, setDropDown] = useState(false);
 
+  // Local text field before it is saved in database
+  const [text, setText] = useState(props.text);
+
+  // reference to textArea
+  const textArea = useRef();
+
   function handleDropDown() {
     setDropDown(!dropDown);
   }
+
+  function handleStartRename() {
+    // textArea.current.prop("readonly", false)
+    // textArea.current.readonly = false;
+    textArea.current.focus()
+  }
+
+  function handleFinishRename() {
+    // textArea.current.readonly = true;
+    // textArea.current.prop("readonly", true)
+    props.onChangeText(props.id, text)
+  }
+
+  // Called on every rerender
+  useEffect(() => {
+    // This squishes down the textarea box
+    textArea.current.style.height = "5px";
+    // This calculates the length of the scrollbar and sets that as the height of the textarea
+    textArea.current.style.height = textArea.current.scrollHeight + "px";
+  });
 
   return (
     <li className={props.checked ? "done" : ""}>
@@ -20,7 +46,13 @@ function ListItem(props) {
         checked={props.checked}
         onChange={() => props.onToggleChecked(props.id)}
       />
-      <label htmlFor={props.id}>{props.text}</label>
+      <textarea
+        value={text}
+        ref={textArea}
+        htmlFor={props.id}
+        onChange={(e) => setText(e.target.value)}
+        onBlur={handleFinishRename}
+      />
       <span className="dot">{priorityToIcon[props.priority]}</span>
       <SubMenuToggle onToggle={handleDropDown} />
       {dropDown ? (
@@ -31,6 +63,7 @@ function ListItem(props) {
             onChangePriority={props.onChangePriority}
             onDeleteTask={props.onDeleteTask}
             onHandleDropDown={handleDropDown}
+            onRename={handleStartRename}
             id={props.id}
           />
         </>
