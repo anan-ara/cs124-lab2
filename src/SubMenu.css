@@ -26,12 +26,7 @@ div.priority-adjust {
   justify-content: space-around;
 }
 
-button.priority-adjust {
-  display: flex;
-  justify-content: space-around;
-}
-
-div.priority-adjust div {
+div.priority-adjust button {
   height: 1.5rem;
   width: 1.5rem;
   text-align: center;

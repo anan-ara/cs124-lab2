@@ -8,7 +8,7 @@ function MainMenu(props) {
         <div className="dropdown">
           {props.dropDown ? (
             <div className="dropdown-content main-menu">
-              <div
+              <button
                 className="delete-completed bottom-line delete"
                 onClick={() => {
                   props.onDeleteCompleted();
@@ -16,8 +16,8 @@ function MainMenu(props) {
                 }}
               >
                 Delete Completed
-              </div>
-              <div>Change Priority Emoji</div>
+              </button>
+              <button>Change Priority Emoji</button>
             </div>
           ) : null}
         </div>
