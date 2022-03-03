@@ -1,6 +1,6 @@
 function SubMenuToggle(props) {
   return (
-    <button onClick={props.onToggle}>
+    <button onClick={props.onToggle} ref={props.buttonLocation}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         className="bi bi-list dropbtn"
