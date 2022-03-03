@@ -53,7 +53,7 @@ function ListItem(props) {
         onChange={(e) => setText(e.target.value)}
         onBlur={handleFinishRename}
       />
-      <span className="dot">{priorityToIcon[props.priority]}</span>
+      <span className="dot">{props.priorityToIcon[props.priority]}</span>
       <SubMenuToggle onToggle={handleDropDown} />
       {dropDown ? (
         <>
@@ -61,6 +61,7 @@ function ListItem(props) {
           <SubMenu
             priority={props.priority}
             onChangePriority={props.onChangePriority}
+            priorityToIcon={props.priorityToIcon}
             onDeleteTask={props.onDeleteTask}
             onHandleDropDown={handleDropDown}
             onRename={handleStartRename}
@@ -71,11 +72,5 @@ function ListItem(props) {
     </li>
   );
 }
-
-const priorityToIcon = {
-  0: "💤",
-  1: "⚠️",
-  2: "🔥",
-};
 
 export default ListItem;

@@ -22,6 +22,7 @@ function Contents(props) {
           <ListItem
             text={e.text}
             priority={e.priority}
+            priorityToIcon={props.priorityToIcon}
             checked={e.checked}
             key={e.id}
             id={e.id}

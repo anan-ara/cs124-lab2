@@ -5,8 +5,15 @@ import MainMenuToggle from "./MainMenuToggle";
 import MainMenu from "./MainMenu";
 import ToggleButton from "./ToggleButton";
 import Backdrop from "./Backdrop";
+import {useState} from "react";
 
 function TopBar(props) {
+
+  const [dropDown, setDropDown] = useState(false);
+  function handleDropDown() {
+    setDropDown(!dropDown);
+  }
+
   return (
     <>
       <div id="top_bar">
@@ -21,17 +28,17 @@ function TopBar(props) {
           toggleState={props.showCompleted}
         ></ToggleButton>
         <MainMenuToggle
-          dropDown={props.dropDown}
-          onToggleDropdown={props.onToggleDropdown}
+          dropDown={dropDown}
+          onToggleDropdown={handleDropDown}
         />
       </div>
       {/* Conditionally show the drop down and backdrop  */}
-      {props.dropDown ? (
+      {dropDown ? (
         <>
-          <Backdrop onClickBackdrop={props.onToggleDropdown} />
+          <Backdrop onClickBackdrop={handleDropDown} />
           <MainMenu
-            dropDown={props.dropDown}
-            onToggleDropdown={props.onToggleDropdown}
+            dropDown={dropDown}
+            onToggleDropdown={handleDropDown}
             onDeleteCompleted={props.onDeleteCompleted}
           />
         </>

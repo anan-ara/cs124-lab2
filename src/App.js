@@ -3,14 +3,14 @@ import TopBar from "./TopBar";
 import BottomBar from "./BottomBar";
 import Contents from "./Contents";
 import { useState } from "react";
-import { initialData } from ".";
+import { initialData, initialPriorityToIcon } from ".";
 
 function App() {
   const [data, setData] = useState(initialData);
   const [showCompleted, setShowCompleted] = useState(true);
   const [sortPriority, setSortPriority] = useState(false);
-  const [dropDown, setDropDown] = useState(false);
   const [maxID, setMaxID] = useState(100);
+  const [priorityToIcon, setPriorityToIcon] = useState(initialPriorityToIcon)
 
   function handleShowCompleted() {
     setShowCompleted(!showCompleted);
@@ -18,18 +18,6 @@ function App() {
 
   function handleSortPriority() {
     setSortPriority(!sortPriority);
-  }
-
-  // function handleShowDropDown() {
-  //   setDropDown(true);
-  // }
-
-  // function handleHideDropDown() {
-  //   setDropDown(false);
-  // }
-
-  function handleDropDown() {
-    setDropDown(!dropDown);
   }
 
   function addNewTodo(text) {
@@ -87,10 +75,8 @@ function App() {
       <TopBar
         showCompleted={showCompleted}
         sortPriority={sortPriority}
-        dropDown={dropDown}
         onShowCompleted={handleShowCompleted}
         onSortPriority={handleSortPriority}
-        onToggleDropdown={handleDropDown}
         onDeleteCompleted={handleDeleteCompletedTasks}
       />
       <Contents
@@ -101,6 +87,7 @@ function App() {
         onChangePriority={handleChangePriority}
         onDeleteTask={handleDeleteTask}
         onChangeText={handleChangeText}
+        priorityToIcon={priorityToIcon}
       />
       <BottomBar onTextInput={addNewTodo} />
     </>
