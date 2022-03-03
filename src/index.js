@@ -19,12 +19,9 @@ let initialData = [
   {text:"john grism book thing and lots of text for a really long list item", priority:0, checked:true, id:2},
 ];
 
-let initialPriorityToIcon = {
-  0: "💤",
-  1: "⚠️",
-  2: "🔥",
-};
-
+let initialLowPriorityIcon = "💤";
+let initialMedPriorityIcon = "⚠️";
+let initialHighPriorityIcon = "🔥";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -38,5 +35,4 @@ ReactDOM.render(
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
 
-export {initialData};
-export {initialPriorityToIcon}
+export {initialData, initialLowPriorityIcon, initialMedPriorityIcon, initialHighPriorityIcon};

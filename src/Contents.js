@@ -1,9 +1,7 @@
-import { initialData } from "./index.js";
 import "./Contents.css";
 import ListItem from "./ListItem";
 
 function Contents(props) {
-  console.log("in Contents, props.data is" + props.data);
   let listData = props.data;
   if (props.sortPriority) {
     // Do a deep copy of listData, then sort it by priority.
@@ -22,14 +20,16 @@ function Contents(props) {
           <ListItem
             text={e.text}
             priority={e.priority}
-            priorityToIcon={props.priorityToIcon}
+            // priorityToIcon={props.priorityToIcon}
             checked={e.checked}
             key={e.id}
             id={e.id}
-            onToggleChecked={props.onToggleChecked}
-            onChangePriority={props.onChangePriority}
-            onDeleteTask={props.onDeleteTask}
-            onChangeText={props.onChangeText}
+            {...props}
+            // onToggleChecked={props.onToggleChecked}
+            // onChangePriority={props.onChangePriority}
+            // onDeleteTask={props.onDeleteTask}
+            // onChangeText={props.onChangeText}
+            
           />
         ))}
       </ul>

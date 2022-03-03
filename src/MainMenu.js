@@ -2,6 +2,7 @@ import "./MainMenu.css";
 import "./Dropdown.css";
 
 function MainMenu(props) {
+  
   return (
     <>
       <div className="top_bar_icon_div" onClick={props.onToggleDropdown}>

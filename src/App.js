@@ -3,14 +3,29 @@ import TopBar from "./TopBar";
 import BottomBar from "./BottomBar";
 import Contents from "./Contents";
 import { useState } from "react";
-import { initialData, initialPriorityToIcon } from ".";
+import {
+  initialData,
+  initialLowPriorityIcon,
+  initialMedPriorityIcon,
+  initialHighPriorityIcon,
+} from ".";
 
 function App() {
   const [data, setData] = useState(initialData);
   const [showCompleted, setShowCompleted] = useState(true);
   const [sortPriority, setSortPriority] = useState(false);
   const [maxID, setMaxID] = useState(100);
-  const [priorityToIcon, setPriorityToIcon] = useState(initialPriorityToIcon)
+
+  // Priority icons
+  const [lowPriorityIcon, setLowPriorityIcon] = useState(
+    initialLowPriorityIcon
+  );
+  const [medPriorityIcon, setMedPriorityIcon] = useState(
+    initialMedPriorityIcon
+  );
+  const [highPriorityIcon, setHighPriorityIcon] = useState(
+    initialHighPriorityIcon
+  );
 
   function handleShowCompleted() {
     setShowCompleted(!showCompleted);
@@ -22,17 +37,16 @@ function App() {
 
   function addNewTodo(text) {
     if (text !== "") {
-      setMaxID(maxID + 1)
+      setMaxID(maxID + 1);
       setData(
         data.concat([{ text: text, priority: 0, checked: false, id: maxID }])
-    );
+      );
     }
   }
 
-
   function handleToggleChecked(id) {
     setData(
-      data.map((task) => 
+      data.map((task) =>
         task.id === id ? { ...task, checked: !task.checked } : task
       )
     );
@@ -40,33 +54,23 @@ function App() {
 
   function handleChangePriority(id, priority) {
     setData(
-      data.map((task) => 
+      data.map((task) =>
         task.id === id ? { ...task, priority: priority } : task
       )
     );
   }
 
   function handleDeleteTask(id) {
-    setData(
-      data.filter(task => 
-        task.id !== id
-      )
-    );
+    setData(data.filter((task) => task.id !== id));
   }
 
   function handleDeleteCompletedTasks() {
-    setData(
-      data.filter(task => 
-        task.checked === false
-      )
-    );
+    setData(data.filter((task) => task.checked === false));
   }
 
   function handleChangeText(id, newText) {
     setData(
-      data.map(task => 
-        task.id === id ? { ...task, text: newText } : task
-      )
+      data.map((task) => (task.id === id ? { ...task, text: newText } : task))
     );
   }
 
@@ -78,6 +82,12 @@ function App() {
         onShowCompleted={handleShowCompleted}
         onSortPriority={handleSortPriority}
         onDeleteCompleted={handleDeleteCompletedTasks}
+        onChangeLowPriorityIcon={setLowPriorityIcon}
+        onChangeMedPriorityIcon={setMedPriorityIcon}
+        onChangeHighPriorityIcon={setHighPriorityIcon}
+        lowPriorityIcon={lowPriorityIcon}
+        medPriorityIcon={medPriorityIcon}
+        highPriorityIcon={highPriorityIcon}
       />
       <Contents
         data={data}
@@ -87,9 +97,11 @@ function App() {
         onChangePriority={handleChangePriority}
         onDeleteTask={handleDeleteTask}
         onChangeText={handleChangeText}
-        priorityToIcon={priorityToIcon}
+        lowPriorityIcon={lowPriorityIcon}
+        medPriorityIcon={medPriorityIcon}
+        highPriorityIcon={highPriorityIcon}
       />
-      <BottomBar onTextInput={addNewTodo} />
+      <BottomBar onTextInput={addNewTodo}/>
     </>
   );
 }

@@ -13,6 +13,13 @@ function ListItem(props) {
   // reference to textArea
   const textArea = useRef();
 
+  // So that we can translate from priority number to the icon.
+  let priorityToIcon = {
+    0: props.lowPriorityIcon,
+    1: props.medPriorityIcon,
+    2: props.highPriorityIcon,
+  };
+
   function handleDropDown() {
     setDropDown(!dropDown);
   }
@@ -53,19 +60,15 @@ function ListItem(props) {
         onChange={(e) => setText(e.target.value)}
         onBlur={handleFinishRename}
       />
-      <span className="dot">{props.priorityToIcon[props.priority]}</span>
+      <span className="dot">{priorityToIcon[props.priority]}</span>
       <SubMenuToggle onToggle={handleDropDown} />
       {dropDown ? (
         <>
           <Backdrop onClickBackdrop={handleDropDown} />
           <SubMenu
-            priority={props.priority}
-            onChangePriority={props.onChangePriority}
-            priorityToIcon={props.priorityToIcon}
-            onDeleteTask={props.onDeleteTask}
             onHandleDropDown={handleDropDown}
             onRename={handleStartRename}
-            id={props.id}
+            {...props}
           />
         </>
       ) : null}
