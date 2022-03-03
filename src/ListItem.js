@@ -13,7 +13,11 @@ function ListItem(props) {
   // reference to textArea
   const textArea = useRef();
 
+  // reference to subMenuToggle button
+  const subMenuToggle = useRef();
+
   function handleDropDown() {
+    props.onToggleScroll();
     setDropDown(!dropDown);
   }
 
@@ -27,6 +31,11 @@ function ListItem(props) {
     // textArea.current.readonly = true;
     // textArea.current.prop("readonly", true)
     props.onChangeText(props.id, text)
+  }
+
+  function getToggleLocation() {
+    const rect = subMenuToggle.current.getBoundingClientRect();
+    return rect.top
   }
 
   // Called on every rerender
@@ -54,7 +63,7 @@ function ListItem(props) {
         onBlur={handleFinishRename}
       />
       <span className="dot">{priorityToIcon[props.priority]}</span>
-      <SubMenuToggle onToggle={handleDropDown} />
+      <SubMenuToggle onToggle={handleDropDown} buttonLocation={subMenuToggle} />
       {dropDown ? (
         <>
           <Backdrop onClickBackdrop={handleDropDown} />
@@ -64,6 +73,7 @@ function ListItem(props) {
             onDeleteTask={props.onDeleteTask}
             onHandleDropDown={handleDropDown}
             onRename={handleStartRename}
+            top={getToggleLocation()}
             id={props.id}
           />
         </>
