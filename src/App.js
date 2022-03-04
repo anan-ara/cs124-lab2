@@ -37,7 +37,7 @@ function App() {
       listEnd.current.scrollIntoView({ behavior : "smooth", block: "end", inline: "nearest" });
       setToScroll(false)
     }
-  });
+  }, [toScroll]);
 
   // Priority icons
   const [lowPriorityIcon, setLowPriorityIcon] = useState(
