@@ -16,7 +16,7 @@ let initialLowPriorityIcon = "💤";
 let initialMedPriorityIcon = "⚠️";
 let initialHighPriorityIcon = "🔥";
 
-let lowPriorityOptions = ["🤖", "🤖", "🤖", "🤖", "🤖", "🤖", "🤖", "🤖", "🤖"];
+let lowPriorityOptions = ["🤖", "🤖", "💤", "🤖", "🤖", "🤖", "🤖", "🤖", "🤖"];
 let medPriorityOptions = ["😀", "😃", "😄", "😁", "😆", "😅", "😂", "🤣", "🤣"];
 let highPriorityOptions = ["🤬", "🤬", "🤬", "🤬", "🤬", "🤬", "🤬", "🤬", "🤬"];
 

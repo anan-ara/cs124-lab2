@@ -8,3 +8,40 @@
   right: 40px;
   left: 40px;
 }
+
+.activated {
+  background-color: #999999;
+  border-radius: 1vw;
+}
+.priority_grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+}
+
+/* Copied from dropdown content */
+.priority-content {
+  position: absolute;
+  right: 1vw;
+  background-color: white;
+  border-radius: 3vw;
+  font-size: 1rem;
+  margin-top: -2vw;
+}
+
+/* Copied from dropdown content */
+/* Stuff inside the dropdown */
+.priority-content > button {
+  color: #555555;
+  padding: 2vw 1vw;
+  text-decoration: none;
+  display: block;
+  text-align: center;
+  font-size: 1rem;
+}
+
+/* Copied from dropdown content */
+/* Copied from ListItem.css because these are now buttons not divs. */
+button.bottom-line {
+  border-bottom: 0.1vh solid #999999;
+}

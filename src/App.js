@@ -108,9 +108,9 @@ function App() {
         highPriorityIcon={highPriorityIcon}
       />
       <BottomBar onTextInput={addNewTodo} />
-      {/* {priorityPopup ? (
+      {priorityPopup ? (
         <>
-          <Backdrop />
+          <Backdrop onClickBackdrop={handlePriorityPopup}/>
           <PriorityPopup
             lowPriorityIcon={lowPriorityIcon}
             medPriorityIcon={medPriorityIcon}
@@ -118,9 +118,12 @@ function App() {
             lowPriorityOptions={lowPriorityOptions}
             medPriorityOptions={medPriorityOptions}
             highPriorityOptions={highPriorityOptions}
+            onChangeLowPriorityIcon={setLowPriorityIcon}
+            onChangeMedPriorityIcon={setMedPriorityIcon}
+            onChangeHighPriorityIcon={setHighPriorityIcon}
           />
         </>
-      ) : null} */}
+      ) : null}
     </>
   );
 }
