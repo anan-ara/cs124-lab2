@@ -4,7 +4,7 @@ import BottomBar from "./BottomBar";
 import PriorityPopup from "./PriorityPopup";
 import Contents from "./Contents";
 import Backdrop from "./Backdrop";
-import { useState } from "react";
+import { useState, useRef} from "react";
 import {
   initialData,
   initialLowPriorityIcon,
@@ -20,6 +20,9 @@ function App() {
   const [showCompleted, setShowCompleted] = useState(true);
   const [sortPriority, setSortPriority] = useState(false);
   const [maxID, setMaxID] = useState(100);
+
+  // end of list used for autoscrolling
+  const listEnd = useRef()
 
   // Priority popup
   const [priorityPopup, setPriorityPopup] = useState(false);
@@ -52,6 +55,7 @@ function App() {
       setData(
         data.concat([{ text: text, priority: 0, checked: false, id: maxID }])
       );
+      // listEnd.current.scrollIntoView({ behavior : "smooth", block: "end", inline: "nearest" });
     }
   }
 
@@ -97,6 +101,7 @@ function App() {
       />
       <Contents
         data={data}
+        listEnd={listEnd}
         sortPriority={sortPriority}
         showCompleted={showCompleted}
         onToggleChecked={handleToggleChecked}
