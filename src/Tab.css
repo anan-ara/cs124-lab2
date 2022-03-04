@@ -7,7 +7,7 @@
     display: inline-block;
     list-style: none;
     margin-bottom: -1px;
-    padding: .5rem 2.5rem;
+    padding: .5rem 1.5rem;
     border: solid white; /*White with width to reserve space for active gray border*/
     border-width: 1px 1px 0 1px;
     border-radius: 3vw 3vw 0 0;
