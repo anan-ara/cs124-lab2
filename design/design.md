@@ -101,7 +101,8 @@ Initially, Zooey was not able to figure out what the buttons at the top did sinc
 
 # Final Design
 
-Below is a screenshot of our final design for the app, along with the popup menus.
+Below are screenshots of our final design for the app, along with the popup menus.
+
 ![finished app](app.png)
 ![main menu](main_menu.png)
 ![sub menu](sub_menu.png)
