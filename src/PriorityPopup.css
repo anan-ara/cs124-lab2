@@ -3,7 +3,10 @@
   border-radius: 1vw;
 }
 .priority_grid {
-  display: grid;
+  display: inline-grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
+  column-gap: 3vw;
+  row-gap: 3vw;
+  padding: 3vw;
 }
