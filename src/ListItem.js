@@ -29,8 +29,6 @@ function ListItem(props) {
   }
 
   function handleStartRename() {
-    // textArea.current.prop("readonly", false)
-    // textArea.current.readonly = false;
     setEditable(true);
     textArea.current.selectionStart = textArea.current.value.length;
     textArea.current.selectionEnd = textArea.current.value.length;
@@ -38,8 +36,6 @@ function ListItem(props) {
   }
 
   function handleFinishRename() {
-    // textArea.current.readonly = true;
-    // textArea.current.prop("readonly", true)
     setEditable(false);
     props.onChangeText(props.id, text);
   }

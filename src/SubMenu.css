@@ -6,7 +6,7 @@
 .dropdown-content.sub-menu {
   min-width: 30vw;
   border: 0.1vh solid #999999;
-  right: 3vw;
+  right: 1vw;
   top: 4vh;
   display: flex;
   flex-direction: column;
@@ -29,7 +29,6 @@ div.priority-adjust {
 
 div.priority-adjust button {
   height: 1.5rem;
-  width: 1.5rem;
   text-align: center;
 }
 

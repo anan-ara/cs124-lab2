@@ -1,8 +1,9 @@
 import "./BottomBar.css";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 function BottomBar(props) {
   const [text, setText] = useState("");
+  const textInput = useRef();
 
   function clearText() {
     setText("");
@@ -14,6 +15,7 @@ function BottomBar(props) {
         onClick={() => {
           props.onTextInput(text);
           clearText();
+          textInput.current.focus();
         }}
       >
         <svg
@@ -29,6 +31,7 @@ function BottomBar(props) {
       </button>
       <input
         type="text"
+        ref={textInput}
         placeholder="Add new item..."
         value={text}
         onChange={e => setText(e.target.value)}
