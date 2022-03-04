@@ -1,6 +1,6 @@
 import "./Contents.css";
 import ListItem from "./ListItem";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 function Contents(props) {
   const [scroll, setScroll] = useState(true)
@@ -38,6 +38,7 @@ function Contents(props) {
           />
         ))}
       </ul>
+      <div ref={props.listEnd}></div>
     </div>
   );
 }
