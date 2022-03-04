@@ -1,6 +1,6 @@
 import "./Contents.css";
 import ListItem from "./ListItem";
-import { useState, useRef } from "react";
+import { useState } from "react";
 
 function Contents(props) {
   const [scroll, setScroll] = useState(true)
@@ -34,7 +34,6 @@ function Contents(props) {
             id={e.id}
             onToggleScroll={handleToggleScroll}
             {...props}
-            onToggleScroll={handleToggleScroll}
           />
         ))}
       </ul>

@@ -58,18 +58,7 @@ button.delete {
   color: red;
 }
 
-/* button {
-  /* border: none;
-  background: none; */
-  /* margin: auto;
-  margin-left: 0;
-  margin-right: 0; */
-  /* TODO: make it look like the divs used to look */
-/*} */
-
 /* Copied from ListItem.css because these are now buttons not divs. */
 button.bottom-line {
   border-bottom: 0.1vh solid #999999;
 }
-
-/* TODO: everything with a button is just there for when we change the divs in submeu/menu to buttons. */

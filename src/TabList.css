@@ -1,0 +1,25 @@
+.priority_popup {
+    position: absolute;
+    z-index:5;
+    background-color: white;
+    /* TODO change styling later */
+    top: 180px;
+    position: absolute;
+    right: 40px;
+    left: 40px;
+    border-radius: 3vw;
+  }
+  
+  /* Copied from dropdown content */
+  /* Stuff inside the dropdown */
+  .priority_popup  button {
+    color: #555555;
+    padding: 2vw 1vw;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+    font-size: 3rem;
+    height: 22vw;
+    width: 22vw;
+  }
+  
