@@ -99,6 +99,12 @@ Kaveh also found the app intuitive, but only after adding a couple of task items
 ## Testing Group 5: Zooey Meznarich and Amy Qian
 Initially, Zooey was not able to figure out what the buttons at the top did since there were no tasks in the task item, so it seemed like they did nothing. This can be fixed by adding default list items. Amy also said the same thing Holly said earlier about how the hamburger icon is misleading, and that we should change it to the three dots icon instead. They also mentioned that the ability to change emojis for each priority level would be nice, and that swipe quick actions would be nice. We will implement the priority level emoji selector for this lab, and we will attempt to add swipe actions in a future release.
 
+# Final Design
+
+Below is a screenshot of our final design for the app, along with the popup menus.
+![finished app](app.png)
+![main menu](main_menu.png)
+![sub menu](sub_menu.png)
 # Challenges We Faced
 
 ## Lab 1
