@@ -1,6 +1,6 @@
 import "./PriorityPopup.css";
 import PriorityTab from "./PriorityTab.js";
-import TabList from "./TabList";
+import TabList from "./TabList.js";
 
 function PriorityPopup(props) {
   return (
