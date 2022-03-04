@@ -1,8 +1,3 @@
-li {
-    padding: 0 5vh;
-    border-bottom: .1em solid #999999;
-}
-
 .completed {
     color: #999999; 
 }
@@ -31,6 +26,8 @@ li textarea {
     border:none;
     background:none;
     color: #555555;
+    font-size: 2.8vh;
+    resize: none;
 }
 
 li.done textarea {
@@ -59,4 +56,5 @@ div.bottom-line {
     display: flex;
     align-items: center;
     padding: 1vh;
+    border-bottom: .1em solid #999999;
 }

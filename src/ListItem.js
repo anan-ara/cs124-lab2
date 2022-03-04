@@ -52,7 +52,7 @@ function ListItem(props) {
     // This squishes down the textarea box
     textArea.current.style.height = "5px";
     // This calculates the length of the scrollbar and sets that as the height of the textarea
-    textArea.current.style.height = textArea.current.scrollHeight + "px";
+    textArea.current.style.height = (textArea.current.scrollHeight - 3) + "px";
   });
 
   return (
