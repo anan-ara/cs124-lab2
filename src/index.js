@@ -8,9 +8,7 @@ import reportWebVitals from './reportWebVitals';
 let initialData = [
   {text:"ASK Prof Rhodes: Implement choose emoji (make choices)", priority:2, checked:false, id:7},
   {text:"User testing/writeup", priority:1, checked:false, id:12},
-  {text:"make textarea not editable when not in rename mode", priority:1, checked:false, id:1000},
   {text:"animation for after adding list item (scroll to bottom) and marking item as complete when in hide completed stage (slowly make item disappear)", priority:0, checked:false, id:1001},
-  {text:"enter on text field, maybe disable it?", priority:1, checked:false, id:103},
   {text:"john grism book thing and lots of text for a really long list item", priority:0, checked:true, id:2},
 ];
 

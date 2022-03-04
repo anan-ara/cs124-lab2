@@ -6,6 +6,7 @@ import { useEffect, useState, useRef } from "react";
 
 function ListItem(props) {
   const [dropDown, setDropDown] = useState(false);
+  const [editable, setEditable] = useState(false);
 
   // Local text field before it is saved in database
   const [text, setText] = useState(props.text);
@@ -30,18 +31,22 @@ function ListItem(props) {
   function handleStartRename() {
     // textArea.current.prop("readonly", false)
     // textArea.current.readonly = false;
-    textArea.current.focus()
+    setEditable(true);
+    textArea.current.selectionStart = textArea.current.value.length;
+    textArea.current.selectionEnd = textArea.current.value.length;
+    textArea.current.focus();
   }
 
   function handleFinishRename() {
     // textArea.current.readonly = true;
     // textArea.current.prop("readonly", true)
-    props.onChangeText(props.id, text)
+    setEditable(false);
+    props.onChangeText(props.id, text);
   }
 
   function getToggleLocation() {
     const rect = subMenuToggle.current.getBoundingClientRect();
-    return rect.top
+    return rect.top;
   }
 
   // Called on every rerender
@@ -49,7 +54,7 @@ function ListItem(props) {
     // This squishes down the textarea box
     textArea.current.style.height = "5px";
     // This calculates the length of the scrollbar and sets that as the height of the textarea
-    textArea.current.style.height = textArea.current.scrollHeight + "px";
+    textArea.current.style.height = textArea.current.scrollHeight - 3 + "px";
   });
 
   return (
@@ -66,7 +71,18 @@ function ListItem(props) {
         ref={textArea}
         htmlFor={props.id}
         onChange={(e) => setText(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            handleFinishRename();
+          }
+        }}
         onBlur={handleFinishRename}
+        readOnly={!editable}
+        onClick={() => {
+          if (!editable) {
+            props.onToggleChecked(props.id);
+          }
+        }}
       />
       <span className="dot">{priorityToIcon[props.priority]}</span>
       <SubMenuToggle onToggle={handleDropDown} buttonLocation={subMenuToggle} />

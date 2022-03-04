@@ -31,8 +31,8 @@ function BottomBar(props) {
         type="text"
         placeholder="Add new item..."
         value={text}
-        onChange={(e) => setText(e.target.value)}
-        onKeyDown={(e) => {
+        onChange={e => setText(e.target.value)}
+        onKeyDown={e => {
           if (e.key === "Enter") {
             props.onTextInput(text);
             clearText();
