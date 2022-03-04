@@ -14,6 +14,9 @@ function TabList(props) {
             priorityText={child.priorityText}
             activeTab={activeTab}
             onClickTab={(key) => setActiveTab(key)}
+        lowPriorityIcon={props.lowPriorityIcon}
+        medPriorityIcon={props.medPriorityIcon}
+        highPriorityIcon={props.highPriorityIcon}
           />
         ))}
       </ol>

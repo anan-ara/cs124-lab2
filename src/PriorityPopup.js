@@ -4,7 +4,11 @@ import TabList from "./TabList";
 
 function PriorityPopup(props) {
   return (
-    <TabList>
+    <TabList
+        lowPriorityIcon={props.lowPriorityIcon}
+        medPriorityIcon={props.medPriorityIcon}
+        highPriorityIcon={props.highPriorityIcon}
+    >
       <PriorityTab
         key={"Low" }
         iconOptions={props.lowPriorityOptions}
