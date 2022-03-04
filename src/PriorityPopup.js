@@ -1,35 +1,35 @@
 import "./PriorityPopup.css";
 import PriorityTab from "./PriorityTab.js";
+import TabList from "./TabList";
 
 function PriorityPopup(props) {
+
   return (
-    <div id="priority_popup">
+
+    <TabList id="priority_popup">
       <PriorityTab
+      key={0}
         iconOptions={props.lowPriorityOptions}
         currentIcon={props.lowPriorityIcon}
         onChangeIcon={props.onChangeLowPriorityIcon}
-        priorityText={"Low"}
+        priorityText={"Low" + props.lowPriorityIcon}
       />
-    </div>
+      <PriorityTab
+      key={1}
+        iconOptions={props.medPriorityOptions}
+        currentIcon={props.medPriorityIcon}
+        onChangeIcon={props.onChangeMedPriorityIcon}
+        priorityText={"Med" + props.medPriorityIcon}
+      />
+      <PriorityTab
+      key={2}
+        iconOptions={props.highPriorityOptions}
+        currentIcon={props.highPriorityIcon}
+        onChangeIcon={props.onChangeHighPriorityIcon}
+        priorityText={"High" + props.highPriorityIcon}
+      />
+    </TabList>
   );
 }
 
 export default PriorityPopup;
-
-{
-  /* <div className="dropdown">
-  {props.dropDown ? (
-    <div className="dropdown-content main-menu">
-      <button
-        className="delete-completed bottom-line delete"
-        onClick={props.onDeleteCompleted}
-      >
-        Delete Completed
-      </button>
-      <button onClick={props.onTogglePriorityPopup}>
-        Change Priority Emoji
-      </button>
-    </div>
-  ) : null}
-</div>; */
-}

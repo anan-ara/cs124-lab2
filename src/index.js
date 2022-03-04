@@ -18,7 +18,7 @@ let initialHighPriorityIcon = "🔥";
 
 let lowPriorityOptions = ["🤖", "🤖", "💤", "🤖", "🤖", "🤖", "🤖", "🤖", "🤖"];
 let medPriorityOptions = ["😀", "😃", "😄", "😁", "😆", "😅", "😂", "🤣", "🤣"];
-let highPriorityOptions = ["🤬", "🤬", "🤬", "🤬", "🤬", "🤬", "🤬", "🤬", "🤬"];
+let highPriorityOptions = ["🤬", "🔥", "🤬", "🤬", "🤬", "🤬", "🤬", "🤬", "🤬"];
 
 ReactDOM.render(
   <React.StrictMode>

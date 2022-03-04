@@ -7,7 +7,6 @@ function PriorityTab(props) {
         {props.iconOptions.map((emoji) => (
           <button
             className={emoji === props.currentIcon ? "activated" : ""}
-            // onClick={()=> console.log("hi")}
             onClick={() => props.onChangeIcon(emoji)}
           >
             {emoji}
