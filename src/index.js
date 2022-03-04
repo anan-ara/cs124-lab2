@@ -6,11 +6,10 @@ import reportWebVitals from './reportWebVitals';
 
 // Priority is 0 for zzz, 2 for flames
 let initialData = [
-  {text:"ASK Prof Rhodes: Implement choose emoji (make choices)", priority:2, checked:false, id:7},
-  {text:"User testing/writeup", priority:1, checked:false, id:12},
-  {text:"enter on text field doesn't make text field lose focus", priority:1, checked:false, id:1},
-  {text:"animation for after adding list item (scroll to bottom) and marking item as complete when in hide completed stage (slowly make item disappear)", priority:0, checked:false, id:1001},
-  {text:"john grism book thing and lots of text for a really long list item", priority:0, checked:true, id:2},
+  {text:"Type in \"Add new item...\" to add a new item to the task list!", priority:0, checked:false, id:10},
+  {text:"Click the checkbox to mark a task as complete or incomplete", priority:0, checked:false, id:11},
+  {text:"Click the three dots to see further options, such as priority assignment", priority:1, checked:true, id:12},
+  {text:"Use the toggles at the top to change your view", priority:2, checked:false, id:13},
 ];
 
 let initialLowPriorityIcon = "💤";
