@@ -1,5 +1,5 @@
 .tab-list {
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #999999;
     padding-left: 0;
 }
 
@@ -7,12 +7,13 @@
     display: inline-block;
     list-style: none;
     margin-bottom: -1px;
-    padding: 0.5rem 0.75rem;
+    padding: .5rem 2.5rem;
     border: solid white; /*White with width to reserve space for active gray border*/
     border-width: 1px 1px 0 1px;
+    border-radius: 3vw 3vw 0 0;
 }
 
 .tab-list-active {
     background-color: white;
-    border-color: #cccccc;
+    border-color: #999999;
 }

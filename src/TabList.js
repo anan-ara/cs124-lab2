@@ -13,7 +13,7 @@ function TabList(props) {
             key={child.key}
             label={child.key}
             activeTab={activeTab}
-            onClickTab={(label) => setActiveTab(label)}
+            onClickTab={(key) => setActiveTab(key)}
           />
         ))}
       </ol>
