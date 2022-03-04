@@ -32,6 +32,8 @@ function ListItem(props) {
     // textArea.current.prop("readonly", false)
     // textArea.current.readonly = false;
     setEditable(true);
+    textArea.current.selectionStart = textArea.current.value.length;
+    textArea.current.selectionEnd = textArea.current.value.length;
     textArea.current.focus();
   }
 
@@ -52,7 +54,7 @@ function ListItem(props) {
     // This squishes down the textarea box
     textArea.current.style.height = "5px";
     // This calculates the length of the scrollbar and sets that as the height of the textarea
-    textArea.current.style.height = (textArea.current.scrollHeight - 3) + "px";
+    textArea.current.style.height = textArea.current.scrollHeight - 3 + "px";
   });
 
   return (
@@ -76,6 +78,11 @@ function ListItem(props) {
         }}
         onBlur={handleFinishRename}
         readOnly={!editable}
+        onClick={() => {
+          if (!editable) {
+            props.onToggleChecked(props.id);
+          }
+        }}
       />
       <span className="dot">{priorityToIcon[props.priority]}</span>
       <SubMenuToggle onToggle={handleDropDown} buttonLocation={subMenuToggle} />
