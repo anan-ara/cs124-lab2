@@ -12,7 +12,7 @@ Our To-Do list has the following features:
 - Configure the priority icon emojis (in progress)
 
 
-Our lab is published to Github Pages at this [link](https://anan-ara.github.io/cs124-lab2/). 
+Our lab is published to Github Pages at this [link](https://anan-ara.github.io/cs124-lab2/wrapped.html). 
 
 See our [design doc](https://github.com/anan-ara/cs124-lab2/blob/main/design/design.md) to read about our design decisions, user testing, and other notes about the development process.
 
