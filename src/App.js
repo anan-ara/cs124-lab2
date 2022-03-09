@@ -15,6 +15,24 @@ import {
   highPriorityOptions
 } from ".";
 
+// Import the functions you need from the SDKs you need
+// import { initializeApp } from "firebase/app";
+// // TODO: Add SDKs for Firebase products that you want to use
+// // https://firebase.google.com/docs/web/setup#available-libraries
+
+// // Your web app's Firebase configuration
+// const firebaseConfig = {
+//   apiKey: "AIzaSyA3wO0gGMy0PN8SEZckT0xb6cYeB0zvV1M",
+//   authDomain: "cs124-lab3-e9930.firebaseapp.com",
+//   projectId: "cs124-lab3-e9930",
+//   storageBucket: "cs124-lab3-e9930.appspot.com",
+//   messagingSenderId: "200008037720",
+//   appId: "1:200008037720:web:52bc13f47bfa43cdd4212d"
+// };
+
+// // Initialize Firebase
+// const app = initializeApp(firebaseConfig);
+
 function App() {
   const [data, setData] = useState(initialData);
   const [showCompleted, setShowCompleted] = useState(true);
