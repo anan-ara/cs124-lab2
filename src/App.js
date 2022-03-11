@@ -13,11 +13,11 @@ import {
   query,
   collection,
   setDoc,
-  updateDoc,
-  deleteDoc,
+  // updateDoc,
+  // deleteDoc,
   doc,
-  orderBy,
-  serverTimestamp,
+  // orderBy,
+  // serverTimestamp,
 } from "firebase/firestore";
 import {
   initialLowPriorityIcon,
