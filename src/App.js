@@ -50,15 +50,36 @@ const collectionRef = collection(db, collectionName);
 function App() {
   // const [data, setData] = useState(initialData);
   // Get data
-  const q = query(collectionRef);
-  const [data, loading, error] = useCollectionData(q);
+  // const q = query(collectionRef);
+  // const [data, loading, error] = useCollectionData(q);
+
+  // Sorting by text
+  const textQuery = query(collectionRef, orderBy("text"));
+  const [dataSortedByText, loadingSortedByText, errorSortedByText] = 
+    useCollectionData(textQuery);
+  
+  // Sorting by created
+    const createdQuery = query(collectionRef, orderBy("created"));
+    const [dataSortedByCreated, loadingSortedByCreated, errorSortedByCreated] = 
+    useCollectionData(createdQuery);
+  
+  // Sorting by text
+  // const creat = query(collection(db, collectionName), orderBy("text"));
+  // const [dataSortedByText, loadingSortedByText, errorSortedByText] = 
+  //   useCollectionData(textQuery);
+  //     // Sorting by text
+  // const textQuery = query(collection(db, collectionName), orderBy("text"));
+  // const [dataSortedByText, loadingSortedByText, errorSortedByText] = 
+  //   useCollectionData(textQuery);
+
   const [showCompleted, setShowCompleted] = useState(true);
   const [sortPriority, setSortPriority] = useState(false);
   const [toScroll, setToScroll] = useState(false);
 
-  if (error) {
-    console.log(error);
-  }
+  // if (error) {
+  //   console.log(error);
+  // }
+  // TODO: fix this
 
   // end of list used for autoscrolling
   const listEnd = useRef();
@@ -108,13 +129,15 @@ function App() {
         priority: 0,
         checked: false,
         id: id,
+        created: serverTimestamp(),
       });
       setToScroll(true);
     }
   }
 
   function handleToggleChecked(id) {
-    const isChecked = data.filter((task) => task.id == id)[0]["checked"];
+    // TODO: use other query
+    const isChecked = dataSortedByCreated.filter((task) => task.id == id)[0]["checked"];
     updateDoc(doc(collectionRef, id), { checked: !isChecked });
   }
 
