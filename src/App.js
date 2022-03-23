@@ -13,11 +13,12 @@ import {
   query,
   collection,
   setDoc,
-  // updateDoc,
-  // deleteDoc,
-  doc
-  // orderBy,
-  // serverTimestamp,
+  updateDoc,
+  deleteDoc,
+  doc,
+  getDoc,
+  orderBy,
+  serverTimestamp,
 } from "firebase/firestore";
 import {
   initialLowPriorityIcon,
@@ -113,11 +114,8 @@ function App() {
   }
 
   function handleToggleChecked(id) {
-    // setData(
-    //   data.map((task) =>
-    //     task.id === id ? { ...task, checked: !task.checked } : task
-    //   )
-    // );
+    const isChecked = data.filter((task) => task.id == id)[0]["checked"];
+    updateDoc(doc(collectionRef, id), { checked: !isChecked });
   }
 
   function handleChangePriority(id, priority) {
