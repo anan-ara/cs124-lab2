@@ -30,23 +30,13 @@ import {
 
 // Ours
 // Your web app's Firebase configuration
-// const firebaseConfig = {
-//   apiKey: "AIzaSyA3wO0gGMy0PN8SEZckT0xb6cYeB0zvV1M",
-//   authDomain: "cs124-lab3-e9930.firebaseapp.com",
-//   projectId: "cs124-lab3-e9930",
-//   storageBucket: "cs124-lab3-e9930.appspot.com",
-//   messagingSenderId: "200008037720",
-//   appId: "1:200008037720:web:52bc13f47bfa43cdd4212d",
-// };
-
-// Prof. Rhodes's
 const firebaseConfig = {
-  apiKey: "AIzaSyCYhMdciPP9F9Gs38fUEHnOP_C63RwkDFo",
-  authDomain: "cs124-firestore-impl-exercise.firebaseapp.com",
-  projectId: "cs124-firestore-impl-exercise",
-  storageBucket: "cs124-firestore-impl-exercise.appspot.com",
-  messagingSenderId: "492659596453",
-  appId: "1:492659596453:web:fa8ea46ba19f37c0fa414c",
+  apiKey: "AIzaSyA3wO0gGMy0PN8SEZckT0xb6cYeB0zvV1M",
+  authDomain: "cs124-lab3-e9930.firebaseapp.com",
+  projectId: "cs124-lab3-e9930",
+  storageBucket: "cs124-lab3-e9930.appspot.com",
+  messagingSenderId: "200008037720",
+  appId: "1:200008037720:web:52bc13f47bfa43cdd4212d",
 };
 
 // Initialize Firebase
