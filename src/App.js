@@ -4,44 +4,63 @@ import BottomBar from "./BottomBar";
 import PriorityPopup from "./PriorityPopup";
 import Contents from "./Contents";
 import Backdrop from "./Backdrop";
-import { useState, useEffect, useRef} from "react";
+import { useState, useEffect, useRef } from "react";
+import { generateUniqueID } from "web-vitals/dist/modules/lib/generateUniqueID";
+import { initializeApp } from "firebase/app";
+import { useCollectionData } from "react-firebase-hooks/firestore";
 import {
-  initialData,
+  getFirestore,
+  query,
+  collection,
+  setDoc,
+  // updateDoc,
+  // deleteDoc,
+  doc
+  // orderBy,
+  // serverTimestamp,
+} from "firebase/firestore";
+import {
   initialLowPriorityIcon,
   initialMedPriorityIcon,
   initialHighPriorityIcon,
   lowPriorityOptions,
   medPriorityOptions,
-  highPriorityOptions
+  highPriorityOptions,
 } from ".";
 
-// Import the functions you need from the SDKs you need
-// import { initializeApp } from "firebase/app";
-// // TODO: Add SDKs for Firebase products that you want to use
-// // https://firebase.google.com/docs/web/setup#available-libraries
+// Ours
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyA3wO0gGMy0PN8SEZckT0xb6cYeB0zvV1M",
+  authDomain: "cs124-lab3-e9930.firebaseapp.com",
+  projectId: "cs124-lab3-e9930",
+  storageBucket: "cs124-lab3-e9930.appspot.com",
+  messagingSenderId: "200008037720",
+  appId: "1:200008037720:web:52bc13f47bfa43cdd4212d",
+};
 
-// // Your web app's Firebase configuration
-// const firebaseConfig = {
-//   apiKey: "AIzaSyA3wO0gGMy0PN8SEZckT0xb6cYeB0zvV1M",
-//   authDomain: "cs124-lab3-e9930.firebaseapp.com",
-//   projectId: "cs124-lab3-e9930",
-//   storageBucket: "cs124-lab3-e9930.appspot.com",
-//   messagingSenderId: "200008037720",
-//   appId: "1:200008037720:web:52bc13f47bfa43cdd4212d"
-// };
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
-// // Initialize Firebase
-// const app = initializeApp(firebaseConfig);
+const collectionName = "anan-cynthia";
+const collectionRef = collection(db, collectionName);
 
 function App() {
-  const [data, setData] = useState(initialData);
+  // const [data, setData] = useState(initialData);
+  // Get data
+  const q = query(collectionRef);
+  const [data, loading, error] = useCollectionData(q);
   const [showCompleted, setShowCompleted] = useState(true);
   const [sortPriority, setSortPriority] = useState(false);
-  const [maxID, setMaxID] = useState(100);
   const [toScroll, setToScroll] = useState(false);
 
+  if (error) {
+    console.log(error);
+  }
+
   // end of list used for autoscrolling
-  const listEnd = useRef()
+  const listEnd = useRef();
 
   // Priority popup
   const [priorityPopup, setPriorityPopup] = useState(false);
@@ -52,8 +71,12 @@ function App() {
   // Called on every rerender
   useEffect(() => {
     if (toScroll) {
-      listEnd.current.scrollIntoView({ behavior : "smooth", block: "end", inline: "nearest" });
-      setToScroll(false)
+      listEnd.current.scrollIntoView({
+        behavior: "smooth",
+        block: "end",
+        inline: "nearest",
+      });
+      setToScroll(false);
     }
   }, [toScroll]);
 
@@ -77,43 +100,46 @@ function App() {
   }
 
   function addNewTodo(text) {
+    const id = generateUniqueID();
     if (text !== "") {
-      setMaxID(maxID + 1);
-      setData(
-        data.concat([{ text: text, priority: 0, checked: false, id: maxID }])
-      );
-      setToScroll(true)
+      setDoc(doc(collectionRef, id), {
+        text: text,
+        priority: 0,
+        checked: false,
+        id: id,
+      });
+      setToScroll(true);
     }
   }
 
   function handleToggleChecked(id) {
-    setData(
-      data.map((task) =>
-        task.id === id ? { ...task, checked: !task.checked } : task
-      )
-    );
+    // setData(
+    //   data.map((task) =>
+    //     task.id === id ? { ...task, checked: !task.checked } : task
+    //   )
+    // );
   }
 
   function handleChangePriority(id, priority) {
-    setData(
-      data.map((task) =>
-        task.id === id ? { ...task, priority: priority } : task
-      )
-    );
+    // setData(
+    //   data.map((task) =>
+    //     task.id === id ? { ...task, priority: priority } : task
+    //   )
+    // );
   }
 
   function handleDeleteTask(id) {
-    setData(data.filter((task) => task.id !== id));
+    // setData(data.filter((task) => task.id !== id));
   }
 
   function handleDeleteCompletedTasks() {
-    setData(data.filter((task) => task.checked === false));
+    // setData(data.filter((task) => task.checked === false));
   }
 
   function handleChangeText(id, newText) {
-    setData(
-      data.map((task) => (task.id === id ? { ...task, text: newText } : task))
-    );
+    // setData(
+    //   data.map((task) => (task.id === id ? { ...task, text: newText } : task))
+    // );
   }
 
   return (
@@ -126,23 +152,27 @@ function App() {
         onDeleteCompleted={handleDeleteCompletedTasks}
         onTogglePriorityPopup={handlePriorityPopup}
       />
-      <Contents
-        data={data}
-        listEnd={listEnd}
-        sortPriority={sortPriority}
-        showCompleted={showCompleted}
-        onToggleChecked={handleToggleChecked}
-        onChangePriority={handleChangePriority}
-        onDeleteTask={handleDeleteTask}
-        onChangeText={handleChangeText}
-        lowPriorityIcon={lowPriorityIcon}
-        medPriorityIcon={medPriorityIcon}
-        highPriorityIcon={highPriorityIcon}
-      />
+      {loading ? (
+        <div>Loading</div>
+      ) : (
+        <Contents
+          data={data}
+          listEnd={listEnd}
+          sortPriority={sortPriority}
+          showCompleted={showCompleted}
+          onToggleChecked={handleToggleChecked}
+          onChangePriority={handleChangePriority}
+          onDeleteTask={handleDeleteTask}
+          onChangeText={handleChangeText}
+          lowPriorityIcon={lowPriorityIcon}
+          medPriorityIcon={medPriorityIcon}
+          highPriorityIcon={highPriorityIcon}
+        />
+      )}
       <BottomBar onTextInput={addNewTodo} />
       {priorityPopup ? (
         <>
-          <Backdrop onClickBackdrop={handlePriorityPopup}/>
+          <Backdrop onClickBackdrop={handlePriorityPopup} />
           <PriorityPopup
             lowPriorityIcon={lowPriorityIcon}
             medPriorityIcon={medPriorityIcon}
