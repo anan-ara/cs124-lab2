@@ -119,25 +119,21 @@ function App() {
   }
 
   function handleChangePriority(id, priority) {
-    // setData(
-    //   data.map((task) =>
-    //     task.id === id ? { ...task, priority: priority } : task
-    //   )
-    // );
+    updateDoc(doc(collectionRef, id), { priority: priority });
   }
 
   function handleDeleteTask(id) {
-    // setData(data.filter((task) => task.id !== id));
+    deleteDoc(doc(collectionRef, id));
   }
 
   function handleDeleteCompletedTasks() {
-    // setData(data.filter((task) => task.checked === false));
+    const completedTasks = data.filter((task) => task.checked === true);
+    // TODO: ask about the filter vs indexes?
+    completedTasks.forEach(task => deleteDoc(doc(collectionRef, task.id)));
   }
 
   function handleChangeText(id, newText) {
-    // setData(
-    //   data.map((task) => (task.id === id ? { ...task, text: newText } : task))
-    // );
+    updateDoc(doc(collectionRef, id), { text: newText });
   }
 
   return (
