@@ -61,7 +61,7 @@ function App() {
   const createdQuery = query(collectionRef, orderBy("created"));
   const createdTuple = useCollectionData(createdQuery);
 
-  const priorityQuery = query(collectionRef, orderBy("priority"));
+  const priorityQuery = query(collectionRef, orderBy("priority", "desc"));
   const priorityTuple = useCollectionData(priorityQuery);
 
   // Sorting by text
@@ -83,13 +83,7 @@ function App() {
     "text": { "all": textTuple, "incomplete": textTuple },
   };
 
-  let [data, loading, error] = SORT_TYPE_DICT["created"]["all"];
-  function setData() {
-    console.log("setting data, sortType is " + sortType);
-    [data, loading, error] = SORT_TYPE_DICT[sortType]["all"];
-    // TODO: make it actually be based on state
-    // TODO: add checkbox
-  }
+  let [data, loading, error] = SORT_TYPE_DICT[sortType]["all"];
 
   if (error) {
     console.log(error);
@@ -117,12 +111,6 @@ function App() {
     }
   }, [toScroll]);
 
-  // Called on every rerender where sortType changes.
-  useEffect(() => {
-    // Update the data based on state of sort type
-    setData();
-  }, [sortType]);
-
   // Priority icons
   const [lowPriorityIcon, setLowPriorityIcon] = useState(
     initialLowPriorityIcon
@@ -139,7 +127,7 @@ function App() {
   }
 
   function handleSortType() {
-    console.log("in handleSortType, sort Type is " + sortType);
+    // console.log("in handleSortType, sort Type is " + sortType);
 
     if (sortType === "priority") {
       setSortType("created");
@@ -170,6 +158,7 @@ function App() {
 
   function handleChangePriority(id, priority) {
     updateDoc(doc(collectionRef, id), { priority: priority });
+    
   }
 
   function handleDeleteTask(id) {
