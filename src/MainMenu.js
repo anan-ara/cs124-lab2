@@ -3,12 +3,6 @@ import "./Dropdown.css";
 // import {useState} from "react";
 
 function MainMenu(props) {
-  // const [priorityPopup, setPriorityPopup] = useState(false);
-  
-  // // Toggle the priority popup
-  // function handlePriorityPopup() {
-  //   setPriorityPopup(!priorityPopup);
-  // }
 
   return (
     <>
