@@ -14,9 +14,20 @@
     width: 100%;
 }
 
-#top_bar svg, #top_bar .dropdown{
+#top_bar svg, #top_bar .dropdown {
     flex: 0 0 auto;
     height: 7vh;
     width: auto;
     fill: white;
+}
+
+.sorting_by_text {
+    color: white;
+    font-size: small;
+}
+
+#sort_by_div {
+    display: flex;
+    justify-content:flex-start;
+    flex-direction: row;
 }
