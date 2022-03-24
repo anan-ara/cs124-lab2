@@ -1,5 +1,6 @@
 import "./todo.css";
 import TopBar from "./TopBar";
+import CompletionBar from "./CompletionBar";
 import BottomBar from "./BottomBar";
 import PriorityPopup from "./PriorityPopup";
 import Contents from "./Contents";
@@ -126,8 +127,13 @@ function App() {
   );
 
   function handleShowCompleted() {
-    setShowCompleted(!showCompleted);
+    setShowCompleted(true);
   }
+
+  function handleHideCompleted() {
+    setShowCompleted(false);
+  }
+
 
   function handleSortType(newSortType) {
     setSortType(newSortType)
@@ -187,6 +193,11 @@ function App() {
         onDeleteCompleted={handleDeleteCompletedTasks}
         onTogglePriorityPopup={handlePriorityPopup}
       />
+      <CompletionBar
+        showCompleted={showCompleted}
+        onShowCompleted={handleShowCompleted}
+        onHideCompleted={handleHideCompleted}
+        />
       {loading ? (
         <div>Loading</div>
       ) : (
