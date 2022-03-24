@@ -26,12 +26,6 @@ function TopBar(props) {
   return (
     <>
       <div id="top_bar">
-        {/* <ToggleButton
-          data={priorityToggle}
-          onToggle={props.onChangeSortType}
-          toggleState={props.sortType === "priority"}
-        ></ToggleButton> */}
-        {/* Shows the sort type */}
         Sorting by: 
         <SortMenuToggle
           sortType={props.sortType}
@@ -51,7 +45,7 @@ function TopBar(props) {
       {sortDropDown ? (
         <>
           <Backdrop onClickBackdrop={handleSortDropDown} />
-          <SortMenu dropDown={sortDropDown} onChangeSortType={props.onChangeSortType} onToggleDropdown={handleSortDropDown}/>
+          <SortMenu dropDown={sortDropDown} onChangeSortType={props.onChangeSortType} currentSortType={props.sortType} onToggleDropdown={handleSortDropDown}/>
 
         </>
       ) : null}
