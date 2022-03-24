@@ -19,8 +19,8 @@ function TopBar(props) {
       <div id="top_bar">
         <ToggleButton
           data={priorityToggle}
-          onToggle={props.onSortPriority}
-          toggleState={props.sortPriority}
+          onToggle={props.onChangeSortType}
+          toggleState={props.sortType === "priority"}
         ></ToggleButton>
         <ToggleButton
           data={completedToggle}

@@ -18,6 +18,7 @@ import {
   doc,
   getDoc,
   orderBy,
+  where, 
   serverTimestamp,
 } from "firebase/firestore";
 import {
@@ -48,13 +49,45 @@ const collectionName = "anan-cynthia";
 const collectionRef = collection(db, collectionName);
 
 function App() {
-  // const [data, setData] = useState(initialData);
-  // Get data
-  const q = query(collectionRef);
-  const [data, loading, error] = useCollectionData(q);
+
+  // Sorting by text
+  const textQuery = query(collectionRef, orderBy("text"));
+  const textTuple = useCollectionData(textQuery);
+
+  // Sorting by created
+  const createdQuery = query(collectionRef, orderBy("created"));
+  const createdTuple = useCollectionData(createdQuery);
+
+  const priorityQuery = query(collectionRef, orderBy("priority", "desc"));
+  const priorityTuple = useCollectionData(priorityQuery);
+
+  // Use for deleting all completed items
+  const isCheckedQuery = query(collectionRef, where("checked", "==", true));
+  const [checkedData, checkedLoading, checkedError] = useCollectionData(isCheckedQuery);
+
+  // Compound index queries for when we hide completed items
+  // Sorting by text
+  const textIncompleteQuery = query(collectionRef, orderBy("text"), where("checked", "==", false));
+  const textIncompleteTuple = useCollectionData(textIncompleteQuery);
+
+  // Sorting by created
+  const createdIncompleteQuery = query(collectionRef, orderBy("created"), where("checked", "==", false));
+  const createdIncompleteTuple = useCollectionData(createdIncompleteQuery);
+
+  const priorityIncompleteQuery = query(collectionRef, orderBy("priority", "desc"), where("checked", "==", false));
+  const priorityIncompleteTuple = useCollectionData(priorityIncompleteQuery);
+
+  const SORT_TYPE_DICT = {
+    "created": { "all": createdTuple, "incomplete": createdIncompleteTuple },
+    "priority": { "all": priorityTuple, "incomplete": priorityIncompleteTuple },
+    "text": { "all": textTuple, "incomplete": textIncompleteTuple },
+  };
+
   const [showCompleted, setShowCompleted] = useState(true);
-  const [sortPriority, setSortPriority] = useState(false);
+  const [sortType, setSortType] = useState("created");
   const [toScroll, setToScroll] = useState(false);
+
+  let [data, loading, error] = SORT_TYPE_DICT[sortType][showCompleted ? "all" : "incomplete"];
 
   if (error) {
     console.log(error);
@@ -69,8 +102,9 @@ function App() {
     setPriorityPopup(!priorityPopup);
   }
 
-  // Called on every rerender
+  // Called on every rerender where toScroll changes.
   useEffect(() => {
+    // Scrolls to recently added item if an item was just added
     if (toScroll) {
       listEnd.current.scrollIntoView({
         behavior: "smooth",
@@ -96,8 +130,12 @@ function App() {
     setShowCompleted(!showCompleted);
   }
 
-  function handleSortPriority() {
-    setSortPriority(!sortPriority);
+  function handleSortType() {
+    if (sortType === "priority") {
+      setSortType("created");
+    } else {
+      setSortType("priority");
+    }
   }
 
   function addNewTodo(text) {
@@ -108,18 +146,21 @@ function App() {
         priority: 0,
         checked: false,
         id: id,
+        created: serverTimestamp(),
       });
       setToScroll(true);
     }
   }
 
   function handleToggleChecked(id) {
-    const isChecked = data.filter((task) => task.id == id)[0]["checked"];
+    // TODO: Ask Prof. Rhodes if it would be faster to use getDoc()
+    const isChecked = data.filter((task) => task.id === id)[0]["checked"];
     updateDoc(doc(collectionRef, id), { checked: !isChecked });
   }
 
   function handleChangePriority(id, priority) {
     updateDoc(doc(collectionRef, id), { priority: priority });
+    
   }
 
   function handleDeleteTask(id) {
@@ -127,9 +168,14 @@ function App() {
   }
 
   function handleDeleteCompletedTasks() {
-    const completedTasks = data.filter((task) => task.checked === true);
     // TODO: ask about the filter vs indexes?
-    completedTasks.forEach(task => deleteDoc(doc(collectionRef, task.id)));
+    let completedTasks = [];
+    if (!checkedLoading && !checkedError) {
+      completedTasks = checkedData;
+    } else {
+      completedTasks = data.filter((task) => task.checked === true);
+    }
+    completedTasks.forEach((task) => deleteDoc(doc(collectionRef, task.id)));
   }
 
   function handleChangeText(id, newText) {
@@ -140,9 +186,9 @@ function App() {
     <>
       <TopBar
         showCompleted={showCompleted}
-        sortPriority={sortPriority}
+        sortType={sortType}
         onShowCompleted={handleShowCompleted}
-        onSortPriority={handleSortPriority}
+        onChangeSortType={handleSortType}
         onDeleteCompleted={handleDeleteCompletedTasks}
         onTogglePriorityPopup={handlePriorityPopup}
       />
@@ -152,7 +198,7 @@ function App() {
         <Contents
           data={data}
           listEnd={listEnd}
-          sortPriority={sortPriority}
+          sortPriority={sortType}
           showCompleted={showCompleted}
           onToggleChecked={handleToggleChecked}
           onChangePriority={handleChangePriority}
