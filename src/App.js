@@ -18,6 +18,7 @@ import {
   doc,
   getDoc,
   orderBy,
+  where, 
   serverTimestamp,
 } from "firebase/firestore";
 import {
@@ -48,10 +49,6 @@ const collectionName = "anan-cynthia";
 const collectionRef = collection(db, collectionName);
 
 function App() {
-  // const [data, setData] = useState(initialData);
-  // Get data
-  // const q = query(collectionRef);
-  // const [data, loading, error] = useCollectionData(q);
 
   // Sorting by text
   const textQuery = query(collectionRef, orderBy("text"));
@@ -64,26 +61,33 @@ function App() {
   const priorityQuery = query(collectionRef, orderBy("priority", "desc"));
   const priorityTuple = useCollectionData(priorityQuery);
 
+  // Use for deleting all completed items
+  const isCheckedQuery = query(collectionRef, where("checked", "==", true));
+  const [checkedData, checkedLoading, checkedError] = useCollectionData(isCheckedQuery);
+
+  // Compound index queries for when we hide completed items
   // Sorting by text
-  // const creat = query(collection(db, collectionName), orderBy("text"));
-  // const [dataSortedByText, loadingSortedByText, errorSortedByText] =
-  //   useCollectionData(textQuery);
-  //     // Sorting by text
-  // const textQuery = query(collection(db, collectionName), orderBy("text"));
-  // const [dataSortedByText, loadingSortedByText, errorSortedByText] =
-  //   useCollectionData(textQuery);
+  const textIncompleteQuery = query(collectionRef, orderBy("text"), where("checked", "==", false));
+  const textIncompleteTuple = useCollectionData(textIncompleteQuery);
+
+  // Sorting by created
+  const createdIncompleteQuery = query(collectionRef, orderBy("created"), where("checked", "==", false));
+  const createdIncompleteTuple = useCollectionData(createdIncompleteQuery);
+
+  const priorityIncompleteQuery = query(collectionRef, orderBy("priority", "desc"), where("checked", "==", false));
+  const priorityIncompleteTuple = useCollectionData(priorityIncompleteQuery);
+
+  const SORT_TYPE_DICT = {
+    "created": { "all": createdTuple, "incomplete": createdIncompleteTuple },
+    "priority": { "all": priorityTuple, "incomplete": priorityIncompleteTuple },
+    "text": { "all": textTuple, "incomplete": textIncompleteTuple },
+  };
 
   const [showCompleted, setShowCompleted] = useState(true);
   const [sortType, setSortType] = useState("created");
   const [toScroll, setToScroll] = useState(false);
 
-  const SORT_TYPE_DICT = {
-    "created": { "all": createdTuple, "incomplete": createdTuple },
-    "priority": { "all": priorityTuple, "incomplete": priorityTuple },
-    "text": { "all": textTuple, "incomplete": textTuple },
-  };
-
-  let [data, loading, error] = SORT_TYPE_DICT[sortType]["all"];
+  let [data, loading, error] = SORT_TYPE_DICT[sortType][showCompleted ? "all" : "incomplete"];
 
   if (error) {
     console.log(error);
@@ -127,8 +131,6 @@ function App() {
   }
 
   function handleSortType() {
-    // console.log("in handleSortType, sort Type is " + sortType);
-
     if (sortType === "priority") {
       setSortType("created");
     } else {
@@ -151,7 +153,7 @@ function App() {
   }
 
   function handleToggleChecked(id) {
-    // TODO: use other query
+    // TODO: Ask Prof. Rhodes if it would be faster to use getDoc()
     const isChecked = data.filter((task) => task.id === id)[0]["checked"];
     updateDoc(doc(collectionRef, id), { checked: !isChecked });
   }
@@ -166,8 +168,13 @@ function App() {
   }
 
   function handleDeleteCompletedTasks() {
-    const completedTasks = data.filter((task) => task.checked === true);
     // TODO: ask about the filter vs indexes?
+    let completedTasks = [];
+    if (!checkedLoading && !checkedError) {
+      completedTasks = checkedData;
+    } else {
+      completedTasks = data.filter((task) => task.checked === true);
+    }
     completedTasks.forEach((task) => deleteDoc(doc(collectionRef, task.id)));
   }
 
