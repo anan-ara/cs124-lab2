@@ -36,8 +36,12 @@ function ListItem(props) {
   }
 
   function handleFinishRename() {
-    setEditable(false);
-    props.onChangeText(props.id, text);
+    if (text === "") {
+      props.onDeleteTask(props.id);
+    } else {
+      setEditable(false);
+      props.onChangeText(props.id, text);
+    }
   }
 
   function getToggleLocation() {
