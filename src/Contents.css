@@ -1,11 +1,11 @@
 #contents {
-  order: 1;
-  flex: 4 1 auto;
-  height: 78vh;
-  overflow: hidden;
-  background-color: #e6e6e6;
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+    order: 1;
+    flex: 4 1 auto;
+    height: 75.5vh;
+    overflow: hidden;
+    background-color: #e6e6e6;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
 
 #contents.scroll {
