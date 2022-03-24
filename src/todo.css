@@ -1,7 +1,6 @@
 body {
     flex-direction: column;
     align-items: stretch;
-    /* justify-content: space-evenly; */
     flex-wrap: nowrap;
     display: flex;
     font-size: 1.2rem;

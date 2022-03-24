@@ -14,7 +14,7 @@
     width: 100%;
 }
 
-#top_bar svg, #top_bar .dropdown {
+#top_bar svg {
     flex: 0 0 auto;
     height: 7vh;
     width: auto;
