@@ -1,0 +1,14 @@
+div.completion-bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 1vh 0;
+}
+
+div.completion-bar button {
+    color: #494949;
+}
+
+div.completion-bar button.activated {
+    color: white;
+}

@@ -47,12 +47,12 @@ this is assuming we want the dot on the far right. */
 }
 
 div.bottom-line {
-    border-bottom: 0.1vh solid #999999;
+    border-bottom: 0.1em solid #999999;
   }
 
-#contents li, #contents #trash-icon-test-li div {
+#contents li {
     min-height: 7vh;
-    background: #e6e6e6;
+    background: white;
     display: flex;
     align-items: center;
     padding: 1vh;
