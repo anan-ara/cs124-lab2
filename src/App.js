@@ -55,31 +55,45 @@ function App() {
 
   // Sorting by text
   const textQuery = query(collectionRef, orderBy("text"));
-  const [dataSortedByText, loadingSortedByText, errorSortedByText] = 
-    useCollectionData(textQuery);
-  
+  const textTuple = useCollectionData(textQuery);
+
   // Sorting by created
-    const createdQuery = query(collectionRef, orderBy("created"));
-    const [dataSortedByCreated, loadingSortedByCreated, errorSortedByCreated] = 
-    useCollectionData(createdQuery);
-  
+  const createdQuery = query(collectionRef, orderBy("created"));
+  const createdTuple = useCollectionData(createdQuery);
+
+  const priorityQuery = query(collectionRef, orderBy("priority"));
+  const priorityTuple = useCollectionData(priorityQuery);
+
   // Sorting by text
   // const creat = query(collection(db, collectionName), orderBy("text"));
-  // const [dataSortedByText, loadingSortedByText, errorSortedByText] = 
+  // const [dataSortedByText, loadingSortedByText, errorSortedByText] =
   //   useCollectionData(textQuery);
   //     // Sorting by text
   // const textQuery = query(collection(db, collectionName), orderBy("text"));
-  // const [dataSortedByText, loadingSortedByText, errorSortedByText] = 
+  // const [dataSortedByText, loadingSortedByText, errorSortedByText] =
   //   useCollectionData(textQuery);
 
   const [showCompleted, setShowCompleted] = useState(true);
-  const [sortPriority, setSortPriority] = useState(false);
+  const [sortType, setSortType] = useState("created");
   const [toScroll, setToScroll] = useState(false);
 
-  // if (error) {
-  //   console.log(error);
-  // }
-  // TODO: fix this
+  const SORT_TYPE_DICT = {
+    "created": { "all": createdTuple, "incomplete": createdTuple },
+    "priority": { "all": priorityTuple, "incomplete": priorityTuple },
+    "text": { "all": textTuple, "incomplete": textTuple },
+  };
+
+  let [data, loading, error] = SORT_TYPE_DICT["created"]["all"];
+  function setData() {
+    console.log("setting data, sortType is " + sortType);
+    [data, loading, error] = SORT_TYPE_DICT[sortType]["all"];
+    // TODO: make it actually be based on state
+    // TODO: add checkbox
+  }
+
+  if (error) {
+    console.log(error);
+  }
 
   // end of list used for autoscrolling
   const listEnd = useRef();
@@ -90,8 +104,9 @@ function App() {
     setPriorityPopup(!priorityPopup);
   }
 
-  // Called on every rerender
+  // Called on every rerender where toScroll changes.
   useEffect(() => {
+    // Scrolls to recently added item if an item was just added
     if (toScroll) {
       listEnd.current.scrollIntoView({
         behavior: "smooth",
@@ -101,6 +116,12 @@ function App() {
       setToScroll(false);
     }
   }, [toScroll]);
+
+  // Called on every rerender where sortType changes.
+  useEffect(() => {
+    // Update the data based on state of sort type
+    setData();
+  }, [sortType]);
 
   // Priority icons
   const [lowPriorityIcon, setLowPriorityIcon] = useState(
@@ -117,8 +138,14 @@ function App() {
     setShowCompleted(!showCompleted);
   }
 
-  function handleSortPriority() {
-    setSortPriority(!sortPriority);
+  function handleSortType() {
+    console.log("in handleSortType, sort Type is " + sortType);
+
+    if (sortType === "priority") {
+      setSortType("created");
+    } else {
+      setSortType("priority");
+    }
   }
 
   function addNewTodo(text) {
@@ -137,7 +164,7 @@ function App() {
 
   function handleToggleChecked(id) {
     // TODO: use other query
-    const isChecked = dataSortedByCreated.filter((task) => task.id == id)[0]["checked"];
+    const isChecked = data.filter((task) => task.id === id)[0]["checked"];
     updateDoc(doc(collectionRef, id), { checked: !isChecked });
   }
 
@@ -152,7 +179,7 @@ function App() {
   function handleDeleteCompletedTasks() {
     const completedTasks = data.filter((task) => task.checked === true);
     // TODO: ask about the filter vs indexes?
-    completedTasks.forEach(task => deleteDoc(doc(collectionRef, task.id)));
+    completedTasks.forEach((task) => deleteDoc(doc(collectionRef, task.id)));
   }
 
   function handleChangeText(id, newText) {
@@ -163,9 +190,9 @@ function App() {
     <>
       <TopBar
         showCompleted={showCompleted}
-        sortPriority={sortPriority}
+        sortType={sortType}
         onShowCompleted={handleShowCompleted}
-        onSortPriority={handleSortPriority}
+        onChangeSortType={handleSortType}
         onDeleteCompleted={handleDeleteCompletedTasks}
         onTogglePriorityPopup={handlePriorityPopup}
       />
@@ -175,7 +202,7 @@ function App() {
         <Contents
           data={data}
           listEnd={listEnd}
-          sortPriority={sortPriority}
+          sortPriority={sortType}
           showCompleted={showCompleted}
           onToggleChecked={handleToggleChecked}
           onChangePriority={handleChangePriority}
