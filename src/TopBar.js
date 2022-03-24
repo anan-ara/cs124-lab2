@@ -25,6 +25,9 @@ function TopBar(props) {
   return (
     <>
       <div id="top_bar">
+        <div id="app-title">
+          Todos
+        </div>
         <div id="sort_by_div">
           <span className="sorting_text">Sorting by: </span>
           <SortMenuToggle
