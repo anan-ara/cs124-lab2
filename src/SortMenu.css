@@ -1,0 +1,6 @@
+.dropdown-content.sort-menu {
+    /* Change location of dropdown */
+    right: -30vw;
+    top: -2vh;
+    min-width: 25vw;
+  }

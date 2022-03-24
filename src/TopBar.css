@@ -14,9 +14,31 @@
     width: 100%;
 }
 
-#top_bar svg, #top_bar .dropdown{
+#top_bar svg, #top_bar .dropdown {
     flex: 0 0 auto;
     height: 7vh;
     width: auto;
     fill: white;
+}
+
+.sorting_text {
+    color: white;
+    font-size: small;
+    white-space: nowrap;
+}
+
+#top_bar > * {
+    width: auto;
+}
+
+/* Make the sort by stuff be aligned in a row not column */
+#sort_by_div {
+    display: flex;
+    justify-content:flex-start;
+    flex-direction: row;
+}
+
+#app-title {
+    color: white;
+    font-size: xx-large;
 }

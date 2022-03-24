@@ -1,0 +1,10 @@
+.dropdown-content.top-bar-menu::before {
+    background-color: white;
+    right: 3.5vw;
+  }
+  
+  .dropdown-content.top-bar-menu {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+  }

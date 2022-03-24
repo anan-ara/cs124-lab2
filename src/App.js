@@ -16,7 +16,6 @@ import {
   updateDoc,
   deleteDoc,
   doc,
-  getDoc,
   orderBy,
   where, 
   serverTimestamp,
@@ -130,12 +129,8 @@ function App() {
     setShowCompleted(!showCompleted);
   }
 
-  function handleSortType() {
-    if (sortType === "priority") {
-      setSortType("created");
-    } else {
-      setSortType("priority");
-    }
+  function handleSortType(newSortType) {
+    setSortType(newSortType)
   }
 
   function addNewTodo(text) {
