@@ -6,7 +6,7 @@ import "./CompletionBar.css";
 function CompletionBar(props) {
 
   return (
-      <div className="completion-bar">
+      <div id="completion-bar">
     <button className={(props.showCompleted ? "activated " : "") + "radio-button" } onClick={props.onShowCompleted}> 
     Show All Tasks
     </button>

@@ -22,41 +22,27 @@ function TopBar(props) {
   return (
     <>
       <div id="top_bar">
-        <div id="app-title">
-          Todos
-        </div>
+        <div id="app-title">Todos</div>
         <SortSelector
-            dropDown={sortDropDown}
-            onChangeSortType={props.onChangeSortType}
-            currentSortType={props.sortType}
-            onToggleDropdown={handleSortDropDown}
-          />
+          dropDown={sortDropDown}
+          onChangeSortType={props.onChangeSortType}
+          currentSortType={props.sortType}
+          onToggleDropdown={handleSortDropDown}
+        />
         <MainMenuToggle onToggleDropdown={handleDropDown} />
         {/* Conditionally show the drop down and backdrop  */}
-      {dropDown ? (
-        <>
-          <Backdrop onClickBackdrop={handleDropDown} />
-          <MainMenu
-            dropDown={dropDown}
-            onToggleDropdown={handleDropDown}
-            {...props}
-            // onDeleteCompleted={props.onDeleteCompleted}
-          />
-        </>
-      ) : null}
+        {dropDown ? (
+          <>
+            <Backdrop onClickBackdrop={handleDropDown} />
+            <MainMenu
+              dropDown={dropDown}
+              onToggleDropdown={handleDropDown}
+              {...props}
+              // onDeleteCompleted={props.onDeleteCompleted}
+            />
+          </>
+        ) : null}
       </div>
-      {/* Conditionally show the drop down and backdrop  */}
-      {/* {dropDown ? (
-        <>
-          <Backdrop onClickBackdrop={handleDropDown} />
-          <MainMenu
-            dropDown={dropDown}
-            onToggleDropdown={handleDropDown}
-            {...props}
-            // onDeleteCompleted={props.onDeleteCompleted}
-          />
-        </>
-      ) : null} */}
     </>
   );
 }

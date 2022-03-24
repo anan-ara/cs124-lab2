@@ -3,8 +3,6 @@
 .dropdown-content.main-menu {
   min-width: 60vw;
   /* Change location of dropdown */
-  /* right: -95vw;
-  top: -4vh; */
   top: 11vh;
   right: 5.5vw;
   position: absolute;
