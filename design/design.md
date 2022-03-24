@@ -15,6 +15,10 @@ We decided to place the "Add Task (+)" button on the bottom left hand corner of 
 To edit a task, the user can click on the three dots icon, where they will also be able to edit other details of the task.
 This icon is a common icon used to open up more options
 
+After adding more sorting options, we decided to completely redesign our Top Bar. Now, The show all / show only incomplete is a radio button instead of a toggle button to make it clearer which state is currently activated. We believe that this will make the app less confusing to use as it would make it seem less like the tasks are "disappearing" upon being checked if show only incomplete items is activated. Additionally, since we now have more sorting options, we changed the sorting from a toggle button to a select element with options for the same reason as changing the show all/show incomplete to a radio button.
+
+We also added a Title (Todos) to the top left of the top bar. We found that it was not immediately obvious to some users that our app is a todo list, so we believe this should make it easier to understand.
+
 ## Task Element
 
 Clicking on the task (everywhere except the menu) should mark the item as completed/not-completed because this is probably the most common action most users would want to do to this item.
@@ -45,6 +49,7 @@ We chose a very neutral grey color palette as our app will have a lot of color f
 
 #ffffff, #e6e6e6, #999999, #494949
 
+We decided to change the overall background color of our app from #e6e6e6 to #ffffff for more contrast to help with accessibility.
 
 ## Swipe Quick Actions
 
