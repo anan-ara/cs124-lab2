@@ -4,14 +4,24 @@
     min-width: 25vw;
   } */
 
- /* #sort-div {
+/* #sort-div {
    width: auto;
  }
 
   */
 
-  .sorting_text {
-    color: white;
-    font-size: small;
-    white-space: nowrap;
+.sorting_text {
+  color: white;
+  font-size: small;
+  white-space: nowrap;
+}
+
+select {
+  margin-left: 1vw;
+}
+
+/* Get rid of blue outline on select element */
+select:focus
+{
+    outline:0px; 
 }
