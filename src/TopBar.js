@@ -26,7 +26,7 @@ function TopBar(props) {
     <>
       <div id="top_bar">
         <div id="sort_by_div">
-          <span className="sorting_by_text">Sorting by: </span>
+          <span className="sorting_text">Sorting by: </span>
           <SortMenuToggle
             sortType={props.sortType}
             onToggleDropdown={handleSortDropDown}
