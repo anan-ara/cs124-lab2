@@ -7,8 +7,8 @@ function SortSelector(props) {
   const SORT_TYPES = ["created", "priority", "text"];
 
   return (
-    <>
-      <label for="sort-types">Sorting by:</label>
+    <div id="sort-div">
+      <label htmlFor="sort-types" className="sorting_text">Sorting by:</label>
       <select
         name="sort-types"
         id="sort-types"
@@ -18,7 +18,7 @@ function SortSelector(props) {
           <option value={sortType}>{sortType}</option>
         ))}
       </select>
-    </>
+    </div>
   );
 }
 

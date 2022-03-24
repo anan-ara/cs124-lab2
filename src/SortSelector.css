@@ -1,6 +1,17 @@
-.dropdown-content.sort-menu {
-    /* Change location of dropdown */
+/* .dropdown-content.sort-menu {
     right: -30vw;
     top: -2vh;
     min-width: 25vw;
-  }
+  } */
+
+ /* #sort-div {
+   width: auto;
+ }
+
+  */
+
+  .sorting_text {
+    color: white;
+    font-size: small;
+    white-space: nowrap;
+}
