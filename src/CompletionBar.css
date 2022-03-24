@@ -1,14 +1,15 @@
-div.completion-bar {
+#completion-bar {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     padding: 1vh 0;
+    height: 4.5vh;
 }
 
-div.completion-bar button {
+#completion-bar button {
     color: #494949;
 }
 
-div.completion-bar button.activated {
+#completion-bar button.activated {
     color: white;
 }

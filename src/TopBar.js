@@ -1,13 +1,10 @@
 import "./TopBar.css";
-// import priorityToggle from "./PriorityToggle";
-import completedToggle from "./CompletedToggle";
+import "./Button.css";
 import MainMenuToggle from "./MainMenuToggle";
 import MainMenu from "./MainMenu";
-import ToggleButton from "./ToggleButton";
 import Backdrop from "./Backdrop";
 import { useState } from "react";
-import SortMenu from "./SortMenu";
-import SortMenuToggle from "./SortMenuToggle";
+import SortSelector from "./SortSelector";
 
 function TopBar(props) {
   // Main drop down
@@ -25,46 +22,27 @@ function TopBar(props) {
   return (
     <>
       <div id="top_bar">
-        <div id="app-title">
-          Todos
-        </div>
-        <div id="sort_by_div">
-          <span className="sorting_text">Sorting by: </span>
-          <SortMenuToggle
-            sortType={props.sortType}
-            onToggleDropdown={handleSortDropDown}
-          />
-        </div>
-        <ToggleButton
-          data={completedToggle}
-          onToggle={props.onShowCompleted}
-          toggleState={props.showCompleted}
+        <div id="app-title">Todos</div>
+        <SortSelector
+          dropDown={sortDropDown}
+          onChangeSortType={props.onChangeSortType}
+          currentSortType={props.sortType}
+          onToggleDropdown={handleSortDropDown}
         />
         <MainMenuToggle onToggleDropdown={handleDropDown} />
+        {/* Conditionally show the drop down and backdrop  */}
+        {dropDown ? (
+          <>
+            <Backdrop onClickBackdrop={handleDropDown} />
+            <MainMenu
+              dropDown={dropDown}
+              onToggleDropdown={handleDropDown}
+              {...props}
+              // onDeleteCompleted={props.onDeleteCompleted}
+            />
+          </>
+        ) : null}
       </div>
-      {/* Conditionally show the drop down and backdrop  */}
-      {sortDropDown ? (
-        <>
-          <Backdrop onClickBackdrop={handleSortDropDown} />
-          <SortMenu
-            dropDown={sortDropDown}
-            onChangeSortType={props.onChangeSortType}
-            currentSortType={props.sortType}
-            onToggleDropdown={handleSortDropDown}
-          />
-        </>
-      ) : null}
-      {dropDown ? (
-        <>
-          <Backdrop onClickBackdrop={handleDropDown} />
-          <MainMenu
-            dropDown={dropDown}
-            onToggleDropdown={handleDropDown}
-            {...props}
-            // onDeleteCompleted={props.onDeleteCompleted}
-          />
-        </>
-      ) : null}
     </>
   );
 }
