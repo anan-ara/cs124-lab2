@@ -15,6 +15,10 @@ We decided to place the "Add Task (+)" button on the bottom left hand corner of 
 To edit a task, the user can click on the three dots icon, where they will also be able to edit other details of the task.
 This icon is a common icon used to open up more options
 
+After adding more sorting options, we decided to completely redesign our Top Bar. Now, The show all / show only incomplete is a radio button instead of a toggle button to make it clearer which state is currently activated. We believe that this will make the app less confusing to use as it would make it seem less like the tasks are "disappearing" upon being checked if show only incomplete items is activated. Additionally, since we now have more sorting options, we changed the sorting from a toggle button to a select element with options for the same reason as changing the show all/show incomplete to a radio button.
+
+We also added a Title (Todos) to the top left of the top bar. We found that it was not immediately obvious to some users that our app is a todo list, so we believe this should make it easier to understand.
+
 ## Task Element
 
 Clicking on the task (everywhere except the menu) should mark the item as completed/not-completed because this is probably the most common action most users would want to do to this item.
@@ -43,8 +47,14 @@ We made the task list auto scroll to the bottom upon creation of a new task as w
 
 We chose a very neutral grey color palette as our app will have a lot of color from the priority levels we can assign to each task and we do not want it to clash with the background and overall theme of the app.
 
+We also chose these colors because they meet the AA accessibility standard for the amount of contrast needed between foreground and background for the app's text to be readable. Most notably, we changed the overall background color of our app from #e6e6e6 to #ffffff. We used the [WebAIM](https://webaim.org/resources/contrastchecker/) contrast checker to help us with this task.
+
 #ffffff, #595959, #757575, #999999, #494949
 
+## Empty List Behavior
+
+When there are no tasks in the todo list, we realized that it may be confusing for the user to simply see an empty screen. Thus, when the screen is empty, we included a message that says "You currently have no tasks" when the user is
+  showing all tasks, and a message that says "You currently have no incomplete tasks" when the user is showing only incomplete tasks.
 
 ## Swipe Quick Actions
 
@@ -70,6 +80,12 @@ When sorting by priority level, we also considered having dividers within the ta
 
 ![priority headers](priority_headers.jpg)
 
+For lab 2, we initially had the "Sort by priority vs. creation" toggle and the "show/hide completed" toggles at the top of the screen. However, from user testing, we noticed that some users didn't immediately realize that our app was a todo list. Additionally, we noticed that the icons themselves were
+not very useful, since users did not understand them unless they were accompanied by their text labels. Thus, we decided to change the placement of these two controls and write "Todos" at the top of the screen (see "Element Placement" section for more details).
+
+Below is a screenshot of our lab 2 design.
+
+![finished app](lab2-app.png)
 ### Dark Mode
 
 We also would like to implement a dark mode to invert the colors. Since our theme is greyscale, this should be easy to do without breaking the aesthetic of our app. 
@@ -99,13 +115,32 @@ Kaveh also found the app intuitive, but only after adding a couple of task items
 ## Testing Group 5: Zooey Meznarich and Amy Qian
 Initially, Zooey was not able to figure out what the buttons at the top did since there were no tasks in the task item, so it seemed like they did nothing. This can be fixed by adding default list items. Amy also said the same thing Holly said earlier about how the hamburger icon is misleading, and that we should change it to the three dots icon instead. They also mentioned that the ability to change emojis for each priority level would be nice, and that swipe quick actions would be nice. We will implement the priority level emoji selector for this lab, and we will attempt to add swipe actions in a future release.
 
+## Testing Group 6: Ashley Tung and Claire
+The first thing Ashley said was that our app was rather grey. She said that she prefers a pop of color instead. We should note that this was before any items were added to the To-Do list, so the screen was entirely grey at this time. In the future, we plan to include an option to change the "App Theme", which will allow the user to select their own color palette, or at least the color of the top and bottom bar. 
+
+Ashley liked the emojis and thought they were pretty intuitive, but didn't particularly like the red heart emoji ("❤️") for use in representing high priority tasks.
+So, we decided to replace this emoji with a red exclamation point ("❗️"). 
+
+Ashley also suggested implementing date-based deletion. For instance, one could create a todo list for one day, and then wish to create a fresh todo list for the next day. 
+One way to implement this is allowing the user to have multiple lists in the same application, which we will implement later. However, we could also implement this by having an option to delete all tasks from a particular date. We will consider adding this feature as well in the future. 
+## Testing Group 7: Liam Chalk
+Liam understood most of our app. He immediately saw the select element to choose different sorting options, as well as the options to show/hide completed tasks. 
+
+However, he tried to click on the priority emojis several times, and was confused by the fact that nothing happened. To address this, we made clicking on the priority emojis show the drop down as well, so that users can change the priority emojis through the sub menu when they click on the priority icon. 
+At first, he was also a confused as to what the priority emojis represented. However, he figured it out when he went to the "Change Priority Emoji" screen. To address this, we initialized the todo list with a list of items in the beginning that tell users how to use the app. 
+In this "tutorial", we included the meanings of the default emojis. 
+
 # Final Design
 
-Below are screenshots of our final design for the app, along with the popup menus.
+Below are screenshots of our final design for the app.
 
-![finished app](app.png)
-![main menu](main_menu.png)
-![sub menu](sub_menu.png)
+![finished app](final-design-show-all-tasks.png)
+![no tasks](final-design-no-tasks.png)
+![no incomplete tasks](final-design-no-incomplete.png)
+![main menu](final-design-main-menu.png)
+![sub menu](final-design-submenu.png)
+![change emoji](final-design-change-emoji.png)
+
 # Challenges We Faced
 
 ## Lab 1
@@ -124,6 +159,10 @@ We found the implementation of the following to be difficult/time consuming:
 - Making the dropdown element appear on top/bottom depending on screen position
 - Making an auto-resizing textarea field that is not editable
 
+## Lab 3
+We found the implementation of the following to be difficult/time consuming:
+- Activating and initializing the Firestore database from the Firebase console.
+- Understanding how useEffect works, and when exactly it was called. We had to remind ourselves that useEffect is called AFTER every rerender, not during every rerender. 
 
 # Parts of the Design we are most proud of
 
