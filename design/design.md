@@ -43,7 +43,7 @@ We made the task list auto scroll to the bottom upon creation of a new task as w
 
 We chose a very neutral grey color palette as our app will have a lot of color from the priority levels we can assign to each task and we do not want it to clash with the background and overall theme of the app.
 
-#ffffff, #e6e6e6, #999999, #494949
+#ffffff, #595959, #757575, #999999, #494949
 
 
 ## Swipe Quick Actions

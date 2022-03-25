@@ -1,7 +1,7 @@
 #top_bar {
     order: 0;
     /* TODO: figure out why warning sign next to flex when in inspect mode  */
-    background: #999999;
+    background: #595959;
     padding: 1vh 0;
     height: 10vh;
 
