@@ -40,8 +40,6 @@ li.done textarea {
     fill: #999999;
 }
 
-/* TODO:  later should prob just be #contents .dot if all svgs become dropdowns, 
-this is assuming we want the dot on the far right. */
 #contents .dot {
     margin-left: auto;
 }
