@@ -16,9 +16,10 @@ let initialLowPriorityIcon = "💤";
 let initialMedPriorityIcon = "⚠️";
 let initialHighPriorityIcon = "🔥";
 
-let lowPriorityOptions = ["💤", "🤖", "🥶", "💙", "🔵", "🟦", "❄️", "💧", "💎"];
-let medPriorityOptions = ["⚠️", "😃", "☀️", "💛", "🟡", "🟨", "⚡️", "✨", "⭐️"];
-let highPriorityOptions = ["🔥", "👹", "💢", "❤️", "🔴", "🟥", "🆘", "🧨", "🤬"];
+
+let lowPriorityOptions = ["💤", "🤖", "🥶", "😴", "🔵", "🟦", "❄️", "💧", "💎"];
+let medPriorityOptions = ["⚠️", "😃", "☀️", "🌙", "🟡", "🟨", "⚡️", "✨", "⭐️"];
+let highPriorityOptions = ["🔥", "👹", "💢", "❗️", "🔴", "🟥", "🆘", "🧨", "🤬"];
 
 ReactDOM.render(
   <React.StrictMode>
