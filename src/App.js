@@ -197,11 +197,9 @@ function App() {
         onShowCompleted={handleShowCompleted}
         onHideCompleted={handleHideCompleted}
         />
-      {loading ? (
-        <div>Loading</div>
-      ) : (
         <Contents
           data={data}
+          loading={loading}
           listEnd={listEnd}
           sortPriority={sortType}
           showCompleted={showCompleted}
@@ -213,7 +211,6 @@ function App() {
           medPriorityIcon={medPriorityIcon}
           highPriorityIcon={highPriorityIcon}
         />
-      )}
       <BottomBar onTextInput={addNewTodo} />
       {priorityPopup ? (
         <>

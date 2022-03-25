@@ -1,9 +1,9 @@
 #contents {
     order: 1;
     flex: 4 1 auto;
-    height: 73.5vh;
+    height: 74vh;
     overflow: hidden;
-    background-color: #e6e6e6;
+    background-color: white;
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
 }

@@ -1,7 +1,7 @@
 #bottom_bar {
     order: 10;
     /* flex: 0 0 initial; */
-    height: 10vh;
+    height: 9vh;
     background: #999999;
     display: flex;
     align-items: center;
