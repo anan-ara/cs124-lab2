@@ -3,8 +3,6 @@ import "./Dropdown.css";
 import "./TopBarMenu.css";
 
 function SortSelector(props) {
-  // TODO: pass this down from app instead of just putting it here (maybe??)
-  const SORT_TYPES = ["created", "priority", "text"];
   const SORT_TYPE_TEXT_DICT = {"created":"Creation", "priority":"Priority", "text":"Name"};
 
   return (
@@ -15,7 +13,7 @@ function SortSelector(props) {
         id="sort-types"
         onChange={(e) => props.onChangeSortType(e.currentTarget.value)}
       >
-        {SORT_TYPES.map((sortType) => (
+        {Object.keys(SORT_TYPE_TEXT_DICT).map((sortType) => (
           <option value={sortType}>{SORT_TYPE_TEXT_DICT[sortType]}</option>
         ))}
       </select>

@@ -153,7 +153,6 @@ function App() {
   }
 
   function handleToggleChecked(id) {
-    // TODO: Ask Prof. Rhodes if it would be faster to use getDoc()
     const isChecked = data.filter((task) => task.id === id)[0]["checked"];
     updateDoc(doc(collectionRef, id), { checked: !isChecked });
   }
@@ -168,7 +167,6 @@ function App() {
   }
 
   function handleDeleteCompletedTasks() {
-    // TODO: ask about the filter vs indexes?
     let completedTasks = [];
     if (!checkedLoading && !checkedError) {
       completedTasks = checkedData;
