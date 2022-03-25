@@ -3,7 +3,7 @@
     flex-direction: row;
     justify-content: space-around;
     padding: 1vh 0;
-    /* height: 4.5vh; */
+    height: 3vh;
 }
 
 #completion-bar button {

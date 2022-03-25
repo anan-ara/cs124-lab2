@@ -3,7 +3,7 @@
     /* TODO: figure out why warning sign next to flex when in inspect mode  */
     background: #999999;
     padding: 1vh 0;
-    height: 10vh;
+    height: 7vh;
 
     /* top bar's own flexbox */
     flex-direction: row;
