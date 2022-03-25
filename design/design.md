@@ -104,6 +104,23 @@ Kaveh also found the app intuitive, but only after adding a couple of task items
 ## Testing Group 5: Zooey Meznarich and Amy Qian
 Initially, Zooey was not able to figure out what the buttons at the top did since there were no tasks in the task item, so it seemed like they did nothing. This can be fixed by adding default list items. Amy also said the same thing Holly said earlier about how the hamburger icon is misleading, and that we should change it to the three dots icon instead. They also mentioned that the ability to change emojis for each priority level would be nice, and that swipe quick actions would be nice. We will implement the priority level emoji selector for this lab, and we will attempt to add swipe actions in a future release.
 
+## Testing Group 6: Ashley Tung and Claire
+- Very grey
+- Prefers color
+- Didn't see show online incomplete task button
+- Emojis are pretty intuitive
+- Date based deletion (sorted by days)
+- Don't like high priority tasks (heart option?)
+- Maybe a flag instead?
+
+## Testing Group 7: Liam Chalk
+- Understands the sorting chooser and the showing all tasks/incomplete tasks part
+- Tries to click on snooze button
+- Then discovers the options thing, renames, deletes, 
+- Might not understand the emojis until he goes to the change emoji screen
+- Emojis are a bit unclear first, figured it out after playing around with them
+-  
+
 # Final Design
 
 Below are screenshots of our final design for the app, along with the popup menus.
