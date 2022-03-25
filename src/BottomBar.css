@@ -2,7 +2,7 @@
     order: 10;
     /* flex: 0 0 initial; */
     height: 9vh;
-    background: #999999;
+    background: #595959;
     display: flex;
     align-items: center;
     width: 100%;
@@ -22,7 +22,7 @@
 
 /* Placeholder text for add item */
 ::placeholder {
-  color: #e6e6e6;
+  color: white;
 }
 
 #bottom_bar svg {
