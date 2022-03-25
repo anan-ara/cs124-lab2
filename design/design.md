@@ -47,10 +47,9 @@ We made the task list auto scroll to the bottom upon creation of a new task as w
 
 We chose a very neutral grey color palette as our app will have a lot of color from the priority levels we can assign to each task and we do not want it to clash with the background and overall theme of the app.
 
+We also chose these colors because they meet the AA accessibility standard for the amount of contrast needed between foreground and background for the app's text to be readable. Most notably, we changed the overall background color of our app from #e6e6e6 to #ffffff. We used the [WebAIM](https://webaim.org/resources/contrastchecker/) contrast checker to help us with this task.
+
 #ffffff, #e6e6e6, #999999, #494949
-
-We decided to change the overall background color of our app from #e6e6e6 to #ffffff for more contrast to help with accessibility.
-
 ## Empty List Behavior
 
 When there are no tasks in the todo list, we realized that it may be confusing for the user to simply see an empty screen. Thus, when the screen is empty, we included a message that says "You currently have no tasks" when the user is
