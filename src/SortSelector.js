@@ -5,6 +5,7 @@ import "./TopBarMenu.css";
 function SortSelector(props) {
   // TODO: pass this down from app instead of just putting it here (maybe??)
   const SORT_TYPES = ["created", "priority", "text"];
+  const SORT_TYPE_TEXT_DICT = {"created":"Creation", "priority":"Priority", "text":"Name"};
 
   return (
     <div id="sort-div">
@@ -15,7 +16,7 @@ function SortSelector(props) {
         onChange={(e) => props.onChangeSortType(e.currentTarget.value)}
       >
         {SORT_TYPES.map((sortType) => (
-          <option value={sortType}>{sortType}</option>
+          <option value={sortType}>{SORT_TYPE_TEXT_DICT[sortType]}</option>
         ))}
       </select>
     </div>
