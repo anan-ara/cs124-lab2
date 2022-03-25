@@ -4,8 +4,6 @@ This document outlines the rationale behind our design decisions. It describes w
 
 ## Element Placement
 
-On the top bar, we added toggle buttons that change how the tasks in the list are displayed. We have a toggle button for Sort by Priority, and a toggle button for Show/Hide Completed Tasks. We thought that these actions are actions a user may use often, so they are not hidden in the menu.
-
 Deleting all tasks that are completed is a destructive action, so it would be bad if the user accidentally clicked this icon without knowing what it does. Thus, we placed this action under the menu icon in the upper right corner along with a text description. Additionally, it is not a common action, so it is okay for it to take more clicks to activate.
 
 New items go at the bottom of the list because this is what happens when people add items to a physical (on paper) to-do list so we believe this is more intuitive.
@@ -13,7 +11,7 @@ New items go at the bottom of the list because this is what happens when people 
 We decided to place the "Add Task (+)" button on the bottom left hand corner of the screen because most people are right-handed. When holding a phone with just the right hand, the bottom-left corner is the most accesible with the right thumb. This should reduce the friction in using our to-do app. Additionally, this is an element that is likely to be used multiple times in quick succession, and it would be annoying for the user if it were to move with each usage, so it is pinned to the bottom of the app. This was a suggestion by Prof. Rhodes.
 
 To edit a task, the user can click on the three dots icon, where they will also be able to edit other details of the task.
-This icon is a common icon used to open up more options
+This icon is a common icon used to open up more options.
 
 After adding more sorting options, we decided to completely redesign our Top Bar. Now, The show all / show only incomplete is a radio button instead of a toggle button to make it clearer which state is currently activated. We believe that this will make the app less confusing to use as it would make it seem less like the tasks are "disappearing" upon being checked if show only incomplete items is activated. Additionally, since we now have more sorting options, we changed the sorting from a toggle button to a select element with options for the same reason as changing the show all/show incomplete to a radio button.
 
@@ -25,13 +23,13 @@ Clicking on the task (everywhere except the menu) should mark the item as comple
 
 Priority level adjustment, deleting the task, and renaming the task can be done from the task menu as we thought these are actions that are not commonly used, and can be hidden in the task menu to maximize the surface area for marking the task complete/incomplete.
 
-We also considered making clicking on the priority level icon cycle through the possible priority levels for that task. We are currently still deciding between whether to do this or to just have clicking on the priority icon mark the task as completed/incomplete like clicking anywhere else.
-
 The checkbox goes on the left of each task as that is where it is usually positioned on a physical to-do list. We included a checkbox because otherwise, it may not be immediately obvious how to mark an item as complete/incomplete. After checking an item, we grey out the text for that task. We considered putting a strikethrough on the text for completed tasks but we ended up deciding not to for readability.
 
 We decided to have different emojis (🔥, ⚠️, 💤) for the different priority levels for people who are color blind. This was a suggestion from Prof. Rhodes. 
 
 We made the 💤 the default priority level for tasks because if a user does not bother to change the priority level of a task, it is usually a safe assumption that it is unimportant.
+
+We made clicking on the priority emoji bring up the submenu as well, since users can then change the priority emoji by clicking on the priority emoji. We made this change after some of our users tried to click on the priority emoji and were confused that nothing happened.
 
 ## Button Behavior
 
@@ -67,7 +65,7 @@ We would like to implement quick swipe actions for quickly deleting the task and
 We think that adding swipe quick actions can only be beneficial as to users who are not aware of its functionality, it does not take away from the user experience and does not clutter up the UI. It is invisible if the user chooses not to use it. 
 
 # Alternative Designs
-Initially, we had 4 buttons on the top bar: A clock, a stoplight, a checkmark, and the menu icon. 3 of these icons made it to the final design but the clock was scrapped. Initially, the clock and the stoplight were for ordering the task items by creation date and by priority level, respectively, and they would form a radio button group. However, we decided that sorting items by creation date wasn't very meaningful so we decided to just leave in the priority level stoplight button but as a singular toggle button instead.
+Initially, we had 4 buttons on the top bar: A clock, a stoplight, a checkmark, and the menu icon. 3 of these icons made it to the final design but the clock was scrapped. Initially, the clock and the stoplight were for ordering the task items by creation date and by priority level, respectively, and they would form a radio button group.
 
 ![initial design](initial_design.jpg)
 
@@ -86,9 +84,9 @@ not very useful, since users did not understand them unless they were accompanie
 Below is a screenshot of our lab 2 design.
 
 ![finished app](lab2-app.png)
-### Dark Mode
+### Dark Mode and Alternative Color Themes
 
-We also would like to implement a dark mode to invert the colors. Since our theme is greyscale, this should be easy to do without breaking the aesthetic of our app. 
+We also would like to implement a dark mode to invert the colors. Since our theme is greyscale, this should be easy to do without breaking the aesthetic of our app. We also would like to allow the user to choose alternative color themes if they like more colors instead of the gray.
 
 # User Testing
 
@@ -166,6 +164,8 @@ We found the implementation of the following to be difficult/time consuming:
 
 # Parts of the Design we are most proud of
 
-We are especially proud of the emoji indicators for priority level, a well as the functionality to sort by the priority level of tasks. We thought that this would be a useful feature that we ourselves would like to see and use in a to-do list, so we decided to implement it.
+We are especially proud of the emoji indicators for priority level, as well as the ability of the user to customize their own emojis if they prefer. 
+
+We are also proud of the fact that our app autoscrolls to the end of the list when a user adds a new item that causes the list to take up more space than all the list items can fit into. This required us to fully understand how the .then() part of useEffect() works.
 
 We are also happy with the grey theme we went with as it is very neutral and it should mesh well with any of the priority level icon emojis, especially since we will allow users to change these emojis themselves if they would like to.
