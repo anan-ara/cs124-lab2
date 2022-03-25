@@ -2,7 +2,6 @@
     position: absolute;
     z-index:5;
     background-color: white;
-    /* TODO change styling later */
     top: 180px;
     position: absolute;
     right: 40px;
@@ -13,7 +12,7 @@
   /* Copied from dropdown content */
   /* Stuff inside the dropdown */
   .priority_popup  button {
-    color: #555555;
+    color: #595959;
     padding: 2vw 1vw;
     text-decoration: none;
     display: block;

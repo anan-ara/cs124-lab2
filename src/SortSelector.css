@@ -1,0 +1,19 @@
+.sorting_text {
+  color: white;
+  font-size: small;
+  white-space: nowrap;
+}
+
+select {
+  margin-left: 1vw;
+  border-radius: 1vw;
+}
+
+/* Get rid of blue outline on select element */
+select:focus {
+  outline: 0px;
+}
+
+.sort-type-text {
+  text-transform: capitalize;
+}
