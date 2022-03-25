@@ -148,8 +148,7 @@ function App() {
         checked: false,
         id: id,
         created: serverTimestamp(),
-      });
-      setToScroll(true);
+      }).then(() => setToScroll(true));
     }
   }
 
