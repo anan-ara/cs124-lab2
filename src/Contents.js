@@ -3,10 +3,10 @@ import ListItem from "./ListItem";
 import { useState } from "react";
 
 function Contents(props) {
-  const [scroll, setScroll] = useState(true)
+  const [scroll, setScroll] = useState(true);
 
   function handleToggleScroll() {
-    setScroll(!scroll)
+    setScroll(!scroll);
   }
 
   // let listData = props.data;
@@ -23,20 +23,33 @@ function Contents(props) {
 
   return (
     <div id="contents" className={scroll ? "scroll" : ""}>
-      <ul>
-        {props.data.map(e => (
-          <ListItem
-            text={e.text}
-            priority={e.priority}
-            // priorityToIcon={props.priorityToIcon}
-            checked={e.checked}
-            key={e.id}
-            id={e.id}
-            onToggleScroll={handleToggleScroll}
-            {...props}
-          />
-        ))}
-      </ul>
+      {props.loading ? (
+        <div className={"empty"}>Loading...</div>
+      ) : (
+        <>
+          {props.data.length === 0 && (
+          <div className={"empty"}>
+            {props.showCompleted
+              ? "You currently have no tasks"
+              : "You currently have no incomplete tasks"}
+          </div>
+          )}
+          <ul>
+            {props.data.map((e) => (
+              <ListItem
+                text={e.text}
+                priority={e.priority}
+                // priorityToIcon={props.priorityToIcon}
+                checked={e.checked}
+                key={e.id}
+                id={e.id}
+                onToggleScroll={handleToggleScroll}
+                {...props}
+              />
+            ))}
+          </ul>
+        </>
+      )}
       <div ref={props.listEnd}></div>
     </div>
   );

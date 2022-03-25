@@ -148,13 +148,11 @@ function App() {
         checked: false,
         id: id,
         created: serverTimestamp(),
-      });
-      setToScroll(true);
+      }).then(() => setToScroll(true));
     }
   }
 
   function handleToggleChecked(id) {
-    // TODO: Ask Prof. Rhodes if it would be faster to use getDoc()
     const isChecked = data.filter((task) => task.id === id)[0]["checked"];
     updateDoc(doc(collectionRef, id), { checked: !isChecked });
   }
@@ -169,7 +167,6 @@ function App() {
   }
 
   function handleDeleteCompletedTasks() {
-    // TODO: ask about the filter vs indexes?
     let completedTasks = [];
     if (!checkedLoading && !checkedError) {
       completedTasks = checkedData;
@@ -198,11 +195,9 @@ function App() {
         onShowCompleted={handleShowCompleted}
         onHideCompleted={handleHideCompleted}
         />
-      {loading ? (
-        <div>Loading</div>
-      ) : (
         <Contents
           data={data}
+          loading={loading}
           listEnd={listEnd}
           sortPriority={sortType}
           showCompleted={showCompleted}
@@ -214,7 +209,6 @@ function App() {
           medPriorityIcon={medPriorityIcon}
           highPriorityIcon={highPriorityIcon}
         />
-      )}
       <BottomBar onTextInput={addNewTodo} />
       {priorityPopup ? (
         <>

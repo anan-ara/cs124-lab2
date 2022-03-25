@@ -46,7 +46,7 @@
 
 /* Stuff inside the dropdown */
 .dropdown-content > button {
-  color: #555555;
+  color: #595959;
   padding: 2vw 1vw;
   text-decoration: none;
   display: block;
@@ -60,5 +60,5 @@ button.delete {
 
 /* Copied from ListItem.css because these are now buttons not divs. */
 button.bottom-line {
-  border-bottom: 0.1vh solid #999999;
+  border-bottom: 0.1vh solid #595959;
 }

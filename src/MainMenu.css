@@ -3,11 +3,12 @@
 .dropdown-content.main-menu {
   min-width: 60vw;
   /* Change location of dropdown */
-  right: -65vw;
-  top: -2vh;
+  top: 11vh;
+  right: 5.5vw;
+  position: absolute;
 }
 
 #top_bar .dropdown #top-menu-icon {
   height: 9vh;
-  margin-top: -1vh;
+  /* margin-top: -1vh; */
 }
