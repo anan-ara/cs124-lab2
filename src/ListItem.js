@@ -84,7 +84,7 @@ function ListItem(props) {
           }
         }}
       />
-      <span className="dot">{priorityToIcon[props.priority]}</span>
+      <span className="dot" onClick={handleDropDown}>{priorityToIcon[props.priority]}</span>
       <SubMenuToggle onToggle={handleDropDown} buttonLocation={subMenuToggle} />
       {dropDown ? (
         <>
