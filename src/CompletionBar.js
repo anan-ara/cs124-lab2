@@ -1,6 +1,7 @@
 import "./MainMenu.css";
 import "./Dropdown.css";
 import "./CompletionBar.css";
+import SortSelector from "./SortSelector";
 // import {useState} from "react";
 
 function CompletionBar(props) {
@@ -18,6 +19,11 @@ function CompletionBar(props) {
       >
         Show Only Incomplete Tasks
       </button>
+      {props.isNarrow || 
+      <SortSelector
+        onSelectSortType={props.onChangeSortType}
+      />
+      }
     </div>
   );
 }

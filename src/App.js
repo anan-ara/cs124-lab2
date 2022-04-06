@@ -199,6 +199,8 @@ function App() {
         showCompleted={showCompleted}
         onShowCompleted={handleShowCompleted}
         onHideCompleted={handleHideCompleted}
+        onChangeSortType={handleSortType}
+        isNarrow={isNarrow}
         />
         <Contents
           data={data}

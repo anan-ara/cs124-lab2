@@ -18,7 +18,6 @@ function MainMenu(props) {
               props.onToggleDropdown();
               }
             }
-            currentSortType={props.sortType}
           />
         </div>
       )}
