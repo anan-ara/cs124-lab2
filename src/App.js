@@ -6,6 +6,7 @@ import PriorityPopup from "./PriorityPopup";
 import Contents from "./Contents";
 import Backdrop from "./Backdrop";
 import { useState, useEffect, useRef } from "react";
+import { useMediaQuery } from "react-responsive";
 import { generateUniqueID } from "web-vitals/dist/modules/lib/generateUniqueID";
 import { initializeApp } from "firebase/app";
 import { useCollectionData } from "react-firebase-hooks/firestore";
@@ -73,6 +74,9 @@ function App() {
   // Sorting by created
   const createdIncompleteQuery = query(collectionRef, orderBy("created"), where("checked", "==", false));
   const createdIncompleteTuple = useCollectionData(createdIncompleteQuery);
+
+  // Screen Width
+  const isNarrow = useMediaQuery({maxWidth: "500px"})
 
   const priorityIncompleteQuery = query(collectionRef, orderBy("priority", "desc"), where("checked", "==", false));
   const priorityIncompleteTuple = useCollectionData(priorityIncompleteQuery);
@@ -189,6 +193,7 @@ function App() {
         onChangeSortType={handleSortType}
         onDeleteCompleted={handleDeleteCompletedTasks}
         onTogglePriorityPopup={handlePriorityPopup}
+        isNarrow={isNarrow}
       />
       <CompletionBar
         showCompleted={showCompleted}

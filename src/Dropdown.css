@@ -62,3 +62,8 @@ button.delete {
 button.bottom-line {
   border-bottom: 0.1vh solid #595959;
 }
+
+
+.dropdown div.bottom-line {
+    border-bottom: 0.1em solid #595959;
+  }

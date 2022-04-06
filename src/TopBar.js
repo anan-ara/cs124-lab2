@@ -23,12 +23,13 @@ function TopBar(props) {
     <>
       <div id="top_bar">
         <div id="app-title">Todos</div>
+        {props.isNarrow || 
         <SortSelector
           dropDown={sortDropDown}
-          onChangeSortType={props.onChangeSortType}
+          onSelectSortType={props.onChangeSortType}
           currentSortType={props.sortType}
-          onToggleDropdown={handleSortDropDown}
         />
+        }
         <MainMenuToggle onToggleDropdown={handleDropDown} />
         {/* Conditionally show the drop down and backdrop  */}
         {dropDown ? (
