@@ -1,10 +1,10 @@
 import "./MainMenu.css";
 import "./Dropdown.css";
-import "./CompletionBar.css";
+import "./SubBar.css";
 import SortSelector from "./SortSelector";
 // import {useState} from "react";
 
-function CompletionBar(props) {
+function SubBar(props) {
   return (
     <div id="completion-bar" className="bottom-line">
       <button
@@ -28,4 +28,4 @@ function CompletionBar(props) {
   );
 }
 
-export default CompletionBar;
+export default SubBar;

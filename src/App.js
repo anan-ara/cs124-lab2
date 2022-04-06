@@ -1,6 +1,6 @@
 import "./todo.css";
 import TopBar from "./TopBar";
-import CompletionBar from "./CompletionBar";
+import SubBar from "./SubBar";
 import BottomBar from "./BottomBar";
 import PriorityPopup from "./PriorityPopup";
 import Contents from "./Contents";
@@ -195,7 +195,7 @@ function App() {
         onTogglePriorityPopup={handlePriorityPopup}
         isNarrow={isNarrow}
       />
-      <CompletionBar
+      <SubBar
         showCompleted={showCompleted}
         onShowCompleted={handleShowCompleted}
         onHideCompleted={handleHideCompleted}
