@@ -1,6 +1,6 @@
 import "./SortSelector.css";
 import "./Dropdown.css";
-import "./TopBarMenu.css";
+// import "./TopBarMenu.css";
 
 function SortSelector(props) {
   const SORT_TYPE_TEXT_DICT = {"created":"Creation", "priority":"Priority", "text":"Name"};

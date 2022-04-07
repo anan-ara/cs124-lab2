@@ -1,9 +1,7 @@
 import "./MainMenu.css";
 import "./Dropdown.css";
-import "./TopBarMenu.css";
 import "./SortSelector.css";
 import SortSelector from "./SortSelector";
-// import {useState} from "react";
 
 function MainMenu(props) {
   return (
