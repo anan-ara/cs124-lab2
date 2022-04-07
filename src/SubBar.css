@@ -1,16 +1,24 @@
 #completion-bar {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    padding: 1vh 0;
-    height: 3vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  padding: 6px 0;
+  height: 19px;
 }
 
 #completion-bar button {
-    color: #494949;
+  color: #494949;
 }
 
 #completion-bar button.activated {
-    color: white;
-    background-color: #595959;
+  color: white;
+  background-color: #494949;
 }
+
+#completion-bar .activated {
+  background-color: #999999;
+  border-radius: 5px;
+}
+
+

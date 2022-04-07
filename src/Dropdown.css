@@ -37,21 +37,21 @@
 
 .dropdown-content {
   position: absolute;
-  right: 1vw;
+  right: 4px;
   background-color: white;
-  border-radius: 3vw;
-  font-size: 1rem;
-  margin-top: -2vw;
+  border-radius: 11px;
+  font-size: small;
+  margin-top: -7px;
 }
 
 /* Stuff inside the dropdown */
 .dropdown-content > button {
-  color: #595959;
-  padding: 2vw 1vw;
+  color: #494949;
+  padding: 7px 4px;
   text-decoration: none;
   display: block;
   text-align: center;
-  font-size: 1rem;
+  font-size: medium;
 }
 
 button.delete {
@@ -60,10 +60,10 @@ button.delete {
 
 /* Copied from ListItem.css because these are now buttons not divs. */
 button.bottom-line {
-  border-bottom: 0.1vh solid #595959;
+  border-bottom: 0.1em solid #494949;
 }
 
 
 .dropdown div.bottom-line {
-    border-bottom: 0.1em solid #595959;
+    border-bottom: 0.1em solid #494949;
   }

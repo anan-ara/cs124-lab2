@@ -1,7 +1,8 @@
 #contents {
     order: 1;
     flex: 4 1 auto;
-    height: 74vh;
+    height: calc(100vh - 64px - 60px - 31px - 1.5px);
+    /* 74vh; */
     overflow: hidden;
     background-color: white;
   -ms-overflow-style: none;  /* IE and Edge */

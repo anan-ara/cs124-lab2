@@ -1,8 +1,8 @@
 #top_bar {
     order: 0;
-    background: #595959;
-    padding: 1vh 0;
-    height: 10vh;
+    background: #494949;
+    /* padding: 6px 0; */
+    height: 64px;
 
     /* top bar's own flexbox */
     flex-direction: row;
@@ -15,7 +15,7 @@
 
 #top_bar svg {
     flex: 0 0 auto;
-    height: 7vh;
+    height: 45px;
     width: auto;
     fill: white;
 }

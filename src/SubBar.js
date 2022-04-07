@@ -1,4 +1,4 @@
-import "./MainMenu.css";
+// import "./MainMenu.css";
 import "./Dropdown.css";
 import "./SubBar.css";
 import SortSelector from "./SortSelector";
