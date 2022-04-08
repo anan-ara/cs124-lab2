@@ -90,6 +90,7 @@ function App() {
   const [showCompleted, setShowCompleted] = useState(true);
   const [sortType, setSortType] = useState("created");
   const [toScroll, setToScroll] = useState(false);
+  const [homeScreen, setHomeScreen] = useState(true);
 
   let [data, loading, error] = SORT_TYPE_DICT[sortType][showCompleted ? "all" : "incomplete"];
 
@@ -184,57 +185,67 @@ function App() {
     updateDoc(doc(collectionRef, id), { text: newText });
   }
 
-  return (
-    <>
-      <TopBar
-        showCompleted={showCompleted}
-        sortType={sortType}
-        onShowCompleted={handleShowCompleted}
-        onChangeSortType={handleSortType}
-        onDeleteCompleted={handleDeleteCompletedTasks}
-        onTogglePriorityPopup={handlePriorityPopup}
-        isNarrow={isNarrow}
-      />
-      <SubBar
-        showCompleted={showCompleted}
-        onShowCompleted={handleShowCompleted}
-        onHideCompleted={handleHideCompleted}
-        onChangeSortType={handleSortType}
-        isNarrow={isNarrow}
-        />
-        <Contents
-          data={data}
-          loading={loading}
-          listEnd={listEnd}
-          sortPriority={sortType}
-          showCompleted={showCompleted}
-          onToggleChecked={handleToggleChecked}
-          onChangePriority={handleChangePriority}
-          onDeleteTask={handleDeleteTask}
-          onChangeText={handleChangeText}
-          lowPriorityIcon={lowPriorityIcon}
-          medPriorityIcon={medPriorityIcon}
-          highPriorityIcon={highPriorityIcon}
-        />
-      <BottomBar onTextInput={addNewTodo} />
-      {priorityPopup ? (
-        <>
-          <Backdrop onClickBackdrop={handlePriorityPopup} />
-          <PriorityPopup
-            lowPriorityIcon={lowPriorityIcon}
-            medPriorityIcon={medPriorityIcon}
-            highPriorityIcon={highPriorityIcon}
-            lowPriorityOptions={lowPriorityOptions}
-            medPriorityOptions={medPriorityOptions}
-            highPriorityOptions={highPriorityOptions}
-            onChangeLowPriorityIcon={setLowPriorityIcon}
-            onChangeMedPriorityIcon={setMedPriorityIcon}
-            onChangeHighPriorityIcon={setHighPriorityIcon}
-          />
-        </>
-      ) : null}
-    </>
-  );
+  function handleShowHome() {
+    setHomeScreen(true);
+    console.log('going back home')
+  }
+
+  return 
+    {homeScreen ? 
+      <Home/>
+      :
+      <ListView/>
+    }
+    // <>
+    //   <TopBar
+    //     showCompleted={showCompleted}
+    //     sortType={sortType}
+    //     onShowCompleted={handleShowCompleted}
+    //     onChangeSortType={handleSortType}
+    //     onDeleteCompleted={handleDeleteCompletedTasks}
+    //     onTogglePriorityPopup={handlePriorityPopup}
+    //     isNarrow={isNarrow}
+    //     onShowHome={handleShowHome}
+    //   />
+    //   <SubBar
+    //     showCompleted={showCompleted}
+    //     onShowCompleted={handleShowCompleted}
+    //     onHideCompleted={handleHideCompleted}
+    //     onChangeSortType={handleSortType}
+    //     isNarrow={isNarrow}
+    //     />
+    //     <Contents
+    //       data={data}
+    //       loading={loading}
+    //       listEnd={listEnd}
+    //       sortPriority={sortType}
+    //       showCompleted={showCompleted}
+    //       onToggleChecked={handleToggleChecked}
+    //       onChangePriority={handleChangePriority}
+    //       onDeleteTask={handleDeleteTask}
+    //       onChangeText={handleChangeText}
+    //       lowPriorityIcon={lowPriorityIcon}
+    //       medPriorityIcon={medPriorityIcon}
+    //       highPriorityIcon={highPriorityIcon}
+    //     />
+    //   <BottomBar onTextInput={addNewTodo} />
+    //   {priorityPopup ? (
+    //     <>
+    //       <Backdrop onClickBackdrop={handlePriorityPopup} />
+    //       <PriorityPopup
+    //         lowPriorityIcon={lowPriorityIcon}
+    //         medPriorityIcon={medPriorityIcon}
+    //         highPriorityIcon={highPriorityIcon}
+    //         lowPriorityOptions={lowPriorityOptions}
+    //         medPriorityOptions={medPriorityOptions}
+    //         highPriorityOptions={highPriorityOptions}
+    //         onChangeLowPriorityIcon={setLowPriorityIcon}
+    //         onChangeMedPriorityIcon={setMedPriorityIcon}
+    //         onChangeHighPriorityIcon={setHighPriorityIcon}
+    //       />
+    //     </>
+    //   ) : null}
+    // </>
 }
 
 export default App;

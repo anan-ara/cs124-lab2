@@ -2,6 +2,7 @@ import "./TopBar.css";
 import "./Button.css";
 import MainMenuToggle from "./MainMenuToggle";
 import MainMenu from "./MainMenu";
+import BackButton from "./BackButton"
 import Backdrop from "./Backdrop";
 import { useState } from "react";
 import SortSelector from "./SortSelector";
@@ -22,6 +23,7 @@ function TopBar(props) {
   return (
     <>
       <div id="top_bar">
+        <BackButton onBackButton={props.onShowHome}/>
         <div id="app_title">Todos</div>
         <MainMenuToggle onToggleDropdown={handleDropDown} />
         {/* Conditionally show the drop down and backdrop  */}
