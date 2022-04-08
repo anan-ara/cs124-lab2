@@ -4,13 +4,12 @@ input[type='checkbox']:checked {
 }
 
 li input[type='checkbox'] {
-    min-width: 4vh;
     -webkit-appearance:none;
-    width:4vh;
-    height:4vh;
+    width: 25px;
+    height: 25px;
     background:white;
-    border-radius:1vh;
-    border:0.4vh solid #595959;
+    border-radius:6px;
+    border:2.6px solid #494949;
 }
 
 li textarea {
@@ -19,8 +18,9 @@ li textarea {
     width: 68vw;
     border:none;
     background:none;
-    color: #595959;
-    font-size: 2.8vh;
+    color: #494949;
+    font-size: medium;
+    /* font-size: 2.8vh; */
     resize: none;
 }
 
@@ -30,9 +30,9 @@ li.done textarea {
 }
 
 #contents svg {
-    height: 3vh;
+    height: 19px;
     width: auto;
-    fill: #595959;
+    fill: #494949;
 }
 
 #contents .dot {
@@ -40,16 +40,16 @@ li.done textarea {
 }
 
 div.bottom-line {
-    border-bottom: 0.1em solid #595959;
+    border-bottom: 1.5px solid #494949;
   }
 
 #contents li {
-    min-height: 7vh;
+    min-height: 44px;
     background: white;
     display: flex;
     align-items: center;
-    padding: 1vh;
-    border-bottom: .1em solid #595959;
+    padding: 6.4px;
+    border-bottom: 1.5px solid #494949;
 }
 
 textarea:hover, 

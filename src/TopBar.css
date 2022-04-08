@@ -1,22 +1,29 @@
 #top_bar {
     order: 0;
-    background: #595959;
-    padding: 1vh 0;
-    height: 10vh;
+    background: #494949;
+    /* padding-right: 6px; */
+    height: 64px;
 
     /* top bar's own flexbox */
     flex-direction: row;
     align-items: center;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     /* take up whole width */
     width: 100%;
 }
 
+#top_bar > button, #top_bar > #app_title {
+    padding: 0px 10px;
+}
+
 #top_bar svg {
     flex: 0 0 auto;
-    height: 7vh;
+    height: 45px;
     width: auto;
+    /* position: absolute; */
+    /* right: 10px; */
+
     fill: white;
 }
 
@@ -30,7 +37,7 @@
     width: auto;
 }
 
-#app-title {
+#app_title {
     color: white;
     font-size: xx-large;
     font-weight: bold;

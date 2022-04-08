@@ -1,6 +1,6 @@
 import "./SortSelector.css";
 import "./Dropdown.css";
-import "./TopBarMenu.css";
+// import "./TopBarMenu.css";
 
 function SortSelector(props) {
   const SORT_TYPE_TEXT_DICT = {"created":"Creation", "priority":"Priority", "text":"Name"};
@@ -11,7 +11,7 @@ function SortSelector(props) {
       <select
         name="sort-types"
         id="sort-types"
-        onChange={(e) => props.onChangeSortType(e.currentTarget.value)}
+        onChange={(e) => props.onSelectSortType(e.currentTarget.value)}
       >
         {Object.keys(SORT_TYPE_TEXT_DICT).map((sortType) => (
           <option value={sortType}>{SORT_TYPE_TEXT_DICT[sortType]}</option>

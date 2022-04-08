@@ -1,14 +1,25 @@
 /* The container <div> - needed to position the dropdown content */
 
 .dropdown-content.main-menu {
-  min-width: 60vw;
+  min-width: 250px;
   /* Change location of dropdown */
-  top: 11vh;
-  right: 5.5vw;
+  top: 70px;
+  right: 20px;
   position: absolute;
 }
 
 #top_bar .dropdown #top-menu-icon {
-  height: 9vh;
+  height: 64px;
   /* margin-top: -1vh; */
+}
+
+.dropdown-content.top-bar-menu::before {
+  background-color: white;
+  right: 10px;
+}
+
+.dropdown-content.top-bar-menu {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
 }

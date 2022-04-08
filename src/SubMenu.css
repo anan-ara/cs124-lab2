@@ -1,40 +1,43 @@
 .dropdown-content.sub-menu::before {
-  background-color: #595959;
+  background-color: #494949;
   right: 0;
 }
 
 .dropdown-content.sub-menu {
-  min-width: 30vw;
-  border: 0.1vh solid #595959;
-  right: 1vw;
-  top: 4vh;
+  /* min-width: 30vw; */
+  width: 110px;
+  border: 0.6px solid #494949;
+  right: 4px;
+  top: 26px;
   display: flex;
   flex-direction: column;
 }
 
 .poptop .dropdown-content.sub-menu {
-  top: -19vh;
+  top: -118px;
 }
 
 .poptop .dropdown-content.sub-menu::before {
-  background-color: #595959;
-  top: 27vw;
+  background-color: #494949;
+  top: 83px;
+  /* TODO: make look pretty */
 }
 
 div.priority-adjust {
   display: flex;
   justify-content: space-around;
-  padding: 2vw 1vw;
+  padding: 5px;
 }
 
 div.priority-adjust button {
   height: 1.5rem;
   text-align: center;
+  /* padding: 0px; */
 }
 
-.activated {
+.priority-adjust .activated {
   background-color: #999999;
-  border-radius: 1vw;
+  border-radius: 4px;
 }
 
 /* Change color of dropdown links on hover */

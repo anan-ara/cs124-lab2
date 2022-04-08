@@ -22,13 +22,7 @@ function TopBar(props) {
   return (
     <>
       <div id="top_bar">
-        <div id="app-title">Todos</div>
-        <SortSelector
-          dropDown={sortDropDown}
-          onChangeSortType={props.onChangeSortType}
-          currentSortType={props.sortType}
-          onToggleDropdown={handleSortDropDown}
-        />
+        <div id="app_title">Todos</div>
         <MainMenuToggle onToggleDropdown={handleDropDown} />
         {/* Conditionally show the drop down and backdrop  */}
         {dropDown ? (

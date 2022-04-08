@@ -1,28 +1,42 @@
 import "./MainMenu.css";
 import "./Dropdown.css";
-import "./TopBarMenu.css";
-// import {useState} from "react";
+import "./SortSelector.css";
+import SortSelector from "./SortSelector";
 
 function MainMenu(props) {
   return (
-    <>
-      {props.dropDown ? (
-        <div
-          className="dropdown dropdown-content main-menu top-bar-menu"
-          onClick={props.onToggleDropdown}
-        >
-          <button
-            className="delete-completed bottom-line delete"
-            onClick={props.onDeleteCompleted}
-          >
-            Delete Completed
-          </button>
-          <button onClick={props.onTogglePriorityPopup}>
-            Change Priority Emoji
-          </button>
+    <div className="dropdown dropdown-content main-menu top-bar-menu">
+      {props.isNarrow && (
+        <div className="bottom-line">
+          <SortSelector
+            dropDown={props.sortDropDown}
+            onSelectSortType={
+              sortOption => {
+              props.onChangeSortType(sortOption);
+              props.onToggleDropdown();
+              }
+            }
+          />
         </div>
-      ) : null}
-    </>
+      )}
+      <button
+        className="delete-completed bottom-line delete"
+        onClick={() => {
+          props.onDeleteCompleted();
+          props.onToggleDropdown();
+        }}
+      >
+        Delete Completed
+      </button>
+      <button
+        onClick={() => {
+          props.onTogglePriorityPopup();
+          props.onToggleDropdown();
+        }}
+      >
+        Change Priority Emoji
+      </button>
+    </div>
   );
 }
 

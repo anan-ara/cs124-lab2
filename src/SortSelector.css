@@ -1,12 +1,14 @@
 .sorting_text {
-  color: white;
+  color: #494949;
   font-size: small;
   white-space: nowrap;
 }
 
 select {
-  margin-left: 1vw;
-  border-radius: 1vw;
+  margin-left: 5px;
+  border-radius: 5px;
+  /* TODO: make this align vertically */
+
 }
 
 /* Get rid of blue outline on select element */

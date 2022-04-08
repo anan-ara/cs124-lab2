@@ -47,7 +47,7 @@ We chose a very neutral grey color palette as our app will have a lot of color f
 
 We also chose these colors because they meet the AA accessibility standard for the amount of contrast needed between foreground and background for the app's text to be readable. Most notably, we changed the overall background color of our app from #e6e6e6 to #ffffff. We used the [WebAIM](https://webaim.org/resources/contrastchecker/) contrast checker to help us with this task.
 
-#ffffff, #595959, #757575, #999999, #494949
+#ffffff, #757575, #999999, #494949
 
 ## Empty List Behavior
 
