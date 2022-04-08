@@ -1,10 +1,10 @@
-import "./ListItem.css";
+import "./TaskItem.css";
 import SubMenu from "./SubMenu";
 import Backdrop from "./Backdrop";
 import SubMenuToggle from "./SubMenuToggle";
 import { useEffect, useState, useRef } from "react";
 
-function ListItem(props) {
+function TaskItem(props) {
   const [dropDown, setDropDown] = useState(false);
   const [editable, setEditable] = useState(false);
 
@@ -102,4 +102,4 @@ function ListItem(props) {
   );
 }
 
-export default ListItem;
+export default TaskItem;

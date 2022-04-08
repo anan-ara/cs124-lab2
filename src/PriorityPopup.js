@@ -13,21 +13,21 @@ function PriorityPopup(props) {
         key={"Low" }
         iconOptions={props.lowPriorityOptions}
         currentIcon={props.lowPriorityIcon}
-        onChangeIcon={props.onChangeLowPriorityIcon}
+        onChangeIcon={props.setLowPriorityIcon}
         priorityText={"Low" + props.lowPriorityIcon}
       />
       <PriorityTab
         key={"Med"}
         iconOptions={props.medPriorityOptions}
         currentIcon={props.medPriorityIcon}
-        onChangeIcon={props.onChangeMedPriorityIcon}
+        onChangeIcon={props.setMedPriorityIcon}
         priorityText={"Med" + props.medPriorityIcon}
       />
       <PriorityTab
         key={"High"}
         iconOptions={props.highPriorityOptions}
         currentIcon={props.highPriorityIcon}
-        onChangeIcon={props.onChangeHighPriorityIcon}
+        onChangeIcon={props.setHighPriorityIcon}
         priorityText={"High" + props.highPriorityIcon}
       />
     </TabList>
