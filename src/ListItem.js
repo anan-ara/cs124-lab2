@@ -20,6 +20,7 @@ function ListItem(props) {
     1: props.medPriorityIcon,
     2: props.highPriorityIcon,
   };
+  
   // reference to subMenuToggle button
   const subMenuToggle = useRef();
 

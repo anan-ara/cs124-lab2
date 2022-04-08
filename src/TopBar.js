@@ -23,13 +23,14 @@ function TopBar(props) {
   return (
     <>
       <div id="top_bar">
-        <BackButton onBackButton={props.onShowHome}/>
-        <div id="app_title">Todos</div>
+        {!props.homeScreen && <BackButton onBackButton={props.onShowHome}/>}
+        <div id="app_title">{props.title}</div>
         <MainMenuToggle onToggleDropdown={handleDropDown} />
         {/* Conditionally show the drop down and backdrop  */}
         {dropDown ? (
           <>
             <Backdrop onClickBackdrop={handleDropDown} />
+            {/* TODO: make this different depending on if we are in Home or ListView */}
             <MainMenu
               dropDown={dropDown}
               onToggleDropdown={handleDropDown}

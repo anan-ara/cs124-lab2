@@ -1,0 +1,154 @@
+import "./todo.css";
+import TopBar from "./TopBar";
+import SubBar from "./SubBar";
+import BottomBar from "./BottomBar";
+import PriorityPopup from "./PriorityPopup";
+import Contents from "./Contents";
+import Backdrop from "./Backdrop";
+import { useState, useEffect, useRef } from "react";
+import { generateUniqueID } from "web-vitals/dist/modules/lib/generateUniqueID";
+import { useCollectionData } from "react-firebase-hooks/firestore";
+import {
+  query,
+  setDoc,
+  updateDoc,
+  deleteDoc,
+  doc,
+  orderBy,
+  where,
+  serverTimestamp,
+  collection,
+} from "firebase/firestore";
+import {
+  initialLowPriorityIcon,
+  initialMedPriorityIcon,
+  initialHighPriorityIcon,
+  lowPriorityOptions,
+  medPriorityOptions,
+  highPriorityOptions,
+} from ".";
+
+function Home(props) {
+  const collectionRef = collection(
+    props.db,
+    "anan-cynthia"
+  );
+
+  const [sortType, setSortType] = useState("created");
+  const [toScroll, setToScroll] = useState(false);
+
+//   const [showCompleted, setShowCompleted] = useState(true);
+
+  // Priority popup
+  const [priorityPopup, setPriorityPopup] = useState(false);
+  function handlePriorityPopup() {
+    setPriorityPopup(!priorityPopup);
+  }
+
+  // Get data from database.
+  let orderByParam = orderBy(sortType);
+//   if (sortType == "priority") {
+//     orderByParam = orderBy("priority", "desc");
+//   }
+  let queryParam = query(collectionRef, orderByParam);
+//   if (!showCompleted) {
+//     queryParam = query(
+//       collectionRef,
+//       orderByParam,
+//       where("checked", "==", false)
+//     );
+//   }
+  let [data, loading, error] = useCollectionData(queryParam);
+
+  if (error) {
+    console.log(error);
+  }
+
+  function addNewList(text) {
+    const id = generateUniqueID();
+    if (text !== "") {
+      setDoc(doc(collectionRef, id), {
+        text: text,
+        id: id,
+        created: serverTimestamp(),
+      })//.then(() => setToScroll(true));
+    }
+  }
+
+  function handleSortType(newSortType) {
+    setSortType(newSortType);
+  }
+
+  //   These handlers need the collectionRef too
+  function handleDeleteList(id) {
+    props.handleDeleteList(id, collectionRef);
+  }
+
+  function handleChangeText(id, newText) {
+    props.handleChangeText(id, newText, collectionRef);
+  }
+
+  // end of list used for autoscrolling
+  const listEnd = useRef();
+
+  // Called on every rerender where toScroll changes.
+//   useEffect(() => {
+//     // Scrolls to recently added item if an item was just added
+//     if (toScroll) {
+//       listEnd.current.scrollIntoView({
+//         behavior: "smooth",
+//         block: "end",
+//         inline: "nearest",
+//       });
+//       setToScroll(false);
+//     }
+//   }, [toScroll]);
+
+  return (
+    <div id="home-screen">
+      <TopBar
+        sortType={sortType}
+        onChangeSortType={handleSortType}
+        isNarrow={props.isNarrow}
+        homeScreen={true}
+        title={"My Lists"}
+        onTogglePriorityPopup={handlePriorityPopup}
+      />
+      {/* <Contents
+        data={data}
+        loading={loading}
+        listEnd={listEnd}
+        sortPriority={sortType}
+        showCompleted={showCompleted}
+        onToggleChecked={handleToggleChecked}
+        onChangePriority={handleChangePriority}
+        onDeleteTask={handleDeleteTask}
+        onChangeText={handleChangeText}
+        lowPriorityIcon={lowPriorityIcon}
+        medPriorityIcon={medPriorityIcon}
+        highPriorityIcon={highPriorityIcon}
+      /> */}
+      <BottomBar onTextInput={addNewList}/>
+      {priorityPopup ? (
+        <>
+          <Backdrop onClickBackdrop={handlePriorityPopup} />
+          <PriorityPopup
+            // lowPriorityIcon={lowPriorityIcon}
+            // medPriorityIcon={medPriorityIcon}
+            // highPriorityIcon={highPriorityIcon}
+            // lowPriorityOptions={lowPriorityOptions}
+            // medPriorityOptions={medPriorityOptions}
+            // highPriorityOptions={highPriorityOptions}
+            // onChangeLowPriorityIcon={setLowPriorityIcon}
+            // onChangeMedPriorityIcon={setMedPriorityIcon}
+            // onChangeHighPriorityIcon={setHighPriorityIcon}
+            {...props}
+          />
+        </>
+      ) : null}
+      
+      
+    </div>
+  );
+}
+export default Home;
