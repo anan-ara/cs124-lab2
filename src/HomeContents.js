@@ -2,7 +2,7 @@ import "./Contents.css";
 import TaskItem from "./TaskItem";
 import { useState } from "react";
 
-function Contents(props) {
+function HomeContents(props) {
   const [scroll, setScroll] = useState(true);
 
   function handleToggleScroll() {
@@ -29,9 +29,7 @@ function Contents(props) {
         <>
           {props.data.length === 0 && (
           <div className={"empty"}>
-            {props.showCompleted
-              ? "You currently have no tasks"
-              : "You currently have no incomplete tasks"}
+             You currently have no lists
           </div>
           )}
           <ul>
@@ -55,4 +53,4 @@ function Contents(props) {
   );
 }
 
-export default Contents;
+export default HomeContents;

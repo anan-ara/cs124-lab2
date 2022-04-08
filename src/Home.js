@@ -3,7 +3,7 @@ import TopBar from "./TopBar";
 import SubBar from "./SubBar";
 import BottomBar from "./BottomBar";
 import PriorityPopup from "./PriorityPopup";
-import Contents from "./Contents";
+import HomeContents from "./HomeContents";
 import Backdrop from "./Backdrop";
 import { useState, useEffect, useRef } from "react";
 import { generateUniqueID } from "web-vitals/dist/modules/lib/generateUniqueID";
@@ -114,20 +114,13 @@ function Home(props) {
         title={"My Lists"}
         onTogglePriorityPopup={handlePriorityPopup}
       />
-      {/* <Contents
+      <HomeContents
         data={data}
         loading={loading}
         listEnd={listEnd}
-        sortPriority={sortType}
-        showCompleted={showCompleted}
-        onToggleChecked={handleToggleChecked}
-        onChangePriority={handleChangePriority}
-        onDeleteTask={handleDeleteTask}
+        onDeleteList={handleDeleteList}
         onChangeText={handleChangeText}
-        lowPriorityIcon={lowPriorityIcon}
-        medPriorityIcon={medPriorityIcon}
-        highPriorityIcon={highPriorityIcon}
-      /> */}
+      />
       <BottomBar onTextInput={addNewList}/>
       {priorityPopup ? (
         <>

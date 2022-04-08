@@ -19,14 +19,6 @@ import {
   serverTimestamp,
   collection,
 } from "firebase/firestore";
-// import {
-//   initialLowPriorityIcon,
-//   initialMedPriorityIcon,
-//   initialHighPriorityIcon,
-//   lowPriorityOptions,
-//   medPriorityOptions,
-//   highPriorityOptions,
-// } from ".";
 
 function ListView(props) {
   const collectionRef = collection(
@@ -97,18 +89,6 @@ function ListView(props) {
       }).then(() => setToScroll(true));
     }
   }
-
-  // // Priority icons
-  // const [lowPriorityIcon, setLowPriorityIcon] = useState(
-  //   initialLowPriorityIcon
-  // );
-  // const [medPriorityIcon, setMedPriorityIcon] = useState(
-  //   initialMedPriorityIcon
-  // );
-  // const [highPriorityIcon, setHighPriorityIcon] = useState(
-  //   initialHighPriorityIcon
-  // );
-  //    TODO: move to db
 
   function handleShowCompleted() {
     setShowCompleted(true);
