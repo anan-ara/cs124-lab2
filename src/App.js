@@ -60,10 +60,6 @@ function App() {
   //   setPriorityPopup(!priorityPopup);
   // }
 
-  function handleDelete(id, collectionRef) {
-    deleteDoc(doc(collectionRef, id));
-  }
-
   function handleChangeText(id, newText, collectionRef) {
     updateDoc(doc(collectionRef, id), { text: newText });
   }
@@ -83,7 +79,6 @@ function App() {
       db={db}
       isNarrow={isNarrow}
       onShowHome={handleShowHome}
-      handleDeleteList={handleDelete}
       handleChangeText={handleChangeText}
       lowPriorityIcon={lowPriorityIcon}
       medPriorityIcon={medPriorityIcon}
@@ -103,7 +98,6 @@ function App() {
       db={db}
       isNarrow={isNarrow}
       onShowHome={handleShowHome}
-      handleDeleteTask={handleDelete}
       handleChangeText={handleChangeText}
       lowPriorityIcon={lowPriorityIcon}
       medPriorityIcon={medPriorityIcon}

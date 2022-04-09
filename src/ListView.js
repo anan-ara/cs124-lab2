@@ -121,7 +121,7 @@ function ListView(props) {
 
   //   These handlers need the collectionRef too
   function handleDeleteTask(id) {
-    props.handleDeleteTask(id, collectionRef);
+    deleteDoc(doc(collectionRef, id));
   }
 
   function handleChangeText(id, newText) {

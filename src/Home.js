@@ -18,6 +18,8 @@ import {
   where,
   serverTimestamp,
   collection,
+  getDocs,
+  QuerySnapshot,
 } from "firebase/firestore";
 import {
   initialLowPriorityIcon,
@@ -29,10 +31,7 @@ import {
 } from ".";
 
 function Home(props) {
-  const collectionRef = collection(
-    props.db,
-    "anan-cynthia"
-  );
+  const collectionRef = collection(props.db, "anan-cynthia");
 
   const [sortType, setSortType] = useState("created");
   const [toScroll, setToScroll] = useState(false);
@@ -45,19 +44,19 @@ function Home(props) {
 
   // Get data from database.
   let orderByParam = orderBy(sortType);
-//   if (sortType == "priority") {
-//     orderByParam = orderBy("priority", "desc");
-//   }
+  //   if (sortType == "priority") {
+  //     orderByParam = orderBy("priority", "desc");
+  //   }
   let queryParam = query(collectionRef, orderByParam);
-//   if (!showCompleted) {
-//     queryParam = query(
-//       collectionRef,
-//       orderByParam,
-//       where("checked", "==", false)
-//     );
-//   }
+  //   if (!showCompleted) {
+  //     queryParam = query(
+  //       collectionRef,
+  //       orderByParam,
+  //       where("checked", "==", false)
+  //     );
+  //   }
   let [data, loading, error] = useCollectionData(queryParam);
-  console.log(data)
+  console.log(data);
 
   if (error) {
     console.log(error);
@@ -70,8 +69,8 @@ function Home(props) {
         text: text,
         id: id,
         created: serverTimestamp(),
-        sort: "created"
-      })//.then(() => setToScroll(true));
+        sort: "created",
+      }); //.then(() => setToScroll(true));
     }
   }
 
@@ -81,8 +80,20 @@ function Home(props) {
 
   //   These handlers need the collectionRef too
   function handleDeleteList(id) {
-      console.log("not done yet. We need to delete the subcollection data, ask for confirmation, etc.")
-    // props.handleDeleteList(id, collectionRef);
+    console.log(
+      "not done yet. We need to delete the subcollection data, ask for confirmation, etc."
+    );
+    // deleteDoc(doc(collectionRef, id));
+
+    const collectionRef = collection(props.db, "anan-cynthia", id, "items");
+    const q = query(collectionRef);
+    getDocs(q).then((querySnapshot) =>
+      querySnapshot.forEach((doc) => {
+        console.log(doc.data());
+        // deleteDoc(collectionRef, doc.data().id);
+        // above line doesn't work for some reason
+      })
+    );
     // TODO: Delete the subcollection and delete metadata for associated list
   }
 
@@ -94,17 +105,17 @@ function Home(props) {
   const listEnd = useRef();
 
   // Called on every rerender where toScroll changes.
-//   useEffect(() => {
-//     // Scrolls to recently added item if an item was just added
-//     if (toScroll) {
-//       listEnd.current.scrollIntoView({
-//         behavior: "smooth",
-//         block: "end",
-//         inline: "nearest",
-//       });
-//       setToScroll(false);
-//     }
-//   }, [toScroll]);
+  //   useEffect(() => {
+  //     // Scrolls to recently added item if an item was just added
+  //     if (toScroll) {
+  //       listEnd.current.scrollIntoView({
+  //         behavior: "smooth",
+  //         block: "end",
+  //         inline: "nearest",
+  //       });
+  //       setToScroll(false);
+  //     }
+  //   }, [toScroll]);
 
   return (
     <div id="home-screen">
@@ -125,7 +136,7 @@ function Home(props) {
         onSelectList={props.onSelectList}
         homeScreen={props.homeScreen}
       />
-      <BottomBar onTextInput={addNewList}/>
+      <BottomBar onTextInput={addNewList} />
       {priorityPopup ? (
         <>
           <Backdrop onClickBackdrop={handlePriorityPopup} />
@@ -143,8 +154,6 @@ function Home(props) {
           />
         </>
       ) : null}
-      
-      
     </div>
   );
 }
