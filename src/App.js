@@ -40,7 +40,7 @@ function App() {
   // const [showCompleted, setShowCompleted] = useState(true);
   // const [sortType, setSortType] = useState("created");
   // const [toScroll, setToScroll] = useState(false);
-  const [homeScreen, setHomeScreen] = useState(false); // TODO change back
+  const [homeScreen, setHomeScreen] = useState(true); // TODO change back
 
   const [currentList, setCurrentList] = useState("defaultList");
 

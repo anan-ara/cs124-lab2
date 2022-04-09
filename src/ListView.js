@@ -7,7 +7,7 @@ import Contents from "./Contents";
 import Backdrop from "./Backdrop";
 import { useState, useEffect, useRef } from "react";
 import { generateUniqueID } from "web-vitals/dist/modules/lib/generateUniqueID";
-import { useCollectionData } from "react-firebase-hooks/firestore";
+import { useCollectionData, useDocumentData } from "react-firebase-hooks/firestore";
 import {
   query,
   setDoc,
@@ -28,7 +28,7 @@ function ListView(props) {
     "items"
   );
 
-  const [sortType, setSortType] = useState("created");
+  //   const [sortType, setSortType] = useState("created");
   const [toScroll, setToScroll] = useState(false);
 
   const [showCompleted, setShowCompleted] = useState(true);
@@ -38,7 +38,23 @@ function ListView(props) {
   const [checkedData, checkedLoading, checkedError] =
     useCollectionData(isCheckedQuery);
 
+  const metadataRef = collection(props.db, "anan-cynthia");
+  const [metadata, metadataLoading, metadataError] = useDocumentData(
+    doc(metadataRef, props.currentList)
+  );
+
+  if (metadataError) {
+    console.log("error");
+  }
+
+  let sortType = "created";
+
   // Get data from database.
+  if (metadataLoading === false) {
+    sortType = metadata.sort;
+    console.log("working");
+  }
+
   let orderByParam = orderBy(sortType);
   if (sortType == "priority") {
     orderByParam = orderBy("priority", "desc");
@@ -99,7 +115,8 @@ function ListView(props) {
   }
 
   function handleSortType(newSortType) {
-    setSortType(newSortType);
+    updateDoc(doc(metadataRef, props.currentList), { sort: newSortType });
+    // .then( setSortType(newSortType));
   }
 
   //   These handlers need the collectionRef too
@@ -156,7 +173,7 @@ function ListView(props) {
       />
       <Contents
         data={data}
-        loading={loading}
+        loading={metadataLoading || loading}
         listEnd={listEnd}
         sortPriority={sortType}
         showCompleted={showCompleted}

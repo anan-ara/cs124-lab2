@@ -37,8 +37,6 @@ function Home(props) {
   const [sortType, setSortType] = useState("created");
   const [toScroll, setToScroll] = useState(false);
 
-//   const [showCompleted, setShowCompleted] = useState(true);
-
   // Priority popup
   const [priorityPopup, setPriorityPopup] = useState(false);
   function handlePriorityPopup() {
@@ -59,6 +57,7 @@ function Home(props) {
 //     );
 //   }
   let [data, loading, error] = useCollectionData(queryParam);
+  console.log(data)
 
   if (error) {
     console.log(error);
@@ -71,6 +70,7 @@ function Home(props) {
         text: text,
         id: id,
         created: serverTimestamp(),
+        sort: "created"
       })//.then(() => setToScroll(true));
     }
   }
@@ -82,6 +82,7 @@ function Home(props) {
   //   These handlers need the collectionRef too
   function handleDeleteList(id) {
     props.handleDeleteList(id, collectionRef);
+    // TODO: Delete the subcollection and delete metadata for associated list
   }
 
   function handleChangeText(id, newText) {
