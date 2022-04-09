@@ -13,7 +13,7 @@ function SubMenu(props) {
           Rename
         </button>
         <button
-          className="delete bottom-line"
+          className={props.homeScreen ? "delete" : "delete bottom-line"}
           onClick={() => props.onDelete(props.id)}
         >
           Delete

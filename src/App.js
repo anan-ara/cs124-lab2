@@ -70,7 +70,11 @@ function App() {
 
   function handleShowHome() {
     setHomeScreen(true);
-    console.log("going back home");
+  }
+
+  function handleSelectList(listId) {
+    setCurrentList(listId);
+    setHomeScreen(false);
   }
 
   return homeScreen ? (
@@ -91,6 +95,7 @@ function App() {
       medPriorityOptions={medPriorityOptions}
       highPriorityOptions={highPriorityOptions}
       homeScreen={true}
+      onSelectList={handleSelectList}
     />
   ) : (
     <ListView
