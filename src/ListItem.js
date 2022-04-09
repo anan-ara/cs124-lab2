@@ -14,13 +14,6 @@ function ListItem(props) {
   // reference to textArea
   const textArea = useRef();
 
-  // So that we can translate from priority number to the icon.
-  let priorityToIcon = {
-    0: props.lowPriorityIcon,
-    1: props.medPriorityIcon,
-    2: props.highPriorityIcon,
-  };
-  
   // reference to subMenuToggle button
   const subMenuToggle = useRef();
 
@@ -59,14 +52,7 @@ function ListItem(props) {
   });
 
   return (
-    <li className={props.checked ? "done" : ""}>
-      <input
-        type="checkbox"
-        id={props.id}
-        name={props.id}
-        checked={props.checked}
-        onChange={() => props.onToggleChecked(props.id)}
-      />
+    <li>
       <textarea
         value={text}
         ref={textArea}
@@ -85,7 +71,6 @@ function ListItem(props) {
           }
         }}
       />
-      <span className="dot" onClick={handleDropDown}>{priorityToIcon[props.priority]}</span>
       <SubMenuToggle onToggle={handleDropDown} buttonLocation={subMenuToggle} />
       {dropDown ? (
         <>
@@ -94,6 +79,7 @@ function ListItem(props) {
             onHandleDropDown={handleDropDown}
             onRename={handleStartRename}
             top={getToggleLocation()}
+            onDelete={props.onDeleteTask}
             {...props}
           />
         </>

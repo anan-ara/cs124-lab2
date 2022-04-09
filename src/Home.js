@@ -120,6 +120,7 @@ function Home(props) {
         listEnd={listEnd}
         onDeleteList={handleDeleteList}
         onChangeText={handleChangeText}
+        homeScreen={props.homeScreen}
       />
       <BottomBar onTextInput={addNewList}/>
       {priorityPopup ? (

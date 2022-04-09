@@ -1,0 +1,71 @@
+input[type='checkbox']:checked {
+    background: #999999;
+    content: "✔";
+}
+
+li input[type='checkbox'] {
+    -webkit-appearance:none;
+    width: 25px;
+    height: 25px;
+    background:white;
+    border-radius:6px;
+    border:2.6px solid #494949;
+}
+
+li textarea {
+    font-family: "SF Pro Display","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif;
+    margin-left: 2vw;
+    width: 68vw;
+    border:none;
+    background:none;
+    color: #494949;
+    font-size: medium;
+    /* font-size: 2.8vh; */
+    resize: none;
+}
+
+li.done textarea {
+    color: #757575;
+    text-decoration: line-through;
+}
+
+#contents svg {
+    height: 19px;
+    width: auto;
+    fill: #494949;
+}
+
+#contents .dot {
+    margin-left: auto;
+}
+
+div.bottom-line {
+    border-bottom: 1.5px solid #494949;
+  }
+
+#contents li {
+    min-height: 44px;
+    background: white;
+    display: flex;
+    align-items: center;
+    padding: 6.4px;
+    border-bottom: 1.5px solid #494949;
+}
+
+textarea:hover, 
+input:hover, 
+textarea:active, 
+input:active, 
+textarea:focus, 
+input:focus,
+button:focus,
+button:active,
+button:hover,
+label:focus,
+.btn:active,
+.btn.active
+{
+    outline:0px !important;
+    -webkit-appearance:none;
+    box-shadow: none !important;
+}
