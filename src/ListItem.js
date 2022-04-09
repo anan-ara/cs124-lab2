@@ -31,7 +31,7 @@ function ListItem(props) {
 
   function handleFinishRename() {
     if (text === "") {
-      props.onDeleteTask(props.id);
+      props.onDeleteList(props.id);
     } else {
       setEditable(false);
       props.onChangeText(props.id, text);
@@ -79,7 +79,7 @@ function ListItem(props) {
             onHandleDropDown={handleDropDown}
             onRename={handleStartRename}
             top={getToggleLocation()}
-            onDelete={props.onDeleteTask}
+            onDelete={props.onDeleteList}
             {...props}
           />
         </>
