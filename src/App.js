@@ -1,15 +1,10 @@
 import "./todo.css";
 import Home from "./Home";
 import ListView from "./ListView";
-import { useState} from "react";
+import { useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { initializeApp } from "firebase/app";
-import {
-  getFirestore,
-  updateDoc,
-  deleteDoc,
-  doc,
-} from "firebase/firestore";
+import { getFirestore, updateDoc, deleteDoc, doc } from "firebase/firestore";
 import {
   initialLowPriorityIcon,
   initialMedPriorityIcon,
@@ -39,7 +34,6 @@ const db = getFirestore(app);
 // const collectionRef = collection(db, collectionName);
 
 function App() {
-
   // Screen Width
   const isNarrow = useMediaQuery({ maxWidth: "500px" });
 
@@ -50,22 +44,21 @@ function App() {
 
   const [currentList, setCurrentList] = useState("defaultList");
 
-    // Priority icons
-    const [lowPriorityIcon, setLowPriorityIcon] = useState(
-      initialLowPriorityIcon
-    );
-    const [medPriorityIcon, setMedPriorityIcon] = useState(
-      initialMedPriorityIcon
-    );
-    const [highPriorityIcon, setHighPriorityIcon] = useState(
-      initialHighPriorityIcon
-    );
+  // Priority icons
+  const [lowPriorityIcon, setLowPriorityIcon] = useState(
+    initialLowPriorityIcon
+  );
+  const [medPriorityIcon, setMedPriorityIcon] = useState(
+    initialMedPriorityIcon
+  );
+  const [highPriorityIcon, setHighPriorityIcon] = useState(
+    initialHighPriorityIcon
+  );
 
-    // const [priorityPopup, setPriorityPopup] = useState(false);
-    // function handlePriorityPopup() {
-    //   setPriorityPopup(!priorityPopup);
-    // }
-
+  // const [priorityPopup, setPriorityPopup] = useState(false);
+  // function handlePriorityPopup() {
+  //   setPriorityPopup(!priorityPopup);
+  // }
 
   function handleDelete(id, collectionRef) {
     deleteDoc(doc(collectionRef, id));
@@ -77,27 +70,33 @@ function App() {
 
   function handleShowHome() {
     setHomeScreen(true);
-    console.log("going back home");
+  }
+
+  function handleSelectList(listId) {
+    setCurrentList(listId);
+    setHomeScreen(false);
   }
 
   return homeScreen ? (
-    <Home currentList={currentList}
-    db={db}
-    isNarrow={isNarrow}
-    onShowHome={handleShowHome}
-    handleDeleteList={handleDelete}
-    handleChangeText={handleChangeText}
-    lowPriorityIcon={lowPriorityIcon}
-    medPriorityIcon={medPriorityIcon}
-    highPriorityIcon={highPriorityIcon}
-    setLowPriorityIcon={setLowPriorityIcon}
-    setMedPriorityIcon={setMedPriorityIcon}
-    setHighPriorityIcon={setHighPriorityIcon}
-    lowPriorityOptions={lowPriorityOptions}
-            medPriorityOptions={medPriorityOptions}
-            highPriorityOptions={highPriorityOptions}
-
-  />
+    <Home
+      currentList={currentList}
+      db={db}
+      isNarrow={isNarrow}
+      onShowHome={handleShowHome}
+      handleDeleteList={handleDelete}
+      handleChangeText={handleChangeText}
+      lowPriorityIcon={lowPriorityIcon}
+      medPriorityIcon={medPriorityIcon}
+      highPriorityIcon={highPriorityIcon}
+      setLowPriorityIcon={setLowPriorityIcon}
+      setMedPriorityIcon={setMedPriorityIcon}
+      setHighPriorityIcon={setHighPriorityIcon}
+      lowPriorityOptions={lowPriorityOptions}
+      medPriorityOptions={medPriorityOptions}
+      highPriorityOptions={highPriorityOptions}
+      homeScreen={true}
+      onSelectList={handleSelectList}
+    />
   ) : (
     <ListView
       currentList={currentList}
@@ -109,10 +108,10 @@ function App() {
       lowPriorityIcon={lowPriorityIcon}
       medPriorityIcon={medPriorityIcon}
       highPriorityIcon={highPriorityIcon}
+      homeScreen={false}
       // setLowPriorityIcon={setLowPriorityIcon}
       // setMedPriorityIcon={setMedPriorityIcon}
       // setHighPriorityIcon={setHighPriorityIcon}
-
     />
   );
 }

@@ -1,5 +1,5 @@
 import "./Contents.css";
-import TaskItem from "./TaskItem";
+import ListItem from "./ListItem";
 import { useState } from "react";
 
 function HomeContents(props) {
@@ -34,7 +34,7 @@ function HomeContents(props) {
           )}
           <ul>
             {props.data.map((e) => (
-              <TaskItem
+              <ListItem
                 text={e.text}
                 priority={e.priority}
                 // priorityToIcon={props.priorityToIcon}
