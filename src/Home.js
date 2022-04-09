@@ -81,7 +81,8 @@ function Home(props) {
 
   //   These handlers need the collectionRef too
   function handleDeleteList(id) {
-    props.handleDeleteList(id, collectionRef);
+      console.log("not done yet. We need to delete the subcollection data, ask for confirmation, etc.")
+    // props.handleDeleteList(id, collectionRef);
     // TODO: Delete the subcollection and delete metadata for associated list
   }
 
