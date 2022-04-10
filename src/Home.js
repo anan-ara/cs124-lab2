@@ -136,6 +136,7 @@ function Home(props) {
         onChangeText={handleChangeText}
         onSelectList={props.onSelectList}
         homeScreen={props.homeScreen}
+        getBottomBarLocation={getBottomBarLocation}
       />
       <BottomBar onTextInput={addNewList} bottomBarRef={bottomBar}/>
       {priorityPopup ? (
