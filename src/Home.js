@@ -85,23 +85,17 @@ function Home(props) {
 
   //   These handlers need the collectionRef too
   function handleDeleteList(id) {
-    console.log(
-      "not done yet. We need to delete the subcollection data, ask for confirmation, etc."
-    );
-    console.log(id)
-    // deleteDoc(doc(collectionRef, id));
+    // TODO: ask for confirmation
+    deleteDoc(doc(collectionRef, id));
 
-    // const collectionRef = collection(props.db, "anan-cynthia", id, "items");
-    // const q = query(collectionRef);
-    // getDocs(q).then((querySnapshot) =>
-    //   querySnapshot.forEach((doc) => {
-    //     console.log(doc.data());
-        // deleteDoc(collectionRef, doc.data().id);
-        // above line doesn't work for some reason
-    //   })
-    // );
-    // TODO: Delete the subcollection and delete metadata for associated list
-  }
+    const subCollectionRef = collection(props.db, "anan-cynthia", id, "items");
+    const q = query(subCollectionRef);
+    getDocs(q).then((querySnapshot) =>
+      querySnapshot.forEach((listDoc) => {
+        deleteDoc(doc(subCollectionRef, listDoc.data().id));
+      })
+    );
+}
 
   function handleChangeText(id, newText) {
     props.handleChangeText(id, newText, collectionRef);

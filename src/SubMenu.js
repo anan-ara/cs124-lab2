@@ -2,7 +2,6 @@ import "./SubMenu.css";
 import "./Dropdown.css";
 
 function SubMenu(props) {
-  console.log(props.homeScreen)
   return (
     <div
       className={props.top > 400 ? "dropdown poptop" : "dropdown"}
