@@ -8,11 +8,13 @@ function DeleteListPopup(props) {
       <div>Are you sure you want to delete list {props.text}?</div>
       <div>
         <button
+          // className={(props.showCompleted ? "activated " : "") + "radio-button"}
           onClick={props.onClosePopup}
         >
           Cancel
         </button>
         <button
+          // className={(props.showCompleted ? "activated " : "") + "radio-button"}
           onClick={() => {
             props.onDeleteList(props.id);
             props.onClosePopup();
