@@ -36,6 +36,8 @@ function Home(props) {
   const [sortType, setSortType] = useState("created");
   const [toScroll, setToScroll] = useState(false);
 
+  const [filter, setFilter] = useState("");
+
   // Priority popup
   const [priorityPopup, setPriorityPopup] = useState(false);
   function handlePriorityPopup() {
@@ -62,6 +64,10 @@ function Home(props) {
   //     );
   //   }
   let [data, loading, error] = useCollectionData(queryParam);
+  let filteredData = data;
+  if (!loading) {
+    filteredData = data.filter(item => item.text.includes(filter));
+  }
 
   if (error) {
     console.log(error);
@@ -127,8 +133,14 @@ function Home(props) {
         title={"My Lists"}
         onTogglePriorityPopup={handlePriorityPopup}
       />
+      <input
+        type="text"
+        placeholder="Search..."
+        value={filter}
+        onChange={e => setFilter(e.target.value)}
+      />
       <HomeContents
-        data={data}
+        data={filteredData}
         loading={loading}
         listEnd={listEnd}
         onDeleteList={handleDeleteList}
