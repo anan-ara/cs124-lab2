@@ -56,6 +56,14 @@ function Home(props) {
   //   }
   let [data, loading, error] = useCollectionData(queryParam);
 
+  // Needed so that we know when the submenu menu needs to pop up instead of down. 
+  const bottomBar = useRef();
+
+  function getBottomBarLocation() {
+    const rect = bottomBar.current.getBoundingClientRect();
+    return rect.top;
+  }
+
   if (error) {
     console.log(error);
   }
@@ -129,7 +137,7 @@ function Home(props) {
         onSelectList={props.onSelectList}
         homeScreen={props.homeScreen}
       />
-      <BottomBar onTextInput={addNewList} />
+      <BottomBar onTextInput={addNewList} bottomBarRef={bottomBar}/>
       {priorityPopup ? (
         <>
           <Backdrop onClickBackdrop={handlePriorityPopup} />

@@ -43,6 +43,13 @@ function ListView(props) {
     doc(metadataRef, props.currentList)
   );
 
+  const bottomBar = useRef();
+  function getBottomBarLocation() {
+    const rect = bottomBar.current.getBoundingClientRect();
+    return rect.top;
+  }
+
+
   if (metadataError) {
     console.log("error");
   }
@@ -181,12 +188,13 @@ function ListView(props) {
         onChangePriority={handleChangePriority}
         onDeleteTask={handleDeleteTask}
         onChangeText={handleChangeText}
+        getBottomBarLocation={getBottomBarLocation}
         {...props}
         // lowPriorityIcon={lowPriorityIcon}
         // medPriorityIcon={medPriorityIcon}
         // highPriorityIcon={highPriorityIcon}
       />
-      <BottomBar onTextInput={addNewTodo} />
+      <BottomBar onTextInput={addNewTodo} bottomBarRef={bottomBar}/>
       {/* {priorityPopup ? (
         <>
           <Backdrop onClickBackdrop={handlePriorityPopup} />
