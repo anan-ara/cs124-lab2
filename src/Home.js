@@ -1,6 +1,5 @@
 import "./todo.css";
 import TopBar from "./TopBar";
-import SubBar from "./SubBar";
 import BottomBar from "./BottomBar";
 import PriorityPopup from "./PriorityPopup";
 import HomeContents from "./HomeContents";
@@ -56,7 +55,6 @@ function Home(props) {
   //     );
   //   }
   let [data, loading, error] = useCollectionData(queryParam);
-  console.log(data);
 
   if (error) {
     console.log(error);
@@ -80,21 +78,16 @@ function Home(props) {
 
   //   These handlers need the collectionRef too
   function handleDeleteList(id) {
-    console.log(
-      "not done yet. We need to delete the subcollection data, ask for confirmation, etc."
-    );
-    // deleteDoc(doc(collectionRef, id));
+    // TODO: ask for confirmation
+    deleteDoc(doc(collectionRef, id));
 
-    const collectionRef = collection(props.db, "anan-cynthia", id, "items");
-    const q = query(collectionRef);
+    const subCollectionRef = collection(props.db, "anan-cynthia", id, "items");
+    const q = query(subCollectionRef);
     getDocs(q).then((querySnapshot) =>
-      querySnapshot.forEach((doc) => {
-        console.log(doc.data());
-        // deleteDoc(collectionRef, doc.data().id);
-        // above line doesn't work for some reason
+      querySnapshot.forEach((listDoc) => {
+        deleteDoc(doc(subCollectionRef, listDoc.data().id));
       })
     );
-    // TODO: Delete the subcollection and delete metadata for associated list
   }
 
   function handleChangeText(id, newText) {
