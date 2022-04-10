@@ -67,7 +67,7 @@ function ListItem(props) {
         readOnly={!editable}
         onClick={() => {
           if (!editable) {
-            props.onSelectList("defaultList"); // TODO change this to actual list ID
+            props.onSelectList(props.id);
           }
         }}
       />

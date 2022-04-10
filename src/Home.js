@@ -1,6 +1,5 @@
 import "./todo.css";
 import TopBar from "./TopBar";
-import SubBar from "./SubBar";
 import BottomBar from "./BottomBar";
 import PriorityPopup from "./PriorityPopup";
 import HomeContents from "./HomeContents";
@@ -18,6 +17,8 @@ import {
   where,
   serverTimestamp,
   collection,
+  getDocs,
+  QuerySnapshot,
 } from "firebase/firestore";
 import {
   initialLowPriorityIcon,
@@ -29,15 +30,10 @@ import {
 } from ".";
 
 function Home(props) {
-  const collectionRef = collection(
-    props.db,
-    "anan-cynthia"
-  );
+  const collectionRef = collection(props.db, "anan-cynthia");
 
   const [sortType, setSortType] = useState("created");
   const [toScroll, setToScroll] = useState(false);
-
-//   const [showCompleted, setShowCompleted] = useState(true);
 
   // Priority popup
   const [priorityPopup, setPriorityPopup] = useState(false);
@@ -47,17 +43,17 @@ function Home(props) {
 
   // Get data from database.
   let orderByParam = orderBy(sortType);
-//   if (sortType == "priority") {
-//     orderByParam = orderBy("priority", "desc");
-//   }
+  //   if (sortType == "priority") {
+  //     orderByParam = orderBy("priority", "desc");
+  //   }
   let queryParam = query(collectionRef, orderByParam);
-//   if (!showCompleted) {
-//     queryParam = query(
-//       collectionRef,
-//       orderByParam,
-//       where("checked", "==", false)
-//     );
-//   }
+  //   if (!showCompleted) {
+  //     queryParam = query(
+  //       collectionRef,
+  //       orderByParam,
+  //       where("checked", "==", false)
+  //     );
+  //   }
   let [data, loading, error] = useCollectionData(queryParam);
 
   if (error) {
@@ -71,7 +67,8 @@ function Home(props) {
         text: text,
         id: id,
         created: serverTimestamp(),
-      })//.then(() => setToScroll(true));
+        sort: "created",
+      }); //.then(() => setToScroll(true));
     }
   }
 
@@ -81,7 +78,16 @@ function Home(props) {
 
   //   These handlers need the collectionRef too
   function handleDeleteList(id) {
-    props.handleDeleteList(id, collectionRef);
+    // TODO: ask for confirmation
+    deleteDoc(doc(collectionRef, id));
+
+    const subCollectionRef = collection(props.db, "anan-cynthia", id, "items");
+    const q = query(subCollectionRef);
+    getDocs(q).then((querySnapshot) =>
+      querySnapshot.forEach((listDoc) => {
+        deleteDoc(doc(subCollectionRef, listDoc.data().id));
+      })
+    );
   }
 
   function handleChangeText(id, newText) {
@@ -92,17 +98,17 @@ function Home(props) {
   const listEnd = useRef();
 
   // Called on every rerender where toScroll changes.
-//   useEffect(() => {
-//     // Scrolls to recently added item if an item was just added
-//     if (toScroll) {
-//       listEnd.current.scrollIntoView({
-//         behavior: "smooth",
-//         block: "end",
-//         inline: "nearest",
-//       });
-//       setToScroll(false);
-//     }
-//   }, [toScroll]);
+  //   useEffect(() => {
+  //     // Scrolls to recently added item if an item was just added
+  //     if (toScroll) {
+  //       listEnd.current.scrollIntoView({
+  //         behavior: "smooth",
+  //         block: "end",
+  //         inline: "nearest",
+  //       });
+  //       setToScroll(false);
+  //     }
+  //   }, [toScroll]);
 
   return (
     <div id="home-screen">
@@ -123,7 +129,7 @@ function Home(props) {
         onSelectList={props.onSelectList}
         homeScreen={props.homeScreen}
       />
-      <BottomBar onTextInput={addNewList}/>
+      <BottomBar onTextInput={addNewList} />
       {priorityPopup ? (
         <>
           <Backdrop onClickBackdrop={handlePriorityPopup} />
@@ -141,8 +147,6 @@ function Home(props) {
           />
         </>
       ) : null}
-      
-      
     </div>
   );
 }

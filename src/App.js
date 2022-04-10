@@ -40,7 +40,7 @@ function App() {
   // const [showCompleted, setShowCompleted] = useState(true);
   // const [sortType, setSortType] = useState("created");
   // const [toScroll, setToScroll] = useState(false);
-  const [homeScreen, setHomeScreen] = useState(false); // TODO change back
+  const [homeScreen, setHomeScreen] = useState(true); // TODO change back
 
   const [currentList, setCurrentList] = useState("defaultList");
 
@@ -59,10 +59,6 @@ function App() {
   // function handlePriorityPopup() {
   //   setPriorityPopup(!priorityPopup);
   // }
-
-  function handleDelete(id, collectionRef) {
-    deleteDoc(doc(collectionRef, id));
-  }
 
   function handleChangeText(id, newText, collectionRef) {
     updateDoc(doc(collectionRef, id), { text: newText });
@@ -83,7 +79,6 @@ function App() {
       db={db}
       isNarrow={isNarrow}
       onShowHome={handleShowHome}
-      handleDeleteList={handleDelete}
       handleChangeText={handleChangeText}
       lowPriorityIcon={lowPriorityIcon}
       medPriorityIcon={medPriorityIcon}
@@ -103,7 +98,6 @@ function App() {
       db={db}
       isNarrow={isNarrow}
       onShowHome={handleShowHome}
-      handleDeleteTask={handleDelete}
       handleChangeText={handleChangeText}
       lowPriorityIcon={lowPriorityIcon}
       medPriorityIcon={medPriorityIcon}
