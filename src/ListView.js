@@ -49,6 +49,7 @@ function ListView(props) {
     return rect.top;
   }
 
+  const [filter, setFilter] = useState("");
 
   if (metadataError) {
     console.log("error");
@@ -59,7 +60,6 @@ function ListView(props) {
   // Get data from database.
   if (metadataLoading === false) {
     sortType = metadata.sort;
-    console.log("working");
   }
 
   let orderByParam = orderBy(sortType);
@@ -74,7 +74,13 @@ function ListView(props) {
       where("checked", "==", false)
     );
   }
-  let [data, loading, error] = useCollectionData(queryParam);
+  const [data, loading, error] = useCollectionData(queryParam);
+
+  let filteredData = data;
+  if (!loading) {
+    filteredData = data.filter(item => item.text.includes(filter));
+  }
+  
 
   if (error) {
     console.log(error);
@@ -178,8 +184,14 @@ function ListView(props) {
         onChangeSortType={handleSortType}
         isNarrow={props.isNarrow}
       />
+      <input
+        type="text"
+        placeholder="Search..."
+        value={filter}
+        onChange={e => setFilter(e.target.value)}
+      />
       <Contents
-        data={data}
+        data={filteredData}
         loading={metadataLoading || loading}
         listEnd={listEnd}
         sortPriority={sortType}

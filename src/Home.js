@@ -2,6 +2,7 @@ import "./todo.css";
 import TopBar from "./TopBar";
 import BottomBar from "./BottomBar";
 import PriorityPopup from "./PriorityPopup";
+import CreateListPopup from "./CreateListPopup";
 import HomeContents from "./HomeContents";
 import Backdrop from "./Backdrop";
 import { useState, useEffect, useRef } from "react";
@@ -35,10 +36,18 @@ function Home(props) {
   const [sortType, setSortType] = useState("created");
   const [toScroll, setToScroll] = useState(false);
 
+  const [filter, setFilter] = useState("");
+
   // Priority popup
   const [priorityPopup, setPriorityPopup] = useState(false);
   function handlePriorityPopup() {
     setPriorityPopup(!priorityPopup);
+  }
+
+  // Create List Confirmation
+  const [createListPopup, setCreateListPopup] = useState(false);
+  function handleCreateListPopup() {
+    setCreateListPopup(!createListPopup);
   }
 
   // Get data from database.
@@ -55,6 +64,10 @@ function Home(props) {
   //     );
   //   }
   let [data, loading, error] = useCollectionData(queryParam);
+  let filteredData = data;
+  if (!loading) {
+    filteredData = data.filter(item => item.text.includes(filter));
+  }
 
   // Needed so that we know when the submenu menu needs to pop up instead of down. 
   const bottomBar = useRef();
@@ -96,7 +109,7 @@ function Home(props) {
         deleteDoc(doc(subCollectionRef, listDoc.data().id));
       })
     );
-  }
+}
 
   function handleChangeText(id, newText) {
     props.handleChangeText(id, newText, collectionRef);
@@ -106,17 +119,17 @@ function Home(props) {
   const listEnd = useRef();
 
   // Called on every rerender where toScroll changes.
-  //   useEffect(() => {
-  //     // Scrolls to recently added item if an item was just added
-  //     if (toScroll) {
-  //       listEnd.current.scrollIntoView({
-  //         behavior: "smooth",
-  //         block: "end",
-  //         inline: "nearest",
-  //       });
-  //       setToScroll(false);
-  //     }
-  //   }, [toScroll]);
+    useEffect(() => {
+      // Scrolls to recently added item if an item was just added
+      if (toScroll) {
+        listEnd.current.scrollIntoView({
+          behavior: "smooth",
+          block: "end",
+          inline: "nearest",
+        });
+        setToScroll(false);
+      }
+    }, [toScroll]);
 
   return (
     <div id="home-screen">
@@ -128,8 +141,14 @@ function Home(props) {
         title={"My Lists"}
         onTogglePriorityPopup={handlePriorityPopup}
       />
+      <input
+        type="text"
+        placeholder="Search..."
+        value={filter}
+        onChange={e => setFilter(e.target.value)}
+      />
       <HomeContents
-        data={data}
+        data={filteredData}
         loading={loading}
         listEnd={listEnd}
         onDeleteList={handleDeleteList}
@@ -138,7 +157,13 @@ function Home(props) {
         homeScreen={props.homeScreen}
         getBottomBarLocation={getBottomBarLocation}
       />
-      <BottomBar onTextInput={addNewList} bottomBarRef={bottomBar}/>
+      <button
+        // className={(props.showCompleted ? "activated " : "") + "radio-button"}
+        onClick={handleCreateListPopup}
+        ref={bottomBar}
+      >
+      Create New List
+      </button>
       {priorityPopup ? (
         <>
           <Backdrop onClickBackdrop={handlePriorityPopup} />
@@ -153,6 +178,15 @@ function Home(props) {
             // onChangeMedPriorityIcon={setMedPriorityIcon}
             // onChangeHighPriorityIcon={setHighPriorityIcon}
             {...props}
+          />
+        </>
+      ) : null}
+      {createListPopup ? (
+        <>
+          <Backdrop onClickBackdrop={handleCreateListPopup} />
+          <CreateListPopup
+            onAddList={addNewList}
+            onClosePopup={handleCreateListPopup}
           />
         </>
       ) : null}
