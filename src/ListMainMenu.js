@@ -3,7 +3,7 @@ import "./Dropdown.css";
 import "./SortSelector.css";
 import SortSelector from "./SortSelector";
 
-function MainMenu(props) {
+function ListMainMenu(props) {
   return (
     <div className="dropdown dropdown-content main-menu top-bar-menu">
       {props.isNarrow && (
@@ -29,16 +29,8 @@ function MainMenu(props) {
       >
         Delete Completed
       </button>
-      <button
-        onClick={() => {
-          props.onTogglePriorityPopup();
-          props.onToggleDropdown();
-        }}
-      >
-        Change Priority Emoji
-      </button>
     </div>
   );
 }
 
-export default MainMenu;
+export default ListMainMenu;

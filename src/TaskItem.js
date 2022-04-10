@@ -45,6 +45,10 @@ function TaskItem(props) {
     }
   }
 
+  function onDeleteTask() {
+    props.onDeleteTask(props.id)
+  }
+
   function getToggleLocation() {
     const rect = subMenuToggle.current.getBoundingClientRect();
     return rect.top;
@@ -94,7 +98,7 @@ function TaskItem(props) {
             onHandleDropDown={handleDropDown}
             onRename={handleStartRename}
             top={getToggleLocation()}
-            onDelete={props.onDeleteTask}
+            onDelete={onDeleteTask}
             {...props}
           />
         </>

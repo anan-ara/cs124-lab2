@@ -1,7 +1,8 @@
 import "./TopBar.css";
 import "./Button.css";
 import MainMenuToggle from "./MainMenuToggle";
-import MainMenu from "./MainMenu";
+import ListMainMenu from "./ListMainMenu";
+import HomeMainMenu from "./HomeMainMenu";
 import BackButton from "./BackButton"
 import Backdrop from "./Backdrop";
 import { useState } from "react";
@@ -30,13 +31,19 @@ function TopBar(props) {
         {dropDown ? (
           <>
             <Backdrop onClickBackdrop={handleDropDown} />
-            {/* TODO: make this different depending on if we are in Home or ListView */}
-            <MainMenu
+            {props.homeScreen ? 
+            <HomeMainMenu
               dropDown={dropDown}
               onToggleDropdown={handleDropDown}
               {...props}
-              // onDeleteCompleted={props.onDeleteCompleted}
             />
+            :
+            <ListMainMenu
+              dropDown={dropDown}
+              onToggleDropdown={handleDropDown}
+              {...props}
+            />
+            }
           </>
         ) : null}
       </div>

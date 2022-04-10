@@ -1,6 +1,7 @@
 import "./ListItem.css";
 import SubMenu from "./SubMenu";
 import Backdrop from "./Backdrop";
+import DeleteListPopup from "./DeleteListPopup";
 import SubMenuToggle from "./SubMenuToggle";
 import { useEffect, useState, useRef } from "react";
 
@@ -10,6 +11,12 @@ function ListItem(props) {
 
   // Local text field before it is saved in database
   const [text, setText] = useState(props.text);
+
+  // Delete List Confirmation
+  const [deleteListPopup, setDeleteListPopup] = useState(false);
+  function handleDeleteListPopup() {
+    setDeleteListPopup(!deleteListPopup);
+  }
 
   // reference to textArea
   const textArea = useRef();
@@ -79,9 +86,15 @@ function ListItem(props) {
             onHandleDropDown={handleDropDown}
             onRename={handleStartRename}
             top={getToggleLocation()}
-            onDelete={props.onDeleteList}
+            onDelete={handleDeleteListPopup}
             {...props}
           />
+        </>
+      ) : null}
+      {deleteListPopup ? (
+        <>
+          <Backdrop onClickBackdrop={handleDeleteListPopup} />
+          <DeleteListPopup onClosePopup={handleDeleteListPopup} {...props} />
         </>
       ) : null}
     </li>
