@@ -29,18 +29,12 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// const collectionName = //"anan-cynthia/defaultList/items";
-// const collectionName = "anan-cynthia";
-// const collectionRef = collection(db, collectionName);
 
 function App() {
   // Screen Width
   const isNarrow = useMediaQuery({ maxWidth: "500px" });
 
-  // const [showCompleted, setShowCompleted] = useState(true);
-  // const [sortType, setSortType] = useState("created");
-  // const [toScroll, setToScroll] = useState(false);
-  const [homeScreen, setHomeScreen] = useState(true); // TODO change back
+  const [homeScreen, setHomeScreen] = useState(true);
 
   const [currentList, setCurrentList] = useState("defaultList");
 
@@ -54,11 +48,6 @@ function App() {
   const [highPriorityIcon, setHighPriorityIcon] = useState(
     initialHighPriorityIcon
   );
-
-  // const [priorityPopup, setPriorityPopup] = useState(false);
-  // function handlePriorityPopup() {
-  //   setPriorityPopup(!priorityPopup);
-  // }
 
   function handleChangeText(id, newText, collectionRef) {
     updateDoc(doc(collectionRef, id), { text: newText });
@@ -103,9 +92,6 @@ function App() {
       medPriorityIcon={medPriorityIcon}
       highPriorityIcon={highPriorityIcon}
       homeScreen={false}
-      // setLowPriorityIcon={setLowPriorityIcon}
-      // setMedPriorityIcon={setMedPriorityIcon}
-      // setHighPriorityIcon={setHighPriorityIcon}
     />
   );
 }

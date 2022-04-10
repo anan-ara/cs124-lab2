@@ -29,9 +29,12 @@ import {
   medPriorityOptions,
   highPriorityOptions,
 } from ".";
+import TOP_LEVEL_COLLECTION from "./firestore-config";
+
 
 function Home(props) {
-  const collectionRef = collection(props.db, "anan-cynthia");
+  // const TOP_LEVEL_COLLECTION = "cs124-users/default/lists";
+  const collectionRef = collection(props.db, TOP_LEVEL_COLLECTION);//anan-cynthia
 
   const [sortType, setSortType] = useState("created");
   const [toScroll, setToScroll] = useState(false);
@@ -102,7 +105,7 @@ function Home(props) {
     // TODO: ask for confirmation
     deleteDoc(doc(collectionRef, id));
 
-    const subCollectionRef = collection(props.db, "anan-cynthia", id, "items");
+    const subCollectionRef = collection(props.db, TOP_LEVEL_COLLECTION, id, "items");
     const q = query(subCollectionRef);
     getDocs(q).then((querySnapshot) =>
       querySnapshot.forEach((listDoc) => {

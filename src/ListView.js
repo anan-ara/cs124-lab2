@@ -20,11 +20,12 @@ import {
   serverTimestamp,
   collection,
 } from "firebase/firestore";
+import TOP_LEVEL_COLLECTION from "./firestore-config";
 
 function ListView(props) {
   const collectionRef = collection(
     props.db,
-    "anan-cynthia",
+    TOP_LEVEL_COLLECTION,
     props.currentList,
     "items"
   );
@@ -45,7 +46,7 @@ function ListView(props) {
   const [checkedData, checkedLoading, checkedError] =
     useCollectionData(isCheckedQuery);
 
-  const metadataRef = collection(props.db, "anan-cynthia");
+  const metadataRef = collection(props.db, TOP_LEVEL_COLLECTION);
   const [metadata, metadataLoading, metadataError] = useDocumentData(
     doc(metadataRef, props.currentList)
   );
