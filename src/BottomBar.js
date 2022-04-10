@@ -10,7 +10,7 @@ function BottomBar(props) {
   }
 
   return (
-    <div id="bottom_bar">
+    <div id="bottom_bar" ref={props.bottomBarRef}>
       <button
         onClick={() => {
           props.onTextInput(text);

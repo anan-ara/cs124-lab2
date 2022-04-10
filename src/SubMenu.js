@@ -4,10 +4,11 @@ import "./Dropdown.css";
 function SubMenu(props) {
   return (
     <div
-      className={props.top > 400 ? "dropdown poptop" : "dropdown"}
+      // TODO: unhard code 125 -- right now 125 is pixels of sub menu height
+      className={(props.top + 125 > props.bottomBarLocation ? "dropdown poptop" : "dropdown")}
       onClick={props.onHandleDropDown}
     >
-      <div className="dropdown-content sub-menu">
+      <div className={("dropdown-content sub-menu").concat(props.homeScreen ? " home" : "")}>
         <button className="bottom-line" onClick={props.onRename}>
           Rename
         </button>

@@ -94,6 +94,7 @@ function TaskItem(props) {
             onHandleDropDown={handleDropDown}
             onRename={handleStartRename}
             top={getToggleLocation()}
+            bottomBarLocation={props.getBottomBarLocation()}
             onDelete={props.onDeleteTask}
             {...props}
           />
