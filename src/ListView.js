@@ -3,6 +3,7 @@ import TopBar from "./TopBar";
 import SubBar from "./SubBar";
 import BottomBar from "./BottomBar";
 import PriorityPopup from "./PriorityPopup";
+import DeleteCompletedPopup from "./DeleteCompletedPopup";
 import Contents from "./Contents";
 import Backdrop from "./Backdrop";
 import { useState, useEffect, useRef } from "react";
@@ -33,6 +34,12 @@ function ListView(props) {
 
   const [showCompleted, setShowCompleted] = useState(true);
 
+  const [deleteCompletedPopup, setDeleteCompletedPopup] = useState(false);
+  function handleDeleteCompletedPopup() {
+    setDeleteCompletedPopup(!deleteCompletedPopup);
+    console.log(deleteCompletedPopup)
+  }
+  
   // Use for deleting all completed items
   const isCheckedQuery = query(collectionRef, where("checked", "==", true));
   const [checkedData, checkedLoading, checkedError] =
@@ -170,7 +177,7 @@ function ListView(props) {
         sortType={sortType}
         onShowCompleted={handleShowCompleted}
         onChangeSortType={handleSortType}
-        onDeleteCompleted={handleDeleteCompletedTasks}
+        onDeleteCompleted={handleDeleteCompletedPopup}
         onTogglePriorityPopup={handlePriorityPopup}
         isNarrow={props.isNarrow}
         onShowHome={props.onShowHome}
@@ -207,6 +214,17 @@ function ListView(props) {
         // highPriorityIcon={highPriorityIcon}
       />
       <BottomBar onTextInput={addNewTodo} bottomBarRef={bottomBar}/>
+      {deleteCompletedPopup ? (
+        <>
+          <Backdrop onClickBackdrop={handleDeleteCompletedPopup} />
+          <DeleteCompletedPopup
+            onDelete={handleDeleteCompletedTasks}
+            onClosePopup={handleDeleteCompletedPopup}
+            showCompleted={showCompleted}
+            filter={filter}
+          />
+        </>
+      ) : null}
       {/* {priorityPopup ? (
         <>
           <Backdrop onClickBackdrop={handlePriorityPopup} />
