@@ -86,6 +86,7 @@ function ListItem(props) {
             onHandleDropDown={handleDropDown}
             onRename={handleStartRename}
             top={getToggleLocation()}
+            bottomBarLocation={props.getBottomBarLocation()}
             onDelete={handleDeleteListPopup}
             {...props}
           />

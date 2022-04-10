@@ -69,6 +69,14 @@ function Home(props) {
     filteredData = data.filter(item => item.text.includes(filter));
   }
 
+  // Needed so that we know when the submenu menu needs to pop up instead of down. 
+  const bottomBar = useRef();
+
+  function getBottomBarLocation() {
+    const rect = bottomBar.current.getBoundingClientRect();
+    return rect.top;
+  }
+
   if (error) {
     console.log(error);
   }
@@ -147,10 +155,12 @@ function Home(props) {
         onChangeText={handleChangeText}
         onSelectList={props.onSelectList}
         homeScreen={props.homeScreen}
+        getBottomBarLocation={getBottomBarLocation}
       />
       <button
         // className={(props.showCompleted ? "activated " : "") + "radio-button"}
         onClick={handleCreateListPopup}
+        ref={bottomBar}
       >
       Create New List
       </button>
