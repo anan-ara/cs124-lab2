@@ -95,6 +95,9 @@ function App() {
       lowPriorityOptions={lowPriorityOptions}
       medPriorityOptions={medPriorityOptions}
       highPriorityOptions={highPriorityOptions}
+      lowPriorityIcon={lowPriorityIcon}
+      medPriorityIcon={medPriorityIcon}
+      highPriorityIcon={highPriorityIcon}
       homeScreen={true}
       onSelectList={handleSelectList}
     />

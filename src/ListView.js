@@ -2,7 +2,7 @@ import "./todo.css";
 import TopBar from "./TopBar";
 import SubBar from "./SubBar";
 import BottomBar from "./BottomBar";
-import PriorityPopup from "./PriorityPopup";
+// import PriorityPopup from "./PriorityPopup";
 import DeleteCompletedPopup from "./DeleteCompletedPopup";
 import Contents from "./Contents";
 import Backdrop from "./Backdrop";
@@ -151,11 +151,11 @@ function ListView(props) {
   // end of list used for autoscrolling
   const listEnd = useRef();
 
-  // Priority popup
-  const [priorityPopup, setPriorityPopup] = useState(false);
-  function handlePriorityPopup() {
-    setPriorityPopup(!priorityPopup);
-  }
+  // // Priority popup
+  // const [priorityPopup, setPriorityPopup] = useState(false);
+  // function handlePriorityPopup() {
+  //   setPriorityPopup(!priorityPopup);
+  // }
 
   // Called on every rerender where toScroll changes.
   useEffect(() => {
@@ -178,7 +178,7 @@ function ListView(props) {
         onShowCompleted={handleShowCompleted}
         onChangeSortType={handleSortType}
         onDeleteCompleted={handleDeleteCompletedPopup}
-        onTogglePriorityPopup={handlePriorityPopup}
+        // onTogglePriorityPopup={handlePriorityPopup}
         isNarrow={props.isNarrow}
         onShowHome={props.onShowHome}
         homeScreen={false}
