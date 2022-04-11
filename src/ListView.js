@@ -237,7 +237,7 @@ function ListView(props) {
         // highPriorityIcon={highPriorityIcon}
       />
       <BottomBar onTextInput={addNewTodo} bottomBarRef={bottomBar} />
-      {deleteCompletedPopup ? (
+      {deleteCompletedPopup && (
         <>
           <Backdrop onClickBackdrop={handleDeleteCompletedPopup} />
           <DeleteCompletedPopup
@@ -247,24 +247,7 @@ function ListView(props) {
             filter={filter}
           />
         </>
-      ) : null}
-      {/* {priorityPopup ? (
-        <>
-          <Backdrop onClickBackdrop={handlePriorityPopup} />
-          <PriorityPopup
-            // lowPriorityIcon={lowPriorityIcon}
-            // medPriorityIcon={medPriorityIcon}
-            // highPriorityIcon={highPriorityIcon}
-            lowPriorityOptions={lowPriorityOptions}
-            medPriorityOptions={medPriorityOptions}
-            highPriorityOptions={highPriorityOptions}
-            // onChangeLowPriorityIcon={setLowPriorityIcon}
-            // onChangeMedPriorityIcon={setMedPriorityIcon}
-            // onChangeHighPriorityIcon={setHighPriorityIcon}
-            {...props}
-          />
-        </>
-      ) : null} */}
+      )}
     </>
   );
 }

@@ -7,7 +7,10 @@ import HomeContents from "./HomeContents";
 import Backdrop from "./Backdrop";
 import { useState, useEffect, useRef } from "react";
 import { generateUniqueID } from "web-vitals/dist/modules/lib/generateUniqueID";
-import { useCollectionData, useDocumentData } from "react-firebase-hooks/firestore";
+import {
+  useCollectionData,
+  useDocumentData,
+} from "react-firebase-hooks/firestore";
 import {
   query,
   setDoc,
@@ -30,7 +33,6 @@ import {
 //   highPriorityOptions,
 // } from ".";
 import TOP_LEVEL_COLLECTION from "./firestore-config";
-
 
 function Home(props) {
   // const TOP_LEVEL_COLLECTION = "cs124-users/default/lists";
@@ -57,7 +59,7 @@ function Home(props) {
 
   // Get data from database.
   if (!props.appMetadataLoading) {
-    console.log(props.appMetadata)
+    console.log(props.appMetadata);
     sortType = props.appMetadata.sort;
   }
 
@@ -70,10 +72,10 @@ function Home(props) {
 
   let filteredData = data;
   if (!loading) {
-    filteredData = data.filter(item => item.text.includes(filter));
+    filteredData = data.filter((item) => item.text.includes(filter));
   }
 
-  // Needed so that we know when the submenu menu needs to pop up instead of down. 
+  // Needed so that we know when the submenu menu needs to pop up instead of down.
   const bottomBar = useRef();
 
   function getBottomBarLocation() {
@@ -94,28 +96,33 @@ function Home(props) {
         created: serverTimestamp(),
         sort: "created",
         complete: 0,
-        total: 0
+        total: 0,
       }); //.then(() => setToScroll(true));
     }
   }
 
   function handleSortType(newSortType) {
     updateDoc(doc(metadataRef, "default"), { sort: newSortType });
-    console.log("working")
+    console.log("working");
   }
 
   //   These handlers need the collectionRef too
   function handleDeleteList(id) {
     deleteDoc(doc(collectionRef, id));
 
-    const subCollectionRef = collection(props.db, TOP_LEVEL_COLLECTION, id, "items");
+    const subCollectionRef = collection(
+      props.db,
+      TOP_LEVEL_COLLECTION,
+      id,
+      "items"
+    );
     const q = query(subCollectionRef);
     getDocs(q).then((querySnapshot) =>
       querySnapshot.forEach((listDoc) => {
         deleteDoc(doc(subCollectionRef, listDoc.data().id));
       })
     );
-}
+  }
 
   function handleChangeText(id, newText) {
     props.handleChangeText(id, newText, collectionRef);
@@ -125,17 +132,17 @@ function Home(props) {
   const listEnd = useRef();
 
   // Called on every rerender where toScroll changes.
-    useEffect(() => {
-      // Scrolls to recently added item if an item was just added
-      if (toScroll) {
-        listEnd.current.scrollIntoView({
-          behavior: "smooth",
-          block: "end",
-          inline: "nearest",
-        });
-        setToScroll(false);
-      }
-    }, [toScroll]);
+  useEffect(() => {
+    // Scrolls to recently added item if an item was just added
+    if (toScroll) {
+      listEnd.current.scrollIntoView({
+        behavior: "smooth",
+        block: "end",
+        inline: "nearest",
+      });
+      setToScroll(false);
+    }
+  }, [toScroll]);
 
   return (
     <div id="home-screen">
@@ -151,7 +158,7 @@ function Home(props) {
         type="text"
         placeholder="Search..."
         value={filter}
-        onChange={e => setFilter(e.target.value)}
+        onChange={(e) => setFilter(e.target.value)}
       />
       <HomeContents
         data={filteredData}
@@ -169,9 +176,9 @@ function Home(props) {
         onClick={handleCreateListPopup}
         ref={bottomBar}
       >
-      Create New List
+        Create New List
       </button>
-      {priorityPopup ? (
+      {priorityPopup && (
         <>
           <Backdrop onClickBackdrop={handlePriorityPopup} />
           <PriorityPopup
@@ -187,8 +194,8 @@ function Home(props) {
             {...props}
           />
         </>
-      ) : null}
-      {createListPopup ? (
+      )}
+      {createListPopup && (
         <>
           <Backdrop onClickBackdrop={handleCreateListPopup} />
           <CreateListPopup
@@ -196,7 +203,7 @@ function Home(props) {
             onClosePopup={handleCreateListPopup}
           />
         </>
-      ) : null}
+      )}
     </div>
   );
 }
