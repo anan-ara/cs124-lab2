@@ -13,7 +13,7 @@
     width: 100%;
 }
 
-#top_bar > button, #top_bar > #app_title {
+#top_bar > button, #top_bar > #top_bar_title {
     padding: 0px 10px;
 }
 
@@ -37,7 +37,7 @@
     width: auto;
 }
 
-#app_title {
+#top_bar_title {
     color: white;
     font-size: xx-large;
     font-weight: bold;

@@ -4,6 +4,10 @@
   white-space: nowrap;
 }
 
+#top_bar > #sort-div > .sorting_text {
+  color: white;
+}
+
 select {
   margin-left: 5px;
   border-radius: 5px;
