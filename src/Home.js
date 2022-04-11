@@ -161,6 +161,7 @@ function Home(props) {
         onChangeText={handleChangeText}
         onSelectList={props.onSelectList}
         homeScreen={props.homeScreen}
+        isNarrow={props.isNarrow}
         getBottomBarLocation={getBottomBarLocation}
       />
       <button
