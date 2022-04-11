@@ -9,7 +9,10 @@ import Contents from "./Contents";
 import Backdrop from "./Backdrop";
 import { useState, useEffect, useRef } from "react";
 import { generateUniqueID } from "web-vitals/dist/modules/lib/generateUniqueID";
-import { useCollectionData, useDocumentData } from "react-firebase-hooks/firestore";
+import {
+  useCollectionData,
+  useDocumentData,
+} from "react-firebase-hooks/firestore";
 import {
   query,
   setDoc,
@@ -39,9 +42,9 @@ function ListView(props) {
   const [deleteCompletedPopup, setDeleteCompletedPopup] = useState(false);
   function handleDeleteCompletedPopup() {
     setDeleteCompletedPopup(!deleteCompletedPopup);
-    console.log(deleteCompletedPopup)
+    console.log(deleteCompletedPopup);
   }
-  
+
   // Use for deleting all completed items
   const isCheckedQuery = query(collectionRef, where("checked", "==", true));
   const [checkedData, checkedLoading, checkedError] =
@@ -89,9 +92,8 @@ function ListView(props) {
 
   let filteredData = data;
   if (!loading) {
-    filteredData = data.filter(item => item.text.includes(filter));
+    filteredData = data.filter((item) => item.text.includes(filter));
   }
-  
 
   if (error) {
     console.log(error);
@@ -105,12 +107,23 @@ function ListView(props) {
     } else {
       completedTasks = data.filter((task) => task.checked === true);
     }
-    completedTasks.forEach((task) => deleteDoc(doc(collectionRef, task.id)));
+    let deleteCounter = 0;
+    completedTasks.forEach((task) => {
+      deleteDoc(doc(collectionRef, task.id));
+      deleteCounter = deleteCounter + 1;
+    });
+    updateDoc(doc(metadataRef, props.currentList), {
+      total: metadata.total - deleteCounter,
+      complete: metadata.complete - deleteCounter,
+    });
   }
 
   function handleToggleChecked(id) {
     const isChecked = data.filter((task) => task.id === id)[0]["checked"];
     updateDoc(doc(collectionRef, id), { checked: !isChecked });
+    updateDoc(doc(metadataRef, props.currentList), {
+      complete: isChecked ? metadata.complete - 1 : metadata.complete + 1,
+    });
   }
 
   function handleChangePriority(id, priority) {
@@ -120,6 +133,9 @@ function ListView(props) {
   function addNewTodo(text) {
     const id = generateUniqueID();
     if (text !== "") {
+      updateDoc(doc(metadataRef, props.currentList), {
+        total: metadata.total + 1,
+      });
       setDoc(doc(collectionRef, id), {
         text: text,
         priority: 0,
@@ -148,6 +164,11 @@ function ListView(props) {
 
   //   These handlers need the collectionRef too
   function handleDeleteTask(id) {
+    const isChecked = data.filter((task) => task.id === id)[0]["checked"];
+    updateDoc(doc(metadataRef, props.currentList), {
+      total: metadata.total - 1,
+      complete: isChecked ? metadata.complete - 1 : metadata.complete,
+    });
     deleteDoc(doc(collectionRef, id));
   }
 
@@ -207,8 +228,10 @@ function ListView(props) {
       filter={filter}
       setFilter={setFilter}
       />}
+
       <Contents
         data={filteredData}
+        unfilteredData={data}
         loading={metadataLoading || loading}
         listEnd={listEnd}
         sortPriority={sortType}
@@ -218,13 +241,14 @@ function ListView(props) {
         onDeleteTask={handleDeleteTask}
         onChangeText={handleChangeText}
         getBottomBarLocation={getBottomBarLocation}
+        filter={filter}
         {...props}
         // lowPriorityIcon={lowPriorityIcon}
         // medPriorityIcon={medPriorityIcon}
         // highPriorityIcon={highPriorityIcon}
       />
-      <BottomBar onTextInput={addNewTodo} bottomBarRef={bottomBar}/>
-      {deleteCompletedPopup ? (
+      <BottomBar onTextInput={addNewTodo} bottomBarRef={bottomBar} />
+      {deleteCompletedPopup && (
         <>
           <Backdrop onClickBackdrop={handleDeleteCompletedPopup} />
           <DeleteCompletedPopup
@@ -234,24 +258,7 @@ function ListView(props) {
             filter={filter}
           />
         </>
-      ) : null}
-      {/* {priorityPopup ? (
-        <>
-          <Backdrop onClickBackdrop={handlePriorityPopup} />
-          <PriorityPopup
-            // lowPriorityIcon={lowPriorityIcon}
-            // medPriorityIcon={medPriorityIcon}
-            // highPriorityIcon={highPriorityIcon}
-            lowPriorityOptions={lowPriorityOptions}
-            medPriorityOptions={medPriorityOptions}
-            highPriorityOptions={highPriorityOptions}
-            // onChangeLowPriorityIcon={setLowPriorityIcon}
-            // onChangeMedPriorityIcon={setMedPriorityIcon}
-            // onChangeHighPriorityIcon={setHighPriorityIcon}
-            {...props}
-          />
-        </>
-      ) : null} */}
+      )}
     </>
   );
 }

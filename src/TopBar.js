@@ -3,7 +3,7 @@ import "./Button.css";
 import MainMenuToggle from "./MainMenuToggle";
 import ListMainMenu from "./ListMainMenu";
 import HomeMainMenu from "./HomeMainMenu";
-import BackButton from "./BackButton"
+import BackButton from "./BackButton";
 import Backdrop from "./Backdrop";
 import { useState } from "react";
 import SortSelector from "./SortSelector";
@@ -44,24 +44,24 @@ function TopBar(props) {
             homeScreen={props.homeScreen}
           />}
         <MainMenuToggle onToggleDropdown={handleDropDown} />
-        {dropDown ? (
+        {dropDown && (
           <>
             <Backdrop onClickBackdrop={handleDropDown} />
-            {props.homeScreen ? 
-            <HomeMainMenu
-              dropDown={dropDown}
-              onToggleDropdown={handleDropDown}
-              {...props}
-            />
-            :
-            <ListMainMenu
-              dropDown={dropDown}
-              onToggleDropdown={handleDropDown}
-              {...props}
-            />
-            }
+            {props.homeScreen ? (
+              <HomeMainMenu
+                dropDown={dropDown}
+                onToggleDropdown={handleDropDown}
+                {...props}
+              />
+            ) : (
+              <ListMainMenu
+                dropDown={dropDown}
+                onToggleDropdown={handleDropDown}
+                {...props}
+              />
+            )}
           </>
-        ) : null}
+        )}
       </div>
     </>
   );

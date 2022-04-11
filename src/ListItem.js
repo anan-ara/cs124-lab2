@@ -78,8 +78,13 @@ function ListItem(props) {
           }
         }}
       />
+      {props.isNarrow || (
+        <div>
+          {props.complete} / {props.total} completed
+        </div>
+      )}
       <SubMenuToggle onToggle={handleDropDown} buttonLocation={subMenuToggle} />
-      {dropDown ? (
+      {dropDown && (
         <>
           <Backdrop onClickBackdrop={handleDropDown} />
           <SubMenu
@@ -91,13 +96,13 @@ function ListItem(props) {
             {...props}
           />
         </>
-      ) : null}
-      {deleteListPopup ? (
+      )}
+      {deleteListPopup && (
         <>
           <Backdrop onClickBackdrop={handleDeleteListPopup} />
           <DeleteListPopup onClosePopup={handleDeleteListPopup} {...props} />
         </>
-      ) : null}
+      )}
     </li>
   );
 }
