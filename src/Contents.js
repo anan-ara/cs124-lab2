@@ -29,9 +29,11 @@ function Contents(props) {
         <>
           {props.data.length === 0 && (
           <div className={"empty"}>
-            {props.showCompleted
-              ? "You currently have no tasks"
-              : "You currently have no incomplete tasks"}
+            {props.unfilteredData.length === 0 ?
+            (props.showCompleted ? "You currently have no tasks." : "You currently have no incomplete tasks." )
+            :
+            (props.showCompleted ? "No complete tasks match your search." : "No incomplete tasks match your search." )
+            }
           </div>
           )}
           <ul>

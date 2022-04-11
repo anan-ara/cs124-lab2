@@ -20,7 +20,7 @@ function TaskItem(props) {
     1: props.medPriorityIcon,
     2: props.highPriorityIcon,
   };
-  
+
   // reference to subMenuToggle button
   const subMenuToggle = useRef();
 
@@ -46,7 +46,7 @@ function TaskItem(props) {
   }
 
   function onDeleteTask() {
-    props.onDeleteTask(props.id)
+    props.onDeleteTask(props.id);
   }
 
   function getToggleLocation() {
@@ -89,9 +89,11 @@ function TaskItem(props) {
           }
         }}
       />
-      <span className="dot" onClick={handleDropDown}>{priorityToIcon[props.priority]}</span>
+      <span className="dot" onClick={handleDropDown}>
+        {priorityToIcon[props.priority]}
+      </span>
       <SubMenuToggle onToggle={handleDropDown} buttonLocation={subMenuToggle} />
-      {dropDown ? (
+      {dropDown && (
         <>
           <Backdrop onClickBackdrop={handleDropDown} />
           <SubMenu
@@ -103,7 +105,7 @@ function TaskItem(props) {
             {...props}
           />
         </>
-      ) : null}
+      )}
     </li>
   );
 }
