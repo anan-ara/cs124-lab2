@@ -1,20 +1,7 @@
-.sorting_text {
-  color: #494949;
-  font-size: small;
-  white-space: nowrap;
+#top_bar > #sort-div > .selector-label-text {
+  color: white;
 }
 
-select {
-  margin-left: 5px;
-  border-radius: 5px;
-  /* TODO: make this align vertically */
-
-}
-
-/* Get rid of blue outline on select element */
-select:focus {
-  outline: 0px;
-}
 
 .sort-type-text {
   text-transform: capitalize;

@@ -6,7 +6,8 @@ import HomeMainMenu from "./HomeMainMenu";
 import BackButton from "./BackButton";
 import Backdrop from "./Backdrop";
 import { useState } from "react";
-// import SortSelector from "./SortSelector";
+import SortSelector from "./SortSelector";
+import SearchBar from "./SearchBar";
 
 function TopBar(props) {
   // Main drop down
@@ -24,8 +25,24 @@ function TopBar(props) {
   return (
     <>
       <div id="top_bar">
-        {!props.homeScreen && <BackButton onBackButton={props.onShowHome} />}
-        <div id="app_title">{props.title}</div>
+        {!props.homeScreen && <BackButton onBackButton={props.onShowHome}/>}
+        <div id="top_bar_title">{props.title}</div>
+        {/* Make search bar show up in top bar when not narrow width on home screen  */}
+        {!props.isNarrow && props.homeScreen && <SearchBar
+      filter={props.filter}
+      setFilter={props.setFilter}
+      />}
+        {props.isWide && props.homeScreen && <SortSelector
+            dropDown={props.sortDropDown}
+            onSelectSortType={
+              sortOption => {
+              props.onChangeSortType(sortOption);
+              props.onToggleDropdown();
+              }
+            }
+            currentSortType={props.sortType}
+            homeScreen={props.homeScreen}
+          />}
         <MainMenuToggle onToggleDropdown={handleDropDown} />
         {dropDown && (
           <>

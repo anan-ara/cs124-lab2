@@ -2,6 +2,7 @@ import "./todo.css";
 import TopBar from "./TopBar";
 import SubBar from "./SubBar";
 import BottomBar from "./BottomBar";
+import SearchBar from "./SearchBar";
 // import PriorityPopup from "./PriorityPopup";
 import DeleteCompletedPopup from "./DeleteCompletedPopup";
 import Contents from "./Contents";
@@ -23,7 +24,7 @@ import {
   serverTimestamp,
   collection,
 } from "firebase/firestore";
-import TOP_LEVEL_COLLECTION from "./firestore-config";
+import TOP_LEVEL_COLLECTION from "./firestore-config.js";
 
 function ListView(props) {
   const collectionRef = collection(
@@ -145,13 +146,17 @@ function ListView(props) {
     }
   }
 
-  function handleShowCompleted() {
-    setShowCompleted(true);
+  function handleToggleCompleted() {
+    setShowCompleted(!showCompleted);
   }
 
-  function handleHideCompleted() {
-    setShowCompleted(false);
-  }
+  // function handleShowCompleted() {
+  //   setShowCompleted(true);
+  // }
+
+  // function handleHideCompleted() {
+  //   setShowCompleted(false);
+  // }
 
   function handleSortType(newSortType) {
     updateDoc(doc(metadataRef, props.currentList), { sort: newSortType });
@@ -198,7 +203,7 @@ function ListView(props) {
       <TopBar
         showCompleted={showCompleted}
         sortType={sortType}
-        onShowCompleted={handleShowCompleted}
+        // onShowCompleted={handleShowCompleted}
         onChangeSortType={handleSortType}
         onDeleteCompleted={handleDeleteCompletedPopup}
         // onTogglePriorityPopup={handlePriorityPopup}
@@ -206,20 +211,24 @@ function ListView(props) {
         onShowHome={props.onShowHome}
         homeScreen={false}
         title={title}
+        filter={filter}
+      setFilter={setFilter}
       />
       <SubBar
         showCompleted={showCompleted}
-        onShowCompleted={handleShowCompleted}
-        onHideCompleted={handleHideCompleted}
+        onToggleCompleted={handleToggleCompleted}
         onChangeSortType={handleSortType}
         isNarrow={props.isNarrow}
+        isWide={props.isWide}
+        filter={filter}
+        setFilter={setFilter}
       />
-      <input
-        type="text"
-        placeholder="Search..."
-        value={filter}
-        onChange={(e) => setFilter(e.target.value)}
-      />
+
+      {props.isNarrow && <SearchBar
+      filter={filter}
+      setFilter={setFilter}
+      />}
+
       <Contents
         data={filteredData}
         unfilteredData={data}

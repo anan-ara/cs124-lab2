@@ -4,7 +4,7 @@ import ListView from "./ListView";
 import { useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, updateDoc, deleteDoc, doc } from "firebase/firestore";
+import { getFirestore, collection, updateDoc, doc } from "firebase/firestore";
 import { useDocumentData } from "react-firebase-hooks/firestore";
 
 // Ours
@@ -25,7 +25,9 @@ const db = getFirestore(app);
 
 function App() {
   // Screen Width
-  const isNarrow = useMediaQuery({ maxWidth: "500px" });
+  const isNarrow = useMediaQuery({ maxWidth: "550px" });
+  const isMedium = useMediaQuery({ minWidth: "550px", maxWidth: "1000px" });
+  const isWide = useMediaQuery({ minWidth: "900px" });
 
   const [homeScreen, setHomeScreen] = useState(true);
 
@@ -79,6 +81,8 @@ function App() {
       currentList={currentList}
       db={db}
       isNarrow={isNarrow}
+      isMedium={isMedium}
+      isWide={isWide}
       onShowHome={handleShowHome}
       handleChangeText={handleChangeText}
       appMetadata={metadata}
@@ -97,6 +101,8 @@ function App() {
       currentList={currentList}
       db={db}
       isNarrow={isNarrow}
+      isMedium={isMedium}
+      isWide={isWide}
       onShowHome={handleShowHome}
       handleChangeText={handleChangeText}
       lowPriorityIcon={lowPriorityIcon}

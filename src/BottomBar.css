@@ -22,7 +22,7 @@
 }
 
 /* Placeholder text for add item */
-::placeholder {
+#bottom_bar input::placeholder {
   color: white;
 }
 

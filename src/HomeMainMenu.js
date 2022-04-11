@@ -6,7 +6,7 @@ import SortSelector from "./SortSelector";
 function HomeMainMenu(props) {
   return (
     <div className="dropdown dropdown-content main-menu top-bar-menu">
-      {props.isNarrow && (
+      {!props.isWide && (
         <div className="bottom-line">
           <SortSelector
             dropDown={props.sortDropDown}

@@ -13,7 +13,7 @@
     width: 100%;
 }
 
-#top_bar > button, #top_bar > #app_title {
+#top_bar > button, #top_bar > #top_bar_title {
     padding: 0px 10px;
 }
 
@@ -21,23 +21,14 @@
     flex: 0 0 auto;
     height: 45px;
     width: auto;
-    /* position: absolute; */
-    /* right: 10px; */
-
     fill: white;
 }
-
-/* .sorting_text {
-    color: white;
-    font-size: small;
-    white-space: nowrap;
-} */
 
 #top_bar > * {
     width: auto;
 }
 
-#app_title {
+#top_bar_title {
     color: white;
     font-size: xx-large;
     font-weight: bold;

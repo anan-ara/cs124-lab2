@@ -1,5 +1,5 @@
 import "./SortSelector.css";
-import "./Dropdown.css";
+import "./Selector.css";
 
 function SortSelector(props) {
   let SORT_TYPE_TEXT_DICT = {}
@@ -15,12 +15,10 @@ function SortSelector(props) {
       text: "Name",
     };
   }
-  console.log(props.homeScreen)
-  console.log(SORT_TYPE_TEXT_DICT)
 
   return (
     <div id="sort-div">
-      <label htmlFor="sort-types" className="sorting_text">
+      <label htmlFor="sort-types" className="selector-label-text">
         Sorting by:
       </label>
       <select
@@ -33,7 +31,6 @@ function SortSelector(props) {
           <option
             key={sortType}
             value={sortType}
-            // selected={sortType === props.currentSortType ? "selected" : ""}
           >
             {SORT_TYPE_TEXT_DICT[sortType]}
           </option>
