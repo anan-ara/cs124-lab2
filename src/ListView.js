@@ -61,13 +61,15 @@ function ListView(props) {
 
   if (metadataError) {
     console.log("error");
+    // TODO: actual error message?
   }
 
   let sortType = "created";
-
+  let title = "Loading...";
   // Get data from database.
   if (!metadataLoading) {
     sortType = metadata.sort;
+    title = metadata.text;
   }
 
   let orderByParam = orderBy(sortType);
@@ -182,7 +184,7 @@ function ListView(props) {
         isNarrow={props.isNarrow}
         onShowHome={props.onShowHome}
         homeScreen={false}
-        title={"Placeholder list name"}
+        title={title}
       />
       <SubBar
         showCompleted={showCompleted}
