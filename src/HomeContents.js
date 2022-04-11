@@ -28,9 +28,11 @@ function HomeContents(props) {
       ) : (
         <>
           {props.data.length === 0 && (
-          <div className={"empty"}>
-             You currently have no lists
-          </div>
+            <div className={"empty"}>
+              {props.unfilteredData.length === 0
+                ? "You currently have no lists."
+                : "No lists match your search."}
+            </div>
           )}
           <ul>
             {props.data.map((e) => (

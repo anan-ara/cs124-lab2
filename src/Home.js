@@ -162,6 +162,7 @@ function Home(props) {
       />
       <HomeContents
         data={filteredData}
+        unfilteredData={data}
         loading={props.appMetadataLoading || loading}
         listEnd={listEnd}
         onDeleteList={handleDeleteList}

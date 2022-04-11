@@ -34,10 +34,6 @@ function Contents(props) {
             :
             (props.showCompleted ? "No complete tasks match your search." : "No incomplete tasks match your search." )
             }
-            {/* {props.showCompleted
-              ? (props.filter !== "" ? "No tasks match your search." : "You currently have no tasks")
-              : ( props.filter !== "" ? "No incomplete tasks match your search." : "You currently have no incomplete tasks" )
-            } */}
           </div>
           )}
           <ul>
