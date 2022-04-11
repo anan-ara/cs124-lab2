@@ -149,12 +149,6 @@ function Home(props) {
       setFilter={setFilter}
         {...props}
       />
-      {/* <input
-        type="text"
-        placeholder="Search..."
-        value={filter}
-        onChange={e => setFilter(e.target.value)}
-      /> */}
       {props.isNarrow && <SearchBar
       filter={filter}
       setFilter={setFilter}

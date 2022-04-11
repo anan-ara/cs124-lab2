@@ -28,7 +28,7 @@ function TopBar(props) {
         {!props.homeScreen && <BackButton onBackButton={props.onShowHome}/>}
         <div id="top_bar_title">{props.title}</div>
         {/* Make search bar show up in top bar when not narrow width on home screen  */}
-        {props.homeScreen && !props.isNarrow && <SearchBar
+        {!props.isNarrow && props.homeScreen && <SearchBar
       filter={props.filter}
       setFilter={props.setFilter}
       />}

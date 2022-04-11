@@ -195,6 +195,9 @@ function ListView(props) {
         onHideCompleted={handleHideCompleted}
         onChangeSortType={handleSortType}
         isNarrow={props.isNarrow}
+        isWide={props.isWide}
+        filter={filter}
+        setFilter={setFilter}
       />
       {/* <input
         type="text"
@@ -202,10 +205,10 @@ function ListView(props) {
         value={filter}
         onChange={e => setFilter(e.target.value)}
       /> */}
-      <SearchBar
+      {!props.isWide && <SearchBar
       filter={filter}
       setFilter={setFilter}
-      />
+      />}
       <Contents
         data={filteredData}
         loading={metadataLoading || loading}
