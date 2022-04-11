@@ -2,7 +2,7 @@ import "./todo.css";
 import TopBar from "./TopBar";
 import SubBar from "./SubBar";
 import BottomBar from "./BottomBar";
-import PriorityPopup from "./PriorityPopup";
+// import PriorityPopup from "./PriorityPopup";
 import DeleteCompletedPopup from "./DeleteCompletedPopup";
 import Contents from "./Contents";
 import Backdrop from "./Backdrop";
@@ -20,11 +20,12 @@ import {
   serverTimestamp,
   collection,
 } from "firebase/firestore";
+import TOP_LEVEL_COLLECTION from "./firestore-config";
 
 function ListView(props) {
   const collectionRef = collection(
     props.db,
-    "anan-cynthia",
+    TOP_LEVEL_COLLECTION,
     props.currentList,
     "items"
   );
@@ -45,7 +46,7 @@ function ListView(props) {
   const [checkedData, checkedLoading, checkedError] =
     useCollectionData(isCheckedQuery);
 
-  const metadataRef = collection(props.db, "anan-cynthia");
+  const metadataRef = collection(props.db, TOP_LEVEL_COLLECTION);
   const [metadata, metadataLoading, metadataError] = useDocumentData(
     doc(metadataRef, props.currentList)
   );
@@ -60,17 +61,19 @@ function ListView(props) {
 
   if (metadataError) {
     console.log("error");
+    // TODO: actual error message?
   }
 
   let sortType = "created";
-
+  let title = "Loading...";
   // Get data from database.
-  if (metadataLoading === false) {
+  if (!metadataLoading) {
     sortType = metadata.sort;
+    title = metadata.text;
   }
 
   let orderByParam = orderBy(sortType);
-  if (sortType == "priority") {
+  if (sortType === "priority") {
     orderByParam = orderBy("priority", "desc");
   }
   let queryParam = query(collectionRef, orderByParam);
@@ -136,7 +139,6 @@ function ListView(props) {
 
   function handleSortType(newSortType) {
     updateDoc(doc(metadataRef, props.currentList), { sort: newSortType });
-    // .then( setSortType(newSortType));
   }
 
   //   These handlers need the collectionRef too
@@ -151,11 +153,11 @@ function ListView(props) {
   // end of list used for autoscrolling
   const listEnd = useRef();
 
-  // Priority popup
-  const [priorityPopup, setPriorityPopup] = useState(false);
-  function handlePriorityPopup() {
-    setPriorityPopup(!priorityPopup);
-  }
+  // // Priority popup
+  // const [priorityPopup, setPriorityPopup] = useState(false);
+  // function handlePriorityPopup() {
+  //   setPriorityPopup(!priorityPopup);
+  // }
 
   // Called on every rerender where toScroll changes.
   useEffect(() => {
@@ -178,11 +180,11 @@ function ListView(props) {
         onShowCompleted={handleShowCompleted}
         onChangeSortType={handleSortType}
         onDeleteCompleted={handleDeleteCompletedPopup}
-        onTogglePriorityPopup={handlePriorityPopup}
+        // onTogglePriorityPopup={handlePriorityPopup}
         isNarrow={props.isNarrow}
         onShowHome={props.onShowHome}
         homeScreen={false}
-        title={"Placeholder list name"}
+        title={title}
       />
       <SubBar
         showCompleted={showCompleted}

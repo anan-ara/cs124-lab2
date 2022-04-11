@@ -4,15 +4,8 @@ import ListView from "./ListView";
 import { useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { initializeApp } from "firebase/app";
-import { getFirestore, updateDoc, deleteDoc, doc } from "firebase/firestore";
-import {
-  initialLowPriorityIcon,
-  initialMedPriorityIcon,
-  initialHighPriorityIcon,
-  lowPriorityOptions,
-  medPriorityOptions,
-  highPriorityOptions,
-} from ".";
+import { getFirestore, collection, updateDoc, deleteDoc, doc } from "firebase/firestore";
+import { useDocumentData } from "react-firebase-hooks/firestore";
 
 // Ours
 // Your web app's Firebase configuration
@@ -29,36 +22,50 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// const collectionName = //"anan-cynthia/defaultList/items";
-// const collectionName = "anan-cynthia";
-// const collectionRef = collection(db, collectionName);
 
 function App() {
   // Screen Width
   const isNarrow = useMediaQuery({ maxWidth: "500px" });
 
-  // const [showCompleted, setShowCompleted] = useState(true);
-  // const [sortType, setSortType] = useState("created");
-  // const [toScroll, setToScroll] = useState(false);
-  const [homeScreen, setHomeScreen] = useState(true); // TODO change back
+  const [homeScreen, setHomeScreen] = useState(true);
 
   const [currentList, setCurrentList] = useState("defaultList");
 
   // Priority icons
-  const [lowPriorityIcon, setLowPriorityIcon] = useState(
-    initialLowPriorityIcon
-  );
-  const [medPriorityIcon, setMedPriorityIcon] = useState(
-    initialMedPriorityIcon
-  );
-  const [highPriorityIcon, setHighPriorityIcon] = useState(
-    initialHighPriorityIcon
+  function setLowPriorityIcon(newIcon) {
+    updateDoc(doc(metadataRef, "default"), { lowPriorityIcon: newIcon });
+  }
+  function setMedPriorityIcon(newIcon) {
+    updateDoc(doc(metadataRef, "default"), { midPriorityIcon: newIcon });
+  }
+  function setHighPriorityIcon(newIcon) {
+    updateDoc(doc(metadataRef, "default"), { highPriorityIcon: newIcon });
+  }
+
+  const metadataRef = collection(db, "users");
+  const [metadata, metadataLoading, metadataError] = useDocumentData(
+    doc(metadataRef, "default")
   );
 
-  // const [priorityPopup, setPriorityPopup] = useState(false);
-  // function handlePriorityPopup() {
-  //   setPriorityPopup(!priorityPopup);
-  // }
+  if (metadataError) {
+    console.log("error");
+  }
+
+  let lowPriorityIcon = "💤";
+  let medPriorityIcon = "⚠️";
+  let highPriorityIcon = "🔥"
+  if (!metadataLoading) {
+    lowPriorityIcon = metadata.lowPriorityIcon
+    medPriorityIcon = metadata.midPriorityIcon
+    highPriorityIcon = metadata.highPriorityIcon
+  }
+
+
+
+  const lowPriorityOptions = ["💤", "🤖", "🥶", "😴", "🔵", "🟦", "❄️", "💧", "💎"];
+  const medPriorityOptions = ["⚠️", "😃", "☀️", "🌙", "🟡", "🟨", "⚡️", "✨", "⭐️"];
+  const highPriorityOptions = ["🔥", "👹", "💢", "❗️", "🔴", "🟥", "🆘", "🧨", "🤬"];
+
 
   function handleChangeText(id, newText, collectionRef) {
     updateDoc(doc(collectionRef, id), { text: newText });
@@ -80,15 +87,17 @@ function App() {
       isNarrow={isNarrow}
       onShowHome={handleShowHome}
       handleChangeText={handleChangeText}
-      lowPriorityIcon={lowPriorityIcon}
-      medPriorityIcon={medPriorityIcon}
-      highPriorityIcon={highPriorityIcon}
+      appMetadata={metadata}
+      appMetadataLoading={metadataLoading}
       setLowPriorityIcon={setLowPriorityIcon}
       setMedPriorityIcon={setMedPriorityIcon}
       setHighPriorityIcon={setHighPriorityIcon}
       lowPriorityOptions={lowPriorityOptions}
       medPriorityOptions={medPriorityOptions}
       highPriorityOptions={highPriorityOptions}
+      lowPriorityIcon={lowPriorityIcon}
+      medPriorityIcon={medPriorityIcon}
+      highPriorityIcon={highPriorityIcon}
       homeScreen={true}
       onSelectList={handleSelectList}
     />
@@ -103,9 +112,6 @@ function App() {
       medPriorityIcon={medPriorityIcon}
       highPriorityIcon={highPriorityIcon}
       homeScreen={false}
-      // setLowPriorityIcon={setLowPriorityIcon}
-      // setMedPriorityIcon={setMedPriorityIcon}
-      // setHighPriorityIcon={setHighPriorityIcon}
     />
   );
 }

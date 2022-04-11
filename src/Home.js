@@ -1,13 +1,13 @@
 import "./todo.css";
 import TopBar from "./TopBar";
-import BottomBar from "./BottomBar";
+// import BottomBar from "./BottomBar";
 import PriorityPopup from "./PriorityPopup";
 import CreateListPopup from "./CreateListPopup";
 import HomeContents from "./HomeContents";
 import Backdrop from "./Backdrop";
 import { useState, useEffect, useRef } from "react";
 import { generateUniqueID } from "web-vitals/dist/modules/lib/generateUniqueID";
-import { useCollectionData } from "react-firebase-hooks/firestore";
+import { useCollectionData, useDocumentData } from "react-firebase-hooks/firestore";
 import {
   query,
   setDoc,
@@ -15,25 +15,28 @@ import {
   deleteDoc,
   doc,
   orderBy,
-  where,
+  // where,
   serverTimestamp,
   collection,
   getDocs,
-  QuerySnapshot,
+  // QuerySnapshot,
 } from "firebase/firestore";
-import {
-  initialLowPriorityIcon,
-  initialMedPriorityIcon,
-  initialHighPriorityIcon,
-  lowPriorityOptions,
-  medPriorityOptions,
-  highPriorityOptions,
-} from ".";
+// import {
+//   initialLowPriorityIcon,
+//   initialMedPriorityIcon,
+//   initialHighPriorityIcon,
+//   lowPriorityOptions,
+//   medPriorityOptions,
+//   highPriorityOptions,
+// } from ".";
+import TOP_LEVEL_COLLECTION from "./firestore-config";
+
 
 function Home(props) {
-  const collectionRef = collection(props.db, "anan-cynthia");
+  // const TOP_LEVEL_COLLECTION = "cs124-users/default/lists";
+  const collectionRef = collection(props.db, TOP_LEVEL_COLLECTION);
+  const metadataRef = collection(props.db, "users");
 
-  const [sortType, setSortType] = useState("created");
   const [toScroll, setToScroll] = useState(false);
 
   const [filter, setFilter] = useState("");
@@ -50,20 +53,21 @@ function Home(props) {
     setCreateListPopup(!createListPopup);
   }
 
+  let sortType = "created";
+
   // Get data from database.
+  if (!props.appMetadataLoading) {
+    console.log(props.appMetadata)
+    sortType = props.appMetadata.sort;
+  }
+
   let orderByParam = orderBy(sortType);
-  //   if (sortType == "priority") {
-  //     orderByParam = orderBy("priority", "desc");
-  //   }
+  if (sortType === "priority") {
+    orderByParam = orderBy("created");
+  }
   let queryParam = query(collectionRef, orderByParam);
-  //   if (!showCompleted) {
-  //     queryParam = query(
-  //       collectionRef,
-  //       orderByParam,
-  //       where("checked", "==", false)
-  //     );
-  //   }
-  let [data, loading, error] = useCollectionData(queryParam);
+  const [data, loading, error] = useCollectionData(queryParam);
+
   let filteredData = data;
   if (!loading) {
     filteredData = data.filter(item => item.text.includes(filter));
@@ -94,15 +98,15 @@ function Home(props) {
   }
 
   function handleSortType(newSortType) {
-    setSortType(newSortType);
+    updateDoc(doc(metadataRef, "default"), { sort: newSortType });
+    console.log("working")
   }
 
   //   These handlers need the collectionRef too
   function handleDeleteList(id) {
-    // TODO: ask for confirmation
     deleteDoc(doc(collectionRef, id));
 
-    const subCollectionRef = collection(props.db, "anan-cynthia", id, "items");
+    const subCollectionRef = collection(props.db, TOP_LEVEL_COLLECTION, id, "items");
     const q = query(subCollectionRef);
     getDocs(q).then((querySnapshot) =>
       querySnapshot.forEach((listDoc) => {
@@ -149,7 +153,7 @@ function Home(props) {
       />
       <HomeContents
         data={filteredData}
-        loading={loading}
+        loading={props.appMetadataLoading || loading}
         listEnd={listEnd}
         onDeleteList={handleDeleteList}
         onChangeText={handleChangeText}

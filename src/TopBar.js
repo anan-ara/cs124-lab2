@@ -6,7 +6,7 @@ import HomeMainMenu from "./HomeMainMenu";
 import BackButton from "./BackButton"
 import Backdrop from "./Backdrop";
 import { useState } from "react";
-import SortSelector from "./SortSelector";
+// import SortSelector from "./SortSelector";
 
 function TopBar(props) {
   // Main drop down
@@ -17,9 +17,9 @@ function TopBar(props) {
 
   // Sort drop down
   const [sortDropDown, setSortDropDown] = useState(false);
-  function handleSortDropDown() {
-    setSortDropDown(!sortDropDown);
-  }
+  // function handleSortDropDown() {
+  //   setSortDropDown(!sortDropDown);
+  // }
 
   return (
     <>
@@ -27,7 +27,6 @@ function TopBar(props) {
         {!props.homeScreen && <BackButton onBackButton={props.onShowHome}/>}
         <div id="app_title">{props.title}</div>
         <MainMenuToggle onToggleDropdown={handleDropDown} />
-        {/* Conditionally show the drop down and backdrop  */}
         {dropDown ? (
           <>
             <Backdrop onClickBackdrop={handleDropDown} />
