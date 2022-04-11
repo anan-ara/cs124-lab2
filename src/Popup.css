@@ -1,34 +1,27 @@
 /* Shared css file for all shared popup styling. */
 
-/* .popup { */
-    /* position: absolute; */
-    /* z-index:5;
-    background-color: white; */
-    /* top: 180px;
-    position: absolute;
-    right: 40px;
-    left: 40px; */
-    /* border-radius: 12px;
-    position: fixed;
-  top: 50%;
-  left: 50%;
-  height: 330px;
-  width: 280px; */
-     
-  /* bring your own prefixes */
-  /* transform: translate(-50%, -50%);
-  } */
-  
-  /* Copied from dropdown content */
-  /* Stuff inside the dropdown */
-  /* .popup  button {
-    color: #494949;
-    padding: 7px 3px;
-    text-decoration: none;
-    display: block;
-    text-align: center;
-    font-size: 3rem;
-    height: 80px;
-    width: 80px;
-  } */
-  
+.popup {
+  position: absolute;
+  z-index: 5;
+  background-color: white;
+  margin: auto;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  text-align: center;
+  border-radius: 10px;
+}
+
+/* Copied from dropdown content */
+/* Stuff inside the dropdown */
+/* .popup button {
+  color: #494949;
+  padding: 7px 3px;
+  text-decoration: none;
+  display: block;
+  text-align: center;
+  font-size: 3rem;
+  height: 80px;
+  width: 80px;
+} */

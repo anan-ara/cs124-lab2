@@ -1,7 +1,7 @@
 import { Tab } from "./Tab";
 import { useState } from "react";
 import "./TabList.css";
-// import "./Popup.css"
+import "./Popup.css"
 
 function TabList(props) {
   const [activeTab, setActiveTab] = useState(props.children[0].key);
