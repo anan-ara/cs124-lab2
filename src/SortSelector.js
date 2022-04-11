@@ -1,4 +1,5 @@
 import "./SortSelector.css";
+import "./Selector.css";
 
 function SortSelector(props) {
   let SORT_TYPE_TEXT_DICT = {}

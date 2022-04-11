@@ -1,5 +1,4 @@
-import "./SortSelector.css";
-// Just use sort selector styling for now, TODO separate css files 
+import "./Selector.css";
 
 function CompletedSelector(props) {
 

@@ -21,17 +21,8 @@
     flex: 0 0 auto;
     height: 45px;
     width: auto;
-    /* position: absolute; */
-    /* right: 10px; */
-
     fill: white;
 }
-
-/* .selector-label-text {
-    color: white;
-    font-size: small;
-    white-space: nowrap;
-} */
 
 #top_bar > * {
     width: auto;
