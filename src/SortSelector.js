@@ -2,11 +2,21 @@ import "./SortSelector.css";
 import "./Dropdown.css";
 
 function SortSelector(props) {
-  const SORT_TYPE_TEXT_DICT = {
-    created: "Creation",
-    priority: "Priority",
-    text: "Name",
-  };
+  let SORT_TYPE_TEXT_DICT = {}
+  if (props.homeScreen) {
+    SORT_TYPE_TEXT_DICT = {
+      created: "Creation",
+      text: "Name",
+    };
+  } else {
+    SORT_TYPE_TEXT_DICT = {
+      created: "Creation",
+      priority: "Priority",
+      text: "Name",
+    };
+  }
+  console.log(props.homeScreen)
+  console.log(SORT_TYPE_TEXT_DICT)
 
   return (
     <div id="sort-div">

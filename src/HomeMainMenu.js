@@ -17,6 +17,7 @@ function HomeMainMenu(props) {
               }
             }
             currentSortType={props.sortType}
+            homeScreen={props.homeScreen}
           />
         </div>
       )}

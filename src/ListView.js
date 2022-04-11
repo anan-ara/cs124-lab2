@@ -66,7 +66,7 @@ function ListView(props) {
   let sortType = "created";
 
   // Get data from database.
-  if (metadataLoading === false) {
+  if (!metadataLoading) {
     sortType = metadata.sort;
   }
 
@@ -137,7 +137,6 @@ function ListView(props) {
 
   function handleSortType(newSortType) {
     updateDoc(doc(metadataRef, props.currentList), { sort: newSortType });
-    // .then( setSortType(newSortType));
   }
 
   //   These handlers need the collectionRef too

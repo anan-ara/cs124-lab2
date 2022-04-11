@@ -4,15 +4,8 @@ import ListView from "./ListView";
 import { useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { initializeApp } from "firebase/app";
-import { getFirestore, updateDoc, deleteDoc, doc } from "firebase/firestore";
-import {
-  initialLowPriorityIcon,
-  initialMedPriorityIcon,
-  initialHighPriorityIcon,
-  lowPriorityOptions,
-  medPriorityOptions,
-  highPriorityOptions,
-} from ".";
+import { getFirestore, collection, updateDoc, deleteDoc, doc } from "firebase/firestore";
+import { useCollectionData, useDocumentData } from "react-firebase-hooks/firestore";
 
 // Ours
 // Your web app's Firebase configuration
@@ -39,15 +32,40 @@ function App() {
   const [currentList, setCurrentList] = useState("defaultList");
 
   // Priority icons
-  const [lowPriorityIcon, setLowPriorityIcon] = useState(
-    initialLowPriorityIcon
+  function setLowPriorityIcon(newIcon) {
+    updateDoc(doc(metadataRef, "default"), { lowPriorityIcon: newIcon });
+  }
+  function setMedPriorityIcon(newIcon) {
+    updateDoc(doc(metadataRef, "default"), { midPriorityIcon: newIcon });
+  }
+  function setHighPriorityIcon(newIcon) {
+    updateDoc(doc(metadataRef, "default"), { highPriorityIcon: newIcon });
+  }
+
+  const metadataRef = collection(db, "users");
+  const [metadata, metadataLoading, metadataError] = useDocumentData(
+    doc(metadataRef, "default")
   );
-  const [medPriorityIcon, setMedPriorityIcon] = useState(
-    initialMedPriorityIcon
-  );
-  const [highPriorityIcon, setHighPriorityIcon] = useState(
-    initialHighPriorityIcon
-  );
+
+  if (metadataError) {
+    console.log("error");
+  }
+
+  let lowPriorityIcon = "💤";
+  let medPriorityIcon = "⚠️";
+  let highPriorityIcon = "🔥"
+  if (!metadataLoading) {
+    lowPriorityIcon = metadata.lowPriorityIcon
+    medPriorityIcon = metadata.midPriorityIcon
+    highPriorityIcon = metadata.highPriorityIcon
+  }
+
+
+
+  const lowPriorityOptions = ["💤", "🤖", "🥶", "😴", "🔵", "🟦", "❄️", "💧", "💎"];
+  const medPriorityOptions = ["⚠️", "😃", "☀️", "🌙", "🟡", "🟨", "⚡️", "✨", "⭐️"];
+  const highPriorityOptions = ["🔥", "👹", "💢", "❗️", "🔴", "🟥", "🆘", "🧨", "🤬"];
+
 
   function handleChangeText(id, newText, collectionRef) {
     updateDoc(doc(collectionRef, id), { text: newText });
@@ -69,9 +87,8 @@ function App() {
       isNarrow={isNarrow}
       onShowHome={handleShowHome}
       handleChangeText={handleChangeText}
-      lowPriorityIcon={lowPriorityIcon}
-      medPriorityIcon={medPriorityIcon}
-      highPriorityIcon={highPriorityIcon}
+      appMetadata={metadata}
+      appMetadataLoading={metadataLoading}
       setLowPriorityIcon={setLowPriorityIcon}
       setMedPriorityIcon={setMedPriorityIcon}
       setHighPriorityIcon={setHighPriorityIcon}
