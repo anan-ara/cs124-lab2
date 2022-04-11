@@ -71,7 +71,7 @@ function ListView(props) {
   }
 
   let orderByParam = orderBy(sortType);
-  if (sortType == "priority") {
+  if (sortType === "priority") {
     orderByParam = orderBy("priority", "desc");
   }
   let queryParam = query(collectionRef, orderByParam);

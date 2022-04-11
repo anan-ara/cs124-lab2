@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, updateDoc, deleteDoc, doc } from "firebase/firestore";
-import { useCollectionData, useDocumentData } from "react-firebase-hooks/firestore";
+import { useDocumentData } from "react-firebase-hooks/firestore";
 
 // Ours
 // Your web app's Firebase configuration

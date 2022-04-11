@@ -1,6 +1,6 @@
 import "./todo.css";
 import TopBar from "./TopBar";
-import BottomBar from "./BottomBar";
+// import BottomBar from "./BottomBar";
 import PriorityPopup from "./PriorityPopup";
 import CreateListPopup from "./CreateListPopup";
 import HomeContents from "./HomeContents";
@@ -15,20 +15,20 @@ import {
   deleteDoc,
   doc,
   orderBy,
-  where,
+  // where,
   serverTimestamp,
   collection,
   getDocs,
-  QuerySnapshot,
+  // QuerySnapshot,
 } from "firebase/firestore";
-import {
-  initialLowPriorityIcon,
-  initialMedPriorityIcon,
-  initialHighPriorityIcon,
-  lowPriorityOptions,
-  medPriorityOptions,
-  highPriorityOptions,
-} from ".";
+// import {
+//   initialLowPriorityIcon,
+//   initialMedPriorityIcon,
+//   initialHighPriorityIcon,
+//   lowPriorityOptions,
+//   medPriorityOptions,
+//   highPriorityOptions,
+// } from ".";
 import TOP_LEVEL_COLLECTION from "./firestore-config";
 
 
@@ -62,7 +62,7 @@ function Home(props) {
   }
 
   let orderByParam = orderBy(sortType);
-  if (sortType == "priority") {
+  if (sortType === "priority") {
     orderByParam = orderBy("created");
   }
   let queryParam = query(collectionRef, orderByParam);

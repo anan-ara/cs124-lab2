@@ -6,7 +6,7 @@ import HomeMainMenu from "./HomeMainMenu";
 import BackButton from "./BackButton"
 import Backdrop from "./Backdrop";
 import { useState } from "react";
-import SortSelector from "./SortSelector";
+// import SortSelector from "./SortSelector";
 
 function TopBar(props) {
   // Main drop down
@@ -17,9 +17,9 @@ function TopBar(props) {
 
   // Sort drop down
   const [sortDropDown, setSortDropDown] = useState(false);
-  function handleSortDropDown() {
-    setSortDropDown(!sortDropDown);
-  }
+  // function handleSortDropDown() {
+  //   setSortDropDown(!sortDropDown);
+  // }
 
   return (
     <>
