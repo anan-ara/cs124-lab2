@@ -1,5 +1,6 @@
 import "./todo.css";
 import TopBar from "./TopBar";
+import SearchBar from "./SearchBar";
 // import BottomBar from "./BottomBar";
 import PriorityPopup from "./PriorityPopup";
 import CreateListPopup from "./CreateListPopup";
@@ -144,14 +145,20 @@ function Home(props) {
         homeScreen={true}
         title={"My Lists"}
         onTogglePriorityPopup={handlePriorityPopup}
+        filter={filter}
+      setFilter={setFilter}
         {...props}
       />
-      <input
+      {/* <input
         type="text"
         placeholder="Search..."
         value={filter}
         onChange={e => setFilter(e.target.value)}
-      />
+      /> */}
+      {props.isNarrow && <SearchBar
+      filter={filter}
+      setFilter={setFilter}
+      />}
       <HomeContents
         data={filteredData}
         loading={props.appMetadataLoading || loading}

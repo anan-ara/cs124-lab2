@@ -2,6 +2,7 @@ import "./todo.css";
 import TopBar from "./TopBar";
 import SubBar from "./SubBar";
 import BottomBar from "./BottomBar";
+import SearchBar from "./SearchBar";
 // import PriorityPopup from "./PriorityPopup";
 import DeleteCompletedPopup from "./DeleteCompletedPopup";
 import Contents from "./Contents";
@@ -185,6 +186,8 @@ function ListView(props) {
         onShowHome={props.onShowHome}
         homeScreen={false}
         title={title}
+        filter={filter}
+      setFilter={setFilter}
       />
       <SubBar
         showCompleted={showCompleted}
@@ -193,11 +196,15 @@ function ListView(props) {
         onChangeSortType={handleSortType}
         isNarrow={props.isNarrow}
       />
-      <input
+      {/* <input
         type="text"
         placeholder="Search..."
         value={filter}
         onChange={e => setFilter(e.target.value)}
+      /> */}
+      <SearchBar
+      filter={filter}
+      setFilter={setFilter}
       />
       <Contents
         data={filteredData}
