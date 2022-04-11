@@ -61,12 +61,6 @@ function App() {
   }
 
 
-
-  const lowPriorityOptions = ["💤", "🤖", "🥶", "😴", "🔵", "🟦", "❄️", "💧", "💎"];
-  const medPriorityOptions = ["⚠️", "😃", "☀️", "🌙", "🟡", "🟨", "⚡️", "✨", "⭐️"];
-  const highPriorityOptions = ["🔥", "👹", "💢", "❗️", "🔴", "🟥", "🆘", "🧨", "🤬"];
-
-
   function handleChangeText(id, newText, collectionRef) {
     updateDoc(doc(collectionRef, id), { text: newText });
   }
@@ -92,9 +86,6 @@ function App() {
       setLowPriorityIcon={setLowPriorityIcon}
       setMedPriorityIcon={setMedPriorityIcon}
       setHighPriorityIcon={setHighPriorityIcon}
-      lowPriorityOptions={lowPriorityOptions}
-      medPriorityOptions={medPriorityOptions}
-      highPriorityOptions={highPriorityOptions}
       lowPriorityIcon={lowPriorityIcon}
       medPriorityIcon={medPriorityIcon}
       highPriorityIcon={highPriorityIcon}

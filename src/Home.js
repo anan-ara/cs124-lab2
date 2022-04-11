@@ -183,15 +183,6 @@ function Home(props) {
         <>
           <Backdrop onClickBackdrop={handlePriorityPopup} />
           <PriorityPopup
-            // lowPriorityIcon={lowPriorityIcon}
-            // medPriorityIcon={medPriorityIcon}
-            // highPriorityIcon={highPriorityIcon}
-            // lowPriorityOptions={lowPriorityOptions}
-            // medPriorityOptions={medPriorityOptions}
-            // highPriorityOptions={highPriorityOptions}
-            // onChangeLowPriorityIcon={setLowPriorityIcon}
-            // onChangeMedPriorityIcon={setMedPriorityIcon}
-            // onChangeHighPriorityIcon={setHighPriorityIcon}
             {...props}
           />
         </>

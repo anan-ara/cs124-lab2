@@ -1,12 +1,12 @@
 .activated {
   background-color: #999999;
-  border-radius: 1vw;
+  border-radius: 3px;
 }
 .priority_grid {
   display: inline-grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
-  column-gap: 3vw;
-  row-gap: 3vw;
-  padding: 3vw;
+  column-gap: 10px;
+  row-gap: 10px;
+  padding: 10px;
 }

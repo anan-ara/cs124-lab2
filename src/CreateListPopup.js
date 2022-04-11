@@ -11,7 +11,7 @@ function CreateListPopup(props) {
   }
 
   return (
-    <div className="priority_popup priority-content">
+    <div className="create-list-popup">
       <div>New List Name:</div>
       <input
         type="text"
