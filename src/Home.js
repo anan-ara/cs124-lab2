@@ -140,10 +140,11 @@ function Home(props) {
       <TopBar
         sortType={sortType}
         onChangeSortType={handleSortType}
-        isNarrow={props.isNarrow}
+        // isNarrow={props.isNarrow}
         homeScreen={true}
         title={"My Lists"}
         onTogglePriorityPopup={handlePriorityPopup}
+        {...props}
       />
       <input
         type="text"

@@ -20,7 +20,7 @@ import {
   serverTimestamp,
   collection,
 } from "firebase/firestore";
-import TOP_LEVEL_COLLECTION from "./firestore-config";
+import TOP_LEVEL_COLLECTION from "./firestore-config.js";
 
 function ListView(props) {
   const collectionRef = collection(
