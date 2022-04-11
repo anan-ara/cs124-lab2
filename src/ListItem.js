@@ -80,7 +80,7 @@ function ListItem(props) {
       />
       {props.isNarrow || (
         <div>
-          {props.complete} completed / {props.total} total
+          {props.complete} / {props.total} completed
         </div>
       )}
       <SubMenuToggle onToggle={handleDropDown} buttonLocation={subMenuToggle} />
