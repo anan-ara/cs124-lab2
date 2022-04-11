@@ -7,11 +7,11 @@
     right: 40px;
     left: 40px;
     border-radius: 3vw;
-  }
+  } 
   
   /* Copied from dropdown content */
   /* Stuff inside the dropdown */
-  .priority_popup  button {
+ .priority_popup  button {
     color: #494949;
     padding: 2vw 1vw;
     text-decoration: none;
