@@ -222,6 +222,7 @@ function ListView(props) {
       />
       <Contents
         data={filteredData}
+        unfilteredData={data}
         loading={metadataLoading || loading}
         listEnd={listEnd}
         sortPriority={sortType}
@@ -231,6 +232,7 @@ function ListView(props) {
         onDeleteTask={handleDeleteTask}
         onChangeText={handleChangeText}
         getBottomBarLocation={getBottomBarLocation}
+        filter={filter}
         {...props}
         // lowPriorityIcon={lowPriorityIcon}
         // medPriorityIcon={medPriorityIcon}
