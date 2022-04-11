@@ -93,6 +93,8 @@ function Home(props) {
         id: id,
         created: serverTimestamp(),
         sort: "created",
+        complete: 0,
+        total: 0
       }); //.then(() => setToScroll(true));
     }
   }

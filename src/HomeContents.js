@@ -39,6 +39,8 @@ function HomeContents(props) {
                 priority={e.priority}
                 // priorityToIcon={props.priorityToIcon}
                 checked={e.checked}
+                total={e.total}
+                complete={e.complete}
                 key={e.id}
                 id={e.id}
                 onToggleScroll={handleToggleScroll}
