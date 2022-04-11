@@ -130,13 +130,17 @@ function ListView(props) {
     }
   }
 
-  function handleShowCompleted() {
-    setShowCompleted(true);
+  function handleToggleCompleted() {
+    setShowCompleted(!showCompleted);
   }
 
-  function handleHideCompleted() {
-    setShowCompleted(false);
-  }
+  // function handleShowCompleted() {
+  //   setShowCompleted(true);
+  // }
+
+  // function handleHideCompleted() {
+  //   setShowCompleted(false);
+  // }
 
   function handleSortType(newSortType) {
     updateDoc(doc(metadataRef, props.currentList), { sort: newSortType });
@@ -178,7 +182,7 @@ function ListView(props) {
       <TopBar
         showCompleted={showCompleted}
         sortType={sortType}
-        onShowCompleted={handleShowCompleted}
+        // onShowCompleted={handleShowCompleted}
         onChangeSortType={handleSortType}
         onDeleteCompleted={handleDeleteCompletedPopup}
         // onTogglePriorityPopup={handlePriorityPopup}
@@ -191,21 +195,15 @@ function ListView(props) {
       />
       <SubBar
         showCompleted={showCompleted}
-        onShowCompleted={handleShowCompleted}
-        onHideCompleted={handleHideCompleted}
+        onToggleCompleted={handleToggleCompleted}
         onChangeSortType={handleSortType}
         isNarrow={props.isNarrow}
         isWide={props.isWide}
         filter={filter}
         setFilter={setFilter}
       />
-      {/* <input
-        type="text"
-        placeholder="Search..."
-        value={filter}
-        onChange={e => setFilter(e.target.value)}
-      /> */}
-      {!props.isWide && <SearchBar
+
+      {props.isNarrow && <SearchBar
       filter={filter}
       setFilter={setFilter}
       />}

@@ -1,10 +1,10 @@
-.sorting_text {
+.selector-label-text {
   color: #494949;
   font-size: small;
   white-space: nowrap;
 }
 
-#top_bar > #sort-div > .sorting_text {
+#top_bar > #sort-div > .selector-label-text {
   color: white;
 }
 

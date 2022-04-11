@@ -27,7 +27,7 @@ function App() {
   // Screen Width
   const isNarrow = useMediaQuery({ maxWidth: "550px" });
   const isMedium = useMediaQuery({ minWidth: "550px", maxWidth: "1000px" });
-  const isWide = useMediaQuery({ minWidth: "1000px" });
+  const isWide = useMediaQuery({ minWidth: "900px" });
 
   const [homeScreen, setHomeScreen] = useState(true);
 
