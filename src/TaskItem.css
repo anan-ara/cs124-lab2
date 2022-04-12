@@ -11,7 +11,7 @@ li input[type='checkbox'] {
     border-radius:6px;
     border:2.6px solid #494949;
 }
-
+/* 
 li textarea {
     font-family: "SF Pro Display","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif;
     margin-left: 2vw;
@@ -21,7 +21,7 @@ li textarea {
     color: #494949;
     font-size: medium;
     resize: none;
-}
+} */
 
 li.done textarea {
     color: #757575;
@@ -44,13 +44,15 @@ div.bottom-line {
 
 #list-contents li {
     min-height: 44px;
-    background: white;
+    /* background: white;
     display: flex;
     align-items: center;
     padding: 6px;
+    border-bottom: 1.5px solid #494949; */
     border-bottom: 1.5px solid #494949;
-}
 
+}
+/* 
 textarea:hover, 
 input:hover, 
 textarea:active, 
@@ -67,4 +69,4 @@ label:focus,
     outline:0px !important;
     -webkit-appearance:none;
     box-shadow: none !important;
-}
+} */
