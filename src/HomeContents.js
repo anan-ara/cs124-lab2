@@ -22,7 +22,7 @@ function HomeContents(props) {
   // }
 
   return (
-    <div id="contents" className={scroll ? "scroll" : ""}>
+    <div id="home-contents" className={scroll ? "scroll" : ""}>
       {props.loading ? (
         <div className={"empty"}>Loading...</div>
       ) : (
