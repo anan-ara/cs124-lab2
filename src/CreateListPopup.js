@@ -1,4 +1,5 @@
 import "./CreateListPopup.css";
+import "./Popup.css";
 import { useState } from "react";
 
 function CreateListPopup(props) {
@@ -11,7 +12,7 @@ function CreateListPopup(props) {
   }
 
   return (
-    <div className="create-list-popup">
+    <div className="create-list-popup popup">
       <div>New List Name:</div>
       <input
         type="text"
@@ -24,7 +25,7 @@ function CreateListPopup(props) {
           }
         }}
       />
-      <div>
+      <div className="cancel-ok">
         <button
           // className={(props.showCompleted ? "activated " : "") + "radio-button"}
           onClick={props.onClosePopup}

@@ -1,4 +1,5 @@
-import "./CreateListPopup.css";
+import "./Popup.css";
+import "./DeleteCompletedPopup.css";
 import { useState } from "react";
 
 function DeleteCompletedPopup(props) {
@@ -13,11 +14,11 @@ function DeleteCompletedPopup(props) {
 
 
   return (
-    <div className="priority_popup priority-content">
+    <div className="popup delete-completed-popup">
       <div>Are you sure you want to delete all completed tasks?
         {extraWarningText}
         </div>
-      <div>
+      <div className="cancel-ok">
         <button
           // className={(props.showCompleted ? "activated " : "") + "radio-button"}
           onClick={props.onClosePopup}

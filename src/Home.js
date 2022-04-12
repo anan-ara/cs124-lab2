@@ -60,7 +60,6 @@ function Home(props) {
 
   // Get data from database.
   if (!props.appMetadataLoading) {
-    console.log(props.appMetadata);
     sortType = props.appMetadata.sort;
   }
 
@@ -104,7 +103,6 @@ function Home(props) {
 
   function handleSortType(newSortType) {
     updateDoc(doc(metadataRef, "default"), { sort: newSortType });
-    console.log("working");
   }
 
   //   These handlers need the collectionRef too

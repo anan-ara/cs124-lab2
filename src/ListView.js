@@ -42,7 +42,6 @@ function ListView(props) {
   const [deleteCompletedPopup, setDeleteCompletedPopup] = useState(false);
   function handleDeleteCompletedPopup() {
     setDeleteCompletedPopup(!deleteCompletedPopup);
-    console.log(deleteCompletedPopup);
   }
 
   // Use for deleting all completed items
@@ -64,7 +63,7 @@ function ListView(props) {
   const [filter, setFilter] = useState("");
 
   if (metadataError) {
-    console.log("error");
+    console.log(metadataError);
     // TODO: actual error message?
   }
 
