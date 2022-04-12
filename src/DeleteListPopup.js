@@ -1,12 +1,12 @@
-import "./CreateListPopup.css";
-import { useState } from "react";
+import "./DeleteListPopup.css";
+import "./Popup.css";
 
 function DeleteListPopup(props) {
 
   return (
-    <div className="priority_popup priority-content">
+    <div className="popup delete-list-popup">
       <div>Are you sure you want to delete list {props.text}?</div>
-      <div>
+      <div className="cancel-ok">
         <button
           // className={(props.showCompleted ? "activated " : "") + "radio-button"}
           onClick={props.onClosePopup}
