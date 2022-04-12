@@ -1,0 +1,20 @@
+#home-bottom-bar {
+  order: 10;
+  /* flex: 0 0 initial; */
+  height: 60px;
+  background: #494949;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  bottom: 0; /* make stay at bottom of screen */
+}
+
+#home-bottom-bar button {
+  margin: auto;
+  border: none;
+  background: white;
+  width: 90%;
+  height: 70%;
+  border-radius: 30px;
+  font-size: large;
+}

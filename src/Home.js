@@ -5,6 +5,7 @@ import SearchBar from "./SearchBar";
 import PriorityPopup from "./PriorityPopup";
 import CreateListPopup from "./CreateListPopup";
 import HomeContents from "./HomeContents";
+import HomeBottomBar from "./HomeBottomBar";
 import Backdrop from "./Backdrop";
 import { useState, useEffect, useRef } from "react";
 import { generateUniqueID } from "web-vitals/dist/modules/lib/generateUniqueID";
@@ -176,13 +177,17 @@ function Home(props) {
         isNarrow={props.isNarrow}
         getBottomBarLocation={getBottomBarLocation}
       />
-      <button
+      <HomeBottomBar
+        handleAddList={handleCreateListPopup}
+        ref={bottomBar}
+        />
+      {/* <button
         // className={(props.showCompleted ? "activated " : "") + "radio-button"}
         onClick={handleCreateListPopup}
         ref={bottomBar}
       >
         Create New List
-      </button>
+      </button> */}
       {priorityPopup && (
         <>
           <Backdrop onClickBackdrop={handlePriorityPopup} />
