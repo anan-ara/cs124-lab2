@@ -4,7 +4,7 @@ body {
     /* justify-content: space-evenly; */
     flex-wrap: nowrap;
     display: flex;
-    font-size: 1.2rem;
+    /* font-size: 1.2rem; */
     font-family: "SF Pro Display","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif
     /* font-family: "PT Sans", Calibri, Tahoma, sans-serif; */
 }
