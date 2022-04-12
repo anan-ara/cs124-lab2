@@ -50,7 +50,7 @@ function App() {
   );
 
   if (metadataError) {
-    console.log("error");
+    console.log(metadataError);
   }
 
   let lowPriorityIcon = "💤";
