@@ -61,7 +61,6 @@ function Home(props) {
 
   // Get data from database.
   if (!props.appMetadataLoading) {
-    console.log(props.appMetadata);
     sortType = props.appMetadata.sort;
   }
 
@@ -179,7 +178,7 @@ function Home(props) {
       />
       <HomeBottomBar
         handleAddList={handleCreateListPopup}
-        ref={bottomBar}
+        bottomBarRef={bottomBar}
         />
       {/* <button
         // className={(props.showCompleted ? "activated " : "") + "radio-button"}

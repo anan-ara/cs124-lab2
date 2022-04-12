@@ -3,7 +3,7 @@ import { useState, useRef } from "react";
 
 function HomeBottomBar(props) {
   return (
-    <div id="home-bottom-bar" ref={props.ref}>
+    <div id="home-bottom-bar" ref={props.bottomBarRef}>
       <button
         // className={(props.showCompleted ? "activated " : "") + "radio-button"}
         onClick={props.handleAddList}
