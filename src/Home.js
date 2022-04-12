@@ -60,7 +60,6 @@ function Home(props) {
 
   // Get data from database.
   if (!props.appMetadataLoading) {
-    console.log(props.appMetadata);
     sortType = props.appMetadata.sort;
   }
 

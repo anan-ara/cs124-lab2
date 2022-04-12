@@ -8,7 +8,8 @@ import CompletedSelector from "./CompletedSelector";
 
 function SubBar(props) {
   return (
-    <div id="completion-bar" className="bottom-line">
+    // Need class name isNarrow so that we can change the flex box spacing depending on which elements are in SubBar
+    <div id="completion-bar" className={("bottom-line").concat(props.isNarrow ? " is-narrow" : "")}>
       {/* Show the search bar if wide. */}
       {!props.isNarrow && <SearchBar
       filter={props.filter}
