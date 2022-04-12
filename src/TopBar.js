@@ -17,7 +17,7 @@ function TopBar(props) {
   }
 
   // Sort drop down
-  const [sortDropDown, setSortDropDown] = useState(false);
+  // const [sortDropDown, setSortDropDown] = useState(false);
   // function handleSortDropDown() {
   //   setSortDropDown(!sortDropDown);
   // }
