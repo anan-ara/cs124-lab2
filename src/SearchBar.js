@@ -6,7 +6,7 @@ function SearchBar(props) {
         type="text"
         placeholder="Search..."
         onChange={e => props.setFilter(e.target.value)}
-      />;
+      />
 }
 
 export default SearchBar;

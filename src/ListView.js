@@ -224,10 +224,10 @@ function ListView(props) {
         setFilter={setFilter}
       />
 
-      {props.isNarrow && <SearchBar
+      {props.isNarrow && <div id="search_bar_div"><SearchBar
       filter={filter}
       setFilter={setFilter}
-      />}
+      /></div>}
 
       <Contents
         data={filteredData}

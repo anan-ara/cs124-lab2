@@ -158,10 +158,10 @@ function Home(props) {
         {...props}
       />
 
-      {props.isNarrow && <SearchBar
+{props.isNarrow && <div id="search_bar_div"><SearchBar
       filter={filter}
       setFilter={setFilter}
-      />}
+      /></div>}
       
       <HomeContents
         data={filteredData}

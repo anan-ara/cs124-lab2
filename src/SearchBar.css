@@ -3,20 +3,28 @@
 }
 
 /* Make the search bar width be governed by flex-grow when in a flexbox */
-#completion-bar #search_bar, #top_bar #search_bar {
+/* #completion-bar #search_bar_div, #top_bar #search_bar_div {
     flex-grow: 3;
     width: initial;
-    /* margin-left: initial; */
+} */
+
+#search_bar {
+    flex-grow: 3;
 }
 
 /* When not in a flexbox, then make search bar take up the whole width of the screen.  */
-#search_bar {
-    width: 90%;
+/*  #search_bar_div {
+    align-items: center;
+    display: flex;*/
     /* margin: auto; */
-    margin: 5px;
+    /* margin: 5px; */
     /* margin-left: auto; */
     /* margin-right: auto; */
     /* border: 0; */
     /* padding: 0; */
     /* margin: 5%; */
-}
+/* } */
+/* 
+#search_bar {
+    width: 90%;
+} */

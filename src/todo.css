@@ -8,3 +8,9 @@ body {
     font-family: "SF Pro Display","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif
     /* font-family: "PT Sans", Calibri, Tahoma, sans-serif; */
 }
+
+#search_bar_div {
+    display: flex;
+    align-items: center;
+    margin: 3px 10px;
+}
