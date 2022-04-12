@@ -20,13 +20,13 @@ function SubBar(props) {
         className={(props.showCompleted ? "activated " : "") + "radio-button"}
         onClick={props.onToggleCompleted}
       >
-        Show All Tasks
+        Show All
       </button>
       <button
         className={(!props.showCompleted ? "activated " : "") + "radio-button"}
         onClick={props.onToggleCompleted}
       >
-        Show Only Incomplete Tasks
+        Show Only Incomplete
       </button> </>: <CompletedSelector {...props}/>}
 
       {/* Show the sorting if not narrow */}

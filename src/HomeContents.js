@@ -1,3 +1,4 @@
+import "./HomeContents.css";
 import "./Contents.css";
 import ListItem from "./ListItem";
 import { useState } from "react";
@@ -22,7 +23,7 @@ function HomeContents(props) {
   // }
 
   return (
-    <div id="home-contents" className={scroll ? "scroll" : ""}>
+    <div id="home-contents" className={("contents").concat(scroll ? " scroll" : "").concat(props.isNarrow ? " small-width" : "")}>
       {props.loading ? (
         <div className={"empty"}>Loading...</div>
       ) : (

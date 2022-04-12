@@ -1,9 +1,9 @@
 import "./Popup.css";
 import "./DeleteCompletedPopup.css";
-import { useState } from "react";
+// import { useState } from "react";
 
 function DeleteCompletedPopup(props) {
-  const [text, setText] = useState("");
+  // const [text, setText] = useState("");
 
   let extraWarningText = ""
   if (props.filter !== "") {

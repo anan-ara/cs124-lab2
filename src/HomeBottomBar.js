@@ -1,5 +1,5 @@
 import "./HomeBottomBar.css";
-import { useState, useRef } from "react";
+// import { useState, useRef } from "react";
 
 function HomeBottomBar(props) {
   return (
