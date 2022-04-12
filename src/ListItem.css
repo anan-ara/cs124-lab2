@@ -20,6 +20,10 @@ div.bottom-line {
     border-bottom: 1.5px solid #494949;
   }
 
+/* #home-contents {
+    background-color: #494949;
+} */
+
 #home-contents li {
     min-height: 30px;
     background: white;
