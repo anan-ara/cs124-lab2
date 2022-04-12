@@ -5,7 +5,7 @@ import BottomBar from "./BottomBar";
 import SearchBar from "./SearchBar";
 // import PriorityPopup from "./PriorityPopup";
 import DeleteCompletedPopup from "./DeleteCompletedPopup";
-import Contents from "./Contents";
+import ListContents from "./ListContents";
 import Backdrop from "./Backdrop";
 import { useState, useEffect, useRef } from "react";
 import { generateUniqueID } from "web-vitals/dist/modules/lib/generateUniqueID";
@@ -228,7 +228,7 @@ function ListView(props) {
       setFilter={setFilter}
       /></div>}
 
-      <Contents
+      <ListContents
         data={filteredData}
         unfilteredData={data}
         loading={metadataLoading || loading}

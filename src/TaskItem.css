@@ -28,13 +28,13 @@ li.done textarea {
     text-decoration: line-through;
 }
 
-#contents svg {
+#list-contents svg {
     height: 19px;
     width: auto;
     fill: #494949;
 }
 
-#contents .dot {
+#list-contents .dot {
     margin-left: auto;
 }
 
@@ -42,7 +42,7 @@ div.bottom-line {
     border-bottom: 1.5px solid #494949;
   }
 
-#contents li {
+#list-contents li {
     min-height: 44px;
     background: white;
     display: flex;

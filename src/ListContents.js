@@ -1,8 +1,9 @@
+import "./ListContents.css";
 import "./Contents.css";
 import TaskItem from "./TaskItem";
 import { useState } from "react";
 
-function Contents(props) {
+function ListContents(props) {
   const [scroll, setScroll] = useState(true);
 
   function handleToggleScroll() {
@@ -22,7 +23,7 @@ function Contents(props) {
   // }
 
   return (
-    <div id="contents" className={scroll ? "scroll" : ""}>
+    <div id="list-contents" className={("contents").concat(scroll ? " scroll" : "").concat(props.isNarrow ? " small-width" : "")}>
       {props.loading ? (
         <div className={"empty"}>Loading...</div>
       ) : (
@@ -57,4 +58,4 @@ function Contents(props) {
   );
 }
 
-export default Contents;
+export default ListContents;
