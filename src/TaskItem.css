@@ -52,16 +52,13 @@ div.bottom-line {
     border-bottom: 1.5px solid #494949;
 }
 
+
 textarea:hover, 
 input:hover, 
 textarea:active, 
 input:active, 
-textarea:focus, 
-input:focus,
-button:focus,
 button:active,
 button:hover,
-label:focus,
 .btn:active,
 .btn.active
 {
@@ -69,3 +66,13 @@ label:focus,
     -webkit-appearance:none;
     box-shadow: none !important;
 }
+
+/* textarea:focus, 
+input:focus,
+button:focus,
+label:focus
+{
+    outline:0px !important;
+    -webkit-appearance:none;
+    box-shadow: none !important;
+} */
