@@ -154,15 +154,16 @@ function Home(props) {
         title={"My Lists"}
         onTogglePriorityPopup={handlePriorityPopup}
         filter={filter}
-      setFilter={setFilter}
+        setFilter={setFilter}
         {...props}
       />
 
-{props.isNarrow && <div id="search_bar_div"><SearchBar
-      filter={filter}
-      setFilter={setFilter}
-      /></div>}
-      
+      {props.isNarrow && (
+        <div id="search_bar_div">
+          <SearchBar filter={filter} setFilter={setFilter} />
+        </div>
+      )}
+
       <HomeContents
         data={filteredData}
         unfilteredData={data}
@@ -178,7 +179,7 @@ function Home(props) {
       <HomeBottomBar
         handleAddList={handleCreateListPopup}
         bottomBarRef={bottomBar}
-        />
+      />
       {/* <button
         // className={(props.showCompleted ? "activated " : "") + "radio-button"}
         onClick={handleCreateListPopup}
@@ -189,9 +190,7 @@ function Home(props) {
       {priorityPopup && (
         <>
           <Backdrop onClickBackdrop={handlePriorityPopup} />
-          <PriorityPopup
-            {...props}
-          />
+          <PriorityPopup onTogglePriorityPopup={handlePriorityPopup} {...props} />
         </>
       )}
       {createListPopup && (
