@@ -157,6 +157,12 @@ function Home(props) {
         setFilter={setFilter}
         {...props}
       />
+      {priorityPopup && (
+        <>
+          <Backdrop onClickBackdrop={handlePriorityPopup} />
+          <PriorityPopup onTogglePriorityPopup={handlePriorityPopup} {...props} />
+        </>
+      )}
 
       {props.isNarrow && (
         <div id="search_bar_div">
@@ -187,12 +193,6 @@ function Home(props) {
       >
         Create New List
       </button> */}
-      {priorityPopup && (
-        <>
-          <Backdrop onClickBackdrop={handlePriorityPopup} />
-          <PriorityPopup onTogglePriorityPopup={handlePriorityPopup} {...props} />
-        </>
-      )}
       {createListPopup && (
         <>
           <Backdrop onClickBackdrop={handleCreateListPopup} />

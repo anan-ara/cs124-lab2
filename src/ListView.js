@@ -213,6 +213,17 @@ function ListView(props) {
         filter={filter}
       setFilter={setFilter}
       />
+      {deleteCompletedPopup && (
+        <>
+          <Backdrop onClickBackdrop={handleDeleteCompletedPopup} />
+          <DeleteCompletedPopup
+            onDelete={handleDeleteCompletedTasks}
+            onClosePopup={handleDeleteCompletedPopup}
+            showCompleted={showCompleted}
+            filter={filter}
+          />
+        </>
+      )}
       <SubBar
         showCompleted={showCompleted}
         onToggleCompleted={handleToggleCompleted}
@@ -247,17 +258,6 @@ function ListView(props) {
         // highPriorityIcon={highPriorityIcon}
       />
       <BottomBar onTextInput={addNewTodo} bottomBarRef={bottomBar} />
-      {deleteCompletedPopup && (
-        <>
-          <Backdrop onClickBackdrop={handleDeleteCompletedPopup} />
-          <DeleteCompletedPopup
-            onDelete={handleDeleteCompletedTasks}
-            onClosePopup={handleDeleteCompletedPopup}
-            showCompleted={showCompleted}
-            filter={filter}
-          />
-        </>
-      )}
     </>
   );
 }
