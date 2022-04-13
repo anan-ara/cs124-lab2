@@ -73,7 +73,7 @@ function Home(props) {
 
   let filteredData = data;
   if (!loading) {
-    filteredData = data.filter((item) => item.text.includes(filter));
+    filteredData = data.filter((item) => item.text.toLowerCase().includes(filter.toLowerCase()));
   }
 
   // Needed so that we know when the submenu menu needs to pop up instead of down.

@@ -91,7 +91,7 @@ function ListView(props) {
 
   let filteredData = data;
   if (!loading) {
-    filteredData = data.filter((item) => item.text.includes(filter));
+    filteredData = data.filter((item) => item.text.toLowerCase().includes(filter.toLowerCase()));
   }
 
   if (error) {
