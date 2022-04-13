@@ -157,6 +157,15 @@ Below is a screenshot of our lab 2 design.
 
 ![finished app](lab2-app.png)
 
+Below are screenshots of our lab 3 design.
+
+![finished app](final-design-show-all-tasks.png)
+![no tasks](final-design-no-tasks.png)
+![no incomplete tasks](final-design-no-incomplete.png)
+![main menu](final-design-main-menu.png)
+![sub menu](final-design-submenu.png)
+![change emoji](final-design-change-emoji.png)
+
 For Lab 4, initially we had a much more rounded aesthetic for the home view to differentiate it from the list view. After user testing, we decided that the difference was too drastic and we made the theme more blocky. Below is our initial rounded home view design.
 
 ![rounded home](rounded-home.png)
@@ -233,14 +242,15 @@ Alekz also mentioned that on a phone, when people click the text, they likely wa
 
 # Final Design
 
-Below are screenshots of our final design for the app.
+Below are screenshots of our final design.
 
-![finished app](final-design-show-all-tasks.png)
-![no tasks](final-design-no-tasks.png)
-![no incomplete tasks](final-design-no-incomplete.png)
-![main menu](final-design-main-menu.png)
-![sub menu](final-design-submenu.png)
-![change emoji](final-design-change-emoji.png)
+![home-large](home-large.png)
+![home-medium](home-medium.png)
+![home-small](home-small.png)
+![home-small-menu](home-small-menu.png)
+![list-view-large](list-view-large.png)
+![list-view-small](list-view-small.png)
+![list-view-small-list](list-view-small-list.png)
 
 # Challenges We Faced
 
