@@ -1,7 +1,14 @@
 import "./DeleteListPopup.css";
 import "./Popup.css";
+import { useEffect, useState, useRef } from "react";
 
 function DeleteListPopup(props) {
+  const start = useRef();
+  const end = useRef();
+
+  useEffect(() => {
+    start.current.focus();
+  });
 
   return (
     <div className="popup delete-list-popup">
