@@ -1,0 +1,54 @@
+input[type='checkbox']:checked {
+    background: #999999;
+    content: "✔";
+}
+
+li input[type='checkbox'] {
+    -webkit-appearance:none;
+    width: 25px;
+    height: 25px;
+    background:white;
+    border-radius:6px;
+    border:2.6px solid #494949;
+}
+/* 
+li textarea {
+    font-family: "SF Pro Display","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif;
+    margin-left: 2vw;
+    width: 68vw;
+    border:none;
+    background:none;
+    color: #494949;
+    font-size: medium;
+    resize: none;
+} */
+
+li.done textarea {
+    color: #757575;
+    text-decoration: line-through;
+}
+
+#list-contents svg {
+    height: 19px;
+    width: auto;
+    fill: #494949;
+}
+
+#list-contents .dot {
+    margin-left: 10px;
+}
+
+div.bottom-line {
+    border-bottom: 1.5px solid #494949;
+  }
+
+#list-contents li {
+    min-height: 44px;
+    /* background: white;
+    display: flex;
+    align-items: center;
+    padding: 6px;
+    border-bottom: 1.5px solid #494949; */
+    border-bottom: 1.5px solid #494949;
+
+}

@@ -1,37 +1,51 @@
 #top_bar {
-    order: 0;
-    background: #595959;
-    padding: 1vh 0;
-    height: 10vh;
+  order: 0;
+  background: #494949;
+  /* padding-right: 6px; */
+  height: 64px;
 
-    /* top bar's own flexbox */
-    flex-direction: row;
-    align-items: center;
-    display: flex;
-    justify-content: space-around;
-    /* take up whole width */
-    width: 100%;
+  /* top bar's own flexbox */
+  flex-direction: row;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  /* take up whole width */
+  width: 100%;
+}
+
+#top_bar > button,
+#top_bar > #top_bar_title {
+  padding: 0px 10px;
 }
 
 #top_bar svg {
-    flex: 0 0 auto;
-    height: 7vh;
-    width: auto;
-    fill: white;
+  flex: 0 0 auto;
+  height: 45px;
+  width: auto;
+  fill: white;
 }
-
-/* .sorting_text {
-    color: white;
-    font-size: small;
-    white-space: nowrap;
-} */
 
 #top_bar > * {
-    width: auto;
+  width: auto;
 }
 
-#app-title {
-    color: white;
-    font-size: xx-large;
-    font-weight: bold;
+#top_bar_title {
+  color: white;
+  font-size: xx-large;
+  font-weight: bold;
+  /* text-overflow: ellipsis; */
+  /* white-space: nowrap; */
+  /* width: calc(100vw - 65px - 65px); */
+}
+
+#top_bar_list_title {
+  color: white;
+  font-size: xx-large;
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+  white-space: nowrap;
+  width: calc(100vw - 65px - 65px);
 }

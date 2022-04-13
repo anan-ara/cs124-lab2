@@ -1,6 +1,6 @@
 function MainMenuToggle(props) {
     return (
-      <button className="top_bar_icon_div" onClick={props.onToggleDropdown}>
+      <button className="top_bar_icon_div" onClick={props.onToggleDropdown} aria-label="Main Menu">
           <svg
           xmlns="http://www.w3.org/2000/svg"
           className="bi bi-list dropbtn"

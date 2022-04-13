@@ -1,8 +1,9 @@
+import "./ListContents.css";
 import "./Contents.css";
-import ListItem from "./ListItem";
+import TaskItem from "./TaskItem";
 import { useState } from "react";
 
-function Contents(props) {
+function ListContents(props) {
   const [scroll, setScroll] = useState(true);
 
   function handleToggleScroll() {
@@ -22,21 +23,23 @@ function Contents(props) {
   // }
 
   return (
-    <div id="contents" className={scroll ? "scroll" : ""}>
+    <div id="list-contents" className={("contents").concat(scroll ? " scroll" : "").concat(props.isNarrow ? " small-width" : "")}>
       {props.loading ? (
         <div className={"empty"}>Loading...</div>
       ) : (
         <>
           {props.data.length === 0 && (
           <div className={"empty"}>
-            {props.showCompleted
-              ? "You currently have no tasks"
-              : "You currently have no incomplete tasks"}
+            {props.unfilteredData.length === 0 ?
+            (props.showCompleted ? "You currently have no tasks." : "You currently have no incomplete tasks." )
+            :
+            (props.showCompleted ? "No complete tasks match your search." : "No incomplete tasks match your search." )
+            }
           </div>
           )}
           <ul>
             {props.data.map((e) => (
-              <ListItem
+              <TaskItem
                 text={e.text}
                 priority={e.priority}
                 // priorityToIcon={props.priorityToIcon}
@@ -55,4 +58,4 @@ function Contents(props) {
   );
 }
 
-export default Contents;
+export default ListContents;

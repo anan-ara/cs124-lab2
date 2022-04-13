@@ -1,0 +1,17 @@
+
+select {
+    margin-left: 5px;
+    border-radius: 5px;
+  }
+  
+  /* Get rid of blue outline on select element */
+  /* select:focus {
+    outline: 0px;
+  } */
+
+  .selector-label-text {
+    color: #494949;
+    font-size: small;
+    white-space: nowrap;
+  }
+  

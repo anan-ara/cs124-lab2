@@ -1,6 +1,8 @@
 import "./ListItem.css";
+import "./Item.css";
 import SubMenu from "./SubMenu";
 import Backdrop from "./Backdrop";
+import DeleteListPopup from "./DeleteListPopup";
 import SubMenuToggle from "./SubMenuToggle";
 import { useEffect, useState, useRef } from "react";
 
@@ -11,15 +13,15 @@ function ListItem(props) {
   // Local text field before it is saved in database
   const [text, setText] = useState(props.text);
 
+  // Delete List Confirmation
+  const [deleteListPopup, setDeleteListPopup] = useState(false);
+  function handleDeleteListPopup() {
+    setDeleteListPopup(!deleteListPopup);
+  }
+
   // reference to textArea
   const textArea = useRef();
 
-  // So that we can translate from priority number to the icon.
-  let priorityToIcon = {
-    0: props.lowPriorityIcon,
-    1: props.medPriorityIcon,
-    2: props.highPriorityIcon,
-  };
   // reference to subMenuToggle button
   const subMenuToggle = useRef();
 
@@ -37,7 +39,7 @@ function ListItem(props) {
 
   function handleFinishRename() {
     if (text === "") {
-      props.onDeleteTask(props.id);
+      props.onDeleteList(props.id);
     } else {
       setEditable(false);
       props.onChangeText(props.id, text);
@@ -58,45 +60,58 @@ function ListItem(props) {
   });
 
   return (
-    <li className={props.checked ? "done" : ""}>
-      <input
-        type="checkbox"
-        id={props.id}
-        name={props.id}
-        checked={props.checked}
-        onChange={() => props.onToggleChecked(props.id)}
-      />
+    <li className="item">
       <textarea
         value={text}
+        className="item-text-area"
         ref={textArea}
         htmlFor={props.id}
         onChange={(e) => setText(e.target.value)}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
-            handleFinishRename();
+            editable ? handleFinishRename() : props.onSelectList(props.id);
           }
         }}
         onBlur={handleFinishRename}
         readOnly={!editable}
         onClick={() => {
           if (!editable) {
-            props.onToggleChecked(props.id);
+            props.onSelectList(props.id);
           }
         }}
+        aria-label={"List " + text}
       />
-      <span className="dot" onClick={handleDropDown}>{priorityToIcon[props.priority]}</span>
-      <SubMenuToggle onToggle={handleDropDown} buttonLocation={subMenuToggle} />
-      {dropDown ? (
+      {props.isNarrow || (
+        <div className="complete-count"
+        aria-label={"Completion counter for " + text}>
+          {props.complete + " / " + props.total + " completed"}
+        </div>
+      )}
+      <SubMenuToggle
+        onToggle={handleDropDown}
+        buttonLocation={subMenuToggle}
+        accessibleName={"List ".concat(props.text)}
+      />
+      {dropDown && (
         <>
           <Backdrop onClickBackdrop={handleDropDown} />
           <SubMenu
             onHandleDropDown={handleDropDown}
             onRename={handleStartRename}
             top={getToggleLocation()}
+            bottomBarLocation={props.getBottomBarLocation()}
+            onDelete={handleDeleteListPopup}
+            accessibleName={"List ".concat(props.text)}
             {...props}
           />
         </>
-      ) : null}
+      )}
+      {deleteListPopup && (
+        <>
+          <Backdrop onClickBackdrop={handleDeleteListPopup} />
+          <DeleteListPopup onClosePopup={handleDeleteListPopup} {...props} />
+        </>
+      )}
     </li>
   );
 }

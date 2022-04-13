@@ -1,0 +1,24 @@
+#home-bottom-bar {
+  order: 10;
+  /* flex: 0 0 initial; */
+  height: 60px;
+  background: #494949;
+  /* background: white; */
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  bottom: 0; /* make stay at bottom of screen */
+}
+
+#home-bottom-bar button {
+  margin: auto;
+  border: none;
+  /* border: 1.5px solid #494949; */
+  /* background: #494949; */
+  background: white;
+  width: 90%;
+  height: 70%;
+  border-radius: 8px;
+  font-size: large;
+  color: #494949;
+}

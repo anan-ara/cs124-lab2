@@ -1,0 +1,40 @@
+li.item {
+    background: white;
+    display: flex;
+    align-items: center;
+    padding: 6px;
+    flex-direction: row;
+    /* align-content: center; */
+    justify-content: space-between;
+}
+
+li textarea {
+    font-family: "SF Pro Display","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif;
+    margin-left: 2vw;
+    width: 60vw;
+    border:none;
+    background:none;
+    color: #494949;
+    font-size: medium;
+    resize: none;
+    /* Make the text area take up remaining space */
+    flex-grow: 3;
+}
+
+textarea:hover, 
+input:hover, 
+textarea:active, 
+input:active, 
+button:active,
+.btn:active,
+.btn.active
+{
+    outline:0px !important;
+    -webkit-appearance:none;
+    box-shadow: none !important;
+}
+
+/* Make cursor a hand on text areas since they are clickable in our application */
+textarea.item-text-area {
+    cursor: pointer;
+}
