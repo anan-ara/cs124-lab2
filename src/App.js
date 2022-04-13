@@ -22,7 +22,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-
 function App() {
   // Screen Width
   const isNarrow = useMediaQuery({ maxWidth: "615px" });
@@ -55,13 +54,19 @@ function App() {
 
   let lowPriorityIcon = "💤";
   let medPriorityIcon = "⚠️";
-  let highPriorityIcon = "🔥"
+  let highPriorityIcon = "🔥";
   if (!metadataLoading) {
-    lowPriorityIcon = metadata.lowPriorityIcon
-    medPriorityIcon = metadata.midPriorityIcon
-    highPriorityIcon = metadata.highPriorityIcon
+    lowPriorityIcon = metadata.lowPriorityIcon;
+    medPriorityIcon = metadata.midPriorityIcon;
+    highPriorityIcon = metadata.highPriorityIcon;
   }
 
+  // So that we can translate from priority number to the icon.
+  let priorityToAria = {
+    0: "Low Priority",
+    1: "Medium Priority",
+    2: "High Priority",
+  };
 
   function handleChangeText(id, newText, collectionRef) {
     updateDoc(doc(collectionRef, id), { text: newText });
@@ -93,6 +98,7 @@ function App() {
       lowPriorityIcon={lowPriorityIcon}
       medPriorityIcon={medPriorityIcon}
       highPriorityIcon={highPriorityIcon}
+      priorityToAria={priorityToAria}
       homeScreen={true}
       onSelectList={handleSelectList}
     />
@@ -109,6 +115,7 @@ function App() {
       medPriorityIcon={medPriorityIcon}
       highPriorityIcon={highPriorityIcon}
       homeScreen={false}
+      priorityToAria={priorityToAria}
     />
   );
 }

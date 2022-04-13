@@ -28,6 +28,7 @@ function TabList(props) {
             lowPriorityIcon={props.lowPriorityIcon}
             medPriorityIcon={props.medPriorityIcon}
             highPriorityIcon={props.highPriorityIcon}
+            priorityToAria={props.priorityToAria}
           />
         ))}
       </div>

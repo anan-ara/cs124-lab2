@@ -22,6 +22,13 @@ function TaskItem(props) {
     2: props.highPriorityIcon,
   };
 
+  // So that we can translate from priority number to the icon.
+  let priorityToAria = {
+    0: "Low Priority",
+    1: "Medium Priority",
+    2: "High Priority",
+  };
+
   // reference to subMenuToggle button
   const subMenuToggle = useRef();
 
@@ -64,7 +71,7 @@ function TaskItem(props) {
   });
 
   return (
-    <li className={("item").concat(props.checked ? " done" : "")}>
+    <li className={"item".concat(props.checked ? " done" : "")}>
       <input
         type="checkbox"
         id={props.id}
@@ -101,7 +108,11 @@ function TaskItem(props) {
       <span className="dot" onClick={handleDropDown}>
         {priorityToIcon[props.priority]}
       </span>
-      <SubMenuToggle onToggle={handleDropDown} buttonLocation={subMenuToggle} accessibleName={("task ").concat(props.text)}/>
+      <SubMenuToggle
+        onToggle={handleDropDown}
+        buttonLocation={subMenuToggle}
+        accessibleName={"task ".concat(props.text)}
+      />
       {dropDown && (
         <>
           <Backdrop onClickBackdrop={handleDropDown} />
@@ -112,7 +123,6 @@ function TaskItem(props) {
             onDelete={onDeleteTask}
             bottomBarLocation={props.getBottomBarLocation()}
             accessibleName={"Task ".concat(props.text)}
-
             {...props}
           />
         </>
