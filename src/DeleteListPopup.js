@@ -11,20 +11,39 @@ function DeleteListPopup(props) {
   });
 
   return (
-    <div className="popup delete-list-popup">
+    <div
+      className="popup delete-list-popup"
+      onKeyDown={(e) => {
+        if (e.key === "Escape") {
+          props.onClosePopup();
+        }
+      }}
+    >
       <div>Are you sure you want to delete list {props.text}?</div>
       <div className="cancel-ok">
         <button
-          // className={(props.showCompleted ? "activated " : "") + "radio-button"}
+          ref={start}
           onClick={props.onClosePopup}
+          onKeyDown={(e) => {
+            if (e.key === "Tab" && e.shiftKey) {
+              e.preventDefault();
+              end.current.focus();
+            }
+          }}
         >
           Cancel
         </button>
         <button
-          // className={(props.showCompleted ? "activated " : "") + "radio-button"}
+          ref={end}
           onClick={() => {
             props.onDeleteList(props.id);
             props.onClosePopup();
+          }}
+          onKeyDown={(e) => {
+            if (e.key === "Tab" && !e.shiftKey) {
+              e.preventDefault();
+              start.current.focus();
+            }
           }}
         >
           OK
