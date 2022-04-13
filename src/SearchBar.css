@@ -10,6 +10,9 @@
 
 #search_bar {
     flex-grow: 3;
+    font-size: large;
+    border-radius: 5px;
+    border: 1px solid;
 }
 
 /* When not in a flexbox, then make search bar take up the whole width of the screen.  */
