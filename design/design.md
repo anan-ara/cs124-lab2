@@ -57,6 +57,8 @@ Clicking on the task (everywhere except the menu) should mark the item as comple
 
 Priority level adjustment, deleting the task, and renaming the task can be done from the task menu as we thought these are actions that are not commonly used, and can be hidden in the task menu to maximize the surface area for marking the task complete/incomplete.
 
+Upon talking to Alekz, one of our user testers, we actually realize that we are wrong in this for phones. For phones, clicking on the text area of the task should allow the user to rename the task, not check/uncheck the checkbox. We will change this to be the default behavior for phones in the next lab.
+
 The checkbox goes on the left of each task as that is where it is usually positioned on a physical to-do list. We included a checkbox because otherwise, it may not be immediately obvious how to mark an item as complete/incomplete. After checking an item, we grey out the text for that task. We considered putting a strikethrough on the text for completed tasks but we ended up deciding not to for readability.
 
 We decided to have different emojis (🔥, ⚠️, 💤) for the different priority levels for people who are color blind. This was a suggestion from Prof. Rhodes. 
@@ -77,7 +79,7 @@ We made the task list auto scroll to the bottom upon creation of a new task as w
 
 ## Color Palette
 
-We chose a very neutral grey color palette as our app will have a lot of color from the priority levels we can assign to each task and we do not want it to clash with the background and overall theme of the app.
+We chose a neutral grey color palette as our app will have a lot of color from the priority levels we can assign to each task and we do not want it to clash with the background and overall theme of the app.
 
 We also chose these colors because they meet the AA accessibility standard for the amount of contrast needed between foreground and background for the app's text to be readable. Most notably, we changed the overall background color of our app from #e6e6e6 to #ffffff. We used the [WebAIM](https://webaim.org/resources/contrastchecker/) contrast checker to help us with this task.
 
@@ -87,6 +89,8 @@ We also chose these colors because they meet the AA accessibility standard for t
 
 When there are no tasks in the todo list, we realized that it may be confusing for the user to simply see an empty screen. Thus, when the screen is empty, we included a message that says "You currently have no tasks" when the user is
   showing all tasks, and a message that says "You currently have no incomplete tasks" when the user is showing only incomplete tasks.
+
+After we implemented searching functionality, we also added new empty text to account for the case when no existing tasks match the user's query.
 
 ## Swipe Quick Actions
 
@@ -118,6 +122,10 @@ not very useful, since users did not understand them unless they were accompanie
 Below is a screenshot of our lab 2 design.
 
 ![finished app](lab2-app.png)
+
+For Lab 4, initially we had a much more rounded aesthetic for the home view to differentiate it from the list view. After user testing, we decided that the difference was too drastic and we made the theme more blocky. Below is our initial rounded home view design.
+
+![rounded home](rounded-home.png)
 ### Dark Mode and Alternative Color Themes
 
 We also would like to implement a dark mode to invert the colors. Since our theme is greyscale, this should be easy to do without breaking the aesthetic of our app. We also would like to allow the user to choose alternative color themes if they like more colors instead of the gray.
@@ -175,6 +183,19 @@ The emojis aren't immediately obvious. Red Yellow Green is probably better. Low 
 Right now sorting is capital letters first
 
 Searching case sensitivity
+
+## Testing Group 9: Celine Wang
+
+Celine was confused with the search bar and why new tasks were not showing up after creating tasks (when her search bar was non empty). Celine also initially thought that the search bar was an add task bar. This can be confusing because when the search bar is nonempty, it will look like entering a task into the list did nothing. A way to fix is problem is by having the search bar clear upon adding a new task. Additionally, Celine liked the feature to delete all completed tasks at once. She also mentioned that the lack of such a feature is a reason she stopped using a to-do list app in the past.
+
+## Testing Group 10: Saatvik Sejpal and Alekzander Grijalva-Moreno
+Saatvik was unable to find the "Add New List" and "Add New Task" buttons initially. This is because we placed them at the bottom of the screen. While we still believe that this is the correct design decision on the mobile view, we may move the location of this button for the desktop view as it may be more visible in a different location for that view. Saatvik also suggested changing the cursor shape to be a hand with a pointer finger when hovering over interactive/clickable elements to indicate that they can be clicked. 
+
+Saatvik also initially thought that the search bar is the add task/list button. Since many people are having trouble with this, we believe it is better to make the search bar more explicit, perhaps by adding a magnifying glass icon.
+
+Alekz also didn't like how different our home view and list view were. He thought that the home view was too rounded and the list view was too blocky, and that there wasn't enough consistency between the two. Upon reflection, we believe he is right and we chose to make the home view less rounded and more blocky to match the list view.
+
+Alekz also mentioned that on a phone, when people click the text, they likely want to rename the task rather than checking/unchecking the checkbox. He also showed us an example with Apple's Reminders app. We believe that he is right and we would like to make this the default functionality for the next lab.
 
 # Final Design
 
