@@ -33,7 +33,6 @@ function PriorityPopup(props) {
         currentIcon={props.lowPriorityIcon}
         onChangeIcon={props.setLowPriorityIcon}
         priorityText={"Low" + props.lowPriorityIcon}
-      aria-label={props.priorityToAria[0] + " tab"}
       />
       <PriorityTab
         start={start}
@@ -43,7 +42,6 @@ function PriorityPopup(props) {
         currentIcon={props.medPriorityIcon}
         onChangeIcon={props.setMedPriorityIcon}
         priorityText={"Med" + props.medPriorityIcon}
-        aria-label={props.priorityToAria[1] + " tab"}
 
       />
       <PriorityTab
@@ -54,7 +52,6 @@ function PriorityPopup(props) {
         currentIcon={props.highPriorityIcon}
         onChangeIcon={props.setHighPriorityIcon}
         priorityText={"High" + props.highPriorityIcon}
-        aria-label={props.priorityToAria[2] + " tab"}
 
       />
     </TabList>

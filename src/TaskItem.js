@@ -22,13 +22,6 @@ function TaskItem(props) {
     2: props.highPriorityIcon,
   };
 
-  // So that we can translate from priority number to the icon.
-  let priorityToAria = {
-    0: "Low Priority",
-    1: "Medium Priority",
-    2: "High Priority",
-  };
-
   // reference to subMenuToggle button
   const subMenuToggle = useRef();
 
@@ -105,9 +98,9 @@ function TaskItem(props) {
         }}
         aria-label={"Task " + text}
       />
-      <span className="dot" onClick={handleDropDown}>
+      <label className="dot" onClick={handleDropDown} aria-label={props.priorityToAria[props.priority] + " icon"}>
         {priorityToIcon[props.priority]}
-      </span>
+      </label>
       <SubMenuToggle
         onToggle={handleDropDown}
         buttonLocation={subMenuToggle}
