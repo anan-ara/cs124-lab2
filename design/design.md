@@ -2,6 +2,10 @@
 
 This document outlines the rationale behind our design decisions. It describes why elements are placed where they are, why certain elements appear a certain way, have certain properties and behavior, etc.
 
+## Links to Accessibility Videos
+Keyboard: https://drive.google.com/file/d/126-Yd_vv4fPBfULfAjs5wk5La_qFH7cU/view?usp=sharing
+Screen Reader: https://drive.google.com/file/d/1xWWXt9yxsh13QxZBqb3J3iOVcOkt7UPC/view?usp=sharing
+
 ## App Design Philosophy
 We designed our app to be something that is both visually appealing and practically useful. It was originally designed for mobile devices, and was later adapted for larger screen sizes. 
 
