@@ -21,6 +21,7 @@ export function Tab(props) {
         //   props.end.current.focus();
         }
       }}
+      aria-label={props.priorityToAria[props.index] + " tab"}
     >
       {props.label + " " + labelToIcon[props.label]}
     </button>
@@ -28,6 +29,8 @@ export function Tab(props) {
     <button
       className={classNames.join(" ")}
       onClick={() => props.onClickTab(props.label)}
+      aria-label={props.priorityToAria[props.index] + " tab"}
+
     >
       {props.label + " " + labelToIcon[props.label]}
     </button>
