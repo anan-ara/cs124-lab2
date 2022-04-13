@@ -5,8 +5,15 @@
 #home-contents svg {
     height: 19px;
     /* width: auto; */
-    /* margin-right: 0; */
+    /* margin-right: 10px; */
     fill: #494949;
+    /* margin-left: auto; */
+}
+
+#home-contents .complete-count {
+    /* width: auto; */
+    margin-left: 10px;
+    color: #494949;
     /* margin-left: auto; */
 }
 
