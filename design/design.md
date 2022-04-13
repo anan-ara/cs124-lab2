@@ -2,20 +2,54 @@
 
 This document outlines the rationale behind our design decisions. It describes why elements are placed where they are, why certain elements appear a certain way, have certain properties and behavior, etc.
 
+## App Design Philosophy
+We designed our app to be something that is both visually appealing and practically useful. It was originally designed for mobile devices, and was later adapted for larger screen sizes. 
+
+Our app has a home screen where the user can create new lists or edit/go into their existing lists. From the home screen, it is also possible to change overall app settings, which currently is just the priority emoji used for the tasks.
+
+After the user clicks on a list, the app shows all of the tasks for that list in a slightly different view to differentiate it from the home view.
+
+More details about both of these views can be found in the section below.
+
+## Home Screen
+The home screen has the following features:
+- Create/edit/delete lists
+- Display # of tasks completed / total # of tasks on wider screens
+- Search 
+- Sorting 
+- Changing the emoji indicating different levels of priority
+
+Lists can be created by pressing the "Add New List" button at the bottom of the screen. This brings up a popup that allows the user to name a list they would like to create. We decided to make this bring up a pop up element since this is not an action users are meant to take often (in contrast to creating tasks, see next section). From here, the user can confirm or cancel their list creation.
+
+On existing lists in the home screen, the user can click the 3 dots next to it to bring up the option to delete or rename the task. This icon is a common icon used to open up more options. Pressing delete brings up a confirmation popup as it is a destructive action and we would like to prevent the user from accidentally deleting their list and all the tasks within that list.
+
+The default action upon clicking a list in the home screen is the bring the user to the task view for the tasks in the list that was clicked. This is because we are following the 80/20 rule. We believe that 80% of the time the user wants to interact with the list, it is to go inside and view the tasks associated with that list.
+
+The sorting functionality is either on the top bar or inside the main menu dropdown on the top right. This allows the user to sort their lists in an order that is convenient for them. We hope that this feature will be useful to users with multiple lists.
+
+Inside the main menu button, we will have the sorting functionality if the screen is not wide enough to show the sorting functionality on the top bar, and we will have an option for the user to change the priority emojis used for the app. We received feedback from our testers that the emojis used to indicate the priority levels are not always intuitive/obvious to them. To fix this issue, we decided to add an option which allows users to choose their own priority emojis.
+
+Finally, the home screen has a search bar which allows users the filter the lists they see on the home screen down to just the lists that match the search term. We anticipate that this will be useful for users with many lists or users who are looking for a specific list.
 ## Element Placement
-
-Deleting all tasks that are completed is a destructive action, so it would be bad if the user accidentally clicked this icon without knowing what it does. Thus, we placed this action under the menu icon in the upper right corner along with a text description. Additionally, it is not a common action, so it is okay for it to take more clicks to activate.
-
-New items go at the bottom of the list because this is what happens when people add items to a physical (on paper) to-do list so we believe this is more intuitive.
-
 We decided to place the "Add Task (+)" button on the bottom left hand corner of the screen because most people are right-handed. When holding a phone with just the right hand, the bottom-left corner is the most accesible with the right thumb. This should reduce the friction in using our to-do app. Additionally, this is an element that is likely to be used multiple times in quick succession, and it would be annoying for the user if it were to move with each usage, so it is pinned to the bottom of the app. This was a suggestion by Prof. Rhodes.
+## Tasks Screen
+The tasks screen has the following features:
+- Return to home screen
+- Create/edit/delete tasks
+- Change the priority level of the task
+- Mark task as complete/incomplete
+- Toggle between showing all/only incomplete tasks
+- Search 
+- Sorting 
+
+On the tasks screen, we have the name of the list the user is currently in centered in the top bar so that the user has information of which list they are currently in at all times while in this screen.
+
+Deleting all tasks that are completed is a destructive action, so it would be bad if the user accidentally clicked this icon without knowing what it does. Thus, we placed this action under the menu icon in the upper right corner along with a text description. Additionally, it is not a common action, so it is okay for it to take more clicks to activate. To further mitigate this risk, we also added a confirmation popup that asks the user to confirm before deleting all completed tasks. This confirmation popup will also warn the user if their current view is not currently displaying all the tasks that will be deleted, such as when the search bar is not empty or when the user is in show only incomplete tasks mode.
+
+On the top right of the screen, we have an arrow pointing to the left which will bring the user back to the home screen. This is a common icon and icon location used for "going up a level"
 
 To edit a task, the user can click on the three dots icon, where they will also be able to edit other details of the task.
-This icon is a common icon used to open up more options.
 
-After adding more sorting options, we decided to completely redesign our Top Bar. Now, The show all / show only incomplete is a radio button instead of a toggle button to make it clearer which state is currently activated. We believe that this will make the app less confusing to use as it would make it seem less like the tasks are "disappearing" upon being checked if show only incomplete items is activated. Additionally, since we now have more sorting options, we changed the sorting from a toggle button to a select element with options for the same reason as changing the show all/show incomplete to a radio button.
-
-We also added a Title (Todos) to the top left of the top bar. We found that it was not immediately obvious to some users that our app is a todo list, so we believe this should make it easier to understand.
 
 ## Task Element
 
@@ -127,6 +161,20 @@ Liam understood most of our app. He immediately saw the select element to choose
 However, he tried to click on the priority emojis several times, and was confused by the fact that nothing happened. To address this, we made clicking on the priority emojis show the drop down as well, so that users can change the priority emojis through the sub menu when they click on the priority icon. 
 At first, he was also a confused as to what the priority emojis represented. However, he figured it out when he went to the "Change Priority Emoji" screen. To address this, we initialized the todo list with a list of items in the beginning that tell users how to use the app. 
 In this "tutorial", we included the meanings of the default emojis. 
+
+## Testing Group 8: Sidhant Rastogi
+
+Would be nice to see when the tasks are creation.
+
+Creation is a weird word for a sorting query.
+
+Would be nice if subnotes can be added.
+
+The emojis aren't immediately obvious. Red Yellow Green is probably better. Low should be green (?)
+
+Right now sorting is capital letters first
+
+Searching case sensitivity
 
 # Final Design
 
