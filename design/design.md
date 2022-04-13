@@ -168,7 +168,7 @@ We also would like to implement a dark mode to invert the colors. Since our them
 
 ## Informal Testing
 Initially, we wanted to not have labels associated with the menu icons on the top bar of our app, but from our user testing, none of the users we tested the product on were able to successfully guess what the icons represented or what their functionality was. Because of this, we decided to add labels to each of our icons on the top bar. 
-## Testing Group 1: Holly Chen
+## Testing Group 1: Holly Chen 02/09/22
 From our testing with Holly, we found that the stock emojis we selected are not immediately obvious as priority levels to everyone. At this point, our select priority emoji option to allow users to set the emoji corresponding to each priority level has not been implemented yet, but we believe that this should solve this problem and Holly agreed.
 
 Holly also found a bug in our program where the submenu popups would pop up out of view if they were too far down the page. We later fixed this bug by making the submenu popup appear on top of the button instead if the task item is too far down the page.
@@ -177,19 +177,19 @@ Holly also mentioned wanting the ability to drag to reorder tasks in the list. W
 
 We also found that it is not immediately obvious that a task has been sucessfully added if the task list is long. The user would have to scroll down to see that their new task has been successfully added to the task list. To fix this, we WILL AUTOSCROLL TO THE BOTTOM.
 
-## Testing Group 2: Keo Chui and Cole Nagata
+## Testing Group 2: Keo Chui and Cole Nagata 03/02/22
 Keo mentioned that the sorting icon, especially the one for sorting by priority, is not clear. It is not clear whether the filled-in stoplight means sort by priority or not. Because of this, we decided to modify the description text for that icon.
 
 Keo also thought that the task items could be reordered by dragging on the menu icon. This made us realize that the menu "hamburger" icon is actually quite misleading as it is sometimes used to indicate that something can be moved, so we decided to change the "hamburger" menu icon to a "three dots" menu icon for the submenu for each task item instead.
-## Testing Group 3: Sydney Cornell and Ruby Foxall
+## Testing Group 3: Sydney Cornell and Ruby Foxall 03/02/22
 Sydney and Ruby found the app fairly intuitive, and they were able to figure out how to use the app exactly as we intended. This showed us that many of the design decisions and iterations we have made eventually did lead to a fairly intuitive, easy-to-use product.
-## Testing Group 4: Kaveh Pezeshki
+## Testing Group 4: Kaveh Pezeshki 03/02/22
 Kaveh also found the app intuitive, but only after adding a couple of task items. This made us realize that the app would benefit from a "tutorial" of sorts. Because of this, we decided to add some default task items that are already in the task list explaining to users the different functionalities of the app. These default task items would show when the user launches the app for the first time.
 
-## Testing Group 5: Zooey Meznarich and Amy Qian
+## Testing Group 5: Zooey Meznarich and Amy Qian 03/02/22
 Initially, Zooey was not able to figure out what the buttons at the top did since there were no tasks in the task item, so it seemed like they did nothing. This can be fixed by adding default list items. Amy also said the same thing Holly said earlier about how the hamburger icon is misleading, and that we should change it to the three dots icon instead. They also mentioned that the ability to change emojis for each priority level would be nice, and that swipe quick actions would be nice. We will implement the priority level emoji selector for this lab, and we will attempt to add swipe actions in a future release.
 
-## Testing Group 6: Ashley Tung and Claire
+## Testing Group 6: Ashley Tung and Claire Boege 03/23/22
 The first thing Ashley said was that our app was rather grey. She said that she prefers a pop of color instead. We should note that this was before any items were added to the To-Do list, so the screen was entirely grey at this time. In the future, we plan to include an option to change the "App Theme", which will allow the user to select their own color palette, or at least the color of the top and bottom bar. 
 
 Ashley liked the emojis and thought they were pretty intuitive, but didn't particularly like the red heart emoji ("❤️") for use in representing high priority tasks.
@@ -197,7 +197,7 @@ So, we decided to replace this emoji with a red exclamation point ("❗️").
 
 Ashley also suggested implementing date-based deletion. For instance, one could create a todo list for one day, and then wish to create a fresh todo list for the next day. 
 One way to implement this is allowing the user to have multiple lists in the same application, which we will implement later. However, we could also implement this by having an option to delete all tasks from a particular date. We will consider adding this feature as well in the future. 
-## Testing Group 7: Liam Chalk
+## Testing Group 7: Liam Chalk 03/23/22
 Liam understood most of our app. He immediately saw the select element to choose different sorting options, as well as the options to show/hide completed tasks. 
 
 However, he tried to click on the priority emojis several times, and was confused by the fact that nothing happened. To address this, we made clicking on the priority emojis show the drop down as well, so that users can change the priority emojis through the sub menu when they click on the priority icon. 
