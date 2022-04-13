@@ -82,7 +82,7 @@ function ListItem(props) {
         aria-label={"List " + text}
       />
       {props.isNarrow || (
-        <div>
+        <div className="complete-count">
           {props.complete} / {props.total} completed
         </div>
       )}
