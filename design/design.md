@@ -64,6 +64,29 @@ We would like to implement quick swipe actions for quickly deleting the task and
 
 We think that adding swipe quick actions can only be beneficial as to users who are not aware of its functionality, it does not take away from the user experience and does not clutter up the UI. It is invisible if the user chooses not to use it. 
 
+## Adapting for Different Screen Sizes
+
+To adapt for different screen heights, we made the height of the inner part of the screen dependant upon the heights of the top bar and the bottom bar for both the Home screen and the Tasks screen. We also made some elements fixed size so that they wouldn't become too large or small on large and small screen sizes, respectively. 
+
+To adapt for different screen widths, we changed the layout of elements and added an extra feature to the lists on the home page. 
+
+Here are the different screen widths we considered:
+- Narrow: 615px or narrower
+- Medium: 615px to 900px
+- Wide: 900px or wider
+# Home Screen 
+For narrow widths, we placed the "Sort by:" selector element inside the Main Menu. We hid this element inside the main menu for narrow widths because we decided that 80% of users wouldn't need to use this function that often. For the 20% of users that do, they can find the function if they look in the main menu.  We also placed the search bar below the top bar of the screen, since there was not enough space in the top bar to place the search bar in the top bar for narrow widths. 
+
+For medium widths, we placed the 
+
+For wide widths, we moved the "Sort By" selector
+
+We also placed the search bar below the top bar of the screen, because
+
+# Task Screen
+For narrow widths, we placed the "Sort by:" selector element inside the Main Menu, for the same reasons as in the Home Screen. 
+
+
 # Alternative Designs
 Initially, we had 4 buttons on the top bar: A clock, a stoplight, a checkmark, and the menu icon. 3 of these icons made it to the final design but the clock was scrapped. Initially, the clock and the stoplight were for ordering the task items by creation date and by priority level, respectively, and they would form a radio button group.
 
