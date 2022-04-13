@@ -82,14 +82,15 @@ function ListItem(props) {
         aria-label={"List " + text}
       />
       {props.isNarrow || (
-        <div className="complete-count">
-          {props.complete} / {props.total} completed
+        <div className="complete-count"
+        aria-label={"Completion counter for " + text}>
+          {props.complete + " / " + props.total + " completed"}
         </div>
       )}
       <SubMenuToggle
         onToggle={handleDropDown}
         buttonLocation={subMenuToggle}
-        accessibleName={"list ".concat(props.text)}
+        accessibleName={"List ".concat(props.text)}
       />
       {dropDown && (
         <>
@@ -100,6 +101,7 @@ function ListItem(props) {
             top={getToggleLocation()}
             bottomBarLocation={props.getBottomBarLocation()}
             onDelete={handleDeleteListPopup}
+            accessibleName={"List ".concat(props.text)}
             {...props}
           />
         </>

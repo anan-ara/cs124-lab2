@@ -40,6 +40,7 @@ function SubMenu(props) {
               end.current.focus();
             }
           }}
+          aria-label={"Rename " + props.accessibleName}
         >
           Rename
         </button>
@@ -54,6 +55,7 @@ function SubMenu(props) {
                 start.current.focus();
               }
             }}
+            aria-label={"Delete " + props.accessibleName}
           >
             Delete
           </button>
@@ -62,6 +64,7 @@ function SubMenu(props) {
             <button
               className={props.homeScreen ? "delete" : "delete bottom-line"}
               onClick={() => props.onDelete(props.id)}
+              aria-label={"Delete " + props.accessibleName}
             >
               Delete
             </button>
@@ -69,12 +72,14 @@ function SubMenu(props) {
               <button
                 className={props.priority === 0 ? "activated" : ""}
                 onClick={() => props.onChangePriority(props.id, 0)}
+                aria-label={"Assign low priority to " + props.accessibleName}
               >
                 {props.lowPriorityIcon}
               </button>
               <button
                 className={props.priority === 1 ? "activated" : ""}
                 onClick={() => props.onChangePriority(props.id, 1)}
+                aria-label={"Assign medium priority to " + props.accessibleName}
               >
                 {props.medPriorityIcon}
               </button>
@@ -88,6 +93,7 @@ function SubMenu(props) {
                     start.current.focus();
                   }
                 }}
+                aria-label={"Assign high priority to " + props.accessibleName}
               >
                 {props.highPriorityIcon}
               </button>
