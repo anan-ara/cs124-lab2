@@ -76,6 +76,7 @@ function TaskItem(props) {
             props.onToggleChecked(props.id);
           }
         }}
+        aria-label={text}
       />
       <textarea
         value={text}
@@ -94,6 +95,7 @@ function TaskItem(props) {
             props.onToggleChecked(props.id);
           }
         }}
+        aria-label={"Task " + text}
       />
       <span className="dot" onClick={handleDropDown}>
         {priorityToIcon[props.priority]}

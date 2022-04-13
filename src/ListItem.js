@@ -79,13 +79,18 @@ function ListItem(props) {
             props.onSelectList(props.id);
           }
         }}
+        aria-label={"List " + text}
       />
       {props.isNarrow || (
         <div>
           {props.complete} / {props.total} completed
         </div>
       )}
-      <SubMenuToggle onToggle={handleDropDown} buttonLocation={subMenuToggle} />
+      <SubMenuToggle
+        onToggle={handleDropDown}
+        buttonLocation={subMenuToggle}
+        accessibleName={"list ".concat(props.text)}
+      />
       {dropDown && (
         <>
           <Backdrop onClickBackdrop={handleDropDown} />
@@ -95,7 +100,6 @@ function ListItem(props) {
             top={getToggleLocation()}
             bottomBarLocation={props.getBottomBarLocation()}
             onDelete={handleDeleteListPopup}
-            accessibleName={("list ").concat(props.text)}
             {...props}
           />
         </>
