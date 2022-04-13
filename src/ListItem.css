@@ -1,6 +1,3 @@
-/* li textarea.list-item-text-area {
-    width: 77vw;
-} */
 
 #home-contents svg {
     height: 19px;
@@ -33,5 +30,9 @@ div.bottom-line {
     /* padding: 6px; */
     margin: 10px;
     border: 1.5px solid #494949;
-    border-radius: 30px;
+    border-radius: 8px;
+}
+
+li textarea {
+    margin-left: 0;
 }
