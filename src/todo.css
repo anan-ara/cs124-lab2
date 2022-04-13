@@ -12,7 +12,7 @@ body {
 #search_bar_div {
     display: flex;
     align-items: center;
-    margin: 3px 10px;
+    padding: 5px 10px 0 10px;
 }
 /* 
 * {
