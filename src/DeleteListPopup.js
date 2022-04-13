@@ -20,7 +20,7 @@ function DeleteListPopup(props) {
       }}
     >
       <div className="delete-explanation">Are you sure you want to delete list</div>
-      <div>{props.text}?</div>
+      <div className="delete-list-name">{props.text}?</div>
       <div className="cancel-ok">
         <button
           ref={start}

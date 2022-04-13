@@ -10,3 +10,7 @@
 .delete-explanation {
   width: 200px;
 }
+
+.delete-list-name {
+  max-width: 80vw;
+}
