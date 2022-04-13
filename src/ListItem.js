@@ -69,7 +69,7 @@ function ListItem(props) {
         onChange={(e) => setText(e.target.value)}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
-            handleFinishRename();
+            editable ? handleFinishRename() : props.onSelectList(props.id);
           }
         }}
         onBlur={handleFinishRename}

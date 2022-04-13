@@ -71,6 +71,11 @@ function TaskItem(props) {
         name={props.id}
         checked={props.checked}
         onChange={() => props.onToggleChecked(props.id)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            props.onToggleChecked(props.id);
+          }
+        }}
       />
       <textarea
         value={text}
@@ -79,7 +84,7 @@ function TaskItem(props) {
         onChange={(e) => setText(e.target.value)}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
-            handleFinishRename();
+            editable ? handleFinishRename() : props.onToggleChecked(props.id);
           }
         }}
         onBlur={handleFinishRename}

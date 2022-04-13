@@ -4,7 +4,7 @@
 }
 
 /* Stuff inside the dropdown */
-.priority_popup button {
+.priority_popup .priority_grid button {
   color: #494949;
   padding: 6px 1px;
   text-decoration: none;
