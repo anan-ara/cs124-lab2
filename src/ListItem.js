@@ -95,6 +95,7 @@ function ListItem(props) {
             top={getToggleLocation()}
             bottomBarLocation={props.getBottomBarLocation()}
             onDelete={handleDeleteListPopup}
+            accessibleName={("list ").concat(props.text)}
             {...props}
           />
         </>

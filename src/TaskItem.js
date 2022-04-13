@@ -98,7 +98,7 @@ function TaskItem(props) {
       <span className="dot" onClick={handleDropDown}>
         {priorityToIcon[props.priority]}
       </span>
-      <SubMenuToggle onToggle={handleDropDown} buttonLocation={subMenuToggle} />
+      <SubMenuToggle onToggle={handleDropDown} buttonLocation={subMenuToggle} accessibleName={("task ").concat(props.text)}/>
       {dropDown && (
         <>
           <Backdrop onClickBackdrop={handleDropDown} />
