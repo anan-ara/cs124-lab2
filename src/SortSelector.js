@@ -19,7 +19,7 @@ function SortSelector(props) {
   return (
     <div id="sort-div">
       <label htmlFor="sort-types" className="selector-label-text">
-        Sorting by:
+        Sort by:
       </label>
       {props.start ? 
       <select
