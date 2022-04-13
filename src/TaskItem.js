@@ -1,4 +1,5 @@
 import "./TaskItem.css";
+import "./Item.css";
 import SubMenu from "./SubMenu";
 import Backdrop from "./Backdrop";
 import SubMenuToggle from "./SubMenuToggle";
@@ -63,7 +64,7 @@ function TaskItem(props) {
   });
 
   return (
-    <li className={props.checked ? "done" : ""}>
+    <li className={("item").concat(props.checked ? " done" : "")}>
       <input
         type="checkbox"
         id={props.id}

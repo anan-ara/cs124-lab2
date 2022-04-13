@@ -1,0 +1,10 @@
+#home-contents {
+  height: calc(100vh - 64px - 60px);
+
+}
+
+/* Subtract the search bar width if we are seeing the "small width" version of the layout */
+#home-contents.small-width {
+  height: calc(100vh - 64px - 60px - 27.5px);
+
+}

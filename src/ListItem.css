@@ -1,19 +1,13 @@
-li textarea {
-    font-family: "SF Pro Display","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif;
-    margin-left: 2vw;
-    width: 68vw;
-    border:none;
-    background:none;
-    color: #494949;
-    font-size: medium;
-    /* font-size: 2.8vh; */
-    resize: none;
-}
+/* li textarea.list-item-text-area {
+    width: 77vw;
+} */
 
 #home-contents svg {
     height: 19px;
-    width: auto;
+    /* width: auto; */
+    /* margin-right: 0; */
     fill: #494949;
+    /* margin-left: auto; */
 }
 
 div.bottom-line {
@@ -26,10 +20,10 @@ div.bottom-line {
 
 #home-contents li {
     min-height: 30px;
-    background: white;
-    display: flex;
-    align-items: center;
-    padding: 6.4px;
+    /* background: white; */
+    /* display: flex;
+    align-items: center; */
+    /* padding: 6px; */
     margin: 10px;
     border: 1.5px solid #494949;
     border-radius: 30px;

@@ -1,4 +1,5 @@
 import "./ListItem.css";
+import "./Item.css";
 import SubMenu from "./SubMenu";
 import Backdrop from "./Backdrop";
 import DeleteListPopup from "./DeleteListPopup";
@@ -59,9 +60,10 @@ function ListItem(props) {
   });
 
   return (
-    <li>
+    <li className="item">
       <textarea
         value={text}
+        className="list-item-text-area"
         ref={textArea}
         htmlFor={props.id}
         onChange={(e) => setText(e.target.value)}

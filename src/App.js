@@ -25,8 +25,8 @@ const db = getFirestore(app);
 
 function App() {
   // Screen Width
-  const isNarrow = useMediaQuery({ maxWidth: "550px" });
-  const isMedium = useMediaQuery({ minWidth: "550px", maxWidth: "1000px" });
+  const isNarrow = useMediaQuery({ maxWidth: "615px" });
+  const isMedium = useMediaQuery({ minWidth: "615px", maxWidth: "900px" });
   const isWide = useMediaQuery({ minWidth: "900px" });
 
   const [homeScreen, setHomeScreen] = useState(true);
