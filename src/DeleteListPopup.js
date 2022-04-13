@@ -1,6 +1,6 @@
 import "./DeleteListPopup.css";
 import "./Popup.css";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef } from "react";
 
 function DeleteListPopup(props) {
   const start = useRef();

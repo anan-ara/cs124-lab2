@@ -1,6 +1,6 @@
 import "./SubMenu.css";
 import "./Dropdown.css";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef } from "react";
 
 function SubMenu(props) {
   const start = useRef();
