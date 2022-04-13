@@ -102,6 +102,40 @@ We would like to implement quick swipe actions for quickly deleting the task and
 
 We think that adding swipe quick actions can only be beneficial as to users who are not aware of its functionality, it does not take away from the user experience and does not clutter up the UI. It is invisible if the user chooses not to use it. 
 
+# Adapting for Different Screen Sizes
+
+Since our application will be used on both mobile and desktop displays, we adapted our app layout to respond according to changes in height and width to more effectively use the space on the screen. 
+
+## Adapting for different screen heights
+To adapt for different screen heights, we made the height of the inner part of the screen dependant upon the heights of the top bar and the bottom bar for both the Home screen and the Tasks screen. We also made some elements fixed size so that they wouldn't become too large or small on large and small screen sizes, respectively. 
+
+## Adapting for different screen widths
+To adapt for different screen widths, we changed the layout of elements and added an extra feature to the lists on the home page. 
+
+Here are the different screen widths we considered:
+- Narrow: 615px or narrower
+- Medium: 615px to 900px
+- Wide: 900px or wider
+
+The following sections go into more detail about how we adapted our app for differing screen widths.
+### Home Screen 
+For the home page, we added a label that says "x/y completed" to each list so that the user can see how many tasks they've completed without having to click on the list name and enter the task view. This label shows up for medium and wide widths.
+
+For narrow widths, we placed the "Sort by:" select element inside the Main Menu. We hid this element inside the main menu for narrow widths because we decided that 80% of users wouldn't need to use this function that often. For the 20% of users that do, they can find the function if they look in the main menu.  We also placed the search bar below the top bar of the screen, since there was not enough space in the top bar to place the search bar in the top bar for narrow widths. 
+
+For medium widths, we placed the search bar in the top bar, since this is typically where search bars are placed in applications or websites that users are familiar with, such as Google. We kept the "Sort by:" select element inside the Main Menu.
+
+For wide widths, we moved the "Sorting By" select element next to the search bar in the top bar, since we have more space on the screen for both elements. 
+
+### Task Screen
+For narrow widths, we placed the "Sort by:" element inside the Main Menu, for the same reasons as in the Home Screen. However, we kept the "Show All"/"Show Incomplete" toggle right underneath the Top Bar, since 1. We thought that users would use these buttons more, and 2. We wanted some indication of which state the app was in so that users would not be confused if they thought that the app was showing all tasks when the app was really showing only incomplete tasks, or vice versa. We put the search bar directly under the "Show All"/"Show Incomplete" toggle, for the same reasons as in the Home Screen. 
+
+For medium and wide widths, we moved the "Sort by:" element outside the Main Menu, and turned the "Show All"/"Show Incomplete" toggle into a select element similar to the "Sort by:" element. We put all three elements (the "Sort by:" select element, "Show All/Incomplete" select element, and the search bar) into a single horizontal bar below the top bar, since they all fit in one bar for medium and wide widths. We changed the "Show All"/"Show Incomplete" toggle into a select element to match the style of the the "Sort by:" select element. 
+
+For medium and wide widths, we made the search bar take up whatever width is not used by the other elements. For narrow widths, we made the search bar take up the entire width (minus a bit of margin). This lets the user type in longer search queries if they wish to. 
+
+In general, we placed the search bar, "Sort by:", and "Show All"/"Show Incomplete" elements in the top most part of the screen since this is what users are used to with other applications, such as Gmail. 
+
 # Alternative Designs
 Initially, we had 4 buttons on the top bar: A clock, a stoplight, a checkmark, and the menu icon. 3 of these icons made it to the final design but the clock was scrapped. Initially, the clock and the stoplight were for ordering the task items by creation date and by priority level, respectively, and they would form a radio button group.
 
