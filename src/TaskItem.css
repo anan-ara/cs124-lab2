@@ -35,7 +35,7 @@ li.done textarea {
 }
 
 #list-contents .dot {
-    margin-left: auto;
+    margin-left: 10px;
 }
 
 div.bottom-line {
