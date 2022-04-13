@@ -79,6 +79,7 @@ function TaskItem(props) {
         aria-label={text}
       />
       <textarea
+        className="item-text-area"
         value={text}
         ref={textArea}
         htmlFor={props.id}

@@ -63,7 +63,7 @@ function ListItem(props) {
     <li className="item">
       <textarea
         value={text}
-        className="list-item-text-area"
+        className="item-text-area"
         ref={textArea}
         htmlFor={props.id}
         onChange={(e) => setText(e.target.value)}

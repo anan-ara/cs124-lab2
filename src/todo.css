@@ -18,3 +18,8 @@ body {
 * {
     font-size: small;
 } */
+
+/* Make the cursor a hand pointer when hovering over an element that is clickable */
+button, select, input[type="checkbox"] {
+    cursor: pointer;
+}
