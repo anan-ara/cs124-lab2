@@ -232,6 +232,7 @@ function ListView(props) {
         isWide={props.isWide}
         filter={filter}
         setFilter={setFilter}
+        sortType={sortType}
       />
 
       {props.isNarrow && <div id="search_bar_div"><SearchBar
