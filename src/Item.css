@@ -33,3 +33,8 @@ button:active,
     -webkit-appearance:none;
     box-shadow: none !important;
 }
+
+/* Make cursor a hand on text areas since they are clickable in our application */
+textarea.item-text-area {
+    cursor: pointer;
+}
