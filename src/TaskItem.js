@@ -111,6 +111,8 @@ function TaskItem(props) {
             top={getToggleLocation()}
             onDelete={onDeleteTask}
             bottomBarLocation={props.getBottomBarLocation()}
+            accessibleName={"Task ".concat(props.text)}
+
             {...props}
           />
         </>
