@@ -17,6 +17,7 @@ function BottomBar(props) {
           clearText();
           textInput.current.focus();
         }}
+        aria-label="Add new task"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -32,7 +33,7 @@ function BottomBar(props) {
       <input
         type="text"
         ref={textInput}
-        placeholder="Add new item..."
+        placeholder="Add new task..."
         value={text}
         onChange={e => setText(e.target.value)}
         onKeyDown={e => {

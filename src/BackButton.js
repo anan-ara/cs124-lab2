@@ -1,6 +1,6 @@
 function BackButton(props) {
   return (
-    <button className="top_bar_icon_div" onClick={props.onBackButton}>
+    <button className="top_bar_icon_div" onClick={props.onBackButton} aria-label="Go back to My Lists">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="16"

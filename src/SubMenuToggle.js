@@ -1,6 +1,6 @@
 function SubMenuToggle(props) {
   return (
-    <button onClick={props.onToggle} ref={props.buttonLocation}>
+    <button onClick={props.onToggle} ref={props.buttonLocation} aria-label={("Edit details for ").concat(props.accessibleName)}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="16"
