@@ -1,7 +1,7 @@
 import "./PriorityPopup.css";
 import PriorityTab from "./PriorityTab.js";
 import TabList from "./TabList.js";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef } from "react";
 
 function PriorityPopup(props) {
   const start = useRef();
