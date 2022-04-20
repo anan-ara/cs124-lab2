@@ -97,7 +97,10 @@ users
 
  - can only see your own user document regardless of your permission level   
  - Can't sign up with same email but different account (2 users can't have same email)
-    - TODO: ask about how to avoid this!! (also look it up and see if it's just built-in)
+    -  ask about how to avoid this!! (also look it up and see if it's just built-in)
+
+
+- 
 
 
 lists
@@ -128,3 +131,13 @@ lists
 - If we store the sorting of each list in the database, where would this go?
     - if in users, then we have repeat info and have to update in both places which is annoying
     - if in lists, then do we have security issues with users being able to see how other users are sorting their lists?
+
+
+# TODOS
+- Fix error when deleting list in one window and viewing it in another (Lab 4 comments)
+- Extra stuff:
+  - change password
+  - At end: fix database concurrency issues (race conditions), see Lab 4 comments from Prof. Rhodes
+
+# Done
+- Email verification: When user logs in, make sure that user verifies email (otherwise could sign up with an email that's not yours and get access to other ppl's shared lists)

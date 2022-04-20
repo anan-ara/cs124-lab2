@@ -1,123 +1,48 @@
-import "./todo.css";
-import Home from "./Home";
-import ListView from "./ListView";
-import { useState } from "react";
-import { useMediaQuery } from "react-responsive";
-import { initializeApp } from "firebase/app";
-import { getFirestore, collection, updateDoc, doc } from "firebase/firestore";
-import { useDocumentData } from "react-firebase-hooks/firestore";
+import SignedInApp from './SignedInApp';
+import SignUp from './SignUp';
+import SignIn from './SignIn';
+import { getAuth, sendEmailVerification, signOut } from "firebase/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
 
-// Ours
-// Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyA3wO0gGMy0PN8SEZckT0xb6cYeB0zvV1M",
-  authDomain: "cs124-lab3-e9930.firebaseapp.com",
-  projectId: "cs124-lab3-e9930",
-  storageBucket: "cs124-lab3-e9930.appspot.com",
-  messagingSenderId: "200008037720",
-  appId: "1:200008037720:web:52bc13f47bfa43cdd4212d",
-};
+const auth = getAuth();
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-function App() {
-  // Screen Width
-  const isNarrow = useMediaQuery({ maxWidth: "615px" });
-  const isMedium = useMediaQuery({ minWidth: "615px", maxWidth: "900px" });
-  const isWide = useMediaQuery({ minWidth: "900px" });
-
-  const [homeScreen, setHomeScreen] = useState(true);
-
-  const [currentList, setCurrentList] = useState("defaultList");
-
-  // Priority icons
-  function setLowPriorityIcon(newIcon) {
-    updateDoc(doc(metadataRef, "default"), { lowPriorityIcon: newIcon });
-  }
-  function setMedPriorityIcon(newIcon) {
-    updateDoc(doc(metadataRef, "default"), { midPriorityIcon: newIcon });
-  }
-  function setHighPriorityIcon(newIcon) {
-    updateDoc(doc(metadataRef, "default"), { highPriorityIcon: newIcon });
+function App(props) {
+  const [user, loading, error] = useAuthState(auth);
+  function verifyEmail() {
+    sendEmailVerification(user);
   }
 
-  const metadataRef = collection(db, "users");
-  const [metadata, metadataLoading, metadataError] = useDocumentData(
-    doc(metadataRef, "default")
-  );
-
-  if (metadataError) {
-    console.log(metadataError);
+  if (loading) {
+    return <p>Checking...</p>;
+  } else if (user) {
+    return (
+      <div>
+        {user.displayName || user.email}
+        <SignedInApp {...props} user={user} />
+        {/*  TODO: move signOut and verify email to signedinapp/figure out where to put in UI */}
+        <button type="button" onClick={() => signOut(auth)}>
+          Sign out
+        </button>
+        {/* TODO: move button later, the email verification says "you can now sign in after you verify email" */}
+        {!user.emailVerified && (
+          <button type="button" onClick={verifyEmail}>
+            Verify email
+          </button>
+        )}
+      </div>
+    );
+  } else {
+    return (
+      <>
+      {/* TODO: show user friendly error message here */}
+        {error && <p>Error App: {error.message}</p>} 
+        {/* <TabList> */}
+          <SignIn key="Sign In" auth={auth} />
+          <SignUp key="Sign Up" auth={auth} />
+        {/* </TabList> */}
+      </>
+    );
   }
-
-  let lowPriorityIcon = "💤";
-  let medPriorityIcon = "⚠️";
-  let highPriorityIcon = "🔥";
-  if (!metadataLoading) {
-    lowPriorityIcon = metadata.lowPriorityIcon;
-    medPriorityIcon = metadata.midPriorityIcon;
-    highPriorityIcon = metadata.highPriorityIcon;
-  }
-
-  // So that we can translate from priority number to the icon.
-  let priorityToAria = {
-    0: "Low Priority",
-    1: "Medium Priority",
-    2: "High Priority",
-  };
-
-  function handleChangeText(id, newText, collectionRef) {
-    updateDoc(doc(collectionRef, id), { text: newText });
-  }
-
-  function handleShowHome() {
-    setHomeScreen(true);
-  }
-
-  function handleSelectList(listId) {
-    setCurrentList(listId);
-    setHomeScreen(false);
-  }
-
-  return homeScreen ? (
-    <Home
-      currentList={currentList}
-      db={db}
-      isNarrow={isNarrow}
-      isMedium={isMedium}
-      isWide={isWide}
-      onShowHome={handleShowHome}
-      handleChangeText={handleChangeText}
-      appMetadata={metadata}
-      appMetadataLoading={metadataLoading}
-      setLowPriorityIcon={setLowPriorityIcon}
-      setMedPriorityIcon={setMedPriorityIcon}
-      setHighPriorityIcon={setHighPriorityIcon}
-      lowPriorityIcon={lowPriorityIcon}
-      medPriorityIcon={medPriorityIcon}
-      highPriorityIcon={highPriorityIcon}
-      priorityToAria={priorityToAria}
-      homeScreen={true}
-      onSelectList={handleSelectList}
-    />
-  ) : (
-    <ListView
-      currentList={currentList}
-      db={db}
-      isNarrow={isNarrow}
-      isMedium={isMedium}
-      isWide={isWide}
-      onShowHome={handleShowHome}
-      handleChangeText={handleChangeText}
-      lowPriorityIcon={lowPriorityIcon}
-      medPriorityIcon={medPriorityIcon}
-      highPriorityIcon={highPriorityIcon}
-      homeScreen={false}
-      priorityToAria={priorityToAria}
-    />
-  );
 }
 
 export default App;
