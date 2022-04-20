@@ -15,6 +15,10 @@ function SignUp(props) {
     const [email, setEmail] = useState("");
     const [pw, setPw] = useState("");
 
+    // function setLowPriorityIcon(newIcon) {
+    //     setDoc(doc(usersCollection, "default"), { lowPriorityIcon: newIcon });
+    // }
+
     if (userCredential) {
         // Shouldn't happen because App should see that
         // we are signed in.
@@ -33,6 +37,7 @@ function SignUp(props) {
                onChange={e=>setPw(e.target.value)}/>
         <br/>
         <button onClick={() =>
+
             createUserWithEmailAndPassword(email, pw)}>
             Create test user
         </button>

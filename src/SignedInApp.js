@@ -34,30 +34,30 @@ function SignedInApp() {
 
   // Priority icons
   function setLowPriorityIcon(newIcon) {
-    updateDoc(doc(metadataRef, "default"), { lowPriorityIcon: newIcon });
+    updateDoc(doc(usersCollection, "default"), { lowPriorityIcon: newIcon });
   }
   function setMedPriorityIcon(newIcon) {
-    updateDoc(doc(metadataRef, "default"), { midPriorityIcon: newIcon });
+    updateDoc(doc(usersCollection, "default"), { medPriorityIcon: newIcon });
   }
   function setHighPriorityIcon(newIcon) {
-    updateDoc(doc(metadataRef, "default"), { highPriorityIcon: newIcon });
+    updateDoc(doc(usersCollection, "default"), { highPriorityIcon: newIcon });
   }
 
-  const metadataRef = collection(db, "users");
-  const [metadata, metadataLoading, metadataError] = useDocumentData(
-    doc(metadataRef, "default")
+  const usersCollection = collection(db, "users");
+  const [metadata, usersLoading, usersError] = useDocumentData(
+    doc(usersCollection, "default")
   );
 
-  if (metadataError) {
-    console.log(metadataError);
+  if (usersError) {
+    console.log(usersError);
   }
 
   let lowPriorityIcon = "💤";
   let medPriorityIcon = "⚠️";
   let highPriorityIcon = "🔥";
-  if (!metadataLoading) {
+  if (!usersLoading) {
     lowPriorityIcon = metadata.lowPriorityIcon;
-    medPriorityIcon = metadata.midPriorityIcon;
+    medPriorityIcon = metadata.medPriorityIcon;
     highPriorityIcon = metadata.highPriorityIcon;
   }
 
@@ -91,7 +91,7 @@ function SignedInApp() {
       onShowHome={handleShowHome}
       handleChangeText={handleChangeText}
       appMetadata={metadata}
-      appMetadataLoading={metadataLoading}
+      appMetadataLoading={usersLoading}
       setLowPriorityIcon={setLowPriorityIcon}
       setMedPriorityIcon={setMedPriorityIcon}
       setHighPriorityIcon={setHighPriorityIcon}

@@ -87,7 +87,7 @@ users
     - low priority emoji
     - med ""
     - high ""
-    - home level sorting
+    - home level sorting ("sort")
     - email (no password, password is just for authentication)
     - id
     - listPreferences: 
