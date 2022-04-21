@@ -7,22 +7,24 @@ import { initializeApp } from "firebase/app";
 import { getFirestore, collection, updateDoc, doc } from "firebase/firestore";
 import { useDocumentData } from "react-firebase-hooks/firestore";
 
-// Ours
-// Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyA3wO0gGMy0PN8SEZckT0xb6cYeB0zvV1M",
-  authDomain: "cs124-lab3-e9930.firebaseapp.com",
-  projectId: "cs124-lab3-e9930",
-  storageBucket: "cs124-lab3-e9930.appspot.com",
-  messagingSenderId: "200008037720",
-  appId: "1:200008037720:web:52bc13f47bfa43cdd4212d",
-};
+// // Ours
+// // Your web app's Firebase configuration
+// const firebaseConfig = {
+//   apiKey: "AIzaSyA3wO0gGMy0PN8SEZckT0xb6cYeB0zvV1M",
+//   authDomain: "cs124-lab3-e9930.firebaseapp.com",
+//   projectId: "cs124-lab3-e9930",
+//   storageBucket: "cs124-lab3-e9930.appspot.com",
+//   messagingSenderId: "200008037720",
+//   appId: "1:200008037720:web:52bc13f47bfa43cdd4212d",
+// };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+// // Initialize Firebase
+// const app = initializeApp(firebaseConfig);
+// const db = getFirestore(app);
 
-function SignedInApp() {
+function SignedInApp(props) {
+
+  console.log("showing signed in app");
   // Screen Width
   const isNarrow = useMediaQuery({ maxWidth: "615px" });
   const isMedium = useMediaQuery({ minWidth: "615px", maxWidth: "900px" });
@@ -43,7 +45,7 @@ function SignedInApp() {
     updateDoc(doc(usersCollection, "default"), { highPriorityIcon: newIcon });
   }
 
-  const usersCollection = collection(db, "users");
+  const usersCollection = collection(props.db, "users");
   const [metadata, usersLoading, usersError] = useDocumentData(
     doc(usersCollection, "default")
   );
@@ -84,7 +86,7 @@ function SignedInApp() {
   return homeScreen ? (
     <Home
       currentList={currentList}
-      db={db}
+      db={props.db}
       isNarrow={isNarrow}
       isMedium={isMedium}
       isWide={isWide}
@@ -105,7 +107,7 @@ function SignedInApp() {
   ) : (
     <ListView
       currentList={currentList}
-      db={db}
+      db={props.db}
       isNarrow={isNarrow}
       isMedium={isMedium}
       isWide={isWide}

@@ -139,5 +139,10 @@ lists
   - change password
   - At end: fix database concurrency issues (race conditions), see Lab 4 comments from Prof. Rhodes
 
+TODO on own 
+  - UI planning
+  - some minor old bugs
+  - redux
+
 # Done
 - Email verification: When user logs in, make sure that user verifies email (otherwise could sign up with an email that's not yours and get access to other ppl's shared lists)
