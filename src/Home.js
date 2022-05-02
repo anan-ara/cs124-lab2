@@ -7,7 +7,7 @@ import CreateListPopup from "./CreateListPopup";
 import HomeContents from "./HomeContents";
 import HomeBottomBar from "./HomeBottomBar";
 import Backdrop from "./Backdrop";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useId } from "react";
 import { generateUniqueID } from "web-vitals/dist/modules/lib/generateUniqueID";
 import {
   useCollectionData,
@@ -20,7 +20,7 @@ import {
   deleteDoc,
   doc,
   orderBy,
-  // where,
+  where,
   serverTimestamp,
   collection,
   getDocs,
@@ -34,11 +34,11 @@ import {
 //   medPriorityOptions,
 //   highPriorityOptions,
 // } from ".";
-import TOP_LEVEL_COLLECTION from "./firestore-config";
+import LIST_COLLECTION from "./firestore-config";
 
 function Home(props) {
-  // const TOP_LEVEL_COLLECTION = "cs124-users/default/lists";
-  const collectionRef = collection(props.db, TOP_LEVEL_COLLECTION);
+  // const LIST_COLLECTION = "cs124-users/default/lists";
+  const collectionRef = collection(props.db, LIST_COLLECTION);
   const metadataRef = collection(props.db, "users");
 
   const [toScroll, setToScroll] = useState(false);
@@ -65,16 +65,22 @@ function Home(props) {
   }
 
   let orderByParam = orderBy(sortType);
-  if (sortType === "priority") {
-    orderByParam = orderBy("created");
-  }
-  let queryParam = query(collectionRef, orderByParam);
+  orderByParam = orderBy("created");
+  console.log("In home, props.user.email is " + props.user.email);
+  // let queryParam = query(collectionRef, orderByParam, where("owner", "==", props.user.email));
+  let queryParam = query(collectionRef, orderByParam, where("owner", "==", props.user.email));
+
+  // TODO: use this for shared things
+  // let editorQueryParam = query(collectionRef, orderByParam, where("editors", "array-contains", props.user.email));
+
   const [data, loading, error] = useCollectionData(queryParam);
 
+  // Search bar functionality
   let filteredData = data;
-  if (!loading) {
-    filteredData = data.filter((item) => item.text.toLowerCase().includes(filter.toLowerCase()));
-  }
+  // if (!loading) {
+  //   filteredData = data.filter((item) => item.text.toLowerCase().includes(filter.toLowerCase()));
+  // }
+  // TODO uncomment ^
 
   // Needed so that we know when the submenu menu needs to pop up instead of down.
   const bottomBar = useRef();
@@ -98,6 +104,10 @@ function Home(props) {
         sort: "created",
         complete: 0,
         total: 0,
+        owner: props.user.email, 
+        viewers: [], 
+        editors: [],
+        admins: []
       }); //.then(() => setToScroll(true));
     }
   }
@@ -112,7 +122,7 @@ function Home(props) {
 
     const subCollectionRef = collection(
       props.db,
-      TOP_LEVEL_COLLECTION,
+      LIST_COLLECTION,
       id,
       "items"
     );
@@ -199,6 +209,7 @@ function Home(props) {
           <CreateListPopup
             onAddList={addNewList}
             onClosePopup={handleCreateListPopup}
+            {...props}
           />
         </>
       )}

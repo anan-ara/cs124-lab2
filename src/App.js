@@ -53,6 +53,7 @@ function App(props) {
 
   // TODO: see if there is a better way to do this!
   // Hacky way to make the createUser function only be called when user is first defined
+  // ISSUE: this happens whenever a user signs in, not just when they initially sign in 
   useEffect(() => createUser(user), [user]);
 
 
@@ -82,7 +83,7 @@ function App(props) {
         {error && <p>Error App: {error.message}</p>}
         {/* <TabList> */}
         <SignIn key="Sign In" auth={auth} db={db}/>
-        <SignUp key="Sign Up" auth={auth} db={db} onCreateUser={createUser}/>
+        <SignUp key="Sign Up" auth={auth} db={db}/>
         {/* </TabList> */}
       </>
     );

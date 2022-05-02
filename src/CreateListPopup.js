@@ -12,7 +12,7 @@ function CreateListPopup(props) {
   });
 
   function onCreateList() {
-    props.onAddList(text);
+    props.onAddList(text, props.user.uid);
     setText("");
     props.onClosePopup();
   }

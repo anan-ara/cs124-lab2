@@ -36,18 +36,18 @@ function SignedInApp(props) {
 
   // Priority icons
   function setLowPriorityIcon(newIcon) {
-    updateDoc(doc(usersCollection, "default"), { lowPriorityIcon: newIcon });
+    updateDoc(doc(usersCollection, props.user.uid), { lowPriorityIcon: newIcon });
   }
   function setMedPriorityIcon(newIcon) {
-    updateDoc(doc(usersCollection, "default"), { medPriorityIcon: newIcon });
+    updateDoc(doc(usersCollection, props.user.uid), { medPriorityIcon: newIcon });
   }
   function setHighPriorityIcon(newIcon) {
-    updateDoc(doc(usersCollection, "default"), { highPriorityIcon: newIcon });
+    updateDoc(doc(usersCollection, props.user.uid), { highPriorityIcon: newIcon });
   }
 
   const usersCollection = collection(props.db, "users");
   const [metadata, usersLoading, usersError] = useDocumentData(
-    doc(usersCollection, "default")
+    doc(usersCollection, props.user.uid)
   );
 
   if (usersError) {
@@ -103,6 +103,7 @@ function SignedInApp(props) {
       priorityToAria={priorityToAria}
       homeScreen={true}
       onSelectList={handleSelectList}
+      {...props}
     />
   ) : (
     <ListView
@@ -118,6 +119,7 @@ function SignedInApp(props) {
       highPriorityIcon={highPriorityIcon}
       homeScreen={false}
       priorityToAria={priorityToAria}
+      {...props}
     />
   );
 }

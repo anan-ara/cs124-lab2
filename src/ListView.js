@@ -24,12 +24,12 @@ import {
   serverTimestamp,
   collection,
 } from "firebase/firestore";
-import TOP_LEVEL_COLLECTION from "./firestore-config.js";
+import LIST_COLLECTION from "./firestore-config.js";
 
 function ListView(props) {
   const collectionRef = collection(
     props.db,
-    TOP_LEVEL_COLLECTION,
+    LIST_COLLECTION,
     props.currentList,
     "items"
   );
@@ -49,7 +49,7 @@ function ListView(props) {
   const [checkedData, checkedLoading, checkedError] =
     useCollectionData(isCheckedQuery);
 
-  const metadataRef = collection(props.db, TOP_LEVEL_COLLECTION);
+  const metadataRef = collection(props.db, LIST_COLLECTION);
   const [metadata, metadataLoading, metadataError] = useDocumentData(
     doc(metadataRef, props.currentList)
   );
