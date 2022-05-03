@@ -1,7 +1,7 @@
 import SignedInApp from "./SignedInApp";
 import SignUp from "./SignUp";
 import SignIn from "./SignIn";
-import { getAuth, sendEmailVerification, signOut } from "firebase/auth";
+import { getAuth, signOut } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { getFirestore, setDoc, doc, collection,
   } from "firebase/firestore";
@@ -29,17 +29,14 @@ const usersCollection = collection(db, "users");
 
 function App(props) {
   const [user, loading, error] = useAuthState(auth);
-  function verifyEmail() {
-    sendEmailVerification(user);
-  }
+  // function verifyEmail() {
+  //   sendEmailVerification(user);
+  // }
 
+  //  TODO: make work only when email verified? if that's what we want to do, otherwise is OK
   function createUser() {
     if (user) {
-        // console.log("res.user is " + res.user)
-        // console.log("user is " + user);
-        // console.log("user is " + user);
-        // console.log("loading is  " + loading);
-        // console.log("error is " +  error);
+      console.log("creating user, user is verified, email is  " + user.email);
       setDoc(doc(usersCollection, user.uid), {
         uid: user.uid,
         highPriorityIcon: "",
@@ -68,12 +65,7 @@ function App(props) {
         <button type="button" onClick={() => signOut(auth)}>
           Sign out
         </button>
-        {/* TODO: move button later, the email verification says "you can now sign in after you verify email" */}
-        {!user.emailVerified && (
-          <button type="button" onClick={verifyEmail}>
-            Verify email
-          </button>
-        )}
+        
       </div>
     );
   } else {

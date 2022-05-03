@@ -74,7 +74,9 @@ lists
 
 
 # Questions
-- firebase isn't working
+- Firebase rules not working properly for the list variable
+- user.emailVerified should be a state. Why isn't the app rerendering when we change it?
+- Why do we have to sign in again after verifying the email for the email to actually be verified?
 
 # Past Questions: 
 - How does the database know what auth is when we just use useCollectionData (i.e. how is the auth attatched to the request if we don't pass it into useCollectionData?) 

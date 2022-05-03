@@ -4,8 +4,9 @@ import ListView from "./ListView";
 import { useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, updateDoc, doc } from "firebase/firestore";
-import { useDocumentData } from "react-firebase-hooks/firestore";
+import { getFirestore, collection, updateDoc, doc, query, where } from "firebase/firestore";
+import { useDocumentData, useCollectionData } from "react-firebase-hooks/firestore";
+import Verification from "./Verification";
 
 // // Ours
 // // Your web app's Firebase configuration
@@ -46,21 +47,27 @@ function SignedInApp(props) {
   }
 
   const usersCollection = collection(props.db, "users");
-  const [metadata, usersLoading, usersError] = useDocumentData(
+  // const [usersData, usersLoading, usersError] = //useCollectionData(query(usersCollection, where("uid", "==", props.user.uid)));
+    // query(usersCollection, where("uid", "==", props.user.uid));
+
+  const [usersData, usersLoading, usersError] = useDocumentData(
     doc(usersCollection, props.user.uid)
   );
 
+  // TODO: right now this is throwing an error when we are on verification screen because we try to access the user and can't because it's still being verified. 
   if (usersError) {
-    console.log(usersError);
+    console.error(usersError);
   }
+
+  console.log("props.user.uid is " + props.user.uid);
 
   let lowPriorityIcon = "💤";
   let medPriorityIcon = "⚠️";
   let highPriorityIcon = "🔥";
-  if (!usersLoading) {
-    lowPriorityIcon = metadata.lowPriorityIcon;
-    medPriorityIcon = metadata.medPriorityIcon;
-    highPriorityIcon = metadata.highPriorityIcon;
+  if (usersData) {//!usersLoading && !usersError) {
+    lowPriorityIcon = usersData.lowPriorityIcon;
+    medPriorityIcon = usersData.medPriorityIcon;
+    highPriorityIcon = usersData.highPriorityIcon;
   }
 
   // So that we can translate from priority number to the icon.
@@ -78,12 +85,16 @@ function SignedInApp(props) {
     setHomeScreen(true);
   }
 
+  console.log("email verified is "  + props.user.emailVerified);
+
   function handleSelectList(listId) {
     setCurrentList(listId);
     setHomeScreen(false);
   }
 
-  return homeScreen ? (
+  return props.user.emailVerified
+   ?
+  (homeScreen ? (
     <Home
       currentList={currentList}
       db={props.db}
@@ -92,8 +103,9 @@ function SignedInApp(props) {
       isWide={isWide}
       onShowHome={handleShowHome}
       handleChangeText={handleChangeText}
-      appMetadata={metadata}
-      appMetadataLoading={usersLoading}
+      usersData={usersData}
+      usersLoading={usersLoading}
+      usersError={usersError}
       setLowPriorityIcon={setLowPriorityIcon}
       setMedPriorityIcon={setMedPriorityIcon}
       setHighPriorityIcon={setHighPriorityIcon}
@@ -105,7 +117,7 @@ function SignedInApp(props) {
       onSelectList={handleSelectList}
       {...props}
     />
-  ) : (
+  ) : 
     <ListView
       currentList={currentList}
       db={props.db}
@@ -121,7 +133,8 @@ function SignedInApp(props) {
       priorityToAria={priorityToAria}
       {...props}
     />
-  );
+    
+  ): <Verification {...props}/>;
 }
 
 export default SignedInApp;
