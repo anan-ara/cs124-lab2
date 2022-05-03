@@ -67,19 +67,21 @@ function Home(props) {
   let orderByParam = orderBy(sortType);
   orderByParam = orderBy("created");
   // let queryParam = query(collectionRef, orderByParam, where("owner", "==", props.user.email));
-  let queryParam = query(collectionRef, orderByParam, where("owner", "==", props.user.email));
+  let myQueryParam = query(collectionRef, orderByParam, where("owner", "==", props.user.email));
 
   // TODO: use this for shared things
-  // let editorQueryParam = query(collectionRef, orderByParam, where("editors", "array-contains", props.user.email));
+  let editorQueryParam = query(collectionRef, orderByParam, where("editors", "array-contains", props.user.email));
 
-  const [data, loading, error] = useCollectionData(queryParam);
+  const [ownerData, ownerLoading, ownerError] = useCollectionData(myQueryParam);
+  const [editorData, editorLoading, editorError] = useCollectionData(editorQueryParam);
 
   // Search bar functionality
-  let filteredData = data;
-  // if (!loading) {
-  //   filteredData = data.filter((item) => item.text.toLowerCase().includes(filter.toLowerCase()));
-  // }
-  // TODO uncomment ^
+  let ownerFilteredData = ownerData;
+  let editorFilteredData = editorData;
+  if (!ownerLoading && !editorLoading) {
+    ownerFilteredData = ownerData.filter((item) => item.text.toLowerCase().includes(filter.toLowerCase()));
+    editorFilteredData = editorData.filter((item) => item.text.toLowerCase().includes(filter.toLowerCase()));
+  }
 
   // Needed so that we know when the submenu menu needs to pop up instead of down.
   const bottomBar = useRef();
@@ -89,8 +91,12 @@ function Home(props) {
     return rect.top;
   }
 
-  if (error) {
-    console.log(error);
+  if (ownerError) {
+    console.log(ownerError);
+  }
+
+  if (editorError) {
+    console.log(editorError);
   }
 
   function addNewList(text) {
@@ -180,9 +186,11 @@ function Home(props) {
       )}
 
       <HomeContents
-        data={filteredData}
-        unfilteredData={data}
-        loading={props.usersLoading || loading}
+        ownerData={ownerFilteredData}
+        ownerUnfilteredData={ownerData}
+        editorData={editorFilteredData}
+        editorUnfilteredData={editorData}
+        loading={props.appMetadataLoading || ownerLoading || editorLoading}
         listEnd={listEnd}
         onDeleteList={handleDeleteList}
         onChangeText={handleChangeText}

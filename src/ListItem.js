@@ -88,6 +88,7 @@ function ListItem(props) {
         </div>
       )}
       <SubMenuToggle
+        shared={props.shared}
         onToggle={handleDropDown}
         buttonLocation={subMenuToggle}
         accessibleName={"List ".concat(props.text)}

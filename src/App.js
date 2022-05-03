@@ -6,7 +6,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { getFirestore, setDoc, doc, collection,
   } from "firebase/firestore";
   import { initializeApp } from "firebase/app";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 
 // Ours
 // Your web app's Firebase configuration
@@ -33,6 +33,13 @@ function App(props) {
   // function verifyEmail() {
   //   sendEmailVerification(user);
   // }
+
+  const [signUp, setSignUp] = useState(false);
+
+  function handleToggleSignUp() {
+    setSignUp(!signUp);
+  }
+
 
   //  TODO: make work only when email verified? if that's what we want to do, otherwise is OK
   function createUser() {
@@ -74,10 +81,11 @@ function App(props) {
       <>
         {/* TODO: show user friendly error message here */}
         {error && <p>Error App: {error.message}</p>}
-        {/* <TabList> */}
-        <SignIn key="Sign In" auth={auth} db={db}/>
-        <SignUp key="Sign Up" auth={auth} db={db}/>
-        {/* </TabList> */}
+        {signUp ?
+        <SignUp key="Sign Up" auth={auth} db={db} onToggleSignUp={handleToggleSignUp}/>
+        :
+        <SignIn key="Sign In" auth={auth} db={db} onToggleSignUp={handleToggleSignUp}/>
+        }
       </>
     );
   }

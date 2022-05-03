@@ -28,15 +28,16 @@ function HomeContents(props) {
         <div className={"empty"}>Loading...</div>
       ) : (
         <>
-          {props.data.length === 0 && (
+        {/* TODO: make this code more robust for multiple permission levels */}
+          {props.ownerData.length === 0 && (
             <div className={"empty"}>
-              {props.unfilteredData.length === 0
+              {props.ownerUnfilteredData.length === 0
                 ? "You currently have no lists."
                 : "No lists match your search."}
             </div>
           )}
           <ul>
-            {props.data.map((e) => (
+            {props.ownerData.map((e) => (
               <ListItem
                 text={e.text}
                 priority={e.priority}
@@ -47,6 +48,22 @@ function HomeContents(props) {
                 key={e.id}
                 id={e.id}
                 onToggleScroll={handleToggleScroll}
+                shared={false}
+                {...props}
+              />
+            ))}
+            {props.editorData.map((e) => (
+              <ListItem
+                text={e.text}
+                priority={e.priority}
+                // priorityToIcon={props.priorityToIcon}
+                checked={e.checked}
+                total={e.total}
+                complete={e.complete}
+                key={e.id}
+                id={e.id}
+                onToggleScroll={handleToggleScroll}
+                shared={true}
                 {...props}
               />
             ))}
