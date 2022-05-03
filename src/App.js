@@ -29,6 +29,7 @@ const usersCollection = collection(db, "users");
 
 function App(props) {
   const [user, loading, error] = useAuthState(auth);
+  
   // function verifyEmail() {
   //   sendEmailVerification(user);
   // }
@@ -52,7 +53,7 @@ function App(props) {
   // Hacky way to make the createUser function only be called when user is first defined
   // ISSUE: this happens whenever a user signs in, not just when they initially sign in 
   useEffect(() => createUser(user), [user]);
-
+  console.log("App is being rerendered");
 
   if (loading) {
     return <p>Checking...</p>;

@@ -75,8 +75,12 @@ lists
 
 # Questions
 - Firebase rules not working properly for the list variable
+    - need to move "data" as a parameter, use resource.data for list stuff
 - user.emailVerified should be a state. Why isn't the app rerendering when we change it?
+    - Because you need another useAuthState if you want this to happen.
 - Why do we have to sign in again after verifying the email for the email to actually be verified?
+    - log out the user right away after sending verification email and make them log back in. 
+    - This is just how it works.
 
 # Past Questions: 
 - How does the database know what auth is when we just use useCollectionData (i.e. how is the auth attatched to the request if we don't pass it into useCollectionData?) 

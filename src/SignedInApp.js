@@ -92,6 +92,8 @@ function SignedInApp(props) {
     setHomeScreen(false);
   }
 
+  console.log("signed in app is being rerendered");
+
   return props.user.emailVerified
    ?
   (homeScreen ? (
