@@ -73,6 +73,9 @@ lists
 - plan: do 4 indices, do filtering on front end
 
 
+# Questions
+- firebase isn't working
+
 # Past Questions: 
 - How does the database know what auth is when we just use useCollectionData (i.e. how is the auth attatched to the request if we don't pass it into useCollectionData?) 
     - firebase firestore library supports setting up, when you sign in it automatically sends this to the database along with request to the server. If you signed in, it sends the auth.
