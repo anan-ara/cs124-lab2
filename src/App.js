@@ -6,7 +6,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { getFirestore, setDoc, doc, collection,
   } from "firebase/firestore";
   import { initializeApp } from "firebase/app";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 
 // Ours
 // Your web app's Firebase configuration
@@ -29,6 +29,15 @@ const usersCollection = collection(db, "users");
 
 function App(props) {
   const [user, loading, error] = useAuthState(auth);
+
+  const [signUp, setSignUp] = useState(false);
+
+  function handleToggleSignUp() {
+    setSignUp(!signUp);
+  }
+
+
+
   function verifyEmail() {
     sendEmailVerification(user);
   }
@@ -81,10 +90,11 @@ function App(props) {
       <>
         {/* TODO: show user friendly error message here */}
         {error && <p>Error App: {error.message}</p>}
-        {/* <TabList> */}
-        <SignIn key="Sign In" auth={auth} db={db}/>
-        <SignUp key="Sign Up" auth={auth} db={db}/>
-        {/* </TabList> */}
+        {signUp ?
+        <SignUp key="Sign Up" auth={auth} db={db} onToggleSignUp={handleToggleSignUp}/>
+        :
+        <SignIn key="Sign In" auth={auth} db={db} onToggleSignUp={handleToggleSignUp}/>
+        }
       </>
     );
   }
