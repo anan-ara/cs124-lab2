@@ -106,14 +106,25 @@ We would like to implement quick swipe actions for quickly deleting the task and
 
 We think that adding swipe quick actions can only be beneficial as to users who are not aware of its functionality, it does not take away from the user experience and does not clutter up the UI. It is invisible if the user chooses not to use it. 
 
-# Adapting for Different Screen Sizes
+
+# Accessibility 
+## Zooming In
+To make the application more accessible for users with low vision, the app supports zooming up to 200%. This makes the text grow larger, without breaking the app.
+
+## Keyboard Navigation
+To make the application more accessible for users who can't use a mouse, the app supports navigating only using the keyboard (eg. using tab, shift-tab, etc.). All of the features of the app can be accessed with just the keyboard. Here is a [video](https://drive.google.com/file/d/126-Yd_vv4fPBfULfAjs5wk5La_qFH7cU/view?usp=sharing) showing this functionality. 
+
+## Screen Reader
+To make the application more accessible for users who can't see at all, the app supports screen reader use. All of the features of the app are described by the screen reader. We specified custom aria-labels for certain elements so the screen reader would more accurately describe their functionality. Here is a [video](https://drive.google.com/file/d/1xWWXt9yxsh13QxZBqb3J3iOVcOkt7UPC/view?usp=sharing) showing this functionality. 
+
+## Adapting for Different Screen Sizes
 
 Since our application will be used on both mobile and desktop displays, we adapted our app layout to respond according to changes in height and width to more effectively use the space on the screen. 
 
-## Adapting for different screen heights
+### Adapting for different screen heights
 To adapt for different screen heights, we made the height of the inner part of the screen dependant upon the heights of the top bar and the bottom bar for both the Home screen and the Tasks screen. We also made some elements fixed size so that they wouldn't become too large or small on large and small screen sizes, respectively. 
 
-## Adapting for different screen widths
+### Adapting for different screen widths
 To adapt for different screen widths, we changed the layout of elements and added an extra feature to the lists on the home page. 
 
 Here are the different screen widths we considered:
@@ -122,7 +133,7 @@ Here are the different screen widths we considered:
 - Wide: 900px or wider
 
 The following sections go into more detail about how we adapted our app for differing screen widths.
-### Home Screen 
+#### Home Screen 
 For the home page, we added a label that says "x/y completed" to each list so that the user can see how many tasks they've completed without having to click on the list name and enter the task view. This label shows up for medium and wide widths.
 
 For narrow widths, we placed the "Sort by:" select element inside the Main Menu. We hid this element inside the main menu for narrow widths because we decided that 80% of users wouldn't need to use this function that often. For the 20% of users that do, they can find the function if they look in the main menu.  We also placed the search bar below the top bar of the screen, since there was not enough space in the top bar to place the search bar in the top bar for narrow widths. 
@@ -131,7 +142,7 @@ For medium widths, we placed the search bar in the top bar, since this is typica
 
 For wide widths, we moved the "Sorting By" select element next to the search bar in the top bar, since we have more space on the screen for both elements. 
 
-### Task Screen
+#### Task Screen
 For narrow widths, we placed the "Sort by:" element inside the Main Menu, for the same reasons as in the Home Screen. However, we kept the "Show All"/"Show Incomplete" toggle right underneath the Top Bar, since 1. We thought that users would use these buttons more, and 2. We wanted some indication of which state the app was in so that users would not be confused if they thought that the app was showing all tasks when the app was really showing only incomplete tasks, or vice versa. We put the search bar directly under the "Show All"/"Show Incomplete" toggle, for the same reasons as in the Home Screen. 
 
 For medium and wide widths, we moved the "Sort by:" element outside the Main Menu, and turned the "Show All"/"Show Incomplete" toggle into a select element similar to the "Sort by:" element. We put all three elements (the "Sort by:" select element, "Show All/Incomplete" select element, and the search bar) into a single horizontal bar below the top bar, since they all fit in one bar for medium and wide widths. We changed the "Show All"/"Show Incomplete" toggle into a select element to match the style of the the "Sort by:" select element. 
