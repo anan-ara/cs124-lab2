@@ -72,8 +72,19 @@ lists
 # Notes May 1:
 - plan: do 4 indices, do filtering on front end
 
+# Questions: 
+- how to do the setDocumentData and cause a reload right away instead of doing it a hacky way
+- What to do about too mnay email verifications causing an error? (we might want to review the code for this first though?)
+- 
 
 # Past Questions: 
+- Firebase rules not working properly for the list variable
+    - need to move "data" as a parameter, use resource.data for list stuff
+- user.emailVerified should be a state. Why isn't the app rerendering when we change it?
+    - Because you need another useAuthState if you want this to happen.
+- Why do we have to sign in again after verifying the email for the email to actually be verified?
+    - log out the user right away after sending verification email and make them log back in. 
+    - This is just how it works.
 - How does the database know what auth is when we just use useCollectionData (i.e. how is the auth attatched to the request if we don't pass it into useCollectionData?) 
     - firebase firestore library supports setting up, when you sign in it automatically sends this to the database along with request to the server. If you signed in, it sends the auth.
 - How do we actually do the create user call? (Rn we do a useEffect)
@@ -116,6 +127,9 @@ lists
   - change password
   - At end: fix database concurrency issues (race conditions), see Lab 4 comments from Prof. Rhodes
 - Figure out if need email in users document
+- verify email:
+    - link to login page, 
+    - error page that says you can't access app without verifying email first 
 
 TODO on own 
   - UI planning
