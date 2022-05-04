@@ -125,6 +125,9 @@ lists
   - change password
   - At end: fix database concurrency issues (race conditions), see Lab 4 comments from Prof. Rhodes
 - Figure out if need email in users document
+- verify email:
+    - link to login page, 
+    - error page that says you can't access app without verifying email first 
 
 TODO on own 
   - UI planning

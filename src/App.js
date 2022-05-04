@@ -29,6 +29,9 @@ const usersCollection = collection(db, "users");
 
 function App(props) {
   const [user, loading, error] = useAuthState(auth);
+
+  // we only care about when the verification email is sent but the user has not yet clicked on it. Everything else we can access using user.emailVerified
+  const [verifyEmailSent, setVerifyEmailSent] = useState(false);
   
   // function verifyEmail() {
   //   sendEmailVerification(user);
@@ -68,7 +71,7 @@ function App(props) {
     return (
       <div>
         {user.displayName || user.email}
-        <SignedInApp {...props} user={user} db={db}/>
+        <SignedInApp {...props} user={user} signOut={signOut} setSignUp={setSignUp} auth={auth} db={db} setVerifyEmailSent={setVerifyEmailSent} verifyEmailSent={verifyEmailSent}/>
         {/*  TODO: move signOut and verify email to signedinapp/figure out where to put in UI */}
         <button type="button" onClick={() => signOut(auth)}>
           Sign out
@@ -82,7 +85,7 @@ function App(props) {
         {/* TODO: show user friendly error message here */}
         {error && <p>Error App: {error.message}</p>}
         {signUp ?
-        <SignUp key="Sign Up" auth={auth} db={db} onToggleSignUp={handleToggleSignUp}/>
+        <SignUp key="Sign Up" setSignUp={setSignUp} auth={auth} db={db} onToggleSignUp={handleToggleSignUp}/>
         :
         <SignIn key="Sign In" auth={auth} db={db} onToggleSignUp={handleToggleSignUp}/>
         }

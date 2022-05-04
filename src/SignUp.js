@@ -15,9 +15,12 @@ function SignUp(props) {
   const [email, setEmail] = useState("");
   const [pw, setPw] = useState("");
 
+  
+
   const errorMessageMap = {
  "Firebase: Error (auth/invalid-email).":  "Email address does not appear to be valid. Please try again.",
- "Firebase: Error (auth/internal-error).":  "Password cannot be empty."
+ "Firebase: Error (auth/internal-error).":  "Password cannot be empty.",
+ "Firebase: Error (auth/email-already-in-use).": <div>Email address is already in use. Please go back to the login page. <br></br><button onClick={() => props.setSignUp(false)}>Go Back to Login</button></div>
   }
 
     // function createUser(res) {
