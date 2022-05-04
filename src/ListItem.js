@@ -5,6 +5,7 @@ import Backdrop from "./Backdrop";
 import DeleteListPopup from "./DeleteListPopup";
 import SubMenuToggle from "./SubMenuToggle";
 import { useEffect, useState, useRef } from "react";
+import SharingPopup from "./SharingPopup";
 
 function ListItem(props) {
   const [dropDown, setDropDown] = useState(false);
@@ -18,6 +19,12 @@ function ListItem(props) {
   function handleDeleteListPopup() {
     setDeleteListPopup(!deleteListPopup);
   }
+
+  const [sharingPopup, setSharingPopup] = useState(false);
+  function handleSharingPopup() {
+    setSharingPopup(!sharingPopup);
+  }
+
 
   // reference to textArea
   const textArea = useRef();
@@ -99,6 +106,7 @@ function ListItem(props) {
           <SubMenu
             onHandleDropDown={handleDropDown}
             onRename={handleStartRename}
+            onShare={handleSharingPopup}
             top={getToggleLocation()}
             bottomBarLocation={props.getBottomBarLocation()}
             onDelete={handleDeleteListPopup}
@@ -111,6 +119,12 @@ function ListItem(props) {
         <>
           <Backdrop onClickBackdrop={handleDeleteListPopup} />
           <DeleteListPopup onClosePopup={handleDeleteListPopup} {...props} />
+        </>
+      )}
+      {sharingPopup && (
+        <>
+          <Backdrop onClickBackdrop={handleSharingPopup} />
+          <SharingPopup onClosePopup={handleSharingPopup} {...props} />
         </>
       )}
     </li>
