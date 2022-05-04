@@ -1,11 +1,19 @@
 import "./GoVerify.css";
 
 function GoVerify(props) {
-
   return (
     <>
       <div id="go_verify_screen">
-          Please check your email and click on the link to verify your email. You must do this before using the app. Thanks! 
+        Please verify your email before using the app. If you'd like to resend
+        your verification email, please click on the button below.
+        <button
+          onClick={() => {
+            props.verifyEmail();
+            // props.setJustSignedUp(true); // now we want to show the "go find your email page."
+          }}
+        >
+          Resend Verification Email
+        </button>
       </div>
     </>
   );

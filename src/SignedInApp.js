@@ -6,8 +6,8 @@ import { useMediaQuery } from "react-responsive";
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, updateDoc, doc, query, where } from "firebase/firestore";
 import { useDocumentData, useCollectionData } from "react-firebase-hooks/firestore";
-import VerificationSent from "./VerificationSent";
-import GoVerify from "./GoVerify";
+// import VerificationSent from "./VerificationSent";
+// import GoVerify from "./GoVerify";
 
 // // Ours
 // // Your web app's Firebase configuration
@@ -95,9 +95,7 @@ function SignedInApp(props) {
 
   console.log("signed in app is being rerendered");
 
-  return props.user.emailVerified
-   ?
-  (homeScreen ?
+  return  homeScreen ?
     <Home
       currentList={currentList}
       db={props.db}
@@ -134,9 +132,7 @@ function SignedInApp(props) {
       homeScreen={false}
       priorityToAria={priorityToAria}
       {...props}
-    />
-    
-  ): props.verifyEmailSent ? <GoVerify/>: <VerificationSent {...props}/>;
+    />;
 }
 
 export default SignedInApp;
