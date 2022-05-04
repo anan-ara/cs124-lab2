@@ -31,7 +31,7 @@ function App(props) {
   const [user, loading, error] = useAuthState(auth);
 
   // Whether or not the user has been created in the database. 
-  const [userCreated, setUserCreated] = useState(false);// HAcky way, replace later TODO
+  // const [userCreated, setUserCreated] = useState(false);// HAcky way, replace later TODO
 
   if (error) {
     console.error(error);
@@ -52,6 +52,26 @@ function App(props) {
   function handleToggleSignUp() {
     setSignUp(!signUp);
   }
+
+  function handleSignOut() {
+    signOut(auth);
+  }
+
+
+  // //  TODO: make work only when email verified? if that's what we want to do, otherwise is OK
+  // function createUser() {
+  //   if (user) {
+  //     console.log("creating user, user is verified, email is  " + user.email);
+  //     setDoc(doc(usersCollection, user.uid), {
+  //       uid: user.uid,
+  //       highPriorityIcon: "",
+  //       lowPriorityIcon: "",
+  //       medPriorityIcon: "",
+  //       sort: "created",
+  //       email: user.email,
+  //     });
+  //   }
+  // }
 
   // //  TODO: make work only when email verified? if that's what we want to do, otherwise is OK
   // function createUser() {
@@ -107,7 +127,9 @@ function App(props) {
     return user.emailVerified ? (
       <div>
         {user.displayName || user.email}
-        <SignedInApp {...props} user={user} setUserCreated={setUserCreated} userCreated={userCreated} auth={auth} db={db} />
+        {/* <SignedInApp {...props} onSignOut={handleSignOut} user={user} setUserCreated={setUserCreated} userCreated={userCreated} auth={auth} db={db} /> */}
+
+        <SignedInApp {...props} onSignOut={handleSignOut} user={user} auth={auth} db={db} />
         <button type="button" onClick={() => signOut(auth)}>
           Sign out
         </button>

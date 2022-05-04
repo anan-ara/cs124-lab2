@@ -26,6 +26,8 @@ import { useDocumentData, useCollectionData } from "react-firebase-hooks/firesto
 
 function SignedInApp(props) {
 
+
+
   console.log("showing signed in app, email verified is" + props.user.emailVerified);
   // Screen Width
   const isNarrow = useMediaQuery({ maxWidth: "615px" });
@@ -35,15 +37,22 @@ function SignedInApp(props) {
   const [homeScreen, setHomeScreen] = useState(true);
 
   const [currentList, setCurrentList] = useState("defaultList");
+  const [userCreated, setUserCreated] = useState(false);// HAcky way, replace later TODO
+
+  console.log("userCreated is" + userCreated);
 
   // Priority icons
+  //  TODO: currently this code doesn't work when we first create a new user and verify them. (until we reload the page)
   function setLowPriorityIcon(newIcon) {
+    console.log("in setLowPriorityIcon, newIcon is " + newIcon)
     updateDoc(doc(usersCollection, props.user.uid), { lowPriorityIcon: newIcon });
   }
   function setMedPriorityIcon(newIcon) {
+    console.log("in setMedPriorityIcon, newIcon is " + newIcon)
     updateDoc(doc(usersCollection, props.user.uid), { medPriorityIcon: newIcon });
   }
   function setHighPriorityIcon(newIcon) {
+    console.log("in setHighPriortyIcon, newIcon is " + newIcon)
     updateDoc(doc(usersCollection, props.user.uid), { highPriorityIcon: newIcon });
   }
 
@@ -55,28 +64,29 @@ function SignedInApp(props) {
     doc(usersCollection, props.user.uid)
   );
 
-//  TODO: how to make this rerender once there's no longer an error?  
-// Maybe... if we make user.emailVerified a state, then we can call it once user.emailVerified changes? IDK
-  if (usersError && !props.userCreated) {
-    console.error("About to set doc. users error is " + usersError);
-    console.log("email verified is" + props.user.emailVerified);
+
+  let lowPriorityIcon = "💤";
+  let medPriorityIcon = "⚠️";
+  let highPriorityIcon = "🔥";
+
+  // A bit hacky, see if we can fix somehow
+  if (usersError && !userCreated) {
+    console.log("About to set doc. users error is " + usersError);
+    // console.log("email verified is" + props.user.emailVerified);
     setDoc(doc(usersCollection, props.user.uid), {
             uid: props.user.uid,
-            highPriorityIcon: "",
-            lowPriorityIcon: "",
-            medPriorityIcon: "",
+            highPriorityIcon: highPriorityIcon,
+            lowPriorityIcon: lowPriorityIcon,
+            medPriorityIcon: medPriorityIcon,
             sort: "created",
             email: props.user.email,
           }).catch(error => console.log(error));
-    props.setUserCreated(true);
+    setUserCreated(true);
     return <div>Loading...</div>;
   }
 
   console.log("props.user.uid is " + props.user.uid);
 
-  let lowPriorityIcon = "💤";
-  let medPriorityIcon = "⚠️";
-  let highPriorityIcon = "🔥";
   if (usersData) {//!usersLoading && !usersError) {
     lowPriorityIcon = usersData.lowPriorityIcon;
     medPriorityIcon = usersData.medPriorityIcon;

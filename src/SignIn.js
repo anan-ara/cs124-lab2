@@ -28,53 +28,55 @@ function SignIn(props) {
       "Email does not exist. Please sign up for an account.",
   };
 
-  if (user1 || user2) {
-    // Shouldn't happen because App should see that
-    // we are signed in.
-    return <div>Unexpectedly signed in already</div>;
-  } else if (loading1 || loading2) {
-    return <div>Logging In...</div>;
-  }
   return (
-    <>
-      <div></div>
-      <div className="sign-in-popup popup">
-        <div className="menu-title">Login</div>
-        <div className="login-fields">
+    <div className="sign-in-popup popup">
+      {user1 || user2 || loading1 || loading2 ? (
+        ((user1 || user2) && <div>Unexpectedly signed in already</div>) ||
+        ((loading1 || loading2) && <div>Logging In...</div>)
+      ) : (
+        <>
+          <div className="menu-title">Login</div>
+
           {error1 && (
             <div className="error-message">
               {errorMessageMap[error1.message]}
             </div>
           )}
           {error1 && console.log(error1.message)}
-          <label htmlFor="email">Email: </label>
-          <input
-            type="text"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
+          <form className="login-fields">
+            <label htmlFor="email">Email: </label>
+            <input
+              type="email"
+              id="email"
+              autoComplete="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <br />
+            <label htmlFor="pw">Password: </label>
+            <input
+              type="password"
+              id="pw"
+              value={pw}
+              autoComplete="current-password"
+              onChange={(e) => setPw(e.target.value)}
+            />
+          </form>
           <br />
-          <label htmlFor="pw">Password: </label>
-          <input
-            type="password"
-            id="pw"
-            value={pw}
-            onChange={(e) => setPw(e.target.value)}
-          />
-        </div>
-        <br />
-        <div className="login-buttons">
-          <button onClick={() => signInWithEmailAndPassword(email, pw)}>
-            Sign in
-          </button>
-          <button onClick={props.onToggleSignUp}>Sign up</button>
-        </div>
-        <hr />
-        <GoogleButton className="google" onClick={() => signInWithGoogle()} />
-        <GithubButton onClick={() => signInWithGoogle()} />
-      </div>
-    </>
+          <div >
+            <button className="login-button" onClick={() => signInWithEmailAndPassword(email, pw)}>
+              Sign in
+            </button>
+          </div>
+          <hr />
+          <GoogleButton className="google" onClick={() => signInWithGoogle()} />
+          <GithubButton onClick={() => signInWithGoogle()} />
+          <p>Don't have an account? <button onClick={props.onToggleSignUp}>Sign up</button></p>
+          <p>Forgot password? <button onClick={console.log("hi")}>Reset password</button></p>
+        </>
+      )}
+    </div>
+
   );
 }
 
