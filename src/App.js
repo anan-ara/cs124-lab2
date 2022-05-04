@@ -86,7 +86,6 @@ function App(props) {
 
   // This is here so that both sign up and go verify can use it.
   function verifyEmail() {
-    // console.log("in verify Email. User is " + user);
     if (!user.emailVerified) {
       sendEmailVerification(user)
         .then(function () {
@@ -109,7 +108,6 @@ function App(props) {
       <div>
         {user.displayName || user.email}
         <SignedInApp {...props} user={user} setUserCreated={setUserCreated} userCreated={userCreated} auth={auth} db={db} />
-        {/*  TODO: move signOut and verify email to signedinapp/figure out where to put in UI */}
         <button type="button" onClick={() => signOut(auth)}>
           Sign out
         </button>
@@ -136,10 +134,8 @@ function App(props) {
             setSignUp={setSignUp}
             auth={auth}
             db={db}
-            //verifyEmail={verifyEmail}
           />
         ) : (
-          // <SignUp key="Sign Up" setSignUp={setSignUp} auth={auth} db={db} verifyEmailSent={verifyEmailSent} signOut={signOut} onToggleSignUp={handleToggleSignUp}/>
           <SignIn
             key="Sign In"
             auth={auth}
