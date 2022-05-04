@@ -7,9 +7,8 @@ import {
   useSignInWithEmailAndPassword,
   useSignInWithGoogle,
 } from "react-firebase-hooks/auth";
-import GoogleButton from 'react-google-button'
-import GithubButton from 'react-github-login-button'
-
+import GoogleButton from "react-google-button";
+import GithubButton from "react-github-login-button";
 
 import { useState } from "react";
 
@@ -22,10 +21,12 @@ function SignIn(props) {
   const [email, setEmail] = useState("");
   const [pw, setPw] = useState("");
   const errorMessageMap = {
- "Firebase: Error (auth/invalid-email).":  "Email address does not appear to be valid. Please try again.",
- "Firebase: Error (auth/wrong-password).":  "Incorrect password.",
- "Firebase: Error (auth/user-not-found).":  "Email does not exist. Please sign up for an account."
-  }
+    "Firebase: Error (auth/invalid-email).":
+      "Email address does not appear to be valid. Please try again.",
+    "Firebase: Error (auth/wrong-password).": "Incorrect password.",
+    "Firebase: Error (auth/user-not-found).":
+      "Email does not exist. Please sign up for an account.",
+  };
 
   if (user1 || user2) {
     // Shouldn't happen because App should see that
@@ -40,8 +41,12 @@ function SignIn(props) {
       <div className="sign-in-popup popup">
         <div className="menu-title">Login</div>
         <div className="login-fields">
-            {error1 && <div className="error-message">{errorMessageMap[error1.message]}</div>}
-        {error1 && console.log(error1.message)}
+          {error1 && (
+            <div className="error-message">
+              {errorMessageMap[error1.message]}
+            </div>
+          )}
+          {error1 && console.log(error1.message)}
           <label htmlFor="email">Email: </label>
           <input
             type="text"
@@ -63,15 +68,11 @@ function SignIn(props) {
           <button onClick={() => signInWithEmailAndPassword(email, pw)}>
             Sign in
           </button>
-          <button onClick={props.onToggleSignUp}>
-            Sign up
-          </button>
+          <button onClick={props.onToggleSignUp}>Sign up</button>
         </div>
         <hr />
-        <GoogleButton className="google"
-          onClick={() => signInWithGoogle()} />
-        <GithubButton 
-          onClick={() => signInWithGoogle()} />
+        <GoogleButton className="google" onClick={() => signInWithGoogle()} />
+        <GithubButton onClick={() => signInWithGoogle()} />
       </div>
     </>
   );

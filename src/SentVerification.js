@@ -1,14 +1,15 @@
 import "./SentVerification.css";
+import "./ResendVerification.css"
 
 function SentVerification(props) {
   return (
     <>
       {/* TODO: move button later, the email verification says "you can now sign in after you verify email" */}
       {/* {!user.emailVerified && ( */}
-      <div id="verification_screen">
+      <div id="verification_screen" className="notice-popup">
         A verification email has been sent to your email address. Please click
         on the link to verify your email and then login.
-        <button
+        <button className="notice-button"
           onClick={() => {
             props.signOut(props.auth);
             props.setSignUp(false);
