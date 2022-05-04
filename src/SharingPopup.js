@@ -1,10 +1,22 @@
 import "./DeleteListPopup.css";
 import "./Popup.css";
-import { useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
+import CreatableSelect from "react-select/creatable";
 
 function SharingPopup(props) {
   const start = useRef();
   const end = useRef();
+
+  const components = {
+    DropdownIndicator: null,
+  };
+
+  const [inputValue, setInputValue] = useState("falskdj");
+  const [value, setValue] = useState([]);
+
+  function handleInputChange(inputValue) {
+    setInputValue(inputValue);
+  }
 
   // useEffect(() => {
   //   start.current.focus();
@@ -20,6 +32,14 @@ function SharingPopup(props) {
       }}
     >
       <div className="delete-explanation">SHARINGGG</div>
+      <CreatableSelect
+        isClearable
+        isMulti
+        inputValue={inputValue}
+        onInputChange={inputValue => setInputValue(inputValue)}
+        components={components}
+        menuIsOpen={false}
+      />
       {/* <div className="delete-list-name">{props.text}?</div>
       <div className="cancel-ok">
         <button
