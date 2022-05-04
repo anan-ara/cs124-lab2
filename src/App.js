@@ -88,12 +88,12 @@ function App(props) {
   function verifyEmail() {
     if (!user.emailVerified) {
       sendEmailVerification(user)
-        .then(function () {
+        .then(() => {
           // Verification email sent. Show new screen
           console.log("verification sent");
           setVerifyEmailSent(true); // make it so that the email verification thing shows up
         })
-        .catch(function (error) {
+        .catch((error) => {
           // Error occurred. Inspect error.code. TODO show actual error message
           console.error("ERROR when trying to send email verification" + error);
           // TODO: give correct error message for : "FirebaseError: Firebase: Error (auth/too-many-requests)."
