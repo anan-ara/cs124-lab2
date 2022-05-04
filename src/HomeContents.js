@@ -45,6 +45,7 @@ function HomeContents(props) {
                 checked={e.checked}
                 total={e.total}
                 complete={e.complete}
+                editors={e.editors}
                 key={e.id}
                 id={e.id}
                 onToggleScroll={handleToggleScroll}

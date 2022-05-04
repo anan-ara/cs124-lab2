@@ -2,6 +2,7 @@ import "./DeleteListPopup.css";
 import "./Popup.css";
 import { useState, useEffect, useRef } from "react";
 import CreatableSelect from "react-select/creatable";
+import EditorItem from "./EditorItem"
 
 function SharingPopup(props) {
   const start = useRef();
@@ -19,18 +20,16 @@ function SharingPopup(props) {
   }
 
   function handleChange(value) {
-    console.log("handling change")
+    console.log("handling change");
     setValue(value);
   }
 
   function addValue() {
-    setValue([...value, {label: inputValue, value: inputValue}]);
+    setValue([...value, { label: inputValue, value: inputValue }]);
     setInputValue("");
   }
 
-  // useEffect(() => {
-  //   start.current.focus();
-  // });
+  // console.log(props.editors)
 
   return (
     <div
@@ -46,13 +45,14 @@ function SharingPopup(props) {
         isClearable
         isMulti
         inputValue={inputValue}
-        onInputChange={inputValue => setInputValue(inputValue)}
+        onInputChange={(inputValue) => setInputValue(inputValue)}
         value={value}
-        onChange={value => handleChange(value)}
+        onChange={(value) => handleChange(value)}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
             if (inputValue === "") {
-              props.onAddEditors(props.id, value)
+              props.onAddEditors(props.id, value);
+              setValue([]);
             } else {
               addValue();
             }
@@ -62,6 +62,19 @@ function SharingPopup(props) {
         menuIsOpen={false}
         placeholder="Add emails here..."
       />
+      <button
+        onClick={() => {
+          props.onAddEditors(props.id, value);
+          setValue([]);
+        }}
+      >
+        Share
+      </button>
+      <ul>
+        {props.editors.map((editor) => (
+          <EditorItem editor={editor} {...props} />
+        ))}
+      </ul>
       {/* <div className="delete-list-name">{props.text}?</div>
       <div className="cancel-ok">
         <button
