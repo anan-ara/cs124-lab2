@@ -45,8 +45,9 @@ function SignIn(props) {
           <form className="login-fields">
             <label htmlFor="email">Email: </label>
             <input
-              type="text"
+              type="email"
               id="email"
+              autoComplete="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />

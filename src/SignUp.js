@@ -29,7 +29,7 @@ function SignUp(props) {
       ) : (
         <>
           <div className="menu-title">Sign Up</div>
-          <div className="login-fields">
+          <form className="login-fields">
             {error && (
               <div className="error-message">
                 {errorMessageMap[error.message]}
@@ -38,8 +38,9 @@ function SignUp(props) {
             {error && console.log(error.message)}
             <label htmlFor="email">Email: </label>
             <input
-              type="text"
+              type="email"
               id="email"
+              autoComplete="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -48,10 +49,11 @@ function SignUp(props) {
             <input
               type="password"
               id="pw"
+              autoComplete="current-password"
               value={pw}
               onChange={(e) => setPw(e.target.value)}
             />
-          </div>
+          </form>
           <br />
           <div className="login-buttons sign-up-buttons">
             <button className="login-button"
