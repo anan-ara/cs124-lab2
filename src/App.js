@@ -6,8 +6,8 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { getFirestore, setDoc, doc, collection } from "firebase/firestore";
 import { initializeApp } from "firebase/app";
 import { useState, useEffect } from "react";
-import VerificationSent from "./VerificationSent";
-import GoVerify from "./GoVerify";
+import SentVerification from "./SentVerification";
+import ResendVerification from "./ResendVerification";
 import { sendEmailVerification } from "firebase/auth";
 // Ours
 // Your web app's Firebase configuration
@@ -68,6 +68,7 @@ function App(props) {
     if (user) {
     createUser(user);
     verifyEmail();}
+    console.log("verifying email in user useEffect")
   }, [user]);
   console.log("App is being rerendered");
 
@@ -80,9 +81,9 @@ function App(props) {
         console.log("verification sent");
         setVerifyEmailSent(true); // make it so that the email verification thing shows up
         // Sign out the user so they have to sign in again
-        signOut(auth);
+        // signOut(auth);
         // Go to login screeen not sign up screen
-        setSignUp(false);
+        // setSignUp(false);
       })
       .catch(function (error) {
         // Error occurred. Inspect error.code. TODO show actual error message
@@ -103,10 +104,11 @@ function App(props) {
         </button>
       </div>
     ) : verifyEmailSent ? (
-      <GoVerify verifyEmail={verifyEmail} />
+      <SentVerification signOut={signOut} auth={auth} setSignUp={setSignUp} setVerifyEmailSent={setVerifyEmailSent}/>
     ) : (
-      <VerificationSent setJustSignedUp={setVerifyEmailSent} />
+      <ResendVerification verifyEmail={verifyEmail} />
     );
+    // TODO: fix bug where initially it shows resend verification screen before the useEffect finishes on initial sign in
   } else {
     return (
       <>

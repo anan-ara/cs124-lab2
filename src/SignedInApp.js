@@ -86,7 +86,7 @@ function SignedInApp(props) {
     setHomeScreen(true);
   }
 
-  console.log("email verified is "  + props.user.emailVerified);
+  // console.log("email verified is "  + props.user.emailVerified);
 
   function handleSelectList(listId) {
     setCurrentList(listId);

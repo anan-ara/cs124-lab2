@@ -1,6 +1,6 @@
-import "./GoVerify.css";
+import "./ResendVerification.css";
 
-function GoVerify(props) {
+function ResendVerification(props) {
   return (
     <>
       <div id="go_verify_screen">
@@ -19,4 +19,4 @@ function GoVerify(props) {
   );
 }
 
-export default GoVerify;
+export default ResendVerification;

@@ -110,7 +110,7 @@ function SignUp(props) {
             onClick={() => {
               createUserWithEmailAndPassword(email, pw); //.then(props.onCreateUser)
               //props.setJustSignedUp(true); // make it so that the email verification thing shows up
-              //props.verifyEmail();
+              // props.verifyEmail();
             }}
           >
             Sign up
