@@ -45,6 +45,15 @@ function SubMenu(props) {
           Rename
         </button>
         {props.homeScreen ? (
+          <>
+          {props.shared || <button
+            className={"bottom-line"}
+            onClick={props.onShare}
+            aria-label={"Share list"}
+          >
+          Share List
+          </button>
+}
           <button
             ref={end}
             className={props.homeScreen ? "delete" : "delete bottom-line"}
@@ -59,6 +68,7 @@ function SubMenu(props) {
           >
             Delete
           </button>
+          </>
         ) : (
           <>
             <button
