@@ -18,6 +18,16 @@ function SharingPopup(props) {
     setInputValue(inputValue);
   }
 
+  function handleChange(value) {
+    console.log("handling change")
+    setValue(value);
+  }
+
+  function addValue() {
+    setValue([...value, {label: inputValue, value: inputValue}]);
+    setInputValue("");
+  }
+
   // useEffect(() => {
   //   start.current.focus();
   // });
@@ -37,8 +47,20 @@ function SharingPopup(props) {
         isMulti
         inputValue={inputValue}
         onInputChange={inputValue => setInputValue(inputValue)}
+        value={value}
+        onChange={value => handleChange(value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            if (inputValue === "") {
+              props.onAddEditors(props.id, value)
+            } else {
+              addValue();
+            }
+          }
+        }}
         components={components}
         menuIsOpen={false}
+        placeholder="Add emails here..."
       />
       {/* <div className="delete-list-name">{props.text}?</div>
       <div className="cancel-ok">
