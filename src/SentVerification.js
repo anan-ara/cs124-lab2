@@ -12,7 +12,8 @@ function SentVerification(props) {
           onClick={() => {
             props.signOut(props.auth);
             props.setSignUp(false);
-            props.setVerifyEmailSent(false); // Make the app show the "ResendVerification" screen upon log in if the user didn't click the on the first verification email
+            // Was causing an error
+            props.setVerifyEmailSent(true); // Make the app show the "ResendVerification" screen upon log in if the user didn't click the on the first verification email
           }}
         >
           Return to Login Screen

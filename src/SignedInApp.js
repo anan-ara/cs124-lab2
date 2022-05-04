@@ -4,7 +4,7 @@ import ListView from "./ListView";
 import { useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, updateDoc, doc, query, where } from "firebase/firestore";
+import { getFirestore, collection, updateDoc, doc, query, where, setDoc} from "firebase/firestore";
 import { useDocumentData, useCollectionData } from "react-firebase-hooks/firestore";
 // import VerificationSent from "./VerificationSent";
 // import GoVerify from "./GoVerify";
@@ -26,7 +26,7 @@ import { useDocumentData, useCollectionData } from "react-firebase-hooks/firesto
 
 function SignedInApp(props) {
 
-  console.log("showing signed in app");
+  console.log("showing signed in app, email verified is" + props.user.emailVerified);
   // Screen Width
   const isNarrow = useMediaQuery({ maxWidth: "615px" });
   const isMedium = useMediaQuery({ minWidth: "615px", maxWidth: "900px" });
@@ -55,9 +55,21 @@ function SignedInApp(props) {
     doc(usersCollection, props.user.uid)
   );
 
-  // TODO: right now this is throwing an error when we are on verification screen because we try to access the user and can't because it's still being verified. 
-  if (usersError) {
-    console.error(usersError);
+//  TODO: how to make this rerender once there's no longer an error?  
+// Maybe... if we make user.emailVerified a state, then we can call it once user.emailVerified changes? IDK
+  if (usersError && !props.userCreated) {
+    console.error("About to set doc. users error is " + usersError);
+    console.log("email verified is" + props.user.emailVerified);
+    setDoc(doc(usersCollection, props.user.uid), {
+            uid: props.user.uid,
+            highPriorityIcon: "",
+            lowPriorityIcon: "",
+            medPriorityIcon: "",
+            sort: "created",
+            email: props.user.email,
+          }).catch(error => console.log(error));
+    props.setUserCreated(true);
+    return <div>Loading...</div>;
   }
 
   console.log("props.user.uid is " + props.user.uid);
