@@ -31,7 +31,7 @@ function App(props) {
   const [user, loading, error] = useAuthState(auth);
 
   // Whether or not the user has been created in the database. 
-  const [userCreated, setUserCreated] = useState(false);// HAcky way, replace later TODO
+  // const [userCreated, setUserCreated] = useState(false);// HAcky way, replace later TODO
 
   if (error) {
     console.error(error);
@@ -127,8 +127,9 @@ function App(props) {
     return user.emailVerified ? (
       <div>
         {user.displayName || user.email}
+        {/* <SignedInApp {...props} onSignOut={handleSignOut} user={user} setUserCreated={setUserCreated} userCreated={userCreated} auth={auth} db={db} /> */}
 
-        <SignedInApp {...props} onSignOut={handleSignOut} user={user} setUserCreated={setUserCreated} userCreated={userCreated} auth={auth} db={db} />
+        <SignedInApp {...props} onSignOut={handleSignOut} user={user} auth={auth} db={db} />
         <button type="button" onClick={() => signOut(auth)}>
           Sign out
         </button>

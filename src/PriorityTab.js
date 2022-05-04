@@ -8,7 +8,7 @@ function PriorityTab(props) {
           <button
             ref={props.end}
             className={emoji === props.currentIcon ? "activated" : ""}
-            onClick={() => props.onChangeIcon(emoji)}
+            onClick={() => {console.log("button clicked"); props.onChangeIcon(emoji);}}
             key={emoji}
             onKeyDown={(e) => {
               if (e.key === "Tab" && !e.shiftKey) {
@@ -22,7 +22,7 @@ function PriorityTab(props) {
         ) : (
           <button
             className={emoji === props.currentIcon ? "activated" : ""}
-            onClick={() => props.onChangeIcon(emoji)}
+            onClick={() => {console.log("button clicked"); props.onChangeIcon(emoji);}}
             key={emoji}
           >
             {emoji}
