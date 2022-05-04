@@ -10,6 +10,12 @@
   color: #494949;
 }
 
+.sign-in-popup p button {
+  font-size: medium;
+  text-decoration: underline;
+  color: blue;
+}
+
 .menu-title {
   font-size: xx-large;
 }
@@ -28,18 +34,18 @@
   width: 280px;
 }
 
-.login-buttons {
+/* .login-buttons {
   display: flex;
   justify-content: space-evenly;
   width: 280px;
-}
+} */
 
-.login-buttons button {
+button.login-button {
   font-size: large;
   border: 1px solid #494949;
   border-radius: 5px;
   color: #494949;
-  width: 80px;
+  width: 100px;
   padding: 0 6px;
   text-decoration: none;
   display: block;

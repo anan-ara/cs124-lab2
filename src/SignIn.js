@@ -61,15 +61,15 @@ function SignIn(props) {
             />
           </form>
           <br />
-          <div className="login-buttons">
-            <button onClick={() => signInWithEmailAndPassword(email, pw)}>
+          <div >
+            <button className="login-button" onClick={() => signInWithEmailAndPassword(email, pw)}>
               Sign in
             </button>
-            <button onClick={props.onToggleSignUp}>Sign up</button>
           </div>
           <hr />
           <GoogleButton className="google" onClick={() => signInWithGoogle()} />
           <GithubButton onClick={() => signInWithGoogle()} />
+          <p>Don't have an account? <button onClick={props.onToggleSignUp}>Sign up</button></p>
         </>
       )}
     </div>

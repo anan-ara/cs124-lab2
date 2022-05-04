@@ -54,8 +54,7 @@ function SignUp(props) {
           </div>
           <br />
           <div className="login-buttons sign-up-buttons">
-            <button onClick={props.onToggleSignUp}>Go back</button>
-            <button
+            <button className="login-button"
               onClick={
                 () => createUserWithEmailAndPassword(email, pw) //.then(props.onCreateUser)
               }
@@ -63,6 +62,7 @@ function SignUp(props) {
               Sign up
             </button>
           </div>
+          <p>Already have an account? <button onClick={props.onToggleSignUp}>Sign in</button></p>
         </>
       )}
     </div>
