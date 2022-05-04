@@ -39,7 +39,7 @@ import LIST_COLLECTION from "./firestore-config";
 function Home(props) {
   // const LIST_COLLECTION = "cs124-users/default/lists";
   const collectionRef = collection(props.db, LIST_COLLECTION);
-  const metadataRef = collection(props.db, "users");
+  const usersRef = collection(props.db, "users");
 
   const [toScroll, setToScroll] = useState(false);
 
@@ -60,13 +60,12 @@ function Home(props) {
   let sortType = "created";
 
   // Get data from database.
-  if (!props.appMetadataLoading) {
-    sortType = props.appMetadata.sort;
+  if (!props.usersLoading && !props.usersError) {
+    sortType = props.usersData.sort;
   }
 
   let orderByParam = orderBy(sortType);
   orderByParam = orderBy("created");
-  console.log("In home, props.user.email is " + props.user.email);
   // let queryParam = query(collectionRef, orderByParam, where("owner", "==", props.user.email));
   let myQueryParam = query(collectionRef, orderByParam, where("owner", "==", props.user.email));
 
@@ -119,7 +118,7 @@ function Home(props) {
   }
 
   function handleSortType(newSortType) {
-    updateDoc(doc(metadataRef, "default"), { sort: newSortType });
+    updateDoc(doc(usersRef, "default"), { sort: newSortType });
   }
 
   //   These handlers need the collectionRef too

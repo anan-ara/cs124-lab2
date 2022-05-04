@@ -17,95 +17,7 @@ service cloud.firestore {
     }
 
     function isVerified() {
-      return request.auth.token.email_verified == true;
-    }
-    // Helper functions
-
-    function isSameUser() {
-      return request.auth.uid == resource.data.uid;
-    }
-
-    function isListViewer() {
-      return request.auth.token.email in resource.data.viewers;
-    }
-
-    function isListEditor() {
-      return request.auth.token.email in resource.data.editors;
-    }
-
-    function isListAdmin() {
-      return request.auth.token.email in resource.data.admins;
-    }
-
-    function isListOwner() {
-      return request.auth.token.email == resource.data.owner;
-    }
-
-    // function listHasOriginalOwner() {
-    //   return resource.data.owner == request.resource.data.owner;
-    //   // the document's owner can't be changed 
-    // }
-
-    function listHasOriginalConstants() {
-      return resource.data.owner == request.resource.data.owner
-      && resource.data.id == request.resource.data.id
-      && resource.data.created == request.resource.data.created;
-      // the document's original constants (id, owner, creation date) should never be changed
-    }
-
-    function listHasCorrectOwner() {
-      return request.auth.token.email == request.resource.data.owner;
-      // can only make list if I'm saying I'm the author of the new list
-    }
-
-    function listHasSameSharing() {
-      return resource.data.viewers == request.resource.data.viewers 
-        && resource.data.editors == request.resource.data.editors
-        && resource.data.admins == request.resource.data.admins;
-      // Don't change the sharing permissions.
-    }
-
-    match /users/{person} {
-      allow read, write: if signedIn() && isVerified() && isSameUser();
-      // allow read, write: if true;
-
-    }
-
-    match /lists/{list} {
-      allow read: if signedIn() && isVerified() && (isListViewer() || isListEditor() || isListAdmin() || isListOwner());
-      // allow read, write: if true;
-
-      allow create: if signedIn() && isVerified() && listHasCorrectOwner();
-      allow update: if signedIn() && isVerified() && listHasOriginalConstants() && ((isListEditor() && listHasSameSharing()) || isListAdmin() || isListOwner());
-      allow delete: if signedIn() && isVerified() && isListOwner();
-    }
-
-  }
-}
-
-
-
-// NEW 
-
-// rules_version = '2';
-// service cloud.firestore {
-//   match /databases/{database}/documents {
-//     match /{document=**} {
-//       allow read, write: if true;
-//     }
-//   }
-// }
-
-
-rules_version = '2';
-service cloud.firestore {
-  match /databases/{database}/documents {
-    function signedIn() {
-      return request.auth.uid != null;
-    }
-
-    function isVerified() {
-      return request.auth.token.email_verified == true;
+      return request.auth.token.email_verified;
     }
     // Helper functions
 
@@ -161,51 +73,55 @@ service cloud.firestore {
   
 
     match /users/{person} {
-      allow read, write: if signedIn() && isVerified() && isSameUser();
+      // allow read, write: if signedIn() && isVerified() && isSameUser();
+      allow read, update, delete: if signedIn() && isVerified() && isSameUser();
+      // same user isn't a thing if the user doesn't exist yet!
+      // For now, we're allowing the user to be created even if they aren't yet verified
+      	// TODO change ^
+      allow create: if signedIn();// && isVerified();
+
       // allow read, write: if true;
 
     }
 
-    match /lists/{list} {
-    
-      function getListData() {
-    		return get(/databases/$(database)/documents/lists/$(list)).data;
-    	}
-      function isListViewer() {
-        let listData = getListData();
-        return request.auth.token.email in listData.viewers;
+    match /lists/{listId} {
+      function isListViewer(data) {
+        return request.auth.token.email in data.viewers;
       }
 
-      function isListEditor() {
-        let listData = getListData();
-
-        return request.auth.token.email in listData.editors;
+      function isListEditor(data) {
+        return request.auth.token.email in data.editors;
       }
 
-      function isListAdmin() {
-        let listData = getListData();
-        return request.auth.token.email in listData.admins;
+      function isListAdmin(data) {
+        return request.auth.token.email in data.admins;
       }
 
-      function isListOwner() {
-        let listData = getListData();
-        // let listData = resource.data;
-        return request.auth.token.email == get(/databases/$(database)/documents/lists/$(list)).data.owner;
-        // return request.auth.token.email == listData.owner;
+      function isListOwner(data) {
+        return request.auth.token.email == data.owner;
+      }
+    	
+      // allow write: if true;
+      // allow read: if true;
 
-      }
-    	match /items/{item} {
-      	allow read, write: if true;
-      	// allow read: if signedIn() && isVerified() && (isListViewer(list) || isListEditor(list) || isListAdmin(list) || isListOwner(list));
-      	// allow create: if signedIn() && isVerified() && listHasCorrectOwner();
-      	// allow update: if signedIn() && isVerified() && listHasOriginalConstants() && ((isListEditor(list) && listHasSameSharing()) || isListAdmin(list) || isListOwner(list));
-      	// allow delete: if signedIn() && isVerified() && isListOwner(list);
-      }
-      allow write: if true;
-      allow read: if signedIn() && isVerified() && (isListViewer() || isListEditor() || isListAdmin() || isListOwner());
-      // allow create: if signedIn() && isVerified() && listHasCorrectOwner();
-      // allow update: if signedIn() && isVerified() && listHasOriginalConstants() && ((isListEditor(list) && listHasSameSharing()) || isListAdmin(list) || isListOwner(list));
-      // allow delete: if signedIn() && isVerified() && isListOwner(list);
+			// TODO: ask prof. rhodes about this
+      // allow read: if isListOwner(resource.data) || isListEditor(resource.data);
+      allow read: if signedIn() && isVerified() && (isListViewer(resource.data) || isListEditor(resource.data) || isListAdmin(resource.data) || isListOwner(resource.data));
+      allow create: if signedIn() && isVerified() && listHasCorrectOwner();
+      allow update: if signedIn() && isVerified() && listHasOriginalConstants() && ((isListEditor(resource.data) && listHasSameSharing()) || isListAdmin(resource.data) || isListOwner(resource.data));
+      allow delete: if signedIn() && isVerified() && isListOwner(resource.data);
+      match /items/{item} {
+        	function getListData() {
+    				return get(/databases/$(database)/documents/lists/$(listId)).data;
+    			}
+          
+          allow read, write: if true;
+          // allow read: if signedIn() && isVerified() && (
+          // isListViewer() || isListEditor() || isListAdmin() || isListOwner());
+          // allow create: if signedIn() && isVerified() && listHasCorrectOwner();
+          // allow update: if signedIn() && isVerified() && listHasOriginalConstants() && ((isListEditor() && listHasSameSharing()) || isListAdmin() || isListOwner());
+          // allow delete: if signedIn() && isVerified() && isListOwner();
+        }
     }
 
   }
