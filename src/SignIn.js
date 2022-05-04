@@ -71,6 +71,7 @@ function SignIn(props) {
           <GoogleButton className="google" onClick={() => signInWithGoogle()} />
           <GithubButton onClick={() => signInWithGoogle()} />
           <p>Don't have an account? <button onClick={props.onToggleSignUp}>Sign up</button></p>
+          <p>Forgot password? <button onClick={console.log("hi")}>Reset password</button></p>
         </>
       )}
     </div>

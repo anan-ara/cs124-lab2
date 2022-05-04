@@ -40,6 +40,10 @@ function App(props) {
     setSignUp(!signUp);
   }
 
+  function handleSignOut() {
+    signOut(auth);
+  }
+
 
   //  TODO: make work only when email verified? if that's what we want to do, otherwise is OK
   function createUser() {
@@ -68,12 +72,7 @@ function App(props) {
     return (
       <div>
         {user.displayName || user.email}
-        <SignedInApp {...props} user={user} db={db}/>
-        {/*  TODO: move signOut and verify email to signedinapp/figure out where to put in UI */}
-        <button type="button" onClick={() => signOut(auth)}>
-          Sign out
-        </button>
-        
+        <SignedInApp {...props} onSignOut={handleSignOut} user={user} db={db}/>
       </div>
     );
   } else {
