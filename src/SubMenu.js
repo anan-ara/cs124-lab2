@@ -45,20 +45,31 @@ function SubMenu(props) {
           Rename
         </button>
         {props.homeScreen ? (
-          <button
-            ref={end}
-            className={props.homeScreen ? "delete" : "delete bottom-line"}
-            onClick={() => props.onDelete(props.id)}
-            onKeyDown={(e) => {
-              if (e.key === "Tab" && !e.shiftKey) {
-                e.preventDefault();
-                start.current.focus();
-              }
-            }}
-            aria-label={"Delete " + props.accessibleName}
-          >
-            Delete
-          </button>
+          <>
+            {props.shared || (
+              <button
+                className={"bottom-line"}
+                onClick={console.log("hi")}
+                aria-label={"Share list"}
+              >
+                Share List
+              </button>
+            )}
+            <button
+              ref={end}
+              className={props.homeScreen ? "delete" : "delete bottom-line"}
+              onClick={() => props.onDelete(props.id)}
+              onKeyDown={(e) => {
+                if (e.key === "Tab" && !e.shiftKey) {
+                  e.preventDefault();
+                  start.current.focus();
+                }
+              }}
+              aria-label={"Delete " + props.accessibleName}
+            >
+              Delete
+            </button>
+          </>
         ) : (
           <>
             <button
