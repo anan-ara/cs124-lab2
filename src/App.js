@@ -64,17 +64,22 @@ function App(props) {
   // TODO: see if there is a better way to do this!
   // Hacky way to make the createUser function only be called when user is first defined
   // ISSUE: this happens whenever a user signs in, not just when they initially sign in
+  // TODO: right now verifyEmail is sent on reload even when it's already been sent and we're just showing the
+  // ResendVerification screen. THis should be fixed once we move this out of the useEffect though.
   useEffect(() => {
     if (user) {
-    createUser(user);
-    verifyEmail();}
-    console.log("verifying email in user useEffect")
+      createUser(user); // TODO: move this into somewhere so that it only does this when email is actually verified.
+      if (!verifyEmailSent) {
+        verifyEmail();
+        console.log("verifying email in user useEffect");
+      }
+    }
   }, [user]);
   console.log("App is being rerendered");
 
   // This is here so that both sign up and go verify can use it.
   function verifyEmail() {
-    console.log("in verify Email. User is " +  user)
+    console.log("in verify Email. User is " + user);
     sendEmailVerification(user)
       .then(function () {
         // Verification email sent. Show new screen
@@ -88,6 +93,7 @@ function App(props) {
       .catch(function (error) {
         // Error occurred. Inspect error.code. TODO show actual error message
         console.error("ERROR when trying to send email verification" + error);
+        // TODO: give correct error message for : "FirebaseError: Firebase: Error (auth/too-many-requests)."
       });
   }
 
@@ -104,7 +110,12 @@ function App(props) {
         </button>
       </div>
     ) : verifyEmailSent ? (
-      <SentVerification signOut={signOut} auth={auth} setSignUp={setSignUp} setVerifyEmailSent={setVerifyEmailSent}/>
+      <SentVerification
+        signOut={signOut}
+        auth={auth}
+        setSignUp={setSignUp}
+        setVerifyEmailSent={setVerifyEmailSent}
+      />
     ) : (
       <ResendVerification verifyEmail={verifyEmail} />
     );
