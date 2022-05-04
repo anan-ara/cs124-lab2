@@ -36,6 +36,7 @@ function SignIn(props) {
       ) : (
         <>
           <div className="menu-title">Login</div>
+
           {error1 && (
             <div className="error-message">
               {errorMessageMap[error1.message]}
@@ -75,6 +76,7 @@ function SignIn(props) {
         </>
       )}
     </div>
+
   );
 }
 

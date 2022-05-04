@@ -4,10 +4,12 @@ import {
   // useSignInWithEmailAndPassword,
   // useSignInWithGoogle
 } from "react-firebase-hooks/auth";
-import { setDoc, doc, collection, getFirestore } from "firebase/firestore";
-import { initializeApp } from "firebase/app";
+// import { setDoc, doc, collection, getFirestore } from "firebase/firestore";
+// import { initializeApp } from "firebase/app";
 // import { getFirestore, collection, updateDoc, doc } from "firebase/firestore";
 import { useState } from "react";
+// import { sendEmailVerification } from "firebase/auth";
+
 
 function SignUp(props) {
   const [createUserWithEmailAndPassword, user, loading, error] =
@@ -15,10 +17,19 @@ function SignUp(props) {
   const [email, setEmail] = useState("");
   const [pw, setPw] = useState("");
 
+
+
   const errorMessageMap = {
     "Firebase: Error (auth/invalid-email).":
       "Email address does not appear to be valid. Please try again.",
     "Firebase: Error (auth/internal-error).": "Password cannot be empty.",
+    "Firebase: Error (auth/email-already-in-use).": (
+      <div>
+        Email address is already in use. Please go back to the login page.{" "}
+        <br></br>
+        <button onClick={() => props.setSignUp(false)}>Go Back to Login</button>
+      </div>
+    ),
   };
 
   return (
@@ -68,6 +79,7 @@ function SignUp(props) {
         </>
       )}
     </div>
+
   );
 }
 
