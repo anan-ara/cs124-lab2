@@ -6,6 +6,7 @@ import { useMediaQuery } from "react-responsive";
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, updateDoc, doc } from "firebase/firestore";
 import { useDocumentData } from "react-firebase-hooks/firestore";
+import { USERS_COLLECTION } from "./firestore-config";
 
 // Ours
 // Your web app's Firebase configuration
@@ -43,7 +44,7 @@ function App() {
     updateDoc(doc(metadataRef, "default"), { highPriorityIcon: newIcon });
   }
 
-  const metadataRef = collection(db, "users");
+  const metadataRef = collection(db, USERS_COLLECTION);
   const [metadata, metadataLoading, metadataError] = useDocumentData(
     doc(metadataRef, "default")
   );
@@ -55,7 +56,7 @@ function App() {
   let lowPriorityIcon = "💤";
   let medPriorityIcon = "⚠️";
   let highPriorityIcon = "🔥";
-  if (!metadataLoading) {
+  if (metadata) {
     lowPriorityIcon = metadata.lowPriorityIcon;
     medPriorityIcon = metadata.midPriorityIcon;
     highPriorityIcon = metadata.highPriorityIcon;

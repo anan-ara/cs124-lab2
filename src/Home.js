@@ -34,12 +34,12 @@ import {
 //   medPriorityOptions,
 //   highPriorityOptions,
 // } from ".";
-import TOP_LEVEL_COLLECTION from "./firestore-config";
+import {TOP_LEVEL_COLLECTION, USERS_COLLECTION} from "./firestore-config";
 
 function Home(props) {
   // const TOP_LEVEL_COLLECTION = "cs124-users/default/lists";
   const collectionRef = collection(props.db, TOP_LEVEL_COLLECTION);
-  const metadataRef = collection(props.db, "users");
+  const metadataRef = collection(props.db, USERS_COLLECTION);
 
   const [toScroll, setToScroll] = useState(false);
 
@@ -60,7 +60,7 @@ function Home(props) {
   let sortType = "created";
 
   // Get data from database.
-  if (!props.appMetadataLoading) {
+  if (props.appMetadata) {
     sortType = props.appMetadata.sort;
   }
 
@@ -72,7 +72,7 @@ function Home(props) {
   const [data, loading, error] = useCollectionData(queryParam);
 
   let filteredData = data;
-  if (!loading) {
+  if (data) {
     filteredData = data.filter((item) => item.text.toLowerCase().includes(filter.toLowerCase()));
   }
 
@@ -103,6 +103,7 @@ function Home(props) {
   }
 
   function handleSortType(newSortType) {
+    console.log("handling sort type");
     updateDoc(doc(metadataRef, "default"), { sort: newSortType });
   }
 
