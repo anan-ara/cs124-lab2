@@ -3,7 +3,7 @@ import "./Popup.css";
 import { useState, useEffect, useRef } from "react";
 
 function EditTextPopup(props) {
-  const [text, setText] = useState(props.text); // TODO: put initial text here
+  const [text, setText] = useState(props.text);
   const start = useRef();
   const end = useRef();
 
