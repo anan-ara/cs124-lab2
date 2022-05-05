@@ -11,17 +11,6 @@ function EditTextPopup(props) {
     start.current.focus();
   });
 
-  // function onEnterText(newText) {
-  //   //  add actual entering function here
-  //   if (newText === "") {
-  //     props.onDeleteList(props.id);
-  //   } else {
-  //     // setEditable(false);
-  //     props.onChangeText(props.id, newText);
-  //   }
-  //   props.onClosePopup();
-  // }
-
   return (
     <div
       className="create-list-popup popup"
