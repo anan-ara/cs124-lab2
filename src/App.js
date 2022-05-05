@@ -39,6 +39,8 @@ function App(props) {
   // True if the user has just signed up. Used to conditionally show a page that says to check their email for verification
   // (verification is sent automatically upon sign up.)
   const [verifyEmailSent, setVerifyEmailSent] = useState(false);
+  // Used to show a screen between sending and sent
+  const [verifyEmailSending, setVerifyEmailSending] = useState(false);
 
   const [signUp, setSignUp] = useState(false);
   const [passwordReset, setPasswordReset] = useState(false);
@@ -63,23 +65,25 @@ function App(props) {
   useEffect(() => {
     if (user && !user.emailVerified) {
       verifyEmail();
-      console.log("verifying email in user useEffect");
     }
   }, [user]);
-  console.log("App is being rerendered");
 
   // This is here so that both sign up and go verify can use it.
   function verifyEmail() {
     if (!user.emailVerified) {
-      setVerifyEmailSent(true); // make it so that the email verification thing shows up
+      setVerifyEmailSending(true);
       sendEmailVerification(user)
         .then(() => {
           // Verification email sent. Show new screen
+          setVerifyEmailSent(true); // make it so that the email verification thing shows up
+          setVerifyEmailSending(false);
           console.log("verification sent");
         })
         .catch((error) => {
           // Error occurred. Inspect error.code. TODO show actual error message
           console.error("ERROR when trying to send email verification" + error);
+          setVerifyEmailSending(false);
+
           // TODO: give correct error message for : "FirebaseError: Firebase: Error (auth/too-many-requests)."
         });
     }
@@ -110,8 +114,17 @@ function App(props) {
         setSignUp={setSignUp}
         setVerifyEmailSent={setVerifyEmailSent}
       />
+    ) : verifyEmailSending ? (
+      <div className="popup create-list-popup">
+        Hang Tight! We're sending your verification Email...
+      </div>
     ) : (
-      <ResendVerification verifyEmail={verifyEmail} />
+      <ResendVerification
+        verifyEmail={verifyEmail}
+        signOut={signOut}
+        auth={auth}
+        setSignUp={setSignUp}
+      />
     );
   } else {
     return (
