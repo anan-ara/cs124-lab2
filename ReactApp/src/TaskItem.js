@@ -12,7 +12,7 @@ function TaskItem(props) {
   const [editTaskTextPopup, setEditTaskTextPopup] = useState(false);
 
   // Local text field before it is saved in database
-  const [text, setText] = useState(props.text);
+  // const [text, setText] = useState(props.text);
 
   // reference to textArea
   const textArea = useRef();
@@ -36,21 +36,21 @@ function TaskItem(props) {
     setEditTaskTextPopup(!editTaskTextPopup);
   }
 
-  function handleStartRename() {
-    setEditable(true);
-    textArea.current.selectionStart = textArea.current.value.length;
-    textArea.current.selectionEnd = textArea.current.value.length;
-    textArea.current.focus();
-  }
+  // function handleStartRename() {
+  //   setEditable(true);
+  //   textArea.current.selectionStart = textArea.current.value.length;
+  //   textArea.current.selectionEnd = textArea.current.value.length;
+  //   textArea.current.focus();
+  // }
 
-  function handleFinishRename() {
-    if (text === "") {
-      props.onDeleteTask(props.id);
-    } else {
-      setEditable(false);
-      props.onChangeText(props.id, text);
-    }
-  }
+  // function handleFinishRename() {
+  //   if (text === "") {
+  //     props.onDeleteTask(props.id);
+  //   } else {
+  //     setEditable(false);
+  //     props.onChangeText(props.id, text);
+  //   }
+  // }
 
 
   function handleRename(newText) {
@@ -94,27 +94,28 @@ function TaskItem(props) {
             props.onToggleChecked(props.id);
           }
         }}
-        aria-label={text}
+        aria-label={props.text}
       />
       <textarea
         className="item-text-area"
-        value={text}
+        value={props.text}
         ref={textArea}
         htmlFor={props.id}
-        onChange={(e) => setText(e.target.value)}
-        onKeyDown={(e) => {
-          if (e.key === "Enter") {
-            editable ? handleFinishRename() : props.onToggleChecked(props.id);
-          }
-        }}
-        onBlur={handleFinishRename}
+        // onChange={(e) => setText(e.target.value)}
+        // onKeyDown={(e) => {
+        //   if (e.key === "Enter") {
+        //     editable ? handleFinishRename() : props.onToggleChecked(props.id);
+        //   }
+        // }}
+        // onBlur={handleFinishRename}
+        // TODO: just say false here
         readOnly={!editable}
         onClick={() => {
           if (!editable) {
             props.onToggleChecked(props.id);
           }
         }}
-        aria-label={"Task " + text}
+        aria-label={"Task " + props.text}
       />
       <label className="dot" onClick={handleDropDown} aria-label={props.priorityToAria[props.priority] + " icon"}>
         {priorityToIcon[props.priority]}
@@ -129,7 +130,7 @@ function TaskItem(props) {
           <Backdrop onClickBackdrop={handleDropDown} />
           <SubMenu
             onHandleDropDown={handleDropDown}
-            onRename={handleStartRename}
+            onRename={handleEditTaskTextPopup}
             top={getToggleLocation()}
             onDelete={onDeleteTask}
             bottomBarLocation={props.getBottomBarLocation()}
@@ -142,12 +143,9 @@ function TaskItem(props) {
         <>
           <Backdrop onClickBackdrop={handleEditTaskTextPopup} />
           <EditTextPopup
-            // onAddList={addNewList}
             onClosePopup={handleEditTaskTextPopup}
             onRename={handleRename}
-            // onChangeText={props.}
             text={props.text}
-            // {...props}
           />
         </>
       )}

@@ -70,6 +70,7 @@ function App() {
   };
 
   function handleChangeText(id, newText, collectionRef) {
+    console.log("handleChangeText called, id is ", id, " newText is ", newText, " collectionRef is ", collectionRef);
     updateDoc(doc(collectionRef, id), { text: newText });
   }
 

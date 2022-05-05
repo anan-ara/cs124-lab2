@@ -134,12 +134,9 @@ function ListItem(props) {
         <>
           <Backdrop onClickBackdrop={handleEditListTextPopup} />
           <EditTextPopup
-            // onAddList={addNewList}
             onClosePopup={handleEditListTextPopup}
             onRename={handleRename}
-            // onChangeText={props.}
             text={props.text}
-            // {...props}
           />
         </>
       )}
