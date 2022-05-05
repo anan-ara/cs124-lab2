@@ -34,8 +34,8 @@ function SignIn(props) {
 
   const pwField = useRef();
 
-  const user = (user1 || user2 || user3);
-  const loading = (loading1 || loading2 || loading3);
+  const user = user1 || user2 || user3;
+  const loading = loading1 || loading2 || loading3;
 
   return (
     <div className="sign-in-popup popup">
@@ -51,7 +51,6 @@ function SignIn(props) {
               {errorMessageMap[error1.message]}
             </div>
           )}
-          {error1 && console.log(error1.message)}
           <form className="login-fields">
             <label htmlFor="email">Email: </label>
             <input
@@ -77,7 +76,7 @@ function SignIn(props) {
               onChange={(e) => setPw(e.target.value)}
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
-                  signInWithEmailAndPassword(email, pw)
+                  signInWithEmailAndPassword(email, pw);
                 }
               }}
             />
@@ -86,7 +85,9 @@ function SignIn(props) {
           <div>
             <button
               className="login-button"
-              onClick={() => signInWithEmailAndPassword(email, pw)}
+              onClick={() => {
+                signInWithEmailAndPassword(email, pw);
+              }}
             >
               Sign in
             </button>
@@ -100,7 +101,9 @@ function SignIn(props) {
           </p>
           <p>
             Forgot password?{" "}
-            <button onClick={console.log("hi")}>Reset password</button>
+            <button onClick={props.onTogglePasswordReset}>
+              Reset password
+            </button>
           </p>
         </>
       )}

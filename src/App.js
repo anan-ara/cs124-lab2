@@ -8,6 +8,7 @@ import { initializeApp } from "firebase/app";
 import { useState, useEffect } from "react";
 import SentVerification from "./SentVerification";
 import ResendVerification from "./ResendVerification";
+import PasswordReset from "./PasswordReset";
 import { sendEmailVerification } from "firebase/auth";
 // Ours
 // Your web app's Firebase configuration
@@ -40,9 +41,14 @@ function App(props) {
   const [verifyEmailSent, setVerifyEmailSent] = useState(false);
 
   const [signUp, setSignUp] = useState(false);
+  const [passwordReset, setPasswordReset] = useState(false);
 
   function handleToggleSignUp() {
     setSignUp(!signUp);
+  }
+
+  function handleTogglePasswordReset() {
+    setPasswordReset(!passwordReset);
   }
 
   function handleSignOut() {
@@ -55,12 +61,9 @@ function App(props) {
   // TODO: right now verifyEmail is sent on reload even when it's already been sent and we're just showing the
   // ResendVerification screen. THis should be fixed once we move this out of the useEffect though.
   useEffect(() => {
-    if (user) {
-      // createUser(user); // TODO: move this into somewhere so that it only does this when email is actually verified.
-      // if (!verifyEmailSent) {
-        verifyEmail();
-        console.log("verifying email in user useEffect");
-      // }
+    if (user && !user.emailVerified) {
+      verifyEmail();
+      console.log("verifying email in user useEffect");
     }
   }, [user]);
   console.log("App is being rerendered");
@@ -70,10 +73,10 @@ function App(props) {
     if (!user.emailVerified) {
       setVerifyEmailSent(true); // make it so that the email verification thing shows up
       sendEmailVerification(user)
-        // .then(() => {
-        //   // Verification email sent. Show new screen
-        //   console.log("verification sent");
-        // })
+        .then(() => {
+          // Verification email sent. Show new screen
+          console.log("verification sent");
+        })
         .catch((error) => {
           // Error occurred. Inspect error.code. TODO show actual error message
           console.error("ERROR when trying to send email verification" + error);
@@ -89,7 +92,13 @@ function App(props) {
       <div>
         {user.displayName || user.email}
 
-        <SignedInApp {...props} onSignOut={handleSignOut} user={user} auth={auth} db={db} />
+        <SignedInApp
+          {...props}
+          onSignOut={handleSignOut}
+          user={user}
+          auth={auth}
+          db={db}
+        />
         <button type="button" onClick={() => signOut(auth)}>
           Sign out
         </button>
@@ -104,7 +113,6 @@ function App(props) {
     ) : (
       <ResendVerification verifyEmail={verifyEmail} />
     );
-    // TODO: fix bug where initially it shows resend verification screen before the useEffect finishes on initial sign in
   } else {
     return (
       <>
@@ -115,15 +123,19 @@ function App(props) {
             key="Sign Up"
             setSignUp={setSignUp}
             auth={auth}
-            db={db}
             onToggleSignUp={handleToggleSignUp}
+          />
+        ) : passwordReset ? (
+          <PasswordReset
+            auth={auth}
+            onTogglePasswordReset={handleTogglePasswordReset}
           />
         ) : (
           <SignIn
             key="Sign In"
             auth={auth}
-            db={db}
             onToggleSignUp={handleToggleSignUp}
+            onTogglePasswordReset={handleTogglePasswordReset}
           />
         )}
       </>
