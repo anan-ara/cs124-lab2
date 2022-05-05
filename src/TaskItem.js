@@ -63,6 +63,8 @@ function TaskItem(props) {
     textArea.current.style.height = textArea.current.scrollHeight - 3 + "px";
   });
 
+  let textToDisplay = editable ? text : props.text;
+
   return (
     <li className={"item".concat(props.checked ? " done" : "")}>
       <input
@@ -76,11 +78,11 @@ function TaskItem(props) {
             props.onToggleChecked(props.id);
           }
         }}
-        aria-label={text}
+        aria-label={textToDisplay}
       />
       <textarea
         className="item-text-area"
-        value={text}
+        value={textToDisplay}
         ref={textArea}
         htmlFor={props.id}
         onChange={(e) => setText(e.target.value)}
@@ -96,7 +98,7 @@ function TaskItem(props) {
             props.onToggleChecked(props.id);
           }
         }}
-        aria-label={"Task " + text}
+        aria-label={"Task " + textToDisplay}
       />
       <label className="dot" onClick={handleDropDown} aria-label={props.priorityToAria[props.priority] + " icon"}>
         {priorityToIcon[props.priority]}

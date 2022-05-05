@@ -66,10 +66,12 @@ function ListItem(props) {
     textArea.current.style.height = textArea.current.scrollHeight - 3 + "px";
   });
 
+  let textToDisplay = editable ? text : props.text;
+
   return (
     <li className="item">
       <textarea
-        value={text}
+        value={textToDisplay}// text
         className="item-text-area"
         ref={textArea}
         htmlFor={props.id}
@@ -86,11 +88,11 @@ function ListItem(props) {
             props.onSelectList(props.id);
           }
         }}
-        aria-label={"List " + text}
+        aria-label={"List " + textToDisplay}
       />
       {props.isNarrow || (
         <div className="complete-count"
-        aria-label={"Completion counter for " + text}>
+        aria-label={"Completion counter for " + textToDisplay}>
           {props.complete + " / " + props.total + " completed"}
         </div>
       )}
