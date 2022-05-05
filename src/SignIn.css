@@ -40,6 +40,18 @@
   width: 280px;
 } */
 
+button.reset-button {
+  font-size: large;
+  border: 1px solid #494949;
+  border-radius: 5px;
+  color: #494949;
+  width: 170px;
+  padding: 0 6px;
+  text-decoration: none;
+  display: block;
+  text-align: center;
+}
+
 button.login-button {
   font-size: large;
   border: 1px solid #494949;
