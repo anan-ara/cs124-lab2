@@ -6,16 +6,20 @@ import {
   // useCreateUserWithEmailAndPassword,
   useSignInWithEmailAndPassword,
   useSignInWithGoogle,
+  useSignInWithGithub,
 } from "react-firebase-hooks/auth";
 import GoogleButton from "react-google-button";
 import GithubButton from "react-github-login-button";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 function SignIn(props) {
   const [signInWithEmailAndPassword, user1, loading1, error1] =
     useSignInWithEmailAndPassword(props.auth);
   const [signInWithGoogle, user2, loading2, error2] = useSignInWithGoogle(
+    props.auth
+  );
+  const [signInWithGithub, user3, loading3, error3] = useSignInWithGithub(
     props.auth
   );
   const [email, setEmail] = useState("");
@@ -28,11 +32,16 @@ function SignIn(props) {
       "Email does not exist. Please sign up for an account.",
   };
 
+  const pwField = useRef();
+
+  const user = (user1 || user2 || user3);
+  const loading = (loading1 || loading2 || loading3);
+
   return (
     <div className="sign-in-popup popup">
-      {user1 || user2 || loading1 || loading2 ? (
-        ((user1 || user2) && <div>Unexpectedly signed in already</div>) ||
-        ((loading1 || loading2) && <div>Logging In...</div>)
+      {user || loading ? (
+        (user && <div>Unexpectedly signed in already</div>) ||
+        (loading && <div>Logging In...</div>)
       ) : (
         <>
           <div className="menu-title">Login</div>
@@ -51,32 +60,51 @@ function SignIn(props) {
               autoComplete="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  pwField.current.focus();
+                }
+              }}
             />
             <br />
             <label htmlFor="pw">Password: </label>
             <input
+              ref={pwField}
               type="password"
               id="pw"
               value={pw}
               autoComplete="current-password"
               onChange={(e) => setPw(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  signInWithEmailAndPassword(email, pw)
+                }
+              }}
             />
           </form>
           <br />
-          <div >
-            <button className="login-button" onClick={() => signInWithEmailAndPassword(email, pw)}>
+          <div>
+            <button
+              className="login-button"
+              onClick={() => signInWithEmailAndPassword(email, pw)}
+            >
               Sign in
             </button>
           </div>
           <hr />
           <GoogleButton className="google" onClick={() => signInWithGoogle()} />
-          <GithubButton onClick={() => signInWithGoogle()} />
-          <p>Don't have an account? <button onClick={props.onToggleSignUp}>Sign up</button></p>
-          <p>Forgot password? <button onClick={console.log("hi")}>Reset password</button></p>
+          <GithubButton onClick={() => signInWithGithub()} />
+          <p>
+            Don't have an account?{" "}
+            <button onClick={props.onToggleSignUp}>Sign up</button>
+          </p>
+          <p>
+            Forgot password?{" "}
+            <button onClick={console.log("hi")}>Reset password</button>
+          </p>
         </>
       )}
     </div>
-
   );
 }
 

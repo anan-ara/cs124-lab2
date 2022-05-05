@@ -156,6 +156,7 @@ function App(props) {
             setSignUp={setSignUp}
             auth={auth}
             db={db}
+            onToggleSignUp={handleToggleSignUp}
           />
         ) : (
           <SignIn

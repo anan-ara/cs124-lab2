@@ -7,7 +7,7 @@ import {
 // import { setDoc, doc, collection, getFirestore } from "firebase/firestore";
 // import { initializeApp } from "firebase/app";
 // import { getFirestore, collection, updateDoc, doc } from "firebase/firestore";
-import { useState } from "react";
+import { useState, useRef } from "react";
 // import { sendEmailVerification } from "firebase/auth";
 
 
@@ -17,7 +17,7 @@ function SignUp(props) {
   const [email, setEmail] = useState("");
   const [pw, setPw] = useState("");
 
-
+  const pwField = useRef();
 
   const errorMessageMap = {
     "Firebase: Error (auth/invalid-email).":
@@ -54,22 +54,33 @@ function SignUp(props) {
               autoComplete="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  pwField.current.focus();
+                }
+              }}
             />
             <br />
             <label htmlFor="pw">Password: </label>
             <input
+              ref={pwField}
               type="password"
               id="pw"
               autoComplete="current-password"
               value={pw}
               onChange={(e) => setPw(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                createUserWithEmailAndPassword(email, pw);
+                }
+              }}
             />
           </form>
           <br />
           <div className="login-buttons sign-up-buttons">
             <button className="login-button"
               onClick={
-                () => createUserWithEmailAndPassword(email, pw) //.then(props.onCreateUser)
+                () => createUserWithEmailAndPassword(email, pw)
               }
             >
               Sign up
