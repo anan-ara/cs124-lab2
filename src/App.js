@@ -30,22 +30,14 @@ const usersCollection = collection(db, "users");
 function App(props) {
   const [user, loading, error] = useAuthState(auth);
 
-  // Whether or not the user has been created in the database. 
-  // const [userCreated, setUserCreated] = useState(false);// HAcky way, replace later TODO
-
   if (error) {
     console.error(error);
   }
 
   // we only care about when the verification email is sent but the user has not yet clicked on it. Everything else we can access using user.emailVerified
-  // const [verifyEmailSent, setVerifyEmailSent] = useState(false);
   // True if the user has just signed up. Used to conditionally show a page that says to check their email for verification
   // (verification is sent automatically upon sign up.)
   const [verifyEmailSent, setVerifyEmailSent] = useState(false);
-
-  // function verifyEmail() {
-  //   sendEmailVerification(user);
-  // }
 
   const [signUp, setSignUp] = useState(false);
 
@@ -56,37 +48,6 @@ function App(props) {
   function handleSignOut() {
     signOut(auth);
   }
-
-
-  // //  TODO: make work only when email verified? if that's what we want to do, otherwise is OK
-  // function createUser() {
-  //   if (user) {
-  //     console.log("creating user, user is verified, email is  " + user.email);
-  //     setDoc(doc(usersCollection, user.uid), {
-  //       uid: user.uid,
-  //       highPriorityIcon: "",
-  //       lowPriorityIcon: "",
-  //       medPriorityIcon: "",
-  //       sort: "created",
-  //       email: user.email,
-  //     });
-  //   }
-  // }
-
-  // //  TODO: make work only when email verified? if that's what we want to do, otherwise is OK
-  // function createUser() {
-  //   if (user) {
-  //     console.log("creating user, user is verified, email is  " + user.email);
-  //     setDoc(doc(usersCollection, user.uid), {
-  //       uid: user.uid,
-  //       highPriorityIcon: "",
-  //       lowPriorityIcon: "",
-  //       medPriorityIcon: "",
-  //       sort: "created",
-  //       email: user.email,
-  //     });
-  //   }
-  // }
 
   // TODO: see if there is a better way to do this!
   // Hacky way to make the createUser function only be called when user is first defined
@@ -107,12 +68,12 @@ function App(props) {
   // This is here so that both sign up and go verify can use it.
   function verifyEmail() {
     if (!user.emailVerified) {
+      setVerifyEmailSent(true); // make it so that the email verification thing shows up
       sendEmailVerification(user)
-        .then(() => {
-          // Verification email sent. Show new screen
-          console.log("verification sent");
-          setVerifyEmailSent(true); // make it so that the email verification thing shows up
-        })
+        // .then(() => {
+        //   // Verification email sent. Show new screen
+        //   console.log("verification sent");
+        // })
         .catch((error) => {
           // Error occurred. Inspect error.code. TODO show actual error message
           console.error("ERROR when trying to send email verification" + error);
@@ -127,7 +88,6 @@ function App(props) {
     return user.emailVerified ? (
       <div>
         {user.displayName || user.email}
-        {/* <SignedInApp {...props} onSignOut={handleSignOut} user={user} setUserCreated={setUserCreated} userCreated={userCreated} auth={auth} db={db} /> */}
 
         <SignedInApp {...props} onSignOut={handleSignOut} user={user} auth={auth} db={db} />
         <button type="button" onClick={() => signOut(auth)}>
