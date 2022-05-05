@@ -11,28 +11,16 @@ function EditTextPopup(props) {
     start.current.focus();
   });
 
-  // function handleFinishRename() {
-  //   if (text === "") {
+  // function onEnterText(newText) {
+  //   //  add actual entering function here
+  //   if (newText === "") {
   //     props.onDeleteList(props.id);
   //   } else {
   //     // setEditable(false);
-  //     props.onChangeText(props.id, text);
+  //     props.onChangeText(props.id, newText);
   //   }
+  //   props.onClosePopup();
   // }
-
-  function onEnterText() {
-    // props.onAddList(text);
-    //  add actual entering function here
-    if (text === "") {
-      props.onDeleteList(props.id);
-    } else {
-      // setEditable(false);
-      props.onChangeText(props.id, text);
-    }
-    console.log("text entered, text is" + text);
-    // setText("");
-    props.onClosePopup();
-  }
 
   return (
     <div
@@ -47,12 +35,11 @@ function EditTextPopup(props) {
       <input
         ref={start}
         type="text"
-        // placeholder="Add new item..."
         value={text}
         onChange={(e) => setText(e.target.value)}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
-            onEnterText();
+            props.onRename(text);
           } else if (e.key === "Tab" && e.shiftKey) {
             e.preventDefault();
             end.current.focus();
@@ -63,7 +50,7 @@ function EditTextPopup(props) {
         <button onClick={props.onClosePopup}>Cancel</button>
         <button
           ref={end}
-          onClick={onEnterText}
+          onClick={() => props.onRename(text)}
           onKeyDown={(e) => {
             if (e.key === "Tab" && !e.shiftKey) {
               e.preventDefault();

@@ -58,6 +58,17 @@ function ListItem(props) {
     return rect.top;
   }
 
+  function handleRename(newText) {
+    //  add actual entering function here
+    if (newText === "") {
+      props.onDeleteList(props.id);
+    } else {
+      // setEditable(false);
+      props.onChangeText(props.id, newText);
+    }
+    handleEditListTextPopup();
+  }
+
   // Called on every rerender
   useEffect(() => {
     // This squishes down the textarea box
@@ -125,8 +136,10 @@ function ListItem(props) {
           <EditTextPopup
             // onAddList={addNewList}
             onClosePopup={handleEditListTextPopup}
+            onRename={handleRename}
             // onChangeText={props.}
-            {...props}
+            text={props.text}
+            // {...props}
           />
         </>
       )}

@@ -4,10 +4,12 @@ import SubMenu from "./SubMenu";
 import Backdrop from "./Backdrop";
 import SubMenuToggle from "./SubMenuToggle";
 import { useEffect, useState, useRef } from "react";
+import EditTextPopup from "./EditTextPopup";
 
 function TaskItem(props) {
   const [dropDown, setDropDown] = useState(false);
   const [editable, setEditable] = useState(false);
+  const [editTaskTextPopup, setEditTaskTextPopup] = useState(false);
 
   // Local text field before it is saved in database
   const [text, setText] = useState(props.text);
@@ -30,6 +32,10 @@ function TaskItem(props) {
     setDropDown(!dropDown);
   }
 
+  function handleEditTaskTextPopup() {
+    setEditTaskTextPopup(!editTaskTextPopup);
+  }
+
   function handleStartRename() {
     setEditable(true);
     textArea.current.selectionStart = textArea.current.value.length;
@@ -44,6 +50,18 @@ function TaskItem(props) {
       setEditable(false);
       props.onChangeText(props.id, text);
     }
+  }
+
+
+  function handleRename(newText) {
+    //  add actual entering function here
+    if (newText === "") {
+      props.onDeleteTask(props.id);
+    } else {
+      // setEditable(false);
+      props.onChangeText(props.id, newText);
+    }
+    handleEditTaskTextPopup();
   }
 
   function onDeleteTask() {
@@ -117,6 +135,19 @@ function TaskItem(props) {
             bottomBarLocation={props.getBottomBarLocation()}
             accessibleName={"Task ".concat(props.text)}
             {...props}
+          />
+        </>
+      )}
+      {editTaskTextPopup && (
+        <>
+          <Backdrop onClickBackdrop={handleEditTaskTextPopup} />
+          <EditTextPopup
+            // onAddList={addNewList}
+            onClosePopup={handleEditTaskTextPopup}
+            onRename={handleRename}
+            // onChangeText={props.}
+            text={props.text}
+            // {...props}
           />
         </>
       )}
