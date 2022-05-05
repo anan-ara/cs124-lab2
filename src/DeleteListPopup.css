@@ -8,9 +8,10 @@
 }
 
 .delete-explanation {
-  width: 200px;
+  width: 300px;
 }
 
 .delete-list-name {
   max-width: 80vw;
+  word-wrap: break-word;
 }
