@@ -37,9 +37,7 @@ function SignedInApp(props) {
   const [homeScreen, setHomeScreen] = useState(true);
 
   const [currentList, setCurrentList] = useState("defaultList");
-  const [userCreated, setUserCreated] = useState(false);// HAcky way, replace later TODO
 
-  console.log("userCreated is" + userCreated);
 
   // Priority icons
   //  TODO: currently this code doesn't work when we first create a new user and verify them. (until we reload the page)
@@ -57,20 +55,31 @@ function SignedInApp(props) {
   }
 
   const usersCollection = collection(props.db, "users");
-  // const [usersData, usersLoading, usersError] = //useCollectionData(query(usersCollection, where("uid", "==", props.user.uid)));
+  const [usersDataArray, usersLoading, usersError] = useCollectionData(query(usersCollection, where("uid", "==", props.user.uid)));
+
+  let usersData;
+  if (usersDataArray && usersDataArray.length > 0) {
+    usersData = usersDataArray[0];
+  }
     // query(usersCollection, where("uid", "==", props.user.uid));
 
-  const [usersData, usersLoading, usersError] = useDocumentData(
-    doc(usersCollection, props.user.uid)
-  );
+  // const [usersData, usersLoading, usersError] = useDocumentData(
+  //   doc(usersCollection, props.user.uid)
+  // );
+  
+  console.log("data: ",usersData)
+  console.log("loading: ",usersLoading)
+  console.log("error: ",usersError)
 
 
   let lowPriorityIcon = "💤";
   let medPriorityIcon = "⚠️";
   let highPriorityIcon = "🔥";
 
-  // A bit hacky, see if we can fix somehow
-  if (usersError && !userCreated) {
+  // useDocumentData does not update when the document is set (when the document does not yet exist)
+  // Is this a problem on the firestore side or is it documented behavior?
+  // We switched to useCollectionData instead for this reason
+  if (usersDataArray && usersDataArray.length === 0) {
     console.log("About to set doc. users error is " + usersError);
     // console.log("email verified is" + props.user.emailVerified);
     setDoc(doc(usersCollection, props.user.uid), {
@@ -81,13 +90,12 @@ function SignedInApp(props) {
             sort: "created",
             email: props.user.email,
           }).catch(error => console.log(error));
-    setUserCreated(true);
     return <div>Loading...</div>;
   }
 
   console.log("props.user.uid is " + props.user.uid);
 
-  if (usersData) {//!usersLoading && !usersError) {
+  if (usersData) {
     lowPriorityIcon = usersData.lowPriorityIcon;
     medPriorityIcon = usersData.medPriorityIcon;
     highPriorityIcon = usersData.highPriorityIcon;
@@ -107,8 +115,6 @@ function SignedInApp(props) {
   function handleShowHome() {
     setHomeScreen(true);
   }
-
-  // console.log("email verified is "  + props.user.emailVerified);
 
   function handleSelectList(listId) {
     setCurrentList(listId);
