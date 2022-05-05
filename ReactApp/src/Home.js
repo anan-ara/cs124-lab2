@@ -35,6 +35,7 @@ import {
 //   highPriorityOptions,
 // } from ".";
 import {TOP_LEVEL_COLLECTION, USERS_COLLECTION} from "./firestore-config";
+import EditTextPopup from "./EditTextPopup";
 
 function Home(props) {
   // const TOP_LEVEL_COLLECTION = "cs124-users/default/lists";
@@ -127,6 +128,7 @@ function Home(props) {
 
   function handleChangeText(id, newText) {
     props.handleChangeText(id, newText, collectionRef);
+    console.log("handleChangeText called, " + newText);
   }
 
   // end of list used for autoscrolling
@@ -203,6 +205,16 @@ function Home(props) {
           />
         </>
       )}
+      {/* {editTextPopup && (
+        <>
+          <Backdrop onClickBackdrop={handleEditTextPopup} />
+          <EditTextPopup
+            // onAddList={addNewList}
+
+            onClosePopup={handleEditTextPopup}
+          />
+        </>
+      )} */}
     </div>
   );
 }
