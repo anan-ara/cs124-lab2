@@ -143,6 +143,20 @@ function Home(props) {
     props.handleChangeText(id, newText, collectionRef);
   }
 
+  function handleAddEditors(id, newEditors) {
+    const currentEditors = ownerData.filter((list) => list.id === id)[0]["editors"];
+    const newEditorsList = newEditors.map(object => object["value"]);
+    const allEditors = currentEditors.concat(newEditorsList);
+    const deduplicateAllEditors = allEditors.filter((item, pos) => allEditors.indexOf(item) === pos);
+    updateDoc(doc(collectionRef, id), { editors: deduplicateAllEditors });
+  }
+
+  function handleRemoveEditor(id, removeEditor) {
+    const currentEditors = ownerData.filter((list) => list.id === id)[0]["editors"];
+    const removedEditors = currentEditors.filter((editor) => editor !== removeEditor)
+    updateDoc(doc(collectionRef, id), { editors: removedEditors });
+  }
+
   // end of list used for autoscrolling
   const listEnd = useRef();
 
@@ -198,6 +212,8 @@ function Home(props) {
         homeScreen={props.homeScreen}
         isNarrow={props.isNarrow}
         getBottomBarLocation={getBottomBarLocation}
+        onAddEditors={handleAddEditors}
+        onRemoveEditor={handleRemoveEditor}
       />
       <HomeBottomBar
         handleAddList={handleCreateListPopup}
