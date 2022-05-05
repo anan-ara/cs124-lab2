@@ -1,11 +1,11 @@
 /* Subtracted 40 px from both for the status bar height in iOS */
 #home-contents {
-  height: calc(100vh - 64px - 60px - 40px);
+  height: calc(100vh - 64px - 60px - 33px);
 
 }
 
 /* Subtract the search bar width if we are seeing the "small width" version of the layout */
 #home-contents.small-width {
-  height: calc(100vh - 64px - 60px - 30px - 40px);
+  height: calc(100vh - 64px - 60px - 30px - 33px);
 
 }

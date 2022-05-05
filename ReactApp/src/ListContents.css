@@ -2,11 +2,11 @@
 
 #list-contents {
 
-  height: calc(100vh - 64px - 60px - 31px - 1.5px - 40px);
+  height: calc(100vh - 64px - 60px - 31px - 1.5px - 33px);
 
 }
 
 #list-contents.small-width {
 /* Subtract search bar width as well when on narrow screens */
-height: calc(100vh - 64px - 60px - 31px - 1.5px - 30px - 40px);
+height: calc(100vh - 64px - 60px - 31px - 1.5px - 30px - 33px);
 }
