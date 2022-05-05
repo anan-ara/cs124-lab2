@@ -151,6 +151,12 @@ function Home(props) {
     updateDoc(doc(collectionRef, id), { editors: deduplicateAllEditors });
   }
 
+  function handleRemoveEditor(id, removeEditor) {
+    const currentEditors = ownerData.filter((list) => list.id === id)[0]["editors"];
+    const removedEditors = currentEditors.filter((editor) => editor !== removeEditor)
+    updateDoc(doc(collectionRef, id), { editors: removedEditors });
+  }
+
   // end of list used for autoscrolling
   const listEnd = useRef();
 
@@ -207,6 +213,7 @@ function Home(props) {
         isNarrow={props.isNarrow}
         getBottomBarLocation={getBottomBarLocation}
         onAddEditors={handleAddEditors}
+        onRemoveEditor={handleRemoveEditor}
       />
       <HomeBottomBar
         handleAddList={handleCreateListPopup}
