@@ -35,13 +35,14 @@
 div.priority-adjust {
   display: flex;
   justify-content: space-around;
-  padding: 5px;
+  /* padding: 5px; */
+  /* padding: 0px; */
 }
 
 div.priority-adjust button {
   height: 1.5rem;
   text-align: center;
-  /* padding: 0px; */
+  padding: 3px;
 }
 
 .priority-adjust .activated {

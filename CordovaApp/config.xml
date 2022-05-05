@@ -8,4 +8,10 @@
     <content src="index.html" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
+    
+<!--  Disallow overflow on iOS  -->
+<!--    <preference name="UIWebViewBounce" value="false" />-->
+<!--    <preference name="KeyboardDisplayRequiresUserAction" value="false" />-->
+<!--    <preference name="KeyboardShrinksView" value="true" />-->
+    <preference name="DisallowOverscroll" value="true" />
 </widget>

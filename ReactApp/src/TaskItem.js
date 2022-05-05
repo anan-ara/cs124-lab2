@@ -4,13 +4,11 @@ import SubMenu from "./SubMenu";
 import Backdrop from "./Backdrop";
 import SubMenuToggle from "./SubMenuToggle";
 import { useEffect, useState, useRef } from "react";
+import EditTextPopup from "./EditTextPopup";
 
 function TaskItem(props) {
   const [dropDown, setDropDown] = useState(false);
-  const [editable, setEditable] = useState(false);
-
-  // Local text field before it is saved in database
-  const [text, setText] = useState(props.text);
+  const [editTaskTextPopup, setEditTaskTextPopup] = useState(false);
 
   // reference to textArea
   const textArea = useRef();
@@ -30,20 +28,17 @@ function TaskItem(props) {
     setDropDown(!dropDown);
   }
 
-  function handleStartRename() {
-    setEditable(true);
-    textArea.current.selectionStart = textArea.current.value.length;
-    textArea.current.selectionEnd = textArea.current.value.length;
-    textArea.current.focus();
+  function handleEditTaskTextPopup() {
+    setEditTaskTextPopup(!editTaskTextPopup);
   }
 
-  function handleFinishRename() {
-    if (text === "") {
+  function handleRename(newText) {
+    if (newText === "") {
       props.onDeleteTask(props.id);
     } else {
-      setEditable(false);
-      props.onChangeText(props.id, text);
+      props.onChangeText(props.id, newText);
     }
+    handleEditTaskTextPopup();
   }
 
   function onDeleteTask() {
@@ -76,27 +71,18 @@ function TaskItem(props) {
             props.onToggleChecked(props.id);
           }
         }}
-        aria-label={text}
+        aria-label={props.text}
       />
       <textarea
         className="item-text-area"
-        value={text}
+        value={props.text}
         ref={textArea}
         htmlFor={props.id}
-        onChange={(e) => setText(e.target.value)}
-        onKeyDown={(e) => {
-          if (e.key === "Enter") {
-            editable ? handleFinishRename() : props.onToggleChecked(props.id);
-          }
-        }}
-        onBlur={handleFinishRename}
-        readOnly={!editable}
+        readOnly={true}
         onClick={() => {
-          if (!editable) {
             props.onToggleChecked(props.id);
-          }
         }}
-        aria-label={"Task " + text}
+        aria-label={"Task " + props.text}
       />
       <label className="dot" onClick={handleDropDown} aria-label={props.priorityToAria[props.priority] + " icon"}>
         {priorityToIcon[props.priority]}
@@ -111,12 +97,22 @@ function TaskItem(props) {
           <Backdrop onClickBackdrop={handleDropDown} />
           <SubMenu
             onHandleDropDown={handleDropDown}
-            onRename={handleStartRename}
+            onRename={handleEditTaskTextPopup}
             top={getToggleLocation()}
             onDelete={onDeleteTask}
             bottomBarLocation={props.getBottomBarLocation()}
             accessibleName={"Task ".concat(props.text)}
             {...props}
+          />
+        </>
+      )}
+      {editTaskTextPopup && (
+        <>
+          <Backdrop onClickBackdrop={handleEditTaskTextPopup} />
+          <EditTextPopup
+            onClosePopup={handleEditTaskTextPopup}
+            onRename={handleRename}
+            text={props.text}
           />
         </>
       )}
