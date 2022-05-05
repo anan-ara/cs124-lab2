@@ -8,11 +8,7 @@ import EditTextPopup from "./EditTextPopup";
 
 function TaskItem(props) {
   const [dropDown, setDropDown] = useState(false);
-  const [editable, setEditable] = useState(false);
   const [editTaskTextPopup, setEditTaskTextPopup] = useState(false);
-
-  // Local text field before it is saved in database
-  // const [text, setText] = useState(props.text);
 
   // reference to textArea
   const textArea = useRef();
@@ -36,29 +32,10 @@ function TaskItem(props) {
     setEditTaskTextPopup(!editTaskTextPopup);
   }
 
-  // function handleStartRename() {
-  //   setEditable(true);
-  //   textArea.current.selectionStart = textArea.current.value.length;
-  //   textArea.current.selectionEnd = textArea.current.value.length;
-  //   textArea.current.focus();
-  // }
-
-  // function handleFinishRename() {
-  //   if (text === "") {
-  //     props.onDeleteTask(props.id);
-  //   } else {
-  //     setEditable(false);
-  //     props.onChangeText(props.id, text);
-  //   }
-  // }
-
-
   function handleRename(newText) {
-    //  add actual entering function here
     if (newText === "") {
       props.onDeleteTask(props.id);
     } else {
-      // setEditable(false);
       props.onChangeText(props.id, newText);
     }
     handleEditTaskTextPopup();
@@ -101,19 +78,9 @@ function TaskItem(props) {
         value={props.text}
         ref={textArea}
         htmlFor={props.id}
-        // onChange={(e) => setText(e.target.value)}
-        // onKeyDown={(e) => {
-        //   if (e.key === "Enter") {
-        //     editable ? handleFinishRename() : props.onToggleChecked(props.id);
-        //   }
-        // }}
-        // onBlur={handleFinishRename}
-        // TODO: just say false here
-        readOnly={!editable}
+        readOnly={true}
         onClick={() => {
-          if (!editable) {
             props.onToggleChecked(props.id);
-          }
         }}
         aria-label={"Task " + props.text}
       />

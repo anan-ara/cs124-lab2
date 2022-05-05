@@ -9,11 +9,7 @@ import EditTextPopup from "./EditTextPopup";
 
 function ListItem(props) {
   const [dropDown, setDropDown] = useState(false);
-  const [editable, setEditable] = useState(false);
   const [editListTextPopup, setEditListTextPopup] = useState(false);
-
-  // Local text field before it is saved in database
-  // const [text, setText] = useState(props.text);
 
   // Delete List Confirmation
   const [deleteListPopup, setDeleteListPopup] = useState(false);
@@ -36,23 +32,6 @@ function ListItem(props) {
     setDropDown(!dropDown);
   }
 
-  // function handleStartRename() {
-  //   setEditable(true);
-  //   textArea.current.selectionStart = textArea.current.value.length;
-  //   textArea.current.selectionEnd = textArea.current.value.length;
-  //   textArea.current.focus();
-  // }
-
-  // function handleFinishRename() {
-  //   if (text === "") {
-  //     props.onDeleteList(props.id);
-  //   } else {
-  //     // setEditable(false);
-  //     props.onChangeText(props.id, text);
-  //   }
-  // }
-
-
   function getToggleLocation() {
     const rect = subMenuToggle.current.getBoundingClientRect();
     return rect.top;
@@ -63,7 +42,6 @@ function ListItem(props) {
     if (newText === "") {
       props.onDeleteList(props.id);
     } else {
-      // setEditable(false);
       props.onChangeText(props.id, newText);
     }
     handleEditListTextPopup();
@@ -84,18 +62,9 @@ function ListItem(props) {
         className="item-text-area"
         ref={textArea}
         htmlFor={props.id}
-        //onChange={(e) => setText(e.target.value)}
-        // onKeyDown={(e) => {
-        //   if (e.key === "Enter") {
-        //     editable ? handleFinishRename() : props.onSelectList(props.id);
-        //   }
-        // }}
-        //onBlur={handleFinishRename}
-        readOnly={!editable}
+        readOnly={true}
         onClick={() => {
-          if (!editable) {
             props.onSelectList(props.id);
-          }
         }}
         aria-label={"List " + props.text}
       />
