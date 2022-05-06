@@ -30,6 +30,7 @@ function SubMenu(props) {
           props.homeScreen ? " home" : ""
         )}
       >
+        {(!props.homeScreen || (props.sharingLevel == "owner")) ? 
         <button
           className="bottom-line"
           onClick={props.onRename}
@@ -43,32 +44,47 @@ function SubMenu(props) {
           aria-label={"Rename " + props.accessibleName}
         >
           Rename
-        </button>
+        </button> : <button
+          onClick={() => console.log("Hide list")}
+          ref={start}
+          onKeyDown={(e) => {
+            if (e.key === "Tab" && e.shiftKey) {
+              e.preventDefault();
+              start.current.focus();
+            }
+          }}
+          aria-label={"Hide Shared List " + props.accessibleName}
+        >
+          Hide List
+        </button>}
         {props.homeScreen ? (
-          <>
-          {(props.sharingLevel == "owner") && <button
-            className={"bottom-line"}
-            onClick={props.onShare}
-            aria-label={"Share list"}
-          >
-          Share List
-          </button>
-}
-          <button
-            ref={end}
-            className={props.homeScreen ? "delete" : "delete bottom-line"}
-            onClick={() => props.onDelete(props.id)}
-            onKeyDown={(e) => {
-              if (e.key === "Tab" && !e.shiftKey) {
-                e.preventDefault();
-                start.current.focus();
+          props.sharingLevel == "owner" && (
+            <>
+              {
+                <button
+                  className={"bottom-line"}
+                  onClick={props.onShare}
+                  aria-label={"Share list"}
+                >
+                  Share List
+                </button>
               }
-            }}
-            aria-label={"Delete " + props.accessibleName}
-          >
-            Delete
-          </button>
-          </>
+              <button
+                ref={end}
+                className={props.homeScreen ? "delete" : "delete bottom-line"}
+                onClick={() => props.onDelete(props.id)}
+                onKeyDown={(e) => {
+                  if (e.key === "Tab" && !e.shiftKey) {
+                    e.preventDefault();
+                    start.current.focus();
+                  }
+                }}
+                aria-label={"Delete " + props.accessibleName}
+              >
+                Delete
+              </button>
+            </>
+          )
         ) : (
           <>
             <button
