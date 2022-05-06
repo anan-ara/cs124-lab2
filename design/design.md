@@ -6,6 +6,23 @@ This document outlines the rationale behind our design decisions. It describes w
 Keyboard: https://drive.google.com/file/d/126-Yd_vv4fPBfULfAjs5wk5La_qFH7cU/view?usp=sharing
 Screen Reader: https://drive.google.com/file/d/1xWWXt9yxsh13QxZBqb3J3iOVcOkt7UPC/view?usp=sharing
 
+## Link to Native Phone App
+https://drive.google.com/file/d/1gv44Z_9Rn9VEpe-AfjPLTzcbss1o4EMg/view?usp=sharing
+
+## Modifications for Native App
+For the native phone app, we thought that it would make more sense for the renaming to happen in a popup instead of directly on the text field because this is often have native phone apps handle text input. Besides that, all of the design for the app is the same as before.
+
+## Building Native Phone App from React App with Cordova
+We followed the instructions outlined in this post: https://stackoverflow.com/questions/35463547/what-is-the-quickest-way-to-convert-a-react-app-to-react-native
+
+First, install Cordova globally by running `npm install -g cordova`.
+Make sure the ios platform has been added to the project by running `cordova build ios`.
+
+To build the Cordova app:
+1. Go into the `React App` directory and run `npm run build`.
+2. Copy the contents of the `build` directory in `React App` into the `www` directory in `Cordova App`
+3. Run `cordova build ios` in the `Cordova App` directory.
+
 ## App Design Philosophy
 We designed our app to be something that is both visually appealing and practically useful. It was originally designed for mobile devices, and was later adapted for larger screen sizes. 
 
@@ -187,6 +204,7 @@ For Lab 4, initially we had a much more rounded aesthetic for the home view to d
 ### Dark Mode and Alternative Color Themes
 
 We also would like to implement a dark mode to invert the colors. Since our theme is greyscale, this should be easy to do without breaking the aesthetic of our app. We also would like to allow the user to choose alternative color themes if they like more colors instead of the gray.
+
 
 # User Testing
 
