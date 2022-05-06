@@ -141,7 +141,7 @@ service cloud.firestore {
           allow read: if signedIn() && isVerified() && (isListViewer(getListData()) || isListEditor(getListData()) || isListAdmin(getListData()) || isListOwner(getListData()));
           allow create: if signedIn() && isVerified() && (isListEditor(getListData()) || isListAdmin(getListData()) || isListOwner(getListData()));
           allow update: if signedIn() && isVerified() && taskHasOriginalConstants() && (isListEditor(getListData()) || isListAdmin(getListData()) || isListOwner(getListData()));
-          allow delete: if signedIn() && isVerified() && isListOwner(getListData());
+          allow delete: if signedIn() && isVerified() && (isListOwner(getListData()) || isListAdmin(getListData()));
           
           // allow read, write: if true;
           // allow read: if signedIn() && isVerified() && (
