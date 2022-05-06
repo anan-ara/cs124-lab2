@@ -68,6 +68,7 @@ function SharingPopup(props) {
           placeholder="Add emails here..."
         />
         <button
+        className="share-button"
           onClick={() => {
             props.onAddEditors(props.id, value);
             setValue([]);
@@ -76,11 +77,13 @@ function SharingPopup(props) {
           Share
         </button>
       </div>
+      <div className="editors-list">
       <ul>
         {props.editors.map((editor) => (
           <EditorItem editor={editor} {...props} />
         ))}
       </ul>
+      </div>
     </div>
   );
 }
