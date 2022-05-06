@@ -12,6 +12,16 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+  
+  	// For Cordova app
+  	match /anan-cynthia/{doc=**} {
+      	allow read, write: if true;
+    }
+    
+    match /mobile-users/{doc=**} {
+      	allow read, write: if true;
+    }
+    
     function signedIn() {
       return request.auth.uid != null;
     }
@@ -58,27 +68,39 @@ service cloud.firestore {
       && resource.data.created == request.resource.data.created;
       // the document's original constants (id, owner, creation date) should never be changed
     }
+    
+    function taskHasOriginalConstants() {
+			return resource.data.id == request.resource.data.id
+      && resource.data.created == request.resource.data.created;
+      // the document's original constants (id, creation date) should never be changed
+    }
 
     function listHasCorrectOwner() {
       return request.auth.token.email == request.resource.data.owner;
       // can only make list if I'm saying I'm the author of the new list
     }
 
-    function listHasSameSharing() {
-      return resource.data.viewers == request.resource.data.viewers 
-        && resource.data.editors == request.resource.data.editors
-        && resource.data.admins == request.resource.data.admins;
+    function listHasSameSharing(data) {
+      return data.viewers == request.resource.data.viewers 
+        && data.editors == request.resource.data.editors
+        && data.admins == request.resource.data.admins;
       // Don't change the sharing permissions.
     }
+    
+    // function listHasSameSharing() {
+    //   return resource.data.viewers == request.resource.data.viewers 
+    //     && resource.data.editors == request.resource.data.editors
+    //     && resource.data.admins == request.resource.data.admins;
+    //   // Don't change the sharing permissions.
+    // }
   
 
     match /users/{person} {
       // allow read, write: if signedIn() && isVerified() && isSameUser();
-      allow read, update, delete: if signedIn() && isVerified() && isSameUser();
+//        TODO: isVerified isn't working here for some reason.
+      allow read, update, delete: if signedIn() && isSameUser() && isVerified();
       // same user isn't a thing if the user doesn't exist yet!
-      // For now, we're allowing the user to be created even if they aren't yet verified
-      	// TODO change ^
-      allow create: if signedIn();// && isVerified();
+      allow create: if signedIn() && isVerified();
 
       // allow read, write: if true;
 
@@ -108,14 +130,20 @@ service cloud.firestore {
       // allow read: if isListOwner(resource.data) || isListEditor(resource.data);
       allow read: if signedIn() && isVerified() && (isListViewer(resource.data) || isListEditor(resource.data) || isListAdmin(resource.data) || isListOwner(resource.data));
       allow create: if signedIn() && isVerified() && listHasCorrectOwner();
-      allow update: if signedIn() && isVerified() && listHasOriginalConstants() && ((isListEditor(resource.data) && listHasSameSharing()) || isListAdmin(resource.data) || isListOwner(resource.data));
+      allow update: if signedIn() && isVerified() && listHasOriginalConstants() && ((isListEditor(resource.data) && listHasSameSharing(resource.data)) || isListAdmin(resource.data) || isListOwner(resource.data));
       allow delete: if signedIn() && isVerified() && isListOwner(resource.data);
       match /items/{item} {
         	function getListData() {
     				return get(/databases/$(database)/documents/lists/$(listId)).data;
     			}
           
-          allow read, write: if true;
+          // TODO check if these are what we wanted
+          allow read: if signedIn() && isVerified() && (isListViewer(getListData()) || isListEditor(getListData()) || isListAdmin(getListData()) || isListOwner(getListData()));
+          allow create: if signedIn() && isVerified() && (isListEditor(getListData()) || isListAdmin(getListData()) || isListOwner(getListData()));
+          allow update: if signedIn() && isVerified() && taskHasOriginalConstants() && (isListEditor(getListData()) || isListAdmin(getListData()) || isListOwner(getListData()));
+          allow delete: if signedIn() && isVerified() && isListOwner(getListData());
+          
+          // allow read, write: if true;
           // allow read: if signedIn() && isVerified() && (
           // isListViewer() || isListEditor() || isListAdmin() || isListOwner());
           // allow create: if signedIn() && isVerified() && listHasCorrectOwner();
