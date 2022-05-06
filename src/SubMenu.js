@@ -46,7 +46,7 @@ function SubMenu(props) {
         </button>
         {props.homeScreen ? (
           <>
-          {props.shared || <button
+          {(props.sharingLevel == "owner") && <button
             className={"bottom-line"}
             onClick={props.onShare}
             aria-label={"Share list"}

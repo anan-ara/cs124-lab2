@@ -49,7 +49,7 @@ function HomeContents(props) {
                 key={e.id}
                 id={e.id}
                 onToggleScroll={handleToggleScroll}
-                shared={false}
+                sharingLevel={"owner"}
                 {...props}
               />
             ))}
@@ -64,7 +64,7 @@ function HomeContents(props) {
                 key={e.id}
                 id={e.id}
                 onToggleScroll={handleToggleScroll}
-                shared={true}
+                sharingLevel={"editor"}
                 {...props}
               />
             ))}
