@@ -61,6 +61,9 @@ function SharingPopup(props) {
               } else {
                 addValue();
               }
+            } else if (e.key === "Tab" && e.shiftKey) {
+              e.preventDefault();
+              end.current.focus();
             }
           }}
           components={components}
@@ -68,7 +71,7 @@ function SharingPopup(props) {
           placeholder="Add emails here..."
         />
         <button
-        className="share-button"
+          className="share-button"
           onClick={() => {
             props.onAddEditors(props.id, value);
             setValue([]);
@@ -78,15 +81,24 @@ function SharingPopup(props) {
         </button>
       </div>
       <div className="editors-list">
-        {props.editors.length > 0 ?
-      <ul>
-        {props.editors.map((editor) => (
-          <EditorItem editor={editor} {...props} />
-        ))}
-      </ul>
-      :
-      <div className="not-shared">The list is currently not shared with anyone. To share, enter their email in the field above.</div>
-        }
+        {props.editors.length > 0 ? (
+          <ul>
+            {props.editors.map((editor, index) => (
+              <EditorItem
+                editor={editor}
+                lastOne={props.editors.length - 1 === index}
+                end={end}
+                start={start}
+                {...props}
+              />
+            ))}
+          </ul>
+        ) : (
+          <div className="not-shared">
+            The list is currently not shared with anyone. To share, enter their
+            email in the field above.
+          </div>
+        )}
       </div>
     </div>
   );
