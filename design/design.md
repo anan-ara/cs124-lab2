@@ -15,6 +15,7 @@ For the native phone app, we thought that it would make more sense for the renam
 We followed the instructions outlined in this post: https://stackoverflow.com/questions/35463547/what-is-the-quickest-way-to-convert-a-react-app-to-react-native
 
 First, install Cordova globally by running `npm install -g cordova`.
+Make sure the ios platform has been added to the project by running `cordova build ios`.
 
 To build the Cordova app:
 1. Go into the `React App` directory and run `npm run build`.
