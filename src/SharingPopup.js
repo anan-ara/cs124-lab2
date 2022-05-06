@@ -78,11 +78,15 @@ function SharingPopup(props) {
         </button>
       </div>
       <div className="editors-list">
+        {props.editors.length > 0 ?
       <ul>
         {props.editors.map((editor) => (
           <EditorItem editor={editor} {...props} />
         ))}
       </ul>
+      :
+      <div className="not-shared">The list is currently not shared with anyone. To share, enter their email in the field above.</div>
+        }
       </div>
     </div>
   );

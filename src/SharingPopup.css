@@ -37,10 +37,18 @@
   border-radius: 5px;
   font-size: large;
   color: #494949;
-
 }
 
 .editors-list {
   overflow: scroll;
   height: 50vh;
+}
+
+.editors-list::-webkit-scrollbar {
+  display: none;
+}
+
+.not-shared {
+  padding: 20px;
+  color: #494949;
 }

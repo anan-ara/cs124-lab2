@@ -20,6 +20,10 @@ li.editor {
   overflow: scroll;
 }
 
+.editor div::-webkit-scrollbar {
+  display: none;
+}
+
 button.remove-user {
   display: flex;
   align-items: center;
