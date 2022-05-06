@@ -1,4 +1,4 @@
-import "./Verification.css";
+import "./NoticePopup.css";
 
 function SentVerification(props) {
   return (
