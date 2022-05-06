@@ -58,14 +58,16 @@ function Home(props) {
   }
 
   let sortType = "created";
+  console.log("Home view rerendering");
 
   // Get data from database.
   if (!props.usersLoading && !props.usersError) {
+    console.log("props.usersData.sort is " + props.usersData.sort);
     sortType = props.usersData.sort;
   }
 
   let orderByParam = orderBy(sortType);
-  orderByParam = orderBy("created");
+  orderByParam = orderBy("created"); // TODO NOW: change back!!
   // let queryParam = query(collectionRef, orderByParam, where("owner", "==", props.user.email));
   let myQueryParam = query(collectionRef, orderByParam, where("owner", "==", props.user.email));
 
@@ -118,7 +120,7 @@ function Home(props) {
   }
 
   function handleSortType(newSortType) {
-    updateDoc(doc(usersRef, "default"), { sort: newSortType });
+    updateDoc(doc(usersRef, props.user.uid), { sort: newSortType });
   }
 
   //   These handlers need the collectionRef too
