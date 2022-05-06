@@ -3,13 +3,17 @@ import TopBar from "./TopBar";
 import SubBar from "./SubBar";
 import BottomBar from "./BottomBar";
 import SearchBar from "./SearchBar";
+import ListNotFound from "./ListNotFound";
 // import PriorityPopup from "./PriorityPopup";
 import DeleteCompletedPopup from "./DeleteCompletedPopup";
 import ListContents from "./ListContents";
 import Backdrop from "./Backdrop";
 import { useState, useEffect, useRef } from "react";
 import { generateUniqueID } from "web-vitals/dist/modules/lib/generateUniqueID";
-import { useCollectionData } from "react-firebase-hooks/firestore";
+import {
+  useCollectionData,
+  useDocumentData,
+} from "react-firebase-hooks/firestore";
 import {
   query,
   setDoc,
@@ -47,21 +51,9 @@ function ListView(props) {
     useCollectionData(isCheckedQuery);
 
   const metadataRef = collection(props.db, LIST_COLLECTION);
-  let metadata;
-  const [metadataArray, metadataLoading, metadataError] = useCollectionData(
-    query(
-      metadataRef,
-      where("owner", "==", props.user.email),
-      where("id", "==", props.currentList)
-    )
+  const [metadata, metadataLoading, metadataError] = useDocumentData(
+    doc(metadataRef, props.currentList)
   );
-  // const [metadataArray, metadataLoading, metadataError] = useCollectionData(query(metadataRef, where("id", "==", props.currentList)));
-  // useDocumentData(
-  //   doc(metadataRef, props.currentList)
-  // );
-  if (metadataArray && metadataArray.length > 0) {
-    metadata = metadataArray[0];
-  }
 
   const bottomBar = useRef();
   function getBottomBarLocation() {
@@ -121,11 +113,6 @@ function ListView(props) {
       setToScroll(false);
     }
   }, [toScroll]);
-
-  if (error) {
-    console.log(error);
-    return <div>list missing</div>;
-  }
 
   function handleDeleteCompletedTasks() {
     let completedTasks = [];
@@ -204,12 +191,9 @@ function ListView(props) {
     props.handleChangeText(id, newText, collectionRef);
   }
 
-  console.log(metadata);
-  console.log(metadataArray);
-
-
-  if (metadataArray && metadataArray.length === 0) {
-    return <div>list missing</div>;
+  if (error) {
+    console.log(error);
+    return <ListNotFound shared={props.shared} onShowHome={props.onShowHome} />;
   }
 
   return (
