@@ -9,10 +9,7 @@ import ListContents from "./ListContents";
 import Backdrop from "./Backdrop";
 import { useState, useEffect, useRef } from "react";
 import { generateUniqueID } from "web-vitals/dist/modules/lib/generateUniqueID";
-import {
-  useCollectionData,
-  useDocumentData,
-} from "react-firebase-hooks/firestore";
+import { useCollectionData } from "react-firebase-hooks/firestore";
 import {
   query,
   setDoc,
@@ -50,9 +47,21 @@ function ListView(props) {
     useCollectionData(isCheckedQuery);
 
   const metadataRef = collection(props.db, LIST_COLLECTION);
-  const [metadata, metadataLoading, metadataError] = useDocumentData(
-    doc(metadataRef, props.currentList)
+  let metadata;
+  const [metadataArray, metadataLoading, metadataError] = useCollectionData(
+    query(
+      metadataRef,
+      where("owner", "==", props.user.email),
+      where("id", "==", props.currentList)
+    )
   );
+  // const [metadataArray, metadataLoading, metadataError] = useCollectionData(query(metadataRef, where("id", "==", props.currentList)));
+  // useDocumentData(
+  //   doc(metadataRef, props.currentList)
+  // );
+  if (metadataArray && metadataArray.length > 0) {
+    metadata = metadataArray[0];
+  }
 
   const bottomBar = useRef();
   function getBottomBarLocation() {
@@ -69,8 +78,9 @@ function ListView(props) {
 
   let sortType = "created";
   let title = "Loading...";
+
   // Get data from database.
-  if (!metadataLoading) {
+  if (metadata) {
     sortType = metadata.sort;
     title = metadata.text;
   }
@@ -90,12 +100,31 @@ function ListView(props) {
   const [data, loading, error] = useCollectionData(queryParam);
 
   let filteredData = data;
-  if (!loading) {
-    filteredData = data.filter((item) => item.text.toLowerCase().includes(filter.toLowerCase()));
+  if (data) {
+    filteredData = data.filter((item) =>
+      item.text.toLowerCase().includes(filter.toLowerCase())
+    );
   }
+
+  // end of list used for autoscrolling
+  const listEnd = useRef();
+
+  // Called on every rerender where toScroll changes.
+  useEffect(() => {
+    // Scrolls to recently added item if an item was just added
+    if (toScroll) {
+      listEnd.current.scrollIntoView({
+        behavior: "smooth",
+        block: "end",
+        inline: "nearest",
+      });
+      setToScroll(false);
+    }
+  }, [toScroll]);
 
   if (error) {
     console.log(error);
+    return <div>list missing</div>;
   }
 
   function handleDeleteCompletedTasks() {
@@ -175,27 +204,13 @@ function ListView(props) {
     props.handleChangeText(id, newText, collectionRef);
   }
 
-  // end of list used for autoscrolling
-  const listEnd = useRef();
+  console.log(metadata);
+  console.log(metadataArray);
 
-  // // Priority popup
-  // const [priorityPopup, setPriorityPopup] = useState(false);
-  // function handlePriorityPopup() {
-  //   setPriorityPopup(!priorityPopup);
-  // }
 
-  // Called on every rerender where toScroll changes.
-  useEffect(() => {
-    // Scrolls to recently added item if an item was just added
-    if (toScroll) {
-      listEnd.current.scrollIntoView({
-        behavior: "smooth",
-        block: "end",
-        inline: "nearest",
-      });
-      setToScroll(false);
-    }
-  }, [toScroll]);
+  if (metadataArray && metadataArray.length === 0) {
+    return <div>list missing</div>;
+  }
 
   return (
     <>
@@ -211,7 +226,7 @@ function ListView(props) {
         homeScreen={false}
         title={title}
         filter={filter}
-      setFilter={setFilter}
+        setFilter={setFilter}
       />
       {deleteCompletedPopup && (
         <>
@@ -235,10 +250,11 @@ function ListView(props) {
         sortType={sortType}
       />
 
-      {props.isNarrow && <div id="search_bar_div"><SearchBar
-      filter={filter}
-      setFilter={setFilter}
-      /></div>}
+      {props.isNarrow && (
+        <div id="search_bar_div">
+          <SearchBar filter={filter} setFilter={setFilter} />
+        </div>
+      )}
 
       <ListContents
         data={filteredData}
