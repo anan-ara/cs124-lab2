@@ -38,6 +38,7 @@ import LIST_COLLECTION from "./firestore-config";
 
 function Home(props) {
   // const LIST_COLLECTION = "cs124-users/default/lists";
+  console.log("in HOme, props.usersData is", props.usersData);
   const collectionRef = collection(props.db, LIST_COLLECTION);
   const usersRef = collection(props.db, "users");
 
@@ -123,6 +124,11 @@ function Home(props) {
     updateDoc(doc(usersRef, props.user.uid), { sort: newSortType });
   }
 
+  function addHiddenListId(newListId) {
+    updateDoc(doc(usersRef, props.user.uid), { hiddenLists: props.usersData.hiddenLists.concat([newListId]) });
+    // currentEditors.concat(newEditorsList);
+  }
+
   //   These handlers need the collectionRef too
   function handleDeleteList(id) {
     deleteDoc(doc(collectionRef, id));
@@ -149,6 +155,7 @@ function Home(props) {
     const currentEditors = ownerData.filter((list) => list.id === id)[0]["editors"];
     const newEditorsList = newEditors.map(object => object["value"]);
     const allEditors = currentEditors.concat(newEditorsList);
+    // don't add editors that already exist in currentEditors
     const deduplicateAllEditors = allEditors.filter((item, pos) => allEditors.indexOf(item) === pos);
     updateDoc(doc(collectionRef, id), { editors: deduplicateAllEditors });
   }
@@ -216,6 +223,8 @@ function Home(props) {
         getBottomBarLocation={getBottomBarLocation}
         onAddEditors={handleAddEditors}
         onRemoveEditor={handleRemoveEditor}
+        onAddHiddenListId={addHiddenListId}
+        {...props}
       />
       <HomeBottomBar
         handleAddList={handleCreateListPopup}

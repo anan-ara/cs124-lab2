@@ -45,7 +45,7 @@ function SubMenu(props) {
         >
           Rename
         </button> : <button
-          onClick={() => console.log("Hide list")}
+          onClick={() => props.onAddHiddenListId(props.id)}
           ref={start}
           onKeyDown={(e) => {
             if (e.key === "Tab" && e.shiftKey) {

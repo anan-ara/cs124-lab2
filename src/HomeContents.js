@@ -54,7 +54,7 @@ function HomeContents(props) {
               />
             ))}
             {props.editorData.map((e) => (
-              <ListItem
+              ((props.usersData && !props.usersData.hiddenLists.includes(e.id)) &&  <ListItem
                 text={e.text}
                 priority={e.priority}
                 // priorityToIcon={props.priorityToIcon}
@@ -66,7 +66,7 @@ function HomeContents(props) {
                 onToggleScroll={handleToggleScroll}
                 sharingLevel={"editor"}
                 {...props}
-              />
+              />)
             ))}
           </ul>
         </>
