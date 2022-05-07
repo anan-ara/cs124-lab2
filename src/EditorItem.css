@@ -6,7 +6,7 @@ li.editor {
   flex-direction: row;
   /* align-content: center; */
   justify-content: space-between;
-  border: 1px solid #757575;
+  border: 1.5px solid #757575;
   overflow: wrap;
   width: 33vw;
   min-width: 260px;
