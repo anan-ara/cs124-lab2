@@ -12,12 +12,24 @@ function SharingPopup(props) {
     DropdownIndicator: null,
   };
 
-  console.log(props);
+  console.log("sharing popup props",props);
 
   const [inputValue, setInputValue] = useState("");
   const [value, setValue] = useState([]);
   const [inputSave, setInputSave] = useState("");
   const [emailNotValid, setEmailNotValid] = useState("valid");
+
+  const allShared = props.editors
+    .map((editor) => {
+      return { name: editor, permission: "editor" };
+    })
+    .concat(
+      props.viewers.map((viewer) => {
+        return { name: viewer, permission: "viewer" };
+      })
+    );
+
+  console.log(allShared);
 
   function handleInputChange(inputValue) {
     setInputValue(inputValue);
@@ -124,9 +136,9 @@ function SharingPopup(props) {
         </div>
       )}
       <div className="editors-list">
-        {props.editors.length > 0 ? (
+        {allShared.length > 0 ? (
           <ul>
-            {props.editors.map((editor, index) => (
+            {allShared.map((editor, index) => (
               <EditorItem
                 editor={editor}
                 lastOne={props.editors.length - 1 === index}

@@ -184,6 +184,30 @@ function Home(props) {
     updateDoc(doc(collectionRef, id), { editors: deduplicateAllEditors });
   }
 
+  function handleChangePermissions(id, user, permission) {
+    console.log(id, user, permission)
+    const currentEditors = ownerData.filter((list) => list.id === id)[0]["editors"];
+    const currentViewers = ownerData.filter((list) => list.id === id)[0]["viewers"];
+    console.log("current editors",currentEditors)
+    console.log("current viewers",currentViewers)
+    if (permission === "editor" && !currentEditors.includes(user)) {
+      const newEditors = currentEditors.concat(user);
+      const newViewers = currentViewers.filter((e) => e !== user);
+      updateDoc(doc(collectionRef, id), { editors: newEditors, viewers: newViewers })
+      // updateDoc(doc(metadataRef, id), { editors: newEditors }).then(() => {
+      //   updateDoc(doc(metadataRef, id), { viewers: newViewers });
+      // });
+    } else if (permission === "viewer" && !currentViewers.includes(user)) {
+      const newViewers = currentViewers.concat(user)
+      const newEditors = currentEditors.filter((e) => e !== user);
+      updateDoc(doc(collectionRef, id), { editors: newEditors, viewers: newViewers })
+      // updateDoc(doc(metadataRef, id), { viewers: newViewers }).then(() => {
+      //   updateDoc(doc(metadataRef, id), { editors: newEditors });
+      // });
+    }
+  }
+
+
   function handleRemoveEditor(id, removeEditor) {
     const currentEditors = ownerData.filter((list) => list.id === id)[0][
       "editors"
@@ -265,6 +289,7 @@ function Home(props) {
         isNarrow={props.isNarrow}
         getBottomBarLocation={getBottomBarLocation}
         onAddEditors={handleAddEditors}
+        onChangePermission={handleChangePermissions}
         onRemoveEditor={handleRemoveEditor}
         onAddHiddenListId={addHiddenListId}
         {...props}

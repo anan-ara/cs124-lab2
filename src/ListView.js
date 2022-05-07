@@ -147,6 +147,27 @@ function ListView(props) {
     updateDoc(doc(metadataRef, id), { editors: deduplicateAllEditors });
   }
 
+  function handleChangePermissions(id, user, permission) {
+    console.log(id, user, permission)
+    const currentEditors = metadata["editors"];
+    const currentViewers = metadata["viewers"];
+    if (permission === "editor" && !currentEditors.includes(user)) {
+      const newEditors = currentEditors.concat(user);
+      const newViewers = currentViewers.filter((e) => e !== user);
+      updateDoc(doc(metadataRef, id), { editors: newEditors, viewers: newViewers })
+      // updateDoc(doc(metadataRef, id), { editors: newEditors }).then(() => {
+      //   updateDoc(doc(metadataRef, id), { viewers: newViewers });
+      // });
+    } else if (permission === "viewer" && !currentViewers.includes(user)) {
+      const newViewers = currentViewers.concat(user)
+      const newEditors = currentEditors.filter((e) => e !== user);
+      updateDoc(doc(metadataRef, id), { editors: newEditors, viewers: newViewers })
+      // updateDoc(doc(metadataRef, id), { viewers: newViewers }).then(() => {
+      //   updateDoc(doc(metadataRef, id), { editors: newEditors });
+      // });
+    }
+  }
+
   function handleDeleteCompletedTasks() {
     let completedTasks = [];
     // TODO: ask about whether or not we should have this thru database or not
@@ -256,10 +277,11 @@ function ListView(props) {
             onClosePopup={handleSharingPopup}
             editors={metadata["editors"]}
             viewers={metadata["viewers"]}
-        sharingLevel={sharingLevel}
+            sharingLevel={sharingLevel}
             onAddEditors={handleAddEditors}
             id={metadata["id"]}
             owner={metadata["owner"]}
+            onChangePermission={handleChangePermissions}
             {...props}
           />
         </>
