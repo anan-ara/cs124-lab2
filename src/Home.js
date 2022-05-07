@@ -35,6 +35,7 @@ import {
 //   highPriorityOptions,
 // } from ".";
 import LIST_COLLECTION from "./firestore-config";
+import HiddenListsPopup from "./HiddenListsPopup";
 
 function Home(props) {
   // const LIST_COLLECTION = "cs124-users/default/lists";
@@ -50,6 +51,12 @@ function Home(props) {
   const [priorityPopup, setPriorityPopup] = useState(false);
   function handlePriorityPopup() {
     setPriorityPopup(!priorityPopup);
+  }
+
+  // Hidden lists popup
+  const [hiddenListsPopup, setHiddenListsPopup] = useState(false);
+  function handleHiddenListsPopup() {
+    setHiddenListsPopup(!hiddenListsPopup);
   }
 
   // Create List Confirmation
@@ -191,6 +198,7 @@ function Home(props) {
         homeScreen={true}
         title={"My Lists"}
         onTogglePriorityPopup={handlePriorityPopup}
+        onToggleHiddenListsPopup={handleHiddenListsPopup}
         filter={filter}
         setFilter={setFilter}
         {...props}
@@ -202,6 +210,12 @@ function Home(props) {
         </>
       )}
 
+      {hiddenListsPopup && (
+        <>
+          <Backdrop onClickBackdrop={handleHiddenListsPopup} />
+          <HiddenListsPopup onToggleHiddenListsPopup={handleHiddenListsPopup} editorData={editorData} {...props} />
+        </>
+      )}
       {props.isNarrow && (
         <div id="search_bar_div">
           <SearchBar filter={filter} setFilter={setFilter} />

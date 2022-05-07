@@ -69,7 +69,7 @@ function HomeMainMenu(props) {
       <button className="bottom-line"
         onClick={() => {
           props.onToggleDropdown();
-          console.log("showing hidden lists popup");
+          props.onToggleHiddenListsPopup();
           // TODO: put acutal code here to show the popup.
         }}
       >
