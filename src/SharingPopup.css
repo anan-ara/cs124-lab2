@@ -8,6 +8,24 @@
   align-items: center;
 }
 
+.sharing-popup .extra-text {
+  margin: 5px;
+  font-size: medium;
+  color: #494949;
+}
+
+
+.sharing-popup li {
+    min-height: 30px;
+    /* background: white; */
+    /* display: flex;
+    align-items: center; */
+    /* padding: 6px; */
+    margin: 10px;
+    border: 1.5px solid #494949;
+    border-radius: 8px;
+}
+
 .sharing-title {
   font-size: x-large;
   color: #494949;
@@ -20,6 +38,7 @@
 }
 
 .share-bar {
+  margin-top: 10px;
   display: flex;
 }
 

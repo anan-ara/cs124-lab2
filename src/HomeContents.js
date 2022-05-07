@@ -48,6 +48,7 @@ function HomeContents(props) {
                 editors={e.editors}
                 key={e.id}
                 id={e.id}
+                owner={e.owner}
                 onToggleScroll={handleToggleScroll}
                 sharingLevel={"owner"}
                 {...props}
