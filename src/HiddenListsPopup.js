@@ -1,9 +1,7 @@
 import "./DeleteListPopup.css";
 import "./Popup.css";
-import {  useRef } from "react";
+import { useRef } from "react";
 import HiddenListItem from "./HiddenListItem";
-// import CreatableSelect from "react-select/creatable";
-// import EditorItem from "./EditorItem"
 
 function HiddenListsPopup(props) {
   const start = useRef();
@@ -11,7 +9,9 @@ function HiddenListsPopup(props) {
 
   let hiddenListsData = [];
   if (props.editorData && props.usersData) {
-    hiddenListsData = props.editorData.filter((item) => props.usersData.hiddenLists.includes(item.id));
+    hiddenListsData = props.editorData.filter((item) =>
+      props.usersData.hiddenLists.includes(item.id)
+    );
   }
 
   return (
@@ -24,10 +24,20 @@ function HiddenListsPopup(props) {
       }}
     >
       <div className="delete-explanation">Hidden Lists</div>
-      <ul>
-        {hiddenListsData.map((listData) => <HiddenListItem hiddenListText={listData.text} hiddenListId={listData.id} onRemoveHiddenListId={props.onRemoveHiddenListId}/>)}
-        {hiddenListsData.length == 0 && <span>You have no hidden lists.</span>}
-      </ul>
+      {/* If there are no hidden lists, say so, else show the hidden lists. */}
+      {hiddenListsData.length == 0 ? (
+        <span>You have no hidden lists.</span>
+      ) : (
+        <ul>
+          {hiddenListsData.map((listData) => (
+            <HiddenListItem
+              hiddenListText={listData.text}
+              hiddenListId={listData.id}
+              onRemoveHiddenListId={props.onRemoveHiddenListId}
+            />
+          ))}
+        </ul>
+      )}
     </div>
     // TODO: maybe add OK, cancel buttons?
   );
