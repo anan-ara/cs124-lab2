@@ -22,7 +22,12 @@ Because shared lists are accepted by default, we made it so that users must veri
 ## Sharing Behavior
 On the main screen, lists owned by the user are shown first. This is intended behavior as we thought it would make more sense that most users would not want to group their personal lists with lists shared with them, even when following sorting rules. To differentiate between owned lists and shared lists, owned lists have the same 3 dots options menu, while shared lists have a person icon.
 Currently, owners of the list are able to expand the 3 dots out to show the "Share Lists" option, which opens up a popup that allows them to share the list with others. 
-For non-list owners, they inistead have the option to 
+For non list owners, they instead have the option the view the list sharing, which displays the owner of the list as well as all the other users the list is currently shared with.
+
+We thought that it wouldn't make sense for non-owners to leave a list that was shared with them that they do not want to be part of, as this would require them to be able to edit the shared permissions for that list, which implies that they would also be able to modify the permissions of other users. To circumvent this issue, we instead gave users the option to hide lists shared with them that they do not want to display instead. The user can then go into their main menu and unhide these shared lists at any time. 
+
+We also thought that is was important for users to be able to quickly identify who they are logged in as, but that it wasn't important enough to be taking up the main screen space, so we put it in the main menu of the app. The user is also able to log out from this same place.
+
 ## Home Screen
 The home screen has the following features:
 - Create/edit/delete lists
@@ -290,6 +295,17 @@ Below are screenshots of our final design.
 ![list-view-large](list-view-large.png)
 ![list-view-small](list-view-small.png)
 ![list-view-small-list](list-view-small-list.png)
+
+Below are some screenshots of the new sharing features.
+![login](login.png)
+![signup](signup.png)
+![passwordreset](passwordrest.png)
+![sharingempty](sharingempty.png)
+![sharingfilled](sharingfilled.png)
+![sharingshow](sharingshow.png)
+![sharingview](sharingview.png)
+![hiddenlists](hiddenlists.png)
+![submenunew](submenunew.png)
 
 # Challenges We Faced
 
