@@ -14,6 +14,7 @@ function SharingPopup(props) {
 
   const [inputValue, setInputValue] = useState("");
   const [value, setValue] = useState([]);
+  const [inputSave, setInputSave] = useState("");
 
   function handleInputChange(inputValue) {
     setInputValue(inputValue);
@@ -24,14 +25,16 @@ function SharingPopup(props) {
     setValue(value);
   }
 
-  function addValue() {
-    setValue([...value, { label: inputValue, value: inputValue }]);
+  function addValue(newValue) {
+    setValue([...value, { label: newValue, value: newValue }]);
     setInputValue("");
   }
 
   useEffect(() => {
     start.current.focus();
   });
+
+  console.log(inputSave)
 
   return (
     <div
@@ -59,13 +62,14 @@ function SharingPopup(props) {
                 props.onAddEditors(props.id, value);
                 setValue([]);
               } else {
-                addValue();
+                addValue(inputValue);
               }
             } else if (e.key === "Tab" && e.shiftKey) {
               e.preventDefault();
               end.current.focus();
             }
           }}
+          onBlur={() => setInputSave(inputValue)}
           components={components}
           menuIsOpen={false}
           placeholder="Add emails here..."
@@ -73,8 +77,13 @@ function SharingPopup(props) {
         <button
           className="share-button"
           onClick={() => {
-            props.onAddEditors(props.id, value);
-            setValue([]);
+            if (inputSave === "") {
+              console.log("got here")
+              props.onAddEditors(props.id, value);
+              setValue([]);
+            } else {
+              addValue(inputSave);
+            }
           }}
         >
           Share
