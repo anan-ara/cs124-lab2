@@ -63,6 +63,10 @@ button.bottom-line {
   border-bottom: 0.6px solid #494949;
 }
 
+/* Copied from ListItem.css because these are now buttons not divs. */
+label.bottom-line {
+  border-bottom: 0.6px solid #494949;
+}
 
 .dropdown div.bottom-line {
     border-bottom: 0.6px solid #494949;
