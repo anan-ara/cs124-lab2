@@ -70,7 +70,7 @@ function ListView(props) {
   const [filter, setFilter] = useState("");
 
   if (metadataError) {
-    console.log(metadataError);
+    console.error(metadataError);
   }
 
   let sortType = "created";
@@ -119,8 +119,6 @@ function ListView(props) {
     }
   }, [toScroll]);
 
-  console.log(metadata);
-
   let sharingLevel = "viewer";
   if (metadata) {
     if (metadata["owner"] === props.user.email) {
@@ -131,8 +129,6 @@ function ListView(props) {
       sharingLevel = "viewer";
     }
   }
-
-  console.log(sharingLevel);
 
   function handleAddEditors(id, newEditors) {
     const currentEditors = metadata["editors"];
@@ -235,7 +231,6 @@ function ListView(props) {
   }
 
   if (error) {
-    console.log(error);
     return <ListNotFound shared={props.shared} onShowHome={props.onShowHome} />;
   }
 

@@ -72,7 +72,6 @@ function App(props) {
           // Verification email sent. Show new screen
           setVerifyEmailSent(true); // make it so that the email verification thing shows up
           setVerifyEmailSending(false);
-          console.log("verification sent");
         })
         .catch((error) => {
           // Error occurred. Inspect error.code. TODO show actual error message

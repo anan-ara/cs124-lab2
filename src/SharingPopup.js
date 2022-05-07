@@ -12,8 +12,6 @@ function SharingPopup(props) {
     DropdownIndicator: null,
   };
 
-  console.log(props);
-
   const [inputValue, setInputValue] = useState("");
   const [value, setValue] = useState([]);
   const [inputSave, setInputSave] = useState("");
@@ -24,7 +22,6 @@ function SharingPopup(props) {
   }
 
   function handleChange(value) {
-    console.log("handling change");
     setValue(value);
   }
 
@@ -52,8 +49,6 @@ function SharingPopup(props) {
       start.current.focus();
     }
   });
-
-  console.log(props.owner);
 
   return (
     <div

@@ -35,7 +35,7 @@ function SignUp(props) {
                 {errorMessageMap[error.message]}
               </div>
             )}
-            {error && console.log(error.message)}
+            {error && console.error(error.message)}
             <label htmlFor="email">Email: </label>
             <input
               type="email"

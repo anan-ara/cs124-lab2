@@ -24,20 +24,11 @@ import {
   getDocs,
   // QuerySnapshot,
 } from "firebase/firestore";
-// import {
-//   initialLowPriorityIcon,
-//   initialMedPriorityIcon,
-//   initialHighPriorityIcon,
-//   lowPriorityOptions,
-//   medPriorityOptions,
-//   highPriorityOptions,
-// } from ".";
+
 import LIST_COLLECTION from "./firestore-config";
 import HiddenListsPopup from "./HiddenListsPopup";
 
 function Home(props) {
-  // const LIST_COLLECTION = "cs124-users/default/lists";
-  console.log("in HOme, props.usersData is", props.usersData);
   const collectionRef = collection(props.db, LIST_COLLECTION);
   const usersRef = collection(props.db, "users");
 
@@ -64,11 +55,9 @@ function Home(props) {
   }
 
   let sortType = "created";
-  console.log("Home view rerendering");
 
   // Get data from database.
   if (!props.usersLoading && !props.usersError) {
-    console.log("props.usersData.sort is " + props.usersData.sort);
     sortType = props.usersData.sort;
   }
 
@@ -111,11 +100,11 @@ function Home(props) {
   }
 
   if (ownerError) {
-    console.log(ownerError);
+    console.error(ownerError);
   }
 
   if (editorError) {
-    console.log(editorError);
+    console.error(editorError);
   }
 
   function addNewList(text) {
