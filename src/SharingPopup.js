@@ -65,6 +65,9 @@ function SharingPopup(props) {
             } else if (e.key === "Tab" && e.shiftKey) {
               e.preventDefault();
               end.current.focus();
+            } else if (e.key === "Escape") {
+              e.preventDefault();
+              props.onClosePopup();
             }
           }}
           onBlur={() => setInputSave(inputValue)}
@@ -76,7 +79,7 @@ function SharingPopup(props) {
           className="share-button"
           onClick={() => {
             if (inputSave === "") {
-              console.log("got here")
+              console.log("got here");
               props.onAddEditors(props.id, value);
               setValue([]);
             } else {
