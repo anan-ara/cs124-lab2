@@ -23,38 +23,23 @@ function HomeMainMenu(props) {
     >
       {props.isWide ? (
         <>
-        <button
-        className="bottom-line"
-          ref={start}
-          onClick={() => {
-            props.onTogglePriorityPopup();
-            props.onToggleDropdown();
-          }}
-          onKeyDown={(e) => {
-            if (e.key === "Tab" && e.shiftKey) {
-              e.preventDefault();
-              end.current.focus();
-            }
-          }}
-        >
-          Change Priority Emoji
-        </button>
           <button
-            ref={end}
+            className="bottom-line"
+            ref={start}
             onClick={() => {
+              props.onTogglePriorityPopup();
               props.onToggleDropdown();
-              props.onSignOut();
             }}
             onKeyDown={(e) => {
-              if (e.key === "Tab" && !e.shiftKey) {
+              if (e.key === "Tab" && e.shiftKey) {
                 e.preventDefault();
-                start.current.focus();
+                end.current.focus();
               }
             }}
           >
-          Sign Out
+            Change Priority Emoji
           </button>
-          </>
+        </>
       ) : (
         <>
           <div className="bottom-line">
@@ -71,7 +56,7 @@ function HomeMainMenu(props) {
             />
           </div>
           <button
-        className="bottom-line"
+            className="bottom-line"
             onClick={() => {
               props.onTogglePriorityPopup();
               props.onToggleDropdown();
@@ -79,23 +64,32 @@ function HomeMainMenu(props) {
           >
             Change Priority Emoji
           </button>
-          <button
-            ref={end}
-            onClick={() => {
-              props.onToggleDropdown();
-              props.onSignOut();
-            }}
-            onKeyDown={(e) => {
-              if (e.key === "Tab" && !e.shiftKey) {
-                e.preventDefault();
-                start.current.focus();
-              }
-            }}
-          >
-          Sign Out
-          </button>
         </>
       )}
+      <button className="bottom-line"
+        onClick={() => {
+          props.onToggleDropdown();
+          console.log("showing hidden lists popup");
+          // TODO: put acutal code here to show the popup.
+        }}
+      >
+        Edit/View Hidden Lists
+      </button>
+      <button
+        ref={end}
+        onClick={() => {
+          props.onToggleDropdown();
+          props.onSignOut();
+        }}
+        onKeyDown={(e) => {
+          if (e.key === "Tab" && !e.shiftKey) {
+            e.preventDefault();
+            start.current.focus();
+          }
+        }}
+      >
+        Sign Out
+      </button>
     </div>
   );
 }

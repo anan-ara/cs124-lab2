@@ -37,7 +37,7 @@ function ListMainMenu(props) {
           </div>
           <button
             ref={end}
-            className="delete-completed bottom-line delete"
+            className="delete-completed delete"
             onClick={() => {
               props.onDeleteCompleted();
               props.onToggleDropdown();
@@ -55,7 +55,7 @@ function ListMainMenu(props) {
       ) : (
         <button
           ref={start}
-          className="delete-completed bottom-line delete"
+          className="delete-completed delete"
           onClick={() => {
             props.onDeleteCompleted();
             props.onToggleDropdown();
