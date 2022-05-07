@@ -46,6 +46,8 @@ function HomeContents(props) {
                 total={e.total}
                 complete={e.complete}
                 editors={e.editors}
+                viewers={e.viewers}
+                viewers={e.viewers}
                 key={e.id}
                 id={e.id}
                 owner={e.owner}
@@ -66,6 +68,21 @@ function HomeContents(props) {
                 id={e.id}
                 onToggleScroll={handleToggleScroll}
                 sharingLevel={"editor"}
+                {...props}
+              />)
+            ))}
+            {props.viewerData.map((e) => (
+              ((props.usersData && !props.usersData.hiddenLists.includes(e.id)) &&  <ListItem
+                text={e.text}
+                priority={e.priority}
+                // priorityToIcon={props.priorityToIcon}
+                checked={e.checked}
+                total={e.total}
+                complete={e.complete}
+                key={e.id}
+                id={e.id}
+                onToggleScroll={handleToggleScroll}
+                sharingLevel={"viewer"}
                 {...props}
               />)
             ))}

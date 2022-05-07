@@ -83,25 +83,37 @@ function Home(props) {
     where("owner", "==", props.user.email)
   );
 
-  // TODO: use this for shared things
   let editorQueryParam = query(
     collectionRef,
     orderByParam,
     where("editors", "array-contains", props.user.email)
   );
 
+  let viewerQueryParam = query(
+    collectionRef,
+    orderByParam,
+    where("viewers", "array-contains", props.user.email)
+  );
+
   const [ownerData, ownerLoading, ownerError] = useCollectionData(myQueryParam);
   const [editorData, editorLoading, editorError] =
+    useCollectionData(editorQueryParam);
+  const [viewerData, viewerLoading, viewerError] =
     useCollectionData(editorQueryParam);
 
   // Search bar functionality
   let ownerFilteredData = ownerData;
   let editorFilteredData = editorData;
-  if (!ownerLoading && !editorLoading) {
+  let viewerFilteredData = viewerData;
+
+  if (!ownerLoading && !editorLoading && !viewerLoading) {
     ownerFilteredData = ownerData.filter((item) =>
       item.text.toLowerCase().includes(filter.toLowerCase())
     );
     editorFilteredData = editorData.filter((item) =>
+      item.text.toLowerCase().includes(filter.toLowerCase())
+    );
+    viewerFilteredData = viewerData.filter((item) =>
       item.text.toLowerCase().includes(filter.toLowerCase())
     );
   }
@@ -120,6 +132,10 @@ function Home(props) {
 
   if (editorError) {
     console.log(editorError);
+  }
+
+  if (viewerError) {
+    console.log(viewerError);
   }
 
   function addNewList(text) {
@@ -175,13 +191,33 @@ function Home(props) {
     props.handleChangeText(id, newText, collectionRef);
   }
 
-  function handleAddEditors(id, newEditors) {
-    const currentEditors = ownerData.filter((list) => list.id === id)[0]["editors"];
+  function getNewSharedList(id, newSharedPeople, sharedType) {
+    const currentPeople = ownerData.filter((list) => list.id === id)[0][sharedType];
     const owner = ownerData.filter((list) => list.id === id)[0]["owner"];
-    const newEditorsList = newEditors.map(object => object["value"]);
-    const allEditors = currentEditors.concat(newEditorsList);
-    const deduplicateAllEditors = allEditors.filter((item, pos) => (allEditors.indexOf(item) === pos) && item != owner);
-    updateDoc(doc(collectionRef, id), { editors: deduplicateAllEditors });
+    const newPeople = newSharedPeople.map(object => object["value"]);
+    const allPeople = currentPeople.concat(newPeople);
+    const deduplicatedPeople = allPeople.filter((item, pos) => (allPeople.indexOf(item) === pos) && item != owner);
+    return deduplicatedPeople;
+  }
+
+  function handleAddEditors(id, newEditors) {
+    // const currentEditors = ownerData.filter((list) => list.id === id)[0]["editors"];
+    // const owner = ownerData.filter((list) => list.id === id)[0]["owner"];
+    // const newEditorsList = newEditors.map(object => object["value"]);
+    // const allEditors = currentEditors.concat(newEditorsList);
+    // const deduplicateAllEditors = allEditors.filter((item, pos) => (allEditors.indexOf(item) === pos) && item != owner);
+    let deduplicateAllEditors = getNewSharedList(id, newEditors, "editors");
+    updateDoc(doc(collectionRef, id), { editors:  deduplicateAllEditors});
+  }
+
+  function handleAddViewers(id, newViewers) {
+    // const currentEditors = ownerData.filter((list) => list.id === id)[0]["editors"];
+    // const owner = ownerData.filter((list) => list.id === id)[0]["owner"];
+    // const newEditorsList = newEditors.map(object => object["value"]);
+    // const allEditors = currentEditors.concat(newEditorsList);
+    // const deduplicateAllEditors = allEditors.filter((item, pos) => (allEditors.indexOf(item) === pos) && item != owner);
+    let finalViewers = getNewSharedList(id, newViewers, "viewers");
+    updateDoc(doc(collectionRef, id), { viewers:  finalViewers});
   }
 
   function handleRemoveEditor(id, removeEditor) {
@@ -192,6 +228,16 @@ function Home(props) {
       (editor) => editor !== removeEditor
     );
     updateDoc(doc(collectionRef, id), { editors: removedEditors });
+  }
+
+  function handleRemoveViewer(id, removeViewer) {
+    const currentViewers = ownerData.filter((list) => list.id === id)[0][
+      "viewers"
+    ];
+    const removedViewers = currentViewers.filter(
+      (viewer) => viewer !== removeViewer
+    );
+    updateDoc(doc(collectionRef, id), { viewers: removedViewers });
   }
 
   // end of list used for autoscrolling
@@ -240,6 +286,7 @@ function Home(props) {
           <HiddenListsPopup
             onToggleHiddenListsPopup={handleHiddenListsPopup}
             editorData={editorData}
+            viewerData={viewerData}
             onRemoveHiddenListId={removeHiddenListId}
             {...props}
           />
@@ -255,8 +302,10 @@ function Home(props) {
         ownerData={ownerFilteredData}
         ownerUnfilteredData={ownerData}
         editorData={editorFilteredData}
+        viewerData={viewerFilteredData}
         editorUnfilteredData={editorData}
-        loading={props.appMetadataLoading || ownerLoading || editorLoading}
+        viewerUnfilteredData={viewerData}
+        loading={props.appMetadataLoading || ownerLoading || editorLoading || viewerLoading}
         listEnd={listEnd}
         onDeleteList={handleDeleteList}
         onChangeText={handleChangeText}
@@ -266,6 +315,8 @@ function Home(props) {
         getBottomBarLocation={getBottomBarLocation}
         onAddEditors={handleAddEditors}
         onRemoveEditor={handleRemoveEditor}
+        onAddViewers={handleAddViewers}
+        onRemoveViewer={handleRemoveViewer}
         onAddHiddenListId={addHiddenListId}
         {...props}
       />

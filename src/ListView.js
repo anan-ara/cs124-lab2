@@ -141,6 +141,17 @@ function ListView(props) {
     updateDoc(doc(metadataRef, id), { editors: deduplicateAllEditors });
   }
 
+  function handleAddViewers(id, newViewers) {
+    const currentViewers = metadata["viewers"];
+    const owner = metadata["owner"];
+    const newViewersList = newViewers.map((object) => object["value"]);
+    const allViewers = currentViewers.concat(newViewersList);
+    const deduplicateAllViewers = allViewers.filter(
+      (item, pos) => allViewers.indexOf(item) === pos && item != owner
+    );
+    updateDoc(doc(metadataRef, id), { viewers: deduplicateAllViewers });
+  }
+
   function handleDeleteCompletedTasks() {
     let completedTasks = [];
     // TODO: ask about whether or not we should have this thru database or not
@@ -249,7 +260,9 @@ function ListView(props) {
           <SharingPopup
             onClosePopup={handleSharingPopup}
             editors={metadata["editors"]}
+            viewers={metadata["viewers"]}
             onAddEditors={handleAddEditors}
+            onAddEditors={handleAddViewers}
             id={metadata["id"]}
             owner={metadata["owner"]}
             {...props}
