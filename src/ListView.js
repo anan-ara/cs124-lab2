@@ -251,6 +251,7 @@ function ListView(props) {
             editors={metadata["editors"]}
             onAddEditors={handleAddEditors}
             id={metadata["id"]}
+            owner={metadata["owner"]}
             {...props}
           />
         </>

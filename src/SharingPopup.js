@@ -15,6 +15,7 @@ function SharingPopup(props) {
   const [inputValue, setInputValue] = useState("");
   const [value, setValue] = useState([]);
   const [inputSave, setInputSave] = useState("");
+  const [emailNotValid, setEmailNotValid] = useState("valid");
 
   function handleInputChange(inputValue) {
     setInputValue(inputValue);
@@ -24,17 +25,22 @@ function SharingPopup(props) {
     console.log("handling change");
     setValue(value);
   }
-  
+
   // Regular expression from https://stackoverflow.com/questions/46155/how-can-i-validate-an-email-address-in-javascript
   function validateEmail(email) {
     return email.match(
       /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     );
-  };
+  }
 
   function addValue(newValue) {
-    if (validateEmail(newValue)) {
+    if (newValue === props.owner) {
+      setEmailNotValid("adding owner");
+    } else if (validateEmail(newValue)) {
+      setEmailNotValid("valid");
       setValue([...value, { label: newValue, value: newValue }]);
+    }  else {
+      setEmailNotValid("not valid");
     }
     setInputValue("");
   }
@@ -42,6 +48,8 @@ function SharingPopup(props) {
   useEffect(() => {
     start.current.focus();
   });
+
+  console.log(props.owner)
 
   return (
     <div
@@ -53,6 +61,9 @@ function SharingPopup(props) {
       }}
     >
       <div className="sharing-title">List Sharing</div>
+      <div className="extra-text">This list belongs to {props.owner}</div>
+      {emailNotValid === "not valid" && <div className="extra-text">Please enter a valid email address</div>}
+      {emailNotValid === "adding owner" && <div className="extra-text">You cannot share the list with the owner of list</div>}
       <div className="share-bar">
         <CreatableSelect
           className="multi-select"
@@ -67,6 +78,7 @@ function SharingPopup(props) {
             if (e.key === "Enter") {
               if (inputValue === "") {
                 props.onAddEditors(props.id, value);
+                setEmailNotValid(false);
                 setValue([]);
               } else {
                 addValue(inputValue);
@@ -88,8 +100,8 @@ function SharingPopup(props) {
           className="share-button"
           onClick={() => {
             if (inputSave === "") {
-              console.log("got here");
               props.onAddEditors(props.id, value);
+              setEmailNotValid(false);
               setValue([]);
             } else {
               addValue(inputSave);
