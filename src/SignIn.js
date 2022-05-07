@@ -28,9 +28,11 @@ function SignIn(props) {
     "Firebase: Error (auth/invalid-email).":
       "Email address does not appear to be valid. Please try again.",
     "Firebase: Error (auth/wrong-password).": "Incorrect password.",
+    "Firebase: Error (auth/internal-error).": "Password cannot be empty.",
     "Firebase: Error (auth/user-not-found).":
       "Email does not exist. Please sign up for an account.",
   };
+
 
   const pwField = useRef();
 
