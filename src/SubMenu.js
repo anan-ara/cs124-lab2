@@ -10,6 +10,17 @@ function SubMenu(props) {
     start.current.focus();
   });
 
+  function getMenuClassname() {
+    if (props.homeScreen)
+      if (props.sharingLevel == "owner") {
+        return "home-owner-menu";
+      } else {
+        return "home-shared-with-menu";
+      }
+    
+    return "";
+  }
+
   return (
     <div
       // TODO: unhard code 125 -- right now 125 is pixels of sub menu height
@@ -26,8 +37,9 @@ function SubMenu(props) {
       }}
     >
       <div
-        className={"dropdown-content sub-menu".concat(
-          props.homeScreen ? " home" : ""
+        className={"dropdown-content sub-menu ".concat(
+          // props.homeScreen ? " home" : ""
+          getMenuClassname()
         )}
       >
         {(!props.homeScreen || (props.sharingLevel == "owner")) ? 
