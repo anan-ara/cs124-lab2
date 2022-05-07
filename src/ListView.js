@@ -123,12 +123,18 @@ function ListView(props) {
 
   console.log(metadata);
 
-  let isOwner;
+  let sharingLevel = "viewer";
   if (metadata) {
-    isOwner = metadata["owner"] === props.user.email;
+    if (metadata["owner"] === props.user.email) {
+      sharingLevel = "owner";
+    } else if (metadata["editors"].includes(props.user.email)) {
+      sharingLevel = "editor";
+    } else {
+      sharingLevel = "viewer";
+    }
   }
 
-  console.log(isOwner);
+  console.log(sharingLevel);
 
   function handleAddEditors(id, newEditors) {
     const currentEditors = metadata["editors"];
@@ -226,7 +232,7 @@ function ListView(props) {
         onShare={handleSharingPopup}
         isNarrow={props.isNarrow}
         onShowHome={props.onShowHome}
-        isOwner={isOwner}
+        sharingLevel={sharingLevel}
         homeScreen={false}
         title={title}
         filter={filter}
@@ -249,6 +255,8 @@ function ListView(props) {
           <SharingPopup
             onClosePopup={handleSharingPopup}
             editors={metadata["editors"]}
+            viewers={metadata["viewers"]}
+        sharingLevel={sharingLevel}
             onAddEditors={handleAddEditors}
             id={metadata["id"]}
             owner={metadata["owner"]}

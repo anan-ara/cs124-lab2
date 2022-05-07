@@ -46,6 +46,7 @@ function HomeContents(props) {
                 total={e.total}
                 complete={e.complete}
                 editors={e.editors}
+                viewers={e.viewers}
                 key={e.id}
                 id={e.id}
                 owner={e.owner}
@@ -62,8 +63,11 @@ function HomeContents(props) {
                 checked={e.checked}
                 total={e.total}
                 complete={e.complete}
+                editors={e.editors}
+                viewers={e.viewers}
                 key={e.id}
                 id={e.id}
+                owner={e.owner}
                 onToggleScroll={handleToggleScroll}
                 sharingLevel={"editor"}
                 {...props}
