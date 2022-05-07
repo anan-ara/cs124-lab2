@@ -12,27 +12,21 @@ function SharingPopup(props) {
     DropdownIndicator: null,
   };
 
-  console.log(props);
-
   const [inputValue, setInputValue] = useState("");
   const [value, setValue] = useState([]);
   const [inputSave, setInputSave] = useState("");
   const [emailNotValid, setEmailNotValid] = useState("valid");
 
-  function handleInputChange(inputValue) {
-    setInputValue(inputValue);
-  }
-
   function handleChange(value) {
-    console.log("handling change");
     setValue(value);
   }
 
   // Regular expression from https://stackoverflow.com/questions/46155/how-can-i-validate-an-email-address-in-javascript
   function validateEmail(email) {
-    return email.match(
-      /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    );
+    // return email.match(
+    //   /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    // );
+    return email.match(/\S+@\S+\.\S+/);
   }
 
   function addValue(newValue) {
@@ -52,8 +46,6 @@ function SharingPopup(props) {
       start.current.focus();
     }
   });
-
-  console.log(props.owner);
 
   return (
     <div

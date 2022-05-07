@@ -3,7 +3,7 @@ import SignUp from "./SignUp";
 import SignIn from "./SignIn";
 import { getAuth, signOut } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { getFirestore, setDoc, doc, collection } from "firebase/firestore";
+import { getFirestore } from "firebase/firestore";
 import { initializeApp } from "firebase/app";
 import { useState, useEffect } from "react";
 import SentVerification from "./SentVerification";
@@ -25,8 +25,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth();
-
-const usersCollection = collection(db, "users");
 
 function App(props) {
   const [user, loading, error] = useAuthState(auth);
@@ -57,14 +55,22 @@ function App(props) {
     signOut(auth);
   }
 
-  // TODO: see if there is a better way to do this!
-  // Hacky way to make the createUser function only be called when user is first defined
-  // ISSUE: this happens whenever a user signs in, not just when they initially sign in
-  // TODO: right now verifyEmail is sent on reload even when it's already been sent and we're just showing the
-  // ResendVerification screen. THis should be fixed once we move this out of the useEffect though.
   useEffect(() => {
     if (user && !user.emailVerified) {
-      verifyEmail();
+      if (!user.emailVerified) {
+        setVerifyEmailSending(true);
+        sendEmailVerification(user)
+          .then(() => {
+            // Verification email sent. Show new screen
+            setVerifyEmailSent(true); // make it so that the email verification thing shows up
+            setVerifyEmailSending(false);
+          })
+          .catch((error) => {
+            // Error occurred. Inspect error.code. TODO show actual error message
+            console.error("ERROR when trying to send email verification" + error);
+            setVerifyEmailSending(false);
+          });
+      }
     }
   }, [user]);
 
@@ -77,14 +83,11 @@ function App(props) {
           // Verification email sent. Show new screen
           setVerifyEmailSent(true); // make it so that the email verification thing shows up
           setVerifyEmailSending(false);
-          console.log("verification sent");
         })
         .catch((error) => {
           // Error occurred. Inspect error.code. TODO show actual error message
           console.error("ERROR when trying to send email verification" + error);
           setVerifyEmailSending(false);
-
-          // TODO: give correct error message for : "FirebaseError: Firebase: Error (auth/too-many-requests)."
         });
     }
   }
@@ -126,7 +129,6 @@ function App(props) {
   } else {
     return (
       <>
-        {/* TODO: show user friendly error message here */}
         {error && <p>Error App: {error.message}</p>}
         {signUp ? (
           <SignUp

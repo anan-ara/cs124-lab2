@@ -4,7 +4,6 @@ import SubBar from "./SubBar";
 import BottomBar from "./BottomBar";
 import SearchBar from "./SearchBar";
 import ListNotFound from "./ListNotFound";
-// import PriorityPopup from "./PriorityPopup";
 import DeleteCompletedPopup from "./DeleteCompletedPopup";
 import SharingPopup from "./SharingPopup";
 import ListContents from "./ListContents";
@@ -27,7 +26,6 @@ import {
   collection,
 } from "firebase/firestore";
 import LIST_COLLECTION from "./firestore-config.js";
-import userEvent from "@testing-library/user-event";
 
 function ListView(props) {
   const collectionRef = collection(
@@ -71,8 +69,7 @@ function ListView(props) {
   const [filter, setFilter] = useState("");
 
   if (metadataError) {
-    console.log(metadataError);
-    // TODO: actual error message?
+    console.error(metadataError);
   }
 
   let sortType = "created";
@@ -121,8 +118,6 @@ function ListView(props) {
     }
   }, [toScroll]);
 
-  console.log(metadata);
-
   let sharingLevel = "viewer";
   if (metadata) {
     if (metadata["owner"] === props.user.email) {
@@ -134,22 +129,19 @@ function ListView(props) {
     }
   }
 
-  console.log(sharingLevel);
-
   function handleAddEditors(id, newEditors) {
     const currentEditors = metadata["editors"];
     const owner = metadata["owner"];
     const newEditorsList = newEditors.map((object) => object["value"]);
     const allEditors = currentEditors.concat(newEditorsList);
     const deduplicateAllEditors = allEditors.filter(
-      (item, pos) => allEditors.indexOf(item) === pos && item != owner
+      (item, pos) => allEditors.indexOf(item) === pos && item !== owner
     );
     updateDoc(doc(metadataRef, id), { editors: deduplicateAllEditors });
   }
 
   function handleDeleteCompletedTasks() {
     let completedTasks = [];
-    // TODO: ask about whether or not we should have this thru database or not
     if (!checkedLoading && !checkedError) {
       completedTasks = checkedData;
     } else {
@@ -238,7 +230,6 @@ function ListView(props) {
   }
 
   if (error) {
-    console.log(error);
     return <ListNotFound shared={props.shared} onShowHome={props.onShowHome} />;
   }
 

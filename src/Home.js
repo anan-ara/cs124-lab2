@@ -1,17 +1,15 @@
 import "./todo.css";
 import TopBar from "./TopBar";
 import SearchBar from "./SearchBar";
-// import BottomBar from "./BottomBar";
 import PriorityPopup from "./PriorityPopup";
 import CreateListPopup from "./CreateListPopup";
 import HomeContents from "./HomeContents";
 import HomeBottomBar from "./HomeBottomBar";
 import Backdrop from "./Backdrop";
-import { useState, useEffect, useRef, useId } from "react";
+import { useState, useEffect, useRef } from "react";
 import { generateUniqueID } from "web-vitals/dist/modules/lib/generateUniqueID";
 import {
   useCollectionData,
-  // useDocumentData,
 } from "react-firebase-hooks/firestore";
 import {
   query,
@@ -26,20 +24,11 @@ import {
   getDocs,
   // QuerySnapshot,
 } from "firebase/firestore";
-// import {
-//   initialLowPriorityIcon,
-//   initialMedPriorityIcon,
-//   initialHighPriorityIcon,
-//   lowPriorityOptions,
-//   medPriorityOptions,
-//   highPriorityOptions,
-// } from ".";
+
 import LIST_COLLECTION from "./firestore-config";
 import HiddenListsPopup from "./HiddenListsPopup";
 
 function Home(props) {
-  // const LIST_COLLECTION = "cs124-users/default/lists";
-  console.log("in HOme, props.usersData is", props.usersData);
   const collectionRef = collection(props.db, LIST_COLLECTION);
   const usersRef = collection(props.db, "users");
 
@@ -66,23 +55,19 @@ function Home(props) {
   }
 
   let sortType = "created";
-  console.log("Home view rerendering");
 
   // Get data from database.
   if (!props.usersLoading && !props.usersError) {
-    console.log("props.usersData.sort is " + props.usersData.sort);
     sortType = props.usersData.sort;
   }
 
   let orderByParam = orderBy(sortType);
-  // let queryParam = query(collectionRef, orderByParam, where("owner", "==", props.user.email));
   let myQueryParam = query(
     collectionRef,
     orderByParam,
     where("owner", "==", props.user.email)
   );
 
-  // TODO: use this for shared things
   let editorQueryParam = query(
     collectionRef,
     orderByParam,
@@ -114,11 +99,11 @@ function Home(props) {
   }
 
   if (ownerError) {
-    console.log(ownerError);
+    console.error(ownerError);
   }
 
   if (editorError) {
-    console.log(editorError);
+    console.error(editorError);
   }
 
   function addNewList(text) {
@@ -152,7 +137,7 @@ function Home(props) {
 
   function removeHiddenListId(listId) {
     updateDoc(doc(usersRef, props.user.uid), {
-      hiddenLists: props.usersData.hiddenLists.filter((id) => id != listId),
+      hiddenLists: props.usersData.hiddenLists.filter((id) => id !== listId),
     });
     // currentEditors.concat(newEditorsList);
   }
@@ -179,7 +164,7 @@ function Home(props) {
     const owner = ownerData.filter((list) => list.id === id)[0]["owner"];
     const newEditorsList = newEditors.map(object => object["value"]);
     const allEditors = currentEditors.concat(newEditorsList);
-    const deduplicateAllEditors = allEditors.filter((item, pos) => (allEditors.indexOf(item) === pos) && item != owner);
+    const deduplicateAllEditors = allEditors.filter((item, pos) => (allEditors.indexOf(item) === pos) && item !== owner);
     updateDoc(doc(collectionRef, id), { editors: deduplicateAllEditors });
   }
 

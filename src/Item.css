@@ -4,7 +4,6 @@ li.item {
     align-items: center;
     padding: 6px;
     flex-direction: row;
-    /* align-content: center; */
     justify-content: space-between;
 }
 

@@ -2,14 +2,10 @@ import "./SignIn.css";
 import "./Popup.css";
 import "./Backdrop.css";
 import {
-  // useAuthState,
-  // useCreateUserWithEmailAndPassword,
   useSignInWithEmailAndPassword,
   useSignInWithGoogle,
-  useSignInWithGithub,
 } from "react-firebase-hooks/auth";
 import GoogleButton from "react-google-button";
-// import GithubButton from "react-github-login-button";
 
 import { useState, useRef } from "react";
 
@@ -17,9 +13,6 @@ function SignIn(props) {
   const [signInWithEmailAndPassword, user1, loading1, error1] =
     useSignInWithEmailAndPassword(props.auth);
   const [signInWithGoogle, user2, loading2, error2] = useSignInWithGoogle(
-    props.auth
-  );
-  const [signInWithGithub, user3, loading3, error3] = useSignInWithGithub(
     props.auth
   );
   const [email, setEmail] = useState("");
@@ -34,10 +27,13 @@ function SignIn(props) {
   };
 
 
+  if (error2) {
+    console.error(error2);
+  }
   const pwField = useRef();
 
-  const user = user1 || user2 || user3;
-  const loading = loading1 || loading2 || loading3;
+  const user = user1 || user2;
+  const loading = loading1 || loading2;
 
   return (
     <div className="sign-in-popup popup">
@@ -96,7 +92,6 @@ function SignIn(props) {
           </div>
           <hr />
           <GoogleButton className="google" onClick={() => signInWithGoogle()} />
-          {/* <GithubButton onClick={() => signInWithGithub()} /> */}
           <p>
             Don't have an account?{" "}
             <button onClick={props.onToggleSignUp}>Sign up</button>

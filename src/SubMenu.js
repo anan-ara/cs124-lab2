@@ -12,7 +12,7 @@ function SubMenu(props) {
 
   function getMenuClassname() {
     if (props.homeScreen)
-      if (props.sharingLevel == "owner") {
+      if (props.sharingLevel === "owner") {
         return "home-owner-menu";
       } else {
         return "home-shared-with-menu";
@@ -23,7 +23,6 @@ function SubMenu(props) {
 
   return (
     <div
-      // TODO: unhard code 125 -- right now 125 is pixels of sub menu height
       className={
         props.top + 125 > props.bottomBarLocation
           ? "dropdown poptop"

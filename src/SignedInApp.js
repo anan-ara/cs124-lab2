@@ -3,32 +3,14 @@ import Home from "./Home";
 import ListView from "./ListView";
 import { useState } from "react";
 import { useMediaQuery } from "react-responsive";
-import { initializeApp } from "firebase/app";
-import { getFirestore, collection, updateDoc, doc, query, where, setDoc} from "firebase/firestore";
-import { useDocumentData, useCollectionData } from "react-firebase-hooks/firestore";
-// import VerificationSent from "./VerificationSent";
-// import GoVerify from "./GoVerify";
+import { collection, updateDoc, doc, query, where, setDoc} from "firebase/firestore";
+import {  useCollectionData } from "react-firebase-hooks/firestore";
 
-// // Ours
-// // Your web app's Firebase configuration
-// const firebaseConfig = {
-//   apiKey: "AIzaSyA3wO0gGMy0PN8SEZckT0xb6cYeB0zvV1M",
-//   authDomain: "cs124-lab3-e9930.firebaseapp.com",
-//   projectId: "cs124-lab3-e9930",
-//   storageBucket: "cs124-lab3-e9930.appspot.com",
-//   messagingSenderId: "200008037720",
-//   appId: "1:200008037720:web:52bc13f47bfa43cdd4212d",
-// };
-
-// // Initialize Firebase
-// const app = initializeApp(firebaseConfig);
-// const db = getFirestore(app);
 
 function SignedInApp(props) {
 
 
 
-  console.log("showing signed in app, email verified is" + props.user.emailVerified);
   // Screen Width
   const isNarrow = useMediaQuery({ maxWidth: "615px" });
   const isMedium = useMediaQuery({ minWidth: "615px", maxWidth: "900px" });
@@ -40,17 +22,13 @@ function SignedInApp(props) {
 
 
   // Priority icons
-  //  TODO: currently this code doesn't work when we first create a new user and verify them. (until we reload the page)
   function setLowPriorityIcon(newIcon) {
-    console.log("in setLowPriorityIcon, newIcon is " + newIcon)
     updateDoc(doc(usersCollection, props.user.uid), { lowPriorityIcon: newIcon });
   }
   function setMedPriorityIcon(newIcon) {
-    console.log("in setMedPriorityIcon, newIcon is " + newIcon)
     updateDoc(doc(usersCollection, props.user.uid), { medPriorityIcon: newIcon });
   }
   function setHighPriorityIcon(newIcon) {
-    console.log("in setHighPriortyIcon, newIcon is " + newIcon)
     updateDoc(doc(usersCollection, props.user.uid), { highPriorityIcon: newIcon });
   }
 
@@ -61,15 +39,6 @@ function SignedInApp(props) {
   if (usersDataArray && usersDataArray.length > 0) {
     usersData = usersDataArray[0];
   }
-    // query(usersCollection, where("uid", "==", props.user.uid));
-
-  // const [usersData, usersLoading, usersError] = useDocumentData(
-  //   doc(usersCollection, props.user.uid)
-  // );
-  
-  console.log("data: ",usersData)
-  console.log("loading: ",usersLoading)
-  console.log("error: ",usersError)
 
 
   let lowPriorityIcon = "💤";
@@ -80,8 +49,6 @@ function SignedInApp(props) {
   // Is this a problem on the firestore side or is it documented behavior?
   // We switched to useCollectionData instead for this reason
   if (usersDataArray && usersDataArray.length === 0) {
-    console.log("About to set doc. users error is " + usersError);
-    // console.log("email verified is" + props.user.emailVerified);
     setDoc(doc(usersCollection, props.user.uid), {
             uid: props.user.uid,
             highPriorityIcon: highPriorityIcon,
@@ -90,11 +57,10 @@ function SignedInApp(props) {
             sort: "created",
             email: props.user.email,
             hiddenLists: []
-          }).catch(error => console.log(error));
+          }).catch(error => console.error(error));
     return <div>Loading...</div>;
   }
 
-  console.log("props.user.uid is " + props.user.uid);
 
   if (usersData) {
     lowPriorityIcon = usersData.lowPriorityIcon;
@@ -121,8 +87,6 @@ function SignedInApp(props) {
     setCurrentList(listId);
     setHomeScreen(false);
   }
-
-  console.log("signed in app is being rerendered");
 
   return  homeScreen ?
     <Home
