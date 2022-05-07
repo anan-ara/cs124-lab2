@@ -84,7 +84,7 @@ function App(props) {
   } else if (user) {
     return user.emailVerified ? (
       <div>
-        {user.displayName || user.email}
+        {/* {user.displayName || user.email} */}
 
         <SignedInApp
           {...props}
