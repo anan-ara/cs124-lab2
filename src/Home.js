@@ -176,15 +176,11 @@ function Home(props) {
   }
 
   function handleAddEditors(id, newEditors) {
-    const currentEditors = ownerData.filter((list) => list.id === id)[0][
-      "editors"
-    ];
-    const newEditorsList = newEditors.map((object) => object["value"]);
+    const currentEditors = ownerData.filter((list) => list.id === id)[0]["editors"];
+    const owner = ownerData.filter((list) => list.id === id)[0]["owner"];
+    const newEditorsList = newEditors.map(object => object["value"]);
     const allEditors = currentEditors.concat(newEditorsList);
-    // don't add editors that already exist in currentEditors
-    const deduplicateAllEditors = allEditors.filter(
-      (item, pos) => allEditors.indexOf(item) === pos
-    );
+    const deduplicateAllEditors = allEditors.filter((item, pos) => (allEditors.indexOf(item) === pos) && item != owner);
     updateDoc(doc(collectionRef, id), { editors: deduplicateAllEditors });
   }
 

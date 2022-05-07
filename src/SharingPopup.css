@@ -1,0 +1,54 @@
+.sharing-popup {
+  width: 40vw;
+  min-width: 300px;
+  padding: 10px;
+  font-size: medium;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sharing-title {
+  font-size: x-large;
+  color: #494949;
+  margin-bottom: 10px;
+}
+
+.delete-list-name {
+  max-width: 80vw;
+  word-wrap: break-word;
+}
+
+.share-bar {
+  display: flex;
+}
+
+.multi-select {
+  width: 30vw;
+  min-width: 220px;
+  text-justify: left;
+  border-color: #757575;
+}
+
+.share-button {
+  margin-left: 5px;
+  padding: 0 5px;
+  border: 1px solid #757575;
+  border-radius: 5px;
+  font-size: large;
+  color: #494949;
+}
+
+.editors-list {
+  overflow: scroll;
+  height: 50vh;
+}
+
+.editors-list::-webkit-scrollbar {
+  display: none;
+}
+
+.not-shared {
+  padding: 20px;
+  color: #494949;
+}

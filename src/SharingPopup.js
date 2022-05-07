@@ -1,8 +1,8 @@
-import "./DeleteListPopup.css";
+import "./SharingPopup.css";
 import "./Popup.css";
 import { useState, useEffect, useRef } from "react";
 import CreatableSelect from "react-select/creatable";
-import EditorItem from "./EditorItem"
+import EditorItem from "./EditorItem";
 
 function SharingPopup(props) {
   const start = useRef();
@@ -12,8 +12,9 @@ function SharingPopup(props) {
     DropdownIndicator: null,
   };
 
-  const [inputValue, setInputValue] = useState("falskdj");
+  const [inputValue, setInputValue] = useState("");
   const [value, setValue] = useState([]);
+  const [inputSave, setInputSave] = useState("");
 
   function handleInputChange(inputValue) {
     setInputValue(inputValue);
@@ -24,87 +25,91 @@ function SharingPopup(props) {
     setValue(value);
   }
 
-  function addValue() {
-    setValue([...value, { label: inputValue, value: inputValue }]);
+  function addValue(newValue) {
+    setValue([...value, { label: newValue, value: newValue }]);
     setInputValue("");
   }
 
-  // console.log(props.editors)
+  useEffect(() => {
+    start.current.focus();
+  });
 
   return (
     <div
-      className="popup delete-list-popup"
+      className="popup sharing-popup"
       onKeyDown={(e) => {
         if (e.key === "Escape") {
           props.onClosePopup();
         }
       }}
     >
-      <div className="delete-explanation">SHARINGGG</div>
-      <CreatableSelect
-        isClearable
-        isMulti
-        inputValue={inputValue}
-        onInputChange={(inputValue) => setInputValue(inputValue)}
-        value={value}
-        onChange={(value) => handleChange(value)}
-        onKeyDown={(e) => {
-          if (e.key === "Enter") {
-            if (inputValue === "") {
+      <div className="sharing-title">List Sharing</div>
+      <div className="share-bar">
+        <CreatableSelect
+          className="multi-select"
+          ref={start}
+          isClearable
+          isMulti
+          inputValue={inputValue}
+          onInputChange={(inputValue) => setInputValue(inputValue)}
+          value={value}
+          onChange={(value) => handleChange(value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              if (inputValue === "") {
+                props.onAddEditors(props.id, value);
+                setValue([]);
+              } else {
+                addValue(inputValue);
+              }
+            } else if (e.key === "Tab" && e.shiftKey) {
+              e.preventDefault();
+              end.current.focus();
+            } else if (e.key === "Escape") {
+              e.preventDefault();
+              props.onClosePopup();
+            }
+          }}
+          onBlur={() => setInputSave(inputValue)}
+          components={components}
+          menuIsOpen={false}
+          placeholder="Add emails here..."
+        />
+        <button
+          className="share-button"
+          onClick={() => {
+            if (inputSave === "") {
+              console.log("got here");
               props.onAddEditors(props.id, value);
               setValue([]);
             } else {
-              addValue();
-            }
-          }
-        }}
-        components={components}
-        menuIsOpen={false}
-        placeholder="Add emails here..."
-      />
-      <button
-        onClick={() => {
-          props.onAddEditors(props.id, value);
-          setValue([]);
-        }}
-      >
-        Share
-      </button>
-      <ul>
-        {props.editors.map((editor) => (
-          <EditorItem editor={editor} {...props} />
-        ))}
-      </ul>
-      {/* <div className="delete-list-name">{props.text}?</div>
-      <div className="cancel-ok">
-        <button
-          ref={start}
-          onClick={props.onClosePopup}
-          onKeyDown={(e) => {
-            if (e.key === "Tab" && e.shiftKey) {
-              e.preventDefault();
-              end.current.focus();
+              addValue(inputSave);
             }
           }}
         >
-          Cancel
+          Share
         </button>
-        <button
-          ref={end}
-          onClick={() => {
-            props.onDeleteList(props.id);
-            props.onClosePopup();
-          }}
-          onKeyDown={(e) => {
-            if (e.key === "Tab" && !e.shiftKey) {
-              e.preventDefault();
-              start.current.focus();
-            }
-          }}
-        >
-          OK
-        </button>
-      </div> */}
+      </div>
+      <div className="editors-list">
+        {props.editors.length > 0 ? (
+          <ul>
+            {props.editors.map((editor, index) => (
+              <EditorItem
+                editor={editor}
+                lastOne={props.editors.length - 1 === index}
+                end={end}
+                start={start}
+                {...props}
+              />
+            ))}
+          </ul>
+        ) : (
+          <div className="not-shared">
+            The list is currently not shared with anyone. To share, enter their
+            email in the field above.
+          </div>
+        )}
+      </div>
     </div>
   );
 }

@@ -6,6 +6,7 @@ import SearchBar from "./SearchBar";
 import ListNotFound from "./ListNotFound";
 // import PriorityPopup from "./PriorityPopup";
 import DeleteCompletedPopup from "./DeleteCompletedPopup";
+import SharingPopup from "./SharingPopup";
 import ListContents from "./ListContents";
 import Backdrop from "./Backdrop";
 import { useState, useEffect, useRef } from "react";
@@ -26,6 +27,7 @@ import {
   collection,
 } from "firebase/firestore";
 import LIST_COLLECTION from "./firestore-config.js";
+import userEvent from "@testing-library/user-event";
 
 function ListView(props) {
   const collectionRef = collection(
@@ -43,6 +45,11 @@ function ListView(props) {
   const [deleteCompletedPopup, setDeleteCompletedPopup] = useState(false);
   function handleDeleteCompletedPopup() {
     setDeleteCompletedPopup(!deleteCompletedPopup);
+  }
+
+  const [sharingPopup, setSharingPopup] = useState(false);
+  function handleSharingPopup() {
+    setSharingPopup(!sharingPopup);
   }
 
   // Use for deleting all completed items
@@ -114,6 +121,26 @@ function ListView(props) {
     }
   }, [toScroll]);
 
+  console.log(metadata);
+
+  let isOwner;
+  if (metadata) {
+    isOwner = metadata["owner"] === props.user.email;
+  }
+
+  console.log(isOwner);
+
+  function handleAddEditors(id, newEditors) {
+    const currentEditors = metadata["editors"];
+    const owner = metadata["owner"];
+    const newEditorsList = newEditors.map((object) => object["value"]);
+    const allEditors = currentEditors.concat(newEditorsList);
+    const deduplicateAllEditors = allEditors.filter(
+      (item, pos) => allEditors.indexOf(item) === pos && item != owner
+    );
+    updateDoc(doc(metadataRef, id), { editors: deduplicateAllEditors });
+  }
+
   function handleDeleteCompletedTasks() {
     let completedTasks = [];
     // TODO: ask about whether or not we should have this thru database or not
@@ -165,14 +192,6 @@ function ListView(props) {
     setShowCompleted(!showCompleted);
   }
 
-  // function handleShowCompleted() {
-  //   setShowCompleted(true);
-  // }
-
-  // function handleHideCompleted() {
-  //   setShowCompleted(false);
-  // }
-
   function handleSortType(newSortType) {
     updateDoc(doc(metadataRef, props.currentList), { sort: newSortType });
   }
@@ -204,9 +223,10 @@ function ListView(props) {
         // onShowCompleted={handleShowCompleted}
         onChangeSortType={handleSortType}
         onDeleteCompleted={handleDeleteCompletedPopup}
-        // onTogglePriorityPopup={handlePriorityPopup}
+        onShare={handleSharingPopup}
         isNarrow={props.isNarrow}
         onShowHome={props.onShowHome}
+        isOwner={isOwner}
         homeScreen={false}
         title={title}
         filter={filter}
@@ -220,6 +240,18 @@ function ListView(props) {
             onClosePopup={handleDeleteCompletedPopup}
             showCompleted={showCompleted}
             filter={filter}
+          />
+        </>
+      )}
+      {sharingPopup && (
+        <>
+          <Backdrop onClickBackdrop={handleSharingPopup} />
+          <SharingPopup
+            onClosePopup={handleSharingPopup}
+            editors={metadata["editors"]}
+            onAddEditors={handleAddEditors}
+            id={metadata["id"]}
+            {...props}
           />
         </>
       )}

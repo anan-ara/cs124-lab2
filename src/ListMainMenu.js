@@ -35,6 +35,54 @@ function ListMainMenu(props) {
               end={end}
             />
           </div>
+          {props.isOwner && (
+            <button
+              className="delete-completed bottom-line"
+              onClick={() => {
+                props.onShare();
+                props.onToggleDropdown();
+              }}
+              aria-label={"Share list"}
+            >
+              Share List
+            </button>
+          )}
+          <button
+            ref={end}
+            className="delete-completed bottom-line delete"
+            onClick={() => {
+              props.onDeleteCompleted();
+              props.onToggleDropdown();
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Tab" && !e.shiftKey) {
+                e.preventDefault();
+                start.current.focus();
+              }
+            }}
+          >
+            Delete Completed
+          </button>
+        </>
+      ) : props.isOwner ? (
+        <>
+          <button
+            ref={start}
+            className="delete-completed bottom-line"
+            onClick={() => {
+              props.onShare();
+              props.onToggleDropdown();
+            }}
+            aria-label={"Share list"}
+            onKeyDown={(e) => {
+              if (e.key === "Tab" && e.shiftKey) {
+                e.preventDefault();
+                end.current.focus();
+              }
+            }}
+          >
+            Share List
+          </button>
           <button
             ref={end}
             className="delete-completed delete"
