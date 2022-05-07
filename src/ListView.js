@@ -154,7 +154,8 @@ function ListView(props) {
       .forEach((task) => {
         deleteDoc(doc(collectionRef, task.id));
         deleteCounter = deleteCounter + 1;
-      }).then(
+      })
+      .then(
         updateDoc(doc(metadataRef, props.currentList), {
           total: metadata.total - deleteCounter,
           complete: metadata.complete - deleteCounter,
@@ -168,10 +169,13 @@ function ListView(props) {
 
   function handleToggleChecked(id) {
     const isChecked = data.filter((task) => task.id === id)[0]["checked"];
-    updateDoc(doc(collectionRef, id), { checked: !isChecked });
-    updateDoc(doc(metadataRef, props.currentList), {
-      complete: isChecked ? metadata.complete - 1 : metadata.complete + 1,
-    });
+    updateDoc(doc(collectionRef, id), { checked: !isChecked })
+      .then(() => {
+        updateDoc(doc(metadataRef, props.currentList), {
+          complete: isChecked ? metadata.complete - 1 : metadata.complete + 1,
+        });
+      })
+      .catch((error) => console.error(error));
   }
 
   function handleChangePriority(id, priority) {
@@ -181,16 +185,18 @@ function ListView(props) {
   function addNewTodo(text) {
     const id = generateUniqueID();
     if (text !== "") {
-      updateDoc(doc(metadataRef, props.currentList), {
-        total: metadata.total + 1,
-      });
       setDoc(doc(collectionRef, id), {
         text: text,
         priority: 0,
         checked: false,
         id: id,
         created: serverTimestamp(),
-      }).then(() => setToScroll(true));
+      }).then(() => {
+        updateDoc(doc(metadataRef, props.currentList), {
+          total: metadata.total + 1,
+        });
+        setToScroll(true);
+      });
     }
   }
 
@@ -205,11 +211,12 @@ function ListView(props) {
   //   These handlers need the collectionRef too
   function handleDeleteTask(id) {
     const isChecked = data.filter((task) => task.id === id)[0]["checked"];
-    updateDoc(doc(metadataRef, props.currentList), {
-      total: metadata.total - 1,
-      complete: isChecked ? metadata.complete - 1 : metadata.complete,
-    });
-    deleteDoc(doc(collectionRef, id));
+    deleteDoc(doc(collectionRef, id)).then(() => {
+      updateDoc(doc(metadataRef, props.currentList), {
+        total: metadata.total - 1,
+        complete: isChecked ? metadata.complete - 1 : metadata.complete,
+      });}
+    ).catch((error) => console.error(error));
   }
 
   function handleChangeText(id, newText) {
