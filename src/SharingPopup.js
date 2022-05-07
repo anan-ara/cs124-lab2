@@ -12,6 +12,8 @@ function SharingPopup(props) {
     DropdownIndicator: null,
   };
 
+  console.log(props);
+
   const [inputValue, setInputValue] = useState("");
   const [value, setValue] = useState([]);
   const [inputSave, setInputSave] = useState("");
@@ -39,17 +41,19 @@ function SharingPopup(props) {
     } else if (validateEmail(newValue)) {
       setEmailNotValid("valid");
       setValue([...value, { label: newValue, value: newValue }]);
-    }  else {
+    } else {
       setEmailNotValid("not valid");
     }
     setInputValue("");
   }
 
   useEffect(() => {
-    start.current.focus();
+    if (props.sharingLevel === "owner") {
+      start.current.focus();
+    }
   });
 
-  console.log(props.owner)
+  console.log(props.owner);
 
   return (
     <div
@@ -62,55 +66,63 @@ function SharingPopup(props) {
     >
       <div className="sharing-title">List Sharing</div>
       <div className="extra-text">This list belongs to {props.owner}</div>
-      {emailNotValid === "not valid" && <div className="extra-text">Please enter a valid email address</div>}
-      {emailNotValid === "adding owner" && <div className="extra-text">You cannot share the list with the owner of list</div>}
-      <div className="share-bar">
-        <CreatableSelect
-          className="multi-select"
-          ref={start}
-          isClearable
-          isMulti
-          inputValue={inputValue}
-          onInputChange={(inputValue) => setInputValue(inputValue)}
-          value={value}
-          onChange={(value) => handleChange(value)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              if (inputValue === "") {
+      {emailNotValid === "not valid" && (
+        <div className="extra-text">Please enter a valid email address</div>
+      )}
+      {emailNotValid === "adding owner" && (
+        <div className="extra-text">
+          You cannot share the list with the owner of list
+        </div>
+      )}
+      {props.sharingLevel === "owner" && (
+        <div className="share-bar">
+          <CreatableSelect
+            className="multi-select"
+            ref={start}
+            isClearable
+            isMulti
+            inputValue={inputValue}
+            onInputChange={(inputValue) => setInputValue(inputValue)}
+            value={value}
+            onChange={(value) => handleChange(value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                if (inputValue === "") {
+                  props.onAddEditors(props.id, value);
+                  setEmailNotValid(false);
+                  setValue([]);
+                } else {
+                  addValue(inputValue);
+                }
+              } else if (e.key === "Tab" && e.shiftKey) {
+                e.preventDefault();
+                end.current.focus();
+              } else if (e.key === "Escape") {
+                e.preventDefault();
+                props.onClosePopup();
+              }
+            }}
+            onBlur={() => setInputSave(inputValue)}
+            components={components}
+            menuIsOpen={false}
+            placeholder="Add emails here..."
+          />
+          <button
+            className="share-button"
+            onClick={() => {
+              if (inputSave === "") {
                 props.onAddEditors(props.id, value);
                 setEmailNotValid(false);
                 setValue([]);
               } else {
-                addValue(inputValue);
+                addValue(inputSave);
               }
-            } else if (e.key === "Tab" && e.shiftKey) {
-              e.preventDefault();
-              end.current.focus();
-            } else if (e.key === "Escape") {
-              e.preventDefault();
-              props.onClosePopup();
-            }
-          }}
-          onBlur={() => setInputSave(inputValue)}
-          components={components}
-          menuIsOpen={false}
-          placeholder="Add emails here..."
-        />
-        <button
-          className="share-button"
-          onClick={() => {
-            if (inputSave === "") {
-              props.onAddEditors(props.id, value);
-              setEmailNotValid(false);
-              setValue([]);
-            } else {
-              addValue(inputSave);
-            }
-          }}
-        >
-          Share
-        </button>
-      </div>
+            }}
+          >
+            Share
+          </button>
+        </div>
+      )}
       <div className="editors-list">
         {props.editors.length > 0 ? (
           <ul>

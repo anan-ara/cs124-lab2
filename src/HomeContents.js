@@ -29,7 +29,7 @@ function HomeContents(props) {
       ) : (
         <>
         {/* TODO: make this code more robust for multiple permission levels */}
-          {props.ownerData.length === 0 && (
+          {props.ownerData.length === 0 && props.editorData.length === 0 && (
             <div className={"empty"}>
               {props.ownerUnfilteredData.length === 0
                 ? "You currently have no lists."
@@ -46,6 +46,7 @@ function HomeContents(props) {
                 total={e.total}
                 complete={e.complete}
                 editors={e.editors}
+                viewers={e.viewers}
                 key={e.id}
                 id={e.id}
                 owner={e.owner}
@@ -62,8 +63,11 @@ function HomeContents(props) {
                 checked={e.checked}
                 total={e.total}
                 complete={e.complete}
+                editors={e.editors}
+                viewers={e.viewers}
                 key={e.id}
                 id={e.id}
+                owner={e.owner}
                 onToggleScroll={handleToggleScroll}
                 sharingLevel={"editor"}
                 {...props}

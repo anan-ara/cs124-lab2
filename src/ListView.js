@@ -123,12 +123,18 @@ function ListView(props) {
 
   console.log(metadata);
 
-  let isOwner;
+  let sharingLevel = "viewer";
   if (metadata) {
-    isOwner = metadata["owner"] === props.user.email;
+    if (metadata["owner"] === props.user.email) {
+      sharingLevel = "owner";
+    } else if (metadata["editors"].includes(props.user.email)) {
+      sharingLevel = "editor";
+    } else {
+      sharingLevel = "viewer";
+    }
   }
 
-  console.log(isOwner);
+  console.log(sharingLevel);
 
   function handleAddEditors(id, newEditors) {
     const currentEditors = metadata["editors"];
@@ -206,6 +212,14 @@ function ListView(props) {
     deleteDoc(doc(collectionRef, id));
   }
 
+  function handleRemoveEditor(id, removeEditor) {
+    const currentEditors = metadata["editors"];
+    const removedEditors = currentEditors.filter(
+      (editor) => editor !== removeEditor
+    );
+    updateDoc(doc(metadataRef, id), { editors: removedEditors });
+  }
+
   function handleChangeText(id, newText) {
     props.handleChangeText(id, newText, collectionRef);
   }
@@ -226,7 +240,7 @@ function ListView(props) {
         onShare={handleSharingPopup}
         isNarrow={props.isNarrow}
         onShowHome={props.onShowHome}
-        isOwner={isOwner}
+        sharingLevel={sharingLevel}
         homeScreen={false}
         title={title}
         filter={filter}
@@ -249,7 +263,10 @@ function ListView(props) {
           <SharingPopup
             onClosePopup={handleSharingPopup}
             editors={metadata["editors"]}
+            viewers={metadata["viewers"]}
+            sharingLevel={sharingLevel}
             onAddEditors={handleAddEditors}
+            onRemoveEditor={handleRemoveEditor}
             id={metadata["id"]}
             owner={metadata["owner"]}
             {...props}

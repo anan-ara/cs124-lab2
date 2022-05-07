@@ -103,9 +103,6 @@ function App(props) {
           auth={auth}
           db={db}
         />
-        <button type="button" onClick={() => signOut(auth)}>
-          Sign out
-        </button>
       </div>
     ) : verifyEmailSent ? (
       <SentVerification
