@@ -46,17 +46,10 @@ function ListMainMenu(props) {
             {props.sharingLevel === "owner" ? "Share List" : "View Sharing"}
           </button>
           <button
-            ref={end}
             className="delete-completed bottom-line delete"
             onClick={() => {
               props.onDeleteCompleted();
               props.onToggleDropdown();
-            }}
-            onKeyDown={(e) => {
-              if (e.key === "Tab" && !e.shiftKey) {
-                e.preventDefault();
-                start.current.focus();
-              }
             }}
           >
             Delete Completed
@@ -82,23 +75,31 @@ function ListMainMenu(props) {
             {props.sharingLevel === "owner" ? "Share List" : "View Sharing"}
           </button>
           <button
-            ref={end}
-            className="delete-completed delete"
+            className="delete-completed delete bottom-line"
             onClick={() => {
               props.onDeleteCompleted();
               props.onToggleDropdown();
-            }}
-            onKeyDown={(e) => {
-              if (e.key === "Tab" && !e.shiftKey) {
-                e.preventDefault();
-                start.current.focus();
-              }
             }}
           >
             Delete Completed
           </button>
         </>
       )}
+      <button
+        ref={end}
+        onClick={() => {
+          props.onToggleDropdown();
+          props.onSignOut();
+        }}
+        onKeyDown={(e) => {
+          if (e.key === "Tab" && !e.shiftKey) {
+            e.preventDefault();
+            start.current.focus();
+          }
+        }}
+      >
+        Sign Out
+      </button>
     </div>
   );
 }

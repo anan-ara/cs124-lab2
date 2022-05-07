@@ -29,7 +29,7 @@ function HomeContents(props) {
       ) : (
         <>
         {/* TODO: make this code more robust for multiple permission levels */}
-          {props.ownerData.length === 0 && (
+          {props.ownerData.length === 0 && props.editorData.length === 0 && (
             <div className={"empty"}>
               {props.ownerUnfilteredData.length === 0
                 ? "You currently have no lists."

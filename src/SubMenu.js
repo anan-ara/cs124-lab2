@@ -48,6 +48,7 @@ function SubMenu(props) {
         ) : (
           <button
             onClick={() => props.onAddHiddenListId(props.id)}
+            className="bottom-line"
             ref={start}
             onKeyDown={(e) => {
               if (e.key === "Tab" && e.shiftKey) {
