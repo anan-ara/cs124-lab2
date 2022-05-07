@@ -17,10 +17,6 @@ function SharingPopup(props) {
   const [inputSave, setInputSave] = useState("");
   const [emailNotValid, setEmailNotValid] = useState("valid");
 
-  function handleInputChange(inputValue) {
-    setInputValue(inputValue);
-  }
-
   function handleChange(value) {
     setValue(value);
   }

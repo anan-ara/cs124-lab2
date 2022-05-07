@@ -12,7 +12,7 @@ function SubMenu(props) {
 
   function getMenuClassname() {
     if (props.homeScreen)
-      if (props.sharingLevel == "owner") {
+      if (props.sharingLevel === "owner") {
         return "home-owner-menu";
       } else {
         return "home-shared-with-menu";

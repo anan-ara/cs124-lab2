@@ -135,7 +135,7 @@ function ListView(props) {
     const newEditorsList = newEditors.map((object) => object["value"]);
     const allEditors = currentEditors.concat(newEditorsList);
     const deduplicateAllEditors = allEditors.filter(
-      (item, pos) => allEditors.indexOf(item) === pos && item != owner
+      (item, pos) => allEditors.indexOf(item) === pos && item !== owner
     );
     updateDoc(doc(metadataRef, id), { editors: deduplicateAllEditors });
   }

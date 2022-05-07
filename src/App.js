@@ -3,7 +3,7 @@ import SignUp from "./SignUp";
 import SignIn from "./SignIn";
 import { getAuth, signOut } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { getFirestore, collection } from "firebase/firestore";
+import { getFirestore } from "firebase/firestore";
 import { initializeApp } from "firebase/app";
 import { useState, useEffect } from "react";
 import SentVerification from "./SentVerification";
@@ -57,9 +57,22 @@ function App(props) {
 
   useEffect(() => {
     if (user && !user.emailVerified) {
-      verifyEmail();
+      if (!user.emailVerified) {
+        setVerifyEmailSending(true);
+        sendEmailVerification(user)
+          .then(() => {
+            // Verification email sent. Show new screen
+            setVerifyEmailSent(true); // make it so that the email verification thing shows up
+            setVerifyEmailSending(false);
+          })
+          .catch((error) => {
+            // Error occurred. Inspect error.code. TODO show actual error message
+            console.error("ERROR when trying to send email verification" + error);
+            setVerifyEmailSending(false);
+          });
+      }
     }
-  }, [user, verifyEmail]);
+  }, [user]);
 
   // This is here so that both sign up and go verify can use it.
   function verifyEmail() {

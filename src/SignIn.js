@@ -34,6 +34,12 @@ function SignIn(props) {
   };
 
 
+  if (error2) {
+    console.error(error2);
+  }
+  if (error3) {
+    console.error(error3);
+  }
   const pwField = useRef();
 
   const user = user1 || user2 || user3;

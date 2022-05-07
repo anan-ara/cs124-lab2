@@ -1,7 +1,6 @@
 import "./HiddenListsPopup.css"
 import "./Popup.css";
 import "./SharingPopup.css"
-import { useRef } from "react";
 import HiddenListItem from "./HiddenListItem";
 
 function HiddenListsPopup(props) {
