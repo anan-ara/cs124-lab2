@@ -23,13 +23,8 @@ function SignUp(props) {
     "Firebase: Error (auth/invalid-email).":
       "Email address does not appear to be valid. Please try again.",
     "Firebase: Error (auth/internal-error).": "Password cannot be empty.",
-    "Firebase: Error (auth/email-already-in-use).": (
-      <div>
-        Email address is already in use. Please go back to the login page.{" "}
-        <br></br>
-        <button onClick={() => props.setSignUp(false)}>Go Back to Login</button>
-      </div>
-    ),
+    "Firebase: Error (auth/email-already-in-use).":"Email address is already in use. Please go back to the Sign In page.",
+    "Firebase: Error (auth/missing-email).":"Email cannot be empty. Please enter an email address.",
   };
 
   return (
