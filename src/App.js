@@ -57,11 +57,6 @@ function App(props) {
     signOut(auth);
   }
 
-  // TODO: see if there is a better way to do this!
-  // Hacky way to make the createUser function only be called when user is first defined
-  // ISSUE: this happens whenever a user signs in, not just when they initially sign in
-  // TODO: right now verifyEmail is sent on reload even when it's already been sent and we're just showing the
-  // ResendVerification screen. THis should be fixed once we move this out of the useEffect though.
   useEffect(() => {
     if (user && !user.emailVerified) {
       verifyEmail();
@@ -83,8 +78,6 @@ function App(props) {
           // Error occurred. Inspect error.code. TODO show actual error message
           console.error("ERROR when trying to send email verification" + error);
           setVerifyEmailSending(false);
-
-          // TODO: give correct error message for : "FirebaseError: Firebase: Error (auth/too-many-requests)."
         });
     }
   }
@@ -126,7 +119,6 @@ function App(props) {
   } else {
     return (
       <>
-        {/* TODO: show user friendly error message here */}
         {error && <p>Error App: {error.message}</p>}
         {signUp ? (
           <SignUp

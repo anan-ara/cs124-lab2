@@ -23,7 +23,6 @@ function SubMenu(props) {
 
   return (
     <div
-      // TODO: unhard code 125 -- right now 125 is pixels of sub menu height
       className={
         props.top + 125 > props.bottomBarLocation
           ? "dropdown poptop"

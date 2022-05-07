@@ -40,7 +40,6 @@ function SignedInApp(props) {
 
 
   // Priority icons
-  //  TODO: currently this code doesn't work when we first create a new user and verify them. (until we reload the page)
   function setLowPriorityIcon(newIcon) {
     console.log("in setLowPriorityIcon, newIcon is " + newIcon)
     updateDoc(doc(usersCollection, props.user.uid), { lowPriorityIcon: newIcon });

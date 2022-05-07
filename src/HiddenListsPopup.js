@@ -42,7 +42,6 @@ function HiddenListsPopup(props) {
         )}
       </div>
     </div>
-    // TODO: maybe add OK, cancel buttons?
   );
 }
 

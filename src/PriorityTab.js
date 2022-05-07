@@ -1,6 +1,5 @@
 import "./PriorityTab.css";
 function PriorityTab(props) {
-  // TODO: don't hardcode end of array
   return (
     <div className="priority_grid">
       {props.iconOptions.map((emoji, index) =>

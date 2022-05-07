@@ -70,7 +70,6 @@ function HomeMainMenu(props) {
         onClick={() => {
           props.onToggleDropdown();
           props.onToggleHiddenListsPopup();
-          // TODO: put acutal code here to show the popup.
         }}
       >
         Edit/View Hidden Lists

@@ -8,8 +8,7 @@ function DeleteCompletedPopup(props) {
 
   useEffect(() => {
     start.current.focus();
-  });
-  // const [text, setText] = useState("");
+  });s
 
   let extraWarningText = "";
   if (props.filter !== "") {

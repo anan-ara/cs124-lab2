@@ -1,7 +1,6 @@
 import "./todo.css";
 import TopBar from "./TopBar";
 import SearchBar from "./SearchBar";
-// import BottomBar from "./BottomBar";
 import PriorityPopup from "./PriorityPopup";
 import CreateListPopup from "./CreateListPopup";
 import HomeContents from "./HomeContents";
@@ -11,7 +10,6 @@ import { useState, useEffect, useRef, useId } from "react";
 import { generateUniqueID } from "web-vitals/dist/modules/lib/generateUniqueID";
 import {
   useCollectionData,
-  // useDocumentData,
 } from "react-firebase-hooks/firestore";
 import {
   query,
@@ -75,15 +73,13 @@ function Home(props) {
   }
 
   let orderByParam = orderBy(sortType);
-  orderByParam = orderBy("created"); // TODO NOW: change back only like this bc of firebase indices not being made yet!!
-  // let queryParam = query(collectionRef, orderByParam, where("owner", "==", props.user.email));
+  orderByParam = orderBy("created"); 
   let myQueryParam = query(
     collectionRef,
     orderByParam,
     where("owner", "==", props.user.email)
   );
 
-  // TODO: use this for shared things
   let editorQueryParam = query(
     collectionRef,
     orderByParam,

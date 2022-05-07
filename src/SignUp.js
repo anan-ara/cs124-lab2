@@ -1,14 +1,8 @@
 import {
-  // useAuthState,
   useCreateUserWithEmailAndPassword,
-  // useSignInWithEmailAndPassword,
-  // useSignInWithGoogle
 } from "react-firebase-hooks/auth";
-// import { setDoc, doc, collection, getFirestore } from "firebase/firestore";
-// import { initializeApp } from "firebase/app";
-// import { getFirestore, collection, updateDoc, doc } from "firebase/firestore";
+
 import { useState, useRef } from "react";
-// import { sendEmailVerification } from "firebase/auth";
 
 
 function SignUp(props) {

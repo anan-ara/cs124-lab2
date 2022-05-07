@@ -4,7 +4,6 @@ import SubBar from "./SubBar";
 import BottomBar from "./BottomBar";
 import SearchBar from "./SearchBar";
 import ListNotFound from "./ListNotFound";
-// import PriorityPopup from "./PriorityPopup";
 import DeleteCompletedPopup from "./DeleteCompletedPopup";
 import SharingPopup from "./SharingPopup";
 import ListContents from "./ListContents";
@@ -72,7 +71,6 @@ function ListView(props) {
 
   if (metadataError) {
     console.log(metadataError);
-    // TODO: actual error message?
   }
 
   let sortType = "created";
@@ -149,7 +147,6 @@ function ListView(props) {
 
   function handleDeleteCompletedTasks() {
     let completedTasks = [];
-    // TODO: ask about whether or not we should have this thru database or not
     if (!checkedLoading && !checkedError) {
       completedTasks = checkedData;
     } else {
