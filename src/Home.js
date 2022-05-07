@@ -75,7 +75,6 @@ function Home(props) {
   }
 
   let orderByParam = orderBy(sortType);
-  orderByParam = orderBy("created"); // TODO NOW: change back only like this bc of firebase indices not being made yet!!
   // let queryParam = query(collectionRef, orderByParam, where("owner", "==", props.user.email));
   let myQueryParam = query(
     collectionRef,

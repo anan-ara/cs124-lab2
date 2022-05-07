@@ -21,6 +21,8 @@ function HomeMainMenu(props) {
         }
       }}
     >
+            <label id="name-label" className="bottom-line">{"Logged in as: " + (props.user.displayName || props.user.email)}</label>
+
       {props.isWide ? (
         <>
           <button
@@ -75,6 +77,7 @@ function HomeMainMenu(props) {
       >
         Edit/View Hidden Lists
       </button>
+      {/* <label id="name-label" className="bottom-line">{"Logged in as: " + (props.user.displayName || props.user.email)}</label> */}
       <button
         ref={end}
         onClick={() => {
