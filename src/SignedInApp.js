@@ -89,6 +89,7 @@ function SignedInApp(props) {
             medPriorityIcon: medPriorityIcon,
             sort: "created",
             email: props.user.email,
+            hiddenLists: []
           }).catch(error => console.log(error));
     return <div>Loading...</div>;
   }

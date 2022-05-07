@@ -49,12 +49,12 @@ function HomeContents(props) {
                 key={e.id}
                 id={e.id}
                 onToggleScroll={handleToggleScroll}
-                shared={false}
+                sharingLevel={"owner"}
                 {...props}
               />
             ))}
             {props.editorData.map((e) => (
-              <ListItem
+              ((props.usersData && !props.usersData.hiddenLists.includes(e.id)) &&  <ListItem
                 text={e.text}
                 priority={e.priority}
                 // priorityToIcon={props.priorityToIcon}
@@ -64,9 +64,9 @@ function HomeContents(props) {
                 key={e.id}
                 id={e.id}
                 onToggleScroll={handleToggleScroll}
-                shared={true}
+                sharingLevel={"editor"}
                 {...props}
-              />
+              />)
             ))}
           </ul>
         </>

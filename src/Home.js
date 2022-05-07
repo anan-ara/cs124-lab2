@@ -35,9 +35,11 @@ import {
 //   highPriorityOptions,
 // } from ".";
 import LIST_COLLECTION from "./firestore-config";
+import HiddenListsPopup from "./HiddenListsPopup";
 
 function Home(props) {
   // const LIST_COLLECTION = "cs124-users/default/lists";
+  console.log("in HOme, props.usersData is", props.usersData);
   const collectionRef = collection(props.db, LIST_COLLECTION);
   const usersRef = collection(props.db, "users");
 
@@ -51,6 +53,12 @@ function Home(props) {
     setPriorityPopup(!priorityPopup);
   }
 
+  // Hidden lists popup
+  const [hiddenListsPopup, setHiddenListsPopup] = useState(false);
+  function handleHiddenListsPopup() {
+    setHiddenListsPopup(!hiddenListsPopup);
+  }
+
   // Create List Confirmation
   const [createListPopup, setCreateListPopup] = useState(false);
   function handleCreateListPopup() {
@@ -58,29 +66,44 @@ function Home(props) {
   }
 
   let sortType = "created";
+  console.log("Home view rerendering");
 
   // Get data from database.
   if (!props.usersLoading && !props.usersError) {
+    console.log("props.usersData.sort is " + props.usersData.sort);
     sortType = props.usersData.sort;
   }
 
   let orderByParam = orderBy(sortType);
-  orderByParam = orderBy("created");
+  orderByParam = orderBy("created"); // TODO NOW: change back only like this bc of firebase indices not being made yet!!
   // let queryParam = query(collectionRef, orderByParam, where("owner", "==", props.user.email));
-  let myQueryParam = query(collectionRef, orderByParam, where("owner", "==", props.user.email));
+  let myQueryParam = query(
+    collectionRef,
+    orderByParam,
+    where("owner", "==", props.user.email)
+  );
 
   // TODO: use this for shared things
-  let editorQueryParam = query(collectionRef, orderByParam, where("editors", "array-contains", props.user.email));
+  let editorQueryParam = query(
+    collectionRef,
+    orderByParam,
+    where("editors", "array-contains", props.user.email)
+  );
 
   const [ownerData, ownerLoading, ownerError] = useCollectionData(myQueryParam);
-  const [editorData, editorLoading, editorError] = useCollectionData(editorQueryParam);
+  const [editorData, editorLoading, editorError] =
+    useCollectionData(editorQueryParam);
 
   // Search bar functionality
   let ownerFilteredData = ownerData;
   let editorFilteredData = editorData;
   if (!ownerLoading && !editorLoading) {
-    ownerFilteredData = ownerData.filter((item) => item.text.toLowerCase().includes(filter.toLowerCase()));
-    editorFilteredData = editorData.filter((item) => item.text.toLowerCase().includes(filter.toLowerCase()));
+    ownerFilteredData = ownerData.filter((item) =>
+      item.text.toLowerCase().includes(filter.toLowerCase())
+    );
+    editorFilteredData = editorData.filter((item) =>
+      item.text.toLowerCase().includes(filter.toLowerCase())
+    );
   }
 
   // Needed so that we know when the submenu menu needs to pop up instead of down.
@@ -109,28 +132,37 @@ function Home(props) {
         sort: "created",
         complete: 0,
         total: 0,
-        owner: props.user.email, 
-        viewers: [], 
+        owner: props.user.email,
+        viewers: [],
         editors: [],
-        admins: []
+        admins: [],
       }); //.then(() => setToScroll(true));
     }
   }
 
   function handleSortType(newSortType) {
-    updateDoc(doc(usersRef, "default"), { sort: newSortType });
+    updateDoc(doc(usersRef, props.user.uid), { sort: newSortType });
+  }
+
+  function addHiddenListId(listId) {
+    updateDoc(doc(usersRef, props.user.uid), {
+      hiddenLists: props.usersData.hiddenLists.concat([listId]),
+    });
+    // currentEditors.concat(newEditorsList);
+  }
+
+  function removeHiddenListId(listId) {
+    updateDoc(doc(usersRef, props.user.uid), {
+      hiddenLists: props.usersData.hiddenLists.filter((id) => id != listId),
+    });
+    // currentEditors.concat(newEditorsList);
   }
 
   //   These handlers need the collectionRef too
   function handleDeleteList(id) {
     deleteDoc(doc(collectionRef, id));
 
-    const subCollectionRef = collection(
-      props.db,
-      LIST_COLLECTION,
-      id,
-      "items"
-    );
+    const subCollectionRef = collection(props.db, LIST_COLLECTION, id, "items");
     const q = query(subCollectionRef);
     getDocs(q).then((querySnapshot) =>
       querySnapshot.forEach((listDoc) => {
@@ -153,8 +185,12 @@ function Home(props) {
   }
 
   function handleRemoveEditor(id, removeEditor) {
-    const currentEditors = ownerData.filter((list) => list.id === id)[0]["editors"];
-    const removedEditors = currentEditors.filter((editor) => editor !== removeEditor)
+    const currentEditors = ownerData.filter((list) => list.id === id)[0][
+      "editors"
+    ];
+    const removedEditors = currentEditors.filter(
+      (editor) => editor !== removeEditor
+    );
     updateDoc(doc(collectionRef, id), { editors: removedEditors });
   }
 
@@ -183,6 +219,7 @@ function Home(props) {
         homeScreen={true}
         title={"My Lists"}
         onTogglePriorityPopup={handlePriorityPopup}
+        onToggleHiddenListsPopup={handleHiddenListsPopup}
         filter={filter}
         setFilter={setFilter}
         {...props}
@@ -190,10 +227,24 @@ function Home(props) {
       {priorityPopup && (
         <>
           <Backdrop onClickBackdrop={handlePriorityPopup} />
-          <PriorityPopup onTogglePriorityPopup={handlePriorityPopup} {...props} />
+          <PriorityPopup
+            onTogglePriorityPopup={handlePriorityPopup}
+            {...props}
+          />
         </>
       )}
 
+      {hiddenListsPopup && (
+        <>
+          <Backdrop onClickBackdrop={handleHiddenListsPopup} />
+          <HiddenListsPopup
+            onToggleHiddenListsPopup={handleHiddenListsPopup}
+            editorData={editorData}
+            onRemoveHiddenListId={removeHiddenListId}
+            {...props}
+          />
+        </>
+      )}
       {props.isNarrow && (
         <div id="search_bar_div">
           <SearchBar filter={filter} setFilter={setFilter} />
@@ -215,6 +266,8 @@ function Home(props) {
         getBottomBarLocation={getBottomBarLocation}
         onAddEditors={handleAddEditors}
         onRemoveEditor={handleRemoveEditor}
+        onAddHiddenListId={addHiddenListId}
+        {...props}
       />
       <HomeBottomBar
         handleAddList={handleCreateListPopup}
