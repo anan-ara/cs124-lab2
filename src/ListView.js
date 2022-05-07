@@ -212,6 +212,14 @@ function ListView(props) {
     deleteDoc(doc(collectionRef, id));
   }
 
+  function handleRemoveEditor(id, removeEditor) {
+    const currentEditors = metadata["editors"];
+    const removedEditors = currentEditors.filter(
+      (editor) => editor !== removeEditor
+    );
+    updateDoc(doc(metadataRef, id), { editors: removedEditors });
+  }
+
   function handleChangeText(id, newText) {
     props.handleChangeText(id, newText, collectionRef);
   }
@@ -256,8 +264,9 @@ function ListView(props) {
             onClosePopup={handleSharingPopup}
             editors={metadata["editors"]}
             viewers={metadata["viewers"]}
-        sharingLevel={sharingLevel}
+            sharingLevel={sharingLevel}
             onAddEditors={handleAddEditors}
+            onRemoveEditor={handleRemoveEditor}
             id={metadata["id"]}
             owner={metadata["owner"]}
             {...props}
