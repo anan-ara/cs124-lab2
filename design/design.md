@@ -15,6 +15,14 @@ After the user clicks on a list, the app shows all of the tasks for that list in
 
 More details about both of these views can be found in the section below.
 
+## Authentication
+Our app currently provides ways for users to login using their email and password, or using Google. Additionally, we have a sign up link which takes new users to a separate sign up page, and a password reset link which allows users to send a password reset email to themselves if they ever forget the password to the app.
+
+Because shared lists are accepted by default, we made it so that users must verify their emails before they are able to use the app.
+## Sharing Behavior
+On the main screen, lists owned by the user are shown first. This is intended behavior as we thought it would make more sense that most users would not want to group their personal lists with lists shared with them, even when following sorting rules. To differentiate between owned lists and shared lists, owned lists have the same 3 dots options menu, while shared lists have a person icon.
+Currently, owners of the list are able to expand the 3 dots out to show the "Share Lists" option, which opens up a popup that allows them to share the list with others. 
+For non-list owners, they inistead have the option to 
 ## Home Screen
 The home screen has the following features:
 - Create/edit/delete lists
@@ -254,6 +262,22 @@ Saatvik also initially thought that the search bar is the add task/list button. 
 Alekz also didn't like how different our home view and list view were. He thought that the home view was too rounded and the list view was too blocky, and that there wasn't enough consistency between the two. Upon reflection, we believe he is right and we chose to make the home view less rounded and more blocky to match the list view.
 
 Alekz also mentioned that on a phone, when people click the text, they likely want to rename the task rather than checking/unchecking the checkbox. He also showed us an example with Apple's Reminders app. We believe that he is right and we would like to make this the default functionality for the next lab.
+
+## Testing Group 11: Santiago Rodriguez and Tom Fu
+Tom and Santiago took a while to figure out how to create lists/tasks. A big criticism they had for the app was that it was hard to locate the "add new list/task" button because it is located at the very bottom of the screen, which is unintuitive for most people when testing on a laptop. This is an artifact of when the app was mobile-only. In the future, for larger screen sizes, it may make more sense to move the list/task creation bar up closer to the top of the page as this is more in line with traditional web pages meant for the desktop.
+
+They also suggested that the shared lists should show who the list owner/who shared the list with you is. This makes sense, and thanks to their feedback, we added this feature to our app, with a new pop up screen allowing non-owners of the list to view the owner of the list as well as other users the list is shared with.
+
+They also felt that some of the buttons/UI elements were smaller than what they were used to. Currently, our app does allow for zooming with many elements reacting and adjusting to the zoom level accordingly, but it the future, we will certainly look into setting up better default values for the sizes of different UI elements.
+
+Tom also mentioned that it would be helpful to see within the list who made which task. While we think this information could be useful, we decided that it is not useful for most and is not worth the screen space. In future iterations of our app, we may decide to add a feature which would give users the option of displaying the original task creator, but as of this moment, we do not believe this is a necessary feature.
+
+## Testing Group 12: Sydney Cornell and Solomen Valore-Caplan
+Sydney and Solomon had a bit of trouble signing into our app initially. They signed in using the regular email & password after making an account through the sign up page, and were able to verify their emails successfully. 
+
+A feature that Sydney and Solomon wanted to see was to sort by checked/unchecked. While we see the appeal of this feature, we were also not sure how we should implement it such that it is intuitive for all users. As we already have a show/hide all completed tasks, we are not sure if this feature would be redundant. Additionally, adding it as a sorting feature along with our existing sorting options would lead to a compound sorting heirarchy, which greatly increases the complexity in using our app. Because of this, we think we should not give users the option to sort by checked/unchecked, and to instead have this feature enabled/disabled by default. Since we were not able to get any more input on this from other users, we decided to keep the list sorting as is where checked status has no impact on the sorting, but if there is enough demand for this type of sorting in the future, then we will change the default sorting behavior to take into account the checked/unchecked status.
+
+Sydney and Solomon also liked the priority emoji feature, and thought it was cool that there was an option to hide lists shared with you.
 
 # Final Design
 
