@@ -9,7 +9,7 @@ import {
   useSignInWithGithub,
 } from "react-firebase-hooks/auth";
 import GoogleButton from "react-google-button";
-import GithubButton from "react-github-login-button";
+// import GithubButton from "react-github-login-button";
 
 import { useState, useRef } from "react";
 
@@ -96,7 +96,7 @@ function SignIn(props) {
           </div>
           <hr />
           <GoogleButton className="google" onClick={() => signInWithGoogle()} />
-          <GithubButton onClick={() => signInWithGithub()} />
+          {/* <GithubButton onClick={() => signInWithGithub()} /> */}
           <p>
             Don't have an account?{" "}
             <button onClick={props.onToggleSignUp}>Sign up</button>

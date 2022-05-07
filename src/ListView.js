@@ -258,6 +258,7 @@ function ListView(props) {
         title={title}
         filter={filter}
         setFilter={setFilter}
+        onSignOut={props.onSignOut}
       />
       {deleteCompletedPopup && (
         <>
