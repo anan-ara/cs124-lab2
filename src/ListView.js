@@ -150,14 +150,20 @@ function ListView(props) {
       completedTasks = data.filter((task) => task.checked === true);
     }
     let deleteCounter = 0;
-    completedTasks.forEach((task) => {
-      deleteDoc(doc(collectionRef, task.id));
-      deleteCounter = deleteCounter + 1;
-    });
-    updateDoc(doc(metadataRef, props.currentList), {
-      total: metadata.total - deleteCounter,
-      complete: metadata.complete - deleteCounter,
-    });
+    completedTasks
+      .forEach((task) => {
+        deleteDoc(doc(collectionRef, task.id));
+        deleteCounter = deleteCounter + 1;
+      }).then(
+        updateDoc(doc(metadataRef, props.currentList), {
+          total: metadata.total - deleteCounter,
+          complete: metadata.complete - deleteCounter,
+        })
+      );
+    // updateDoc(doc(metadataRef, props.currentList), {
+    //   total: metadata.total - deleteCounter,
+    //   complete: metadata.complete - deleteCounter,
+    // });
   }
 
   function handleToggleChecked(id) {
