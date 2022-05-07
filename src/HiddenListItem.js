@@ -1,10 +1,11 @@
-
+import "./EditorItem.css"
+import "./HiddenListItem.css"
 function HiddenListItem(props) {
 
   return (
-    <li key={props.hiddenListId}>
-      {props.hiddenListText}
-      <button onClick={() => props.onRemoveHiddenListId(props.hiddenListId)}>Show</button>
+    <li className="editor" key={props.hiddenListId}>
+      <div className="list-text">{props.hiddenListText}</div>
+      <button className="remove-user" onClick={() => props.onRemoveHiddenListId(props.hiddenListId)}>Show</button>
     </li>
   );
 }

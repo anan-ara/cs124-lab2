@@ -1,5 +1,6 @@
-import "./DeleteListPopup.css";
+import "./HiddenListsPopup.css"
 import "./Popup.css";
+import "./SharingPopup.css"
 import { useRef } from "react";
 import HiddenListItem from "./HiddenListItem";
 
@@ -16,28 +17,30 @@ function HiddenListsPopup(props) {
 
   return (
     <div
-      className="popup delete-list-popup"
+    className="popup hidden-list-popup sharing-popup"
       onKeyDown={(e) => {
         if (e.key === "Escape") {
           props.onToggleHiddenListsPopup();
         }
       }}
     >
-      <div className="delete-explanation">Hidden Lists</div>
-      {/* If there are no hidden lists, say so, else show the hidden lists. */}
-      {hiddenListsData.length == 0 ? (
-        <span>You have no hidden lists.</span>
-      ) : (
-        <ul>
-          {hiddenListsData.map((listData) => (
-            <HiddenListItem
-              hiddenListText={listData.text}
-              hiddenListId={listData.id}
-              onRemoveHiddenListId={props.onRemoveHiddenListId}
-            />
-          ))}
-        </ul>
-      )}
+      <div className="hidden-list-title sharing-title">Hidden Lists</div>
+      <div className="hidden-lists-list editors-list">
+        {/* If there are no hidden lists, say so, else show the hidden lists. */}
+        {hiddenListsData.length == 0 ? (
+          <div className="no-hidden not-shared">You have no hidden lists.</div>
+        ) : (
+          <ul>
+            {hiddenListsData.map((listData) => (
+              <HiddenListItem
+                hiddenListText={listData.text}
+                hiddenListId={listData.id}
+                onRemoveHiddenListId={props.onRemoveHiddenListId}
+              />
+            ))}
+          </ul>
+        )}
+      </div>
     </div>
     // TODO: maybe add OK, cancel buttons?
   );

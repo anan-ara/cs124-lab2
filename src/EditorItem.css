@@ -8,6 +8,7 @@ li.editor {
   justify-content: space-between;
   border: 1.5px solid #757575;
   overflow: wrap;
+  
   width: 33vw;
   min-width: 260px;
 }
