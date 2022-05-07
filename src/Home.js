@@ -62,7 +62,6 @@ function Home(props) {
   }
 
   let orderByParam = orderBy(sortType);
-  orderByParam = orderBy("created"); 
   let myQueryParam = query(
     collectionRef,
     orderByParam,
