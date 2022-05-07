@@ -26,7 +26,6 @@ import {
   collection,
 } from "firebase/firestore";
 import LIST_COLLECTION from "./firestore-config.js";
-import userEvent from "@testing-library/user-event";
 
 function ListView(props) {
   const collectionRef = collection(

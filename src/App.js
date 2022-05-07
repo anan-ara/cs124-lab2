@@ -3,7 +3,7 @@ import SignUp from "./SignUp";
 import SignIn from "./SignIn";
 import { getAuth, signOut } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { getFirestore, setDoc, doc, collection } from "firebase/firestore";
+import { getFirestore, collection } from "firebase/firestore";
 import { initializeApp } from "firebase/app";
 import { useState, useEffect } from "react";
 import SentVerification from "./SentVerification";
@@ -25,8 +25,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth();
-
-const usersCollection = collection(db, "users");
 
 function App(props) {
   const [user, loading, error] = useAuthState(auth);
@@ -61,7 +59,7 @@ function App(props) {
     if (user && !user.emailVerified) {
       verifyEmail();
     }
-  }, [user]);
+  }, [user, verifyEmail]);
 
   // This is here so that both sign up and go verify can use it.
   function verifyEmail() {

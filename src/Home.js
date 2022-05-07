@@ -6,7 +6,7 @@ import CreateListPopup from "./CreateListPopup";
 import HomeContents from "./HomeContents";
 import HomeBottomBar from "./HomeBottomBar";
 import Backdrop from "./Backdrop";
-import { useState, useEffect, useRef, useId } from "react";
+import { useState, useEffect, useRef } from "react";
 import { generateUniqueID } from "web-vitals/dist/modules/lib/generateUniqueID";
 import {
   useCollectionData,
@@ -138,7 +138,7 @@ function Home(props) {
 
   function removeHiddenListId(listId) {
     updateDoc(doc(usersRef, props.user.uid), {
-      hiddenLists: props.usersData.hiddenLists.filter((id) => id != listId),
+      hiddenLists: props.usersData.hiddenLists.filter((id) => id !== listId),
     });
     // currentEditors.concat(newEditorsList);
   }
@@ -165,7 +165,7 @@ function Home(props) {
     const owner = ownerData.filter((list) => list.id === id)[0]["owner"];
     const newEditorsList = newEditors.map(object => object["value"]);
     const allEditors = currentEditors.concat(newEditorsList);
-    const deduplicateAllEditors = allEditors.filter((item, pos) => (allEditors.indexOf(item) === pos) && item != owner);
+    const deduplicateAllEditors = allEditors.filter((item, pos) => (allEditors.indexOf(item) === pos) && item !== owner);
     updateDoc(doc(collectionRef, id), { editors: deduplicateAllEditors });
   }
 
