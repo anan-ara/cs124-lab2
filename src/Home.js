@@ -77,20 +77,33 @@ function Home(props) {
   let orderByParam = orderBy(sortType);
   orderByParam = orderBy("created"); // TODO NOW: change back only like this bc of firebase indices not being made yet!!
   // let queryParam = query(collectionRef, orderByParam, where("owner", "==", props.user.email));
-  let myQueryParam = query(collectionRef, orderByParam, where("owner", "==", props.user.email));
+  let myQueryParam = query(
+    collectionRef,
+    orderByParam,
+    where("owner", "==", props.user.email)
+  );
 
   // TODO: use this for shared things
-  let editorQueryParam = query(collectionRef, orderByParam, where("editors", "array-contains", props.user.email));
+  let editorQueryParam = query(
+    collectionRef,
+    orderByParam,
+    where("editors", "array-contains", props.user.email)
+  );
 
   const [ownerData, ownerLoading, ownerError] = useCollectionData(myQueryParam);
-  const [editorData, editorLoading, editorError] = useCollectionData(editorQueryParam);
+  const [editorData, editorLoading, editorError] =
+    useCollectionData(editorQueryParam);
 
   // Search bar functionality
   let ownerFilteredData = ownerData;
   let editorFilteredData = editorData;
   if (!ownerLoading && !editorLoading) {
-    ownerFilteredData = ownerData.filter((item) => item.text.toLowerCase().includes(filter.toLowerCase()));
-    editorFilteredData = editorData.filter((item) => item.text.toLowerCase().includes(filter.toLowerCase()));
+    ownerFilteredData = ownerData.filter((item) =>
+      item.text.toLowerCase().includes(filter.toLowerCase())
+    );
+    editorFilteredData = editorData.filter((item) =>
+      item.text.toLowerCase().includes(filter.toLowerCase())
+    );
   }
 
   // Needed so that we know when the submenu menu needs to pop up instead of down.
@@ -119,10 +132,10 @@ function Home(props) {
         sort: "created",
         complete: 0,
         total: 0,
-        owner: props.user.email, 
-        viewers: [], 
+        owner: props.user.email,
+        viewers: [],
         editors: [],
-        admins: []
+        admins: [],
       }); //.then(() => setToScroll(true));
     }
   }
@@ -131,8 +144,17 @@ function Home(props) {
     updateDoc(doc(usersRef, props.user.uid), { sort: newSortType });
   }
 
-  function addHiddenListId(newListId) {
-    updateDoc(doc(usersRef, props.user.uid), { hiddenLists: props.usersData.hiddenLists.concat([newListId]) });
+  function addHiddenListId(listId) {
+    updateDoc(doc(usersRef, props.user.uid), {
+      hiddenLists: props.usersData.hiddenLists.concat([listId]),
+    });
+    // currentEditors.concat(newEditorsList);
+  }
+
+  function removeHiddenListId(listId) {
+    updateDoc(doc(usersRef, props.user.uid), {
+      hiddenLists: props.usersData.hiddenLists.filter((id) => id != listId),
+    });
     // currentEditors.concat(newEditorsList);
   }
 
@@ -140,12 +162,7 @@ function Home(props) {
   function handleDeleteList(id) {
     deleteDoc(doc(collectionRef, id));
 
-    const subCollectionRef = collection(
-      props.db,
-      LIST_COLLECTION,
-      id,
-      "items"
-    );
+    const subCollectionRef = collection(props.db, LIST_COLLECTION, id, "items");
     const q = query(subCollectionRef);
     getDocs(q).then((querySnapshot) =>
       querySnapshot.forEach((listDoc) => {
@@ -159,17 +176,25 @@ function Home(props) {
   }
 
   function handleAddEditors(id, newEditors) {
-    const currentEditors = ownerData.filter((list) => list.id === id)[0]["editors"];
-    const newEditorsList = newEditors.map(object => object["value"]);
+    const currentEditors = ownerData.filter((list) => list.id === id)[0][
+      "editors"
+    ];
+    const newEditorsList = newEditors.map((object) => object["value"]);
     const allEditors = currentEditors.concat(newEditorsList);
     // don't add editors that already exist in currentEditors
-    const deduplicateAllEditors = allEditors.filter((item, pos) => allEditors.indexOf(item) === pos);
+    const deduplicateAllEditors = allEditors.filter(
+      (item, pos) => allEditors.indexOf(item) === pos
+    );
     updateDoc(doc(collectionRef, id), { editors: deduplicateAllEditors });
   }
 
   function handleRemoveEditor(id, removeEditor) {
-    const currentEditors = ownerData.filter((list) => list.id === id)[0]["editors"];
-    const removedEditors = currentEditors.filter((editor) => editor !== removeEditor)
+    const currentEditors = ownerData.filter((list) => list.id === id)[0][
+      "editors"
+    ];
+    const removedEditors = currentEditors.filter(
+      (editor) => editor !== removeEditor
+    );
     updateDoc(doc(collectionRef, id), { editors: removedEditors });
   }
 
@@ -206,14 +231,22 @@ function Home(props) {
       {priorityPopup && (
         <>
           <Backdrop onClickBackdrop={handlePriorityPopup} />
-          <PriorityPopup onTogglePriorityPopup={handlePriorityPopup} {...props} />
+          <PriorityPopup
+            onTogglePriorityPopup={handlePriorityPopup}
+            {...props}
+          />
         </>
       )}
 
       {hiddenListsPopup && (
         <>
           <Backdrop onClickBackdrop={handleHiddenListsPopup} />
-          <HiddenListsPopup onToggleHiddenListsPopup={handleHiddenListsPopup} editorData={editorData} {...props} />
+          <HiddenListsPopup
+            onToggleHiddenListsPopup={handleHiddenListsPopup}
+            editorData={editorData}
+            onRemoveHiddenListId={removeHiddenListId}
+            {...props}
+          />
         </>
       )}
       {props.isNarrow && (

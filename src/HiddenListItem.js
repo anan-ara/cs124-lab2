@@ -1,10 +1,11 @@
 // import { useEffect, useState, useRef } from "react";
 
 function HiddenListItem(props) {
+
   return (
-    <li>
+    <li key={props.hiddenListId}>
       {props.hiddenListText}
-      <button onClick={() => console.log("Showing list " + props.hiddenListId)}>Show</button>
+      <button onClick={() => props.onRemoveHiddenListId(props.hiddenListId)}>Show</button>
     </li>
   );
 }
