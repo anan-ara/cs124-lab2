@@ -34,8 +34,6 @@ function SharingPopup(props) {
     start.current.focus();
   });
 
-  console.log(inputSave)
-
   return (
     <div
       className="popup sharing-popup"
