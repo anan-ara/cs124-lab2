@@ -72,6 +72,8 @@ lists
 # Notes May 1:
 - plan: do 4 indices, do filtering on front end
 
+# Permissions
+Editors: cannot rename or delete overall list, can do anything to tasks inside the list (check/uncheck, change priority, rename, delete, change sorting, etc.)
 # Questions: 
 - how to do the setDocumentData and cause a reload right away instead of doing it a hacky way
 - What to do about too mnay email verifications causing an error? (we might want to review the code for this first though?)

@@ -5,7 +5,7 @@ function SubMenuToggle(props) {
       ref={props.buttonLocation}
       aria-label={"Edit details for ".concat(props.accessibleName)}
     >
-      {props.shared ? (
+      {(props.homeScreen && props.sharingLevel !== "owner") ? (
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="16"
