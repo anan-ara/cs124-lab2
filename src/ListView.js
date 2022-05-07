@@ -3,6 +3,7 @@ import TopBar from "./TopBar";
 import SubBar from "./SubBar";
 import BottomBar from "./BottomBar";
 import SearchBar from "./SearchBar";
+import ListNotFound from "./ListNotFound";
 // import PriorityPopup from "./PriorityPopup";
 import DeleteCompletedPopup from "./DeleteCompletedPopup";
 import ListContents from "./ListContents";
@@ -69,8 +70,9 @@ function ListView(props) {
 
   let sortType = "created";
   let title = "Loading...";
+
   // Get data from database.
-  if (!metadataLoading) {
+  if (metadata) {
     sortType = metadata.sort;
     title = metadata.text;
   }
@@ -90,13 +92,27 @@ function ListView(props) {
   const [data, loading, error] = useCollectionData(queryParam);
 
   let filteredData = data;
-  if (!loading) {
-    filteredData = data.filter((item) => item.text.toLowerCase().includes(filter.toLowerCase()));
+  if (data) {
+    filteredData = data.filter((item) =>
+      item.text.toLowerCase().includes(filter.toLowerCase())
+    );
   }
 
-  if (error) {
-    console.log(error);
-  }
+  // end of list used for autoscrolling
+  const listEnd = useRef();
+
+  // Called on every rerender where toScroll changes.
+  useEffect(() => {
+    // Scrolls to recently added item if an item was just added
+    if (toScroll) {
+      listEnd.current.scrollIntoView({
+        behavior: "smooth",
+        block: "end",
+        inline: "nearest",
+      });
+      setToScroll(false);
+    }
+  }, [toScroll]);
 
   function handleDeleteCompletedTasks() {
     let completedTasks = [];
@@ -175,27 +191,10 @@ function ListView(props) {
     props.handleChangeText(id, newText, collectionRef);
   }
 
-  // end of list used for autoscrolling
-  const listEnd = useRef();
-
-  // // Priority popup
-  // const [priorityPopup, setPriorityPopup] = useState(false);
-  // function handlePriorityPopup() {
-  //   setPriorityPopup(!priorityPopup);
-  // }
-
-  // Called on every rerender where toScroll changes.
-  useEffect(() => {
-    // Scrolls to recently added item if an item was just added
-    if (toScroll) {
-      listEnd.current.scrollIntoView({
-        behavior: "smooth",
-        block: "end",
-        inline: "nearest",
-      });
-      setToScroll(false);
-    }
-  }, [toScroll]);
+  if (error) {
+    console.log(error);
+    return <ListNotFound shared={props.shared} onShowHome={props.onShowHome} />;
+  }
 
   return (
     <>
@@ -211,7 +210,7 @@ function ListView(props) {
         homeScreen={false}
         title={title}
         filter={filter}
-      setFilter={setFilter}
+        setFilter={setFilter}
       />
       {deleteCompletedPopup && (
         <>
@@ -235,10 +234,11 @@ function ListView(props) {
         sortType={sortType}
       />
 
-      {props.isNarrow && <div id="search_bar_div"><SearchBar
-      filter={filter}
-      setFilter={setFilter}
-      /></div>}
+      {props.isNarrow && (
+        <div id="search_bar_div">
+          <SearchBar filter={filter} setFilter={setFilter} />
+        </div>
+      )}
 
       <ListContents
         data={filteredData}
