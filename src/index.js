@@ -12,14 +12,6 @@ let initialData = [
   {text:"Use the toggles at the top to change your view", priority:2, checked:false, id:13},
 ];
 
-let initialLowPriorityIcon = "💤";
-let initialMedPriorityIcon = "⚠️";
-let initialHighPriorityIcon = "🔥";
-
-let lowPriorityOptions = ["💤", "🤖", "🥶", "💙", "🔵", "🟦", "❄️", "💧", "💎"];
-let medPriorityOptions = ["⚠️", "😃", "☀️", "💛", "🟡", "🟨", "⚡️", "✨", "⭐️"];
-let highPriorityOptions = ["🔥", "👹", "💢", "❤️", "🔴", "🟥", "🆘", "🧨", "🤬"];
-
 ReactDOM.render(
   <React.StrictMode>
     <App />
@@ -32,4 +24,4 @@ ReactDOM.render(
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
 
-export {initialData, initialLowPriorityIcon, initialMedPriorityIcon, initialHighPriorityIcon, lowPriorityOptions, medPriorityOptions, highPriorityOptions};
+export {initialData};

@@ -1,22 +1,51 @@
 #top_bar {
-    order: 0;
-    /* TODO: figure out why warning sign next to flex when in inspect mode  */
-    background: #999999;
-    padding: 1vh 0;
-    height: 10vh;
+  order: 0;
+  background: #494949;
+  /* padding-right: 6px; */
+  height: 64px;
 
-    /* top bar's own flexbox */
-    flex-direction: row;
-    align-items: center;
-    display: flex;
-    justify-content: space-around;
-    /* take up whole width */
-    width: 100%;
+  /* top bar's own flexbox */
+  flex-direction: row;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  /* take up whole width */
+  width: 100%;
 }
 
-#top_bar svg, #top_bar .dropdown{
-    flex: 0 0 auto;
-    height: 7vh;
-    width: auto;
-    fill: white;
+#top_bar > button,
+#top_bar > #top_bar_title {
+  padding: 0px 10px;
+}
+
+#top_bar svg {
+  flex: 0 0 auto;
+  height: 45px;
+  width: auto;
+  fill: white;
+}
+
+#top_bar > * {
+  width: auto;
+}
+
+#top_bar_title {
+  color: white;
+  font-size: xx-large;
+  font-weight: bold;
+  /* text-overflow: ellipsis; */
+  /* white-space: nowrap; */
+  /* width: calc(100vw - 65px - 65px); */
+}
+
+#top_bar_list_title {
+  color: white;
+  font-size: xx-large;
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+  white-space: nowrap;
+  width: calc(100vw - 65px - 65px);
 }

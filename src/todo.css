@@ -4,7 +4,22 @@ body {
     /* justify-content: space-evenly; */
     flex-wrap: nowrap;
     display: flex;
-    font-size: 1.2rem;
+    /* font-size: 1.2rem; */
     font-family: "SF Pro Display","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif
     /* font-family: "PT Sans", Calibri, Tahoma, sans-serif; */
+}
+
+#search_bar_div {
+    display: flex;
+    align-items: center;
+    padding: 5px 10px 0 10px;
+}
+/* 
+* {
+    font-size: small;
+} */
+
+/* Make the cursor a hand pointer when hovering over an element that is clickable */
+button, select, input[type="checkbox"] {
+    cursor: pointer;
 }

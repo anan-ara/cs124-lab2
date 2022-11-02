@@ -1,0 +1,31 @@
+#completion-bar {
+  display: flex;
+  flex-direction: row;
+  /* justify-content: space-around; */
+  align-items: center;
+  padding: 6px 10px;
+  height: 19px;
+  gap: 10px;
+}
+
+#completion-bar.is-narrow {
+  justify-content: space-around;
+}
+
+#completion-bar button {
+  color: #494949;
+}
+
+#completion-bar button.activated {
+  color: white;
+  background-color: #494949;
+}
+
+#completion-bar .activated {
+  background-color: #999999;
+  border-radius: 5px;
+}
+
+
+
+

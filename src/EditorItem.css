@@ -1,0 +1,31 @@
+li.editor {
+  background: white;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  flex-direction: row;
+  justify-content: space-between;
+  border: 1.5px solid #757575;
+  overflow: wrap;
+  
+  width: 33vw;
+  min-width: 260px;
+}
+
+.editor div {
+  color: #494949;
+  width: 30vw;
+  min-width: 230px;
+  text-align: left;
+  overflow: scroll;
+}
+
+.editor div::-webkit-scrollbar {
+  display: none;
+}
+
+button.remove-user {
+  display: flex;
+  align-items: center;
+  padding: 0;
+}

@@ -1,0 +1,5 @@
+li div.list-text {
+      /* Stuff below was added */
+      overflow: wrap;
+      word-wrap: break-word;
+  }

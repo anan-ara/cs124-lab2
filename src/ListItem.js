@@ -1,8 +1,11 @@
 import "./ListItem.css";
+import "./Item.css";
 import SubMenu from "./SubMenu";
 import Backdrop from "./Backdrop";
+import DeleteListPopup from "./DeleteListPopup";
 import SubMenuToggle from "./SubMenuToggle";
 import { useEffect, useState, useRef } from "react";
+import SharingPopup from "./SharingPopup";
 
 function ListItem(props) {
   const [dropDown, setDropDown] = useState(false);
@@ -11,15 +14,21 @@ function ListItem(props) {
   // Local text field before it is saved in database
   const [text, setText] = useState(props.text);
 
+  // Delete List Confirmation
+  const [deleteListPopup, setDeleteListPopup] = useState(false);
+  function handleDeleteListPopup() {
+    setDeleteListPopup(!deleteListPopup);
+  }
+
+  const [sharingPopup, setSharingPopup] = useState(false);
+  function handleSharingPopup() {
+    setSharingPopup(!sharingPopup);
+  }
+
+
   // reference to textArea
   const textArea = useRef();
 
-  // So that we can translate from priority number to the icon.
-  let priorityToIcon = {
-    0: props.lowPriorityIcon,
-    1: props.medPriorityIcon,
-    2: props.highPriorityIcon,
-  };
   // reference to subMenuToggle button
   const subMenuToggle = useRef();
 
@@ -36,8 +45,12 @@ function ListItem(props) {
   }
 
   function handleFinishRename() {
-    setEditable(false);
-    props.onChangeText(props.id, text);
+    if (text === "") {
+      props.onDeleteList(props.id);
+    } else {
+      setEditable(false);
+      props.onChangeText(props.id, text);
+    }
   }
 
   function getToggleLocation() {
@@ -53,46 +66,70 @@ function ListItem(props) {
     textArea.current.style.height = textArea.current.scrollHeight - 3 + "px";
   });
 
+  let textToDisplay = editable ? text : props.text;
+
   return (
-    <li className={props.checked ? "done" : ""}>
-      <input
-        type="checkbox"
-        id={props.id}
-        name={props.id}
-        checked={props.checked}
-        onChange={() => props.onToggleChecked(props.id)}
-      />
+    <li className="item">
       <textarea
-        value={text}
+        value={textToDisplay}// text
+        className="item-text-area"
         ref={textArea}
         htmlFor={props.id}
         onChange={(e) => setText(e.target.value)}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
-            handleFinishRename();
+            editable ? handleFinishRename() : props.onSelectList(props.id);
           }
         }}
         onBlur={handleFinishRename}
         readOnly={!editable}
         onClick={() => {
           if (!editable) {
-            props.onToggleChecked(props.id);
+            props.onSelectList(props.id);
           }
         }}
+        aria-label={"List " + textToDisplay}
       />
-      <span className="dot">{priorityToIcon[props.priority]}</span>
-      <SubMenuToggle onToggle={handleDropDown} buttonLocation={subMenuToggle} />
-      {dropDown ? (
+      {props.isNarrow || (
+        <div className="complete-count"
+        aria-label={"Completion counter for " + textToDisplay}>
+          {props.complete + " / " + props.total + " completed"}
+        </div>
+      )}
+      <SubMenuToggle
+        sharingLevel={props.sharingLevel}
+        onToggle={handleDropDown}
+        buttonLocation={subMenuToggle}
+        accessibleName={"List ".concat(props.text)}
+        homeScreen={true}
+      />
+      {dropDown && (
         <>
           <Backdrop onClickBackdrop={handleDropDown} />
           <SubMenu
             onHandleDropDown={handleDropDown}
             onRename={handleStartRename}
+            onShare={handleSharingPopup}
             top={getToggleLocation()}
+            bottomBarLocation={props.getBottomBarLocation()}
+            onDelete={handleDeleteListPopup}
+            accessibleName={"List ".concat(props.text)}
             {...props}
           />
         </>
-      ) : null}
+      )}
+      {deleteListPopup && (
+        <>
+          <Backdrop onClickBackdrop={handleDeleteListPopup} />
+          <DeleteListPopup onClosePopup={handleDeleteListPopup} {...props} />
+        </>
+      )}
+      {sharingPopup && (
+        <>
+          <Backdrop onClickBackdrop={handleSharingPopup} />
+          <SharingPopup onClosePopup={handleSharingPopup} {...props} />
+        </>
+      )}
     </li>
   );
 }

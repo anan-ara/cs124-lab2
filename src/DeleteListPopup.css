@@ -1,0 +1,16 @@
+.delete-list-popup {
+  padding: 10px;
+  font-size: medium;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.delete-explanation {
+  width: 300px;
+}
+
+.delete-list-name {
+  max-width: 80vw;
+  word-wrap: break-word;
+}

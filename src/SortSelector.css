@@ -1,0 +1,8 @@
+#top_bar > #sort-div > .selector-label-text {
+  color: white;
+}
+
+
+.sort-type-text {
+  text-transform: capitalize;
+}

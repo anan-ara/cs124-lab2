@@ -1,78 +1,25 @@
-.completed {
-    color: #999999; 
+
+#home-contents svg {
+    height: 19px;
+    fill: #494949;
 }
 
-
-input[type='checkbox']:checked {
-    background: #999999;
-    content: "✔";
-    color: black;
-}
-
-li input[type='checkbox'] {
-    min-width: 4vh;
-    -webkit-appearance:none;
-    width:4vh;
-    height:4vh;
-    background:white;
-    border-radius:1vh;
-    border:0.4vh solid #555555;
-}
-
-li textarea {
-    font-family: "SF Pro Display","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif;
-    margin-left: 2vw;
-    width: 68vw;
-    border:none;
-    background:none;
-    color: #555555;
-    font-size: 2.8vh;
-    resize: none;
-}
-
-li.done textarea {
-    color: #999999;
-}
-
-#contents svg {
-    height: 3vh;
-    width: auto;
-    fill: #999999;
-}
-
-/* TODO:  later should prob just be #contents .dot if all svgs become dropdowns, 
-this is assuming we want the dot on the far right. */
-#contents .dot {
-    margin-left: auto;
+#home-contents .complete-count {
+    margin-left: 10px;
+    color: #494949;
 }
 
 div.bottom-line {
-    border-bottom: 0.1vh solid #999999;
+    border-bottom: 1.5px solid #494949;
   }
 
-#contents li, #contents #trash-icon-test-li div {
-    min-height: 7vh;
-    background: #e6e6e6;
-    display: flex;
-    align-items: center;
-    padding: 1vh;
-    border-bottom: .1em solid #999999;
+#home-contents li {
+    min-height: 30px;
+    margin: 10px;
+    border: 1.5px solid #494949;
+    border-radius: 8px;
 }
 
-textarea:hover, 
-input:hover, 
-textarea:active, 
-input:active, 
-textarea:focus, 
-input:focus,
-button:focus,
-button:active,
-button:hover,
-label:focus,
-.btn:active,
-.btn.active
-{
-    outline:0px !important;
-    -webkit-appearance:none;
-    box-shadow: none !important;
+li textarea {
+    margin-left: 0;
 }

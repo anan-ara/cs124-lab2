@@ -1,4 +1,5 @@
-import "./ToggleButton.css";
+import "./Button.css";
+import "./ToggleButton.css"
 
 function ToggleButton(props) {
   return (
