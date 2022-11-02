@@ -1,6 +1,6 @@
-# CS124 Lab 4
+# CS124 Lab 5
 
-In [Lab 4](https://www.cs.hmc.edu/~rhodes/cs124/labs/lab4.html), we implement lists of lists and incorporate accessiblity features into our application. 
+In [Lab 5](https://www.cs.hmc.edu/~rhodes/cs124/labs/lab5.html), we implement user accounts and sharing lists between accounts.
 
 Our To-Do list has the following features:
 - Add and delete items
@@ -14,36 +14,20 @@ Our To-Do list has the following features:
 - View on desktop or mobile
 - Persistant storage
 - Resize text up to 200% (inclusive)
-- Screen reader 
+- Screen reader
 - Fully operable using just the keyboard
+- Ability to login via Google and email
+- Ability to share lists with other users
 
 <!-- Our lab is published to Github Pages at this [link](https://anan-ara.github.io/cs124-lab2/wrapped.html).  -->
 
 See our [design doc](https://github.com/anan-ara/cs124-lab2/blob/main/design/design.md) to read about our design decisions, user testing, and other notes about the development process.
 
-<!-- # CS124 Lab 2
-
-In [Lab 2](https://www.cs.hmc.edu/~rhodes/cs124/labs/lab2.html), we use React to implement the To-Do list interface that we designed in Lab 1. 
-
-Our To-Do list has the following features:
-- Add and delete items
-- Mark items as completed or not completed
-- Assign a priority to items and sort by priority
-- Edit an item's name or priority
-- Hide or show all completed items
-- Delete all completed items
-- Configure the priority icon emojis (in progress)
-
-
-Our lab is published to Github Pages at this [link](https://anan-ara.github.io/cs124-lab2/wrapped.html). 
-
-See our [design doc](https://github.com/anan-ara/cs124-lab2/blob/main/design/design.md) to read about our design decisions, user testing, and other notes about the development process. -->
-
 <!-- This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). In the project directory, you can run `npm start`
 to run the app in the development mode. Then open [http://localhost:3000](http://localhost:3000) to view it in your browser. -->
 
 
-<!-- 
+<!--
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
