@@ -19,8 +19,6 @@ Our To-Do list has the following features:
 - Ability to login via Google and email
 - Ability to share lists with other users
 
-<!-- Our lab is published to Github Pages at this [link](https://anan-ara.github.io/cs124-lab2/wrapped.html).  -->
-
 See our [design doc](https://github.com/anan-ara/cs124-lab2/blob/main/design/design.md) to read about our design decisions, user testing, and other notes about the development process.
 
 <!-- This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). In the project directory, you can run `npm start`
