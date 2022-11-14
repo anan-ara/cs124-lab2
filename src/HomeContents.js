@@ -10,33 +10,21 @@ function HomeContents(props) {
     setScroll(!scroll);
   }
 
-  // let listData = props.data;
-  // if (props.sortPriority) {
-  //   // Do a deep copy of listData, then sort it by priority.
-  //   // a is first if it has a higher priority than a.
-  //   // https://stackoverflow.com/questions/9592740/how-can-you-sort-an-array-without-mutating-the-original-array
-  //   listData = [...listData].sort((a, b) => (a.priority > b.priority ? -1 : 1));
-  // }
-  // Show/hide completed toggle functionality
-  // if (!props.showCompleted) {
-  //   listData = listData.filter((item) => !item.checked);
-  // }
-
   return (
     <div id="home-contents" className={("contents").concat(scroll ? " scroll" : "").concat(props.isNarrow ? " small-width" : "")}>
       {props.loading ? (
         <div className={"empty"}>Loading...</div>
       ) : (
         <>
-          {props.data.length === 0 && (
+          {props.ownerData.length === 0 && props.editorData.length === 0 && (
             <div className={"empty"}>
-              {props.unfilteredData.length === 0
+              {props.ownerUnfilteredData.length === 0
                 ? "You currently have no lists."
                 : "No lists match your search."}
             </div>
           )}
           <ul>
-            {props.data.map((e) => (
+            {props.ownerData.map((e) => (
               <ListItem
                 text={e.text}
                 priority={e.priority}
@@ -44,11 +32,32 @@ function HomeContents(props) {
                 checked={e.checked}
                 total={e.total}
                 complete={e.complete}
+                editors={e.editors}
+                viewers={e.viewers}
                 key={e.id}
                 id={e.id}
+                owner={e.owner}
                 onToggleScroll={handleToggleScroll}
+                sharingLevel={"owner"}
                 {...props}
               />
+            ))}
+            {props.editorData.map((e) => (
+              ((props.usersData && !props.usersData.hiddenLists.includes(e.id)) &&  <ListItem
+                text={e.text}
+                priority={e.priority}
+                checked={e.checked}
+                total={e.total}
+                complete={e.complete}
+                editors={e.editors}
+                viewers={e.viewers}
+                key={e.id}
+                id={e.id}
+                owner={e.owner}
+                onToggleScroll={handleToggleScroll}
+                sharingLevel={"editor"}
+                {...props}
+              />)
             ))}
           </ul>
         </>

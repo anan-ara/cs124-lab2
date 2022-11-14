@@ -23,3 +23,10 @@
   flex-direction: column;
   background-color: white;
 }
+
+#name-label {
+  color: #595959;
+  font-size: smaller;
+  overflow: wrap;
+  padding: 5px;
+}

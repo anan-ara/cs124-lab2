@@ -5,6 +5,7 @@ import Backdrop from "./Backdrop";
 import DeleteListPopup from "./DeleteListPopup";
 import SubMenuToggle from "./SubMenuToggle";
 import { useEffect, useState, useRef } from "react";
+import SharingPopup from "./SharingPopup";
 
 function ListItem(props) {
   const [dropDown, setDropDown] = useState(false);
@@ -18,6 +19,12 @@ function ListItem(props) {
   function handleDeleteListPopup() {
     setDeleteListPopup(!deleteListPopup);
   }
+
+  const [sharingPopup, setSharingPopup] = useState(false);
+  function handleSharingPopup() {
+    setSharingPopup(!sharingPopup);
+  }
+
 
   // reference to textArea
   const textArea = useRef();
@@ -59,10 +66,12 @@ function ListItem(props) {
     textArea.current.style.height = textArea.current.scrollHeight - 3 + "px";
   });
 
+  let textToDisplay = editable ? text : props.text;
+
   return (
     <li className="item">
       <textarea
-        value={text}
+        value={textToDisplay}// text
         className="item-text-area"
         ref={textArea}
         htmlFor={props.id}
@@ -79,18 +88,20 @@ function ListItem(props) {
             props.onSelectList(props.id);
           }
         }}
-        aria-label={"List " + text}
+        aria-label={"List " + textToDisplay}
       />
       {props.isNarrow || (
         <div className="complete-count"
-        aria-label={"Completion counter for " + text}>
+        aria-label={"Completion counter for " + textToDisplay}>
           {props.complete + " / " + props.total + " completed"}
         </div>
       )}
       <SubMenuToggle
+        sharingLevel={props.sharingLevel}
         onToggle={handleDropDown}
         buttonLocation={subMenuToggle}
         accessibleName={"List ".concat(props.text)}
+        homeScreen={true}
       />
       {dropDown && (
         <>
@@ -98,6 +109,7 @@ function ListItem(props) {
           <SubMenu
             onHandleDropDown={handleDropDown}
             onRename={handleStartRename}
+            onShare={handleSharingPopup}
             top={getToggleLocation()}
             bottomBarLocation={props.getBottomBarLocation()}
             onDelete={handleDeleteListPopup}
@@ -110,6 +122,12 @@ function ListItem(props) {
         <>
           <Backdrop onClickBackdrop={handleDeleteListPopup} />
           <DeleteListPopup onClosePopup={handleDeleteListPopup} {...props} />
+        </>
+      )}
+      {sharingPopup && (
+        <>
+          <Backdrop onClickBackdrop={handleSharingPopup} />
+          <SharingPopup onClosePopup={handleSharingPopup} {...props} />
         </>
       )}
     </li>

@@ -10,9 +10,19 @@ function SubMenu(props) {
     start.current.focus();
   });
 
+  function getMenuClassname() {
+    if (props.homeScreen)
+      if (props.sharingLevel === "owner") {
+        return "home-owner-menu";
+      } else {
+        return "home-shared-with-menu";
+      }
+    
+    return "";
+  }
+
   return (
     <div
-      // TODO: unhard code 125 -- right now 125 is pixels of sub menu height
       className={
         props.top + 125 > props.bottomBarLocation
           ? "dropdown poptop"
@@ -26,39 +36,83 @@ function SubMenu(props) {
       }}
     >
       <div
-        className={"dropdown-content sub-menu".concat(
-          props.homeScreen ? " home" : ""
+        className={"dropdown-content sub-menu ".concat(
+          // props.homeScreen ? " home" : ""
+          getMenuClassname()
         )}
       >
-        <button
-          className="bottom-line"
-          onClick={props.onRename}
-          ref={start}
-          onKeyDown={(e) => {
-            if (e.key === "Tab" && e.shiftKey) {
-              e.preventDefault();
-              end.current.focus();
-            }
-          }}
-          aria-label={"Rename " + props.accessibleName}
-        >
-          Rename
-        </button>
-        {props.homeScreen ? (
+        {!props.homeScreen || props.sharingLevel === "owner" ? (
           <button
-            ref={end}
-            className={props.homeScreen ? "delete" : "delete bottom-line"}
-            onClick={() => props.onDelete(props.id)}
+            className="bottom-line"
+            onClick={props.onRename}
+            ref={start}
             onKeyDown={(e) => {
-              if (e.key === "Tab" && !e.shiftKey) {
+              if (e.key === "Tab" && e.shiftKey) {
+                e.preventDefault();
+                end.current.focus();
+              }
+            }}
+            aria-label={"Rename " + props.accessibleName}
+          >
+            Rename
+          </button>
+        ) : (
+          <button
+            onClick={() => props.onAddHiddenListId(props.id)}
+            className="bottom-line"
+            ref={start}
+            onKeyDown={(e) => {
+              if (e.key === "Tab" && e.shiftKey) {
                 e.preventDefault();
                 start.current.focus();
               }
             }}
-            aria-label={"Delete " + props.accessibleName}
+            aria-label={"Hide Shared List " + props.accessibleName}
           >
-            Delete
+            Hide List
           </button>
+        )}
+        {props.homeScreen ? (
+          props.sharingLevel === "owner" ? (
+            <>
+              <button
+                className={"bottom-line"}
+                onClick={props.onShare}
+                aria-label={"Share list"}
+              >
+                Share List
+              </button>
+              <button
+                ref={end}
+                className={props.homeScreen ? "delete" : "delete bottom-line"}
+                onClick={() => props.onDelete(props.id)}
+                onKeyDown={(e) => {
+                  if (e.key === "Tab" && !e.shiftKey) {
+                    e.preventDefault();
+                    start.current.focus();
+                  }
+                }}
+                aria-label={"Delete " + props.accessibleName}
+              >
+                Delete
+              </button>
+            </>
+          ) : (
+            <button
+              ref={end}
+              className={"bottom-line"}
+              onClick={props.onShare}
+              aria-label={"View sharing"}
+              onKeyDown={(e) => {
+                if (e.key === "Tab" && !e.shiftKey) {
+                  e.preventDefault();
+                  start.current.focus();
+                }
+              }}
+            >
+              View Sharing
+            </button>
+          )
         ) : (
           <>
             <button

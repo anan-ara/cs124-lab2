@@ -3,8 +3,9 @@ import TopBar from "./TopBar";
 import SubBar from "./SubBar";
 import BottomBar from "./BottomBar";
 import SearchBar from "./SearchBar";
-// import PriorityPopup from "./PriorityPopup";
+import ListNotFound from "./ListNotFound";
 import DeleteCompletedPopup from "./DeleteCompletedPopup";
+import SharingPopup from "./SharingPopup";
 import ListContents from "./ListContents";
 import Backdrop from "./Backdrop";
 import { useState, useEffect, useRef } from "react";
@@ -24,12 +25,12 @@ import {
   serverTimestamp,
   collection,
 } from "firebase/firestore";
-import TOP_LEVEL_COLLECTION from "./firestore-config.js";
+import LIST_COLLECTION from "./firestore-config.js";
 
 function ListView(props) {
   const collectionRef = collection(
     props.db,
-    TOP_LEVEL_COLLECTION,
+    LIST_COLLECTION,
     props.currentList,
     "items"
   );
@@ -44,12 +45,17 @@ function ListView(props) {
     setDeleteCompletedPopup(!deleteCompletedPopup);
   }
 
+  const [sharingPopup, setSharingPopup] = useState(false);
+  function handleSharingPopup() {
+    setSharingPopup(!sharingPopup);
+  }
+
   // Use for deleting all completed items
   const isCheckedQuery = query(collectionRef, where("checked", "==", true));
   const [checkedData, checkedLoading, checkedError] =
     useCollectionData(isCheckedQuery);
 
-  const metadataRef = collection(props.db, TOP_LEVEL_COLLECTION);
+  const metadataRef = collection(props.db, LIST_COLLECTION);
   const [metadata, metadataLoading, metadataError] = useDocumentData(
     doc(metadataRef, props.currentList)
   );
@@ -63,14 +69,14 @@ function ListView(props) {
   const [filter, setFilter] = useState("");
 
   if (metadataError) {
-    console.log(metadataError);
-    // TODO: actual error message?
+    console.error(metadataError);
   }
 
   let sortType = "created";
   let title = "Loading...";
+
   // Get data from database.
-  if (!metadataLoading) {
+  if (metadata) {
     sortType = metadata.sort;
     title = metadata.text;
   }
@@ -90,99 +96,14 @@ function ListView(props) {
   const [data, loading, error] = useCollectionData(queryParam);
 
   let filteredData = data;
-  if (!loading) {
-    filteredData = data.filter((item) => item.text.toLowerCase().includes(filter.toLowerCase()));
-  }
-
-  if (error) {
-    console.log(error);
-  }
-
-  function handleDeleteCompletedTasks() {
-    let completedTasks = [];
-    // TODO: ask about whether or not we should have this thru database or not
-    if (!checkedLoading && !checkedError) {
-      completedTasks = checkedData;
-    } else {
-      completedTasks = data.filter((task) => task.checked === true);
-    }
-    let deleteCounter = 0;
-    completedTasks.forEach((task) => {
-      deleteDoc(doc(collectionRef, task.id));
-      deleteCounter = deleteCounter + 1;
-    });
-    updateDoc(doc(metadataRef, props.currentList), {
-      total: metadata.total - deleteCounter,
-      complete: metadata.complete - deleteCounter,
-    });
-  }
-
-  function handleToggleChecked(id) {
-    const isChecked = data.filter((task) => task.id === id)[0]["checked"];
-    updateDoc(doc(collectionRef, id), { checked: !isChecked });
-    updateDoc(doc(metadataRef, props.currentList), {
-      complete: isChecked ? metadata.complete - 1 : metadata.complete + 1,
-    });
-  }
-
-  function handleChangePriority(id, priority) {
-    updateDoc(doc(collectionRef, id), { priority: priority });
-  }
-
-  function addNewTodo(text) {
-    const id = generateUniqueID();
-    if (text !== "") {
-      updateDoc(doc(metadataRef, props.currentList), {
-        total: metadata.total + 1,
-      });
-      setDoc(doc(collectionRef, id), {
-        text: text,
-        priority: 0,
-        checked: false,
-        id: id,
-        created: serverTimestamp(),
-      }).then(() => setToScroll(true));
-    }
-  }
-
-  function handleToggleCompleted() {
-    setShowCompleted(!showCompleted);
-  }
-
-  // function handleShowCompleted() {
-  //   setShowCompleted(true);
-  // }
-
-  // function handleHideCompleted() {
-  //   setShowCompleted(false);
-  // }
-
-  function handleSortType(newSortType) {
-    updateDoc(doc(metadataRef, props.currentList), { sort: newSortType });
-  }
-
-  //   These handlers need the collectionRef too
-  function handleDeleteTask(id) {
-    const isChecked = data.filter((task) => task.id === id)[0]["checked"];
-    updateDoc(doc(metadataRef, props.currentList), {
-      total: metadata.total - 1,
-      complete: isChecked ? metadata.complete - 1 : metadata.complete,
-    });
-    deleteDoc(doc(collectionRef, id));
-  }
-
-  function handleChangeText(id, newText) {
-    props.handleChangeText(id, newText, collectionRef);
+  if (data) {
+    filteredData = data.filter((item) =>
+      item.text.toLowerCase().includes(filter.toLowerCase())
+    );
   }
 
   // end of list used for autoscrolling
   const listEnd = useRef();
-
-  // // Priority popup
-  // const [priorityPopup, setPriorityPopup] = useState(false);
-  // function handlePriorityPopup() {
-  //   setPriorityPopup(!priorityPopup);
-  // }
 
   // Called on every rerender where toScroll changes.
   useEffect(() => {
@@ -197,6 +118,121 @@ function ListView(props) {
     }
   }, [toScroll]);
 
+  let sharingLevel = "viewer";
+  if (metadata) {
+    if (metadata["owner"] === props.user.email) {
+      sharingLevel = "owner";
+    } else if (metadata["editors"].includes(props.user.email)) {
+      sharingLevel = "editor";
+    } else {
+      sharingLevel = "viewer";
+    }
+  }
+
+  function handleAddEditors(id, newEditors) {
+    const currentEditors = metadata["editors"];
+    const owner = metadata["owner"];
+    const newEditorsList = newEditors.map((object) => object["value"]);
+    const allEditors = currentEditors.concat(newEditorsList);
+    const deduplicateAllEditors = allEditors.filter(
+      (item, pos) => allEditors.indexOf(item) === pos && item !== owner
+    );
+    updateDoc(doc(metadataRef, id), { editors: deduplicateAllEditors });
+  }
+
+  function handleDeleteCompletedTasks() {
+    let completedTasks = [];
+    if (!checkedLoading && !checkedError) {
+      completedTasks = checkedData;
+    } else {
+      completedTasks = data.filter((task) => task.checked === true);
+    }
+    let deleteCounter = 0;
+    completedTasks
+      .forEach((task) => {
+        deleteDoc(doc(collectionRef, task.id));
+        deleteCounter = deleteCounter + 1;
+      })
+      .then(
+        updateDoc(doc(metadataRef, props.currentList), {
+          total: metadata.total - deleteCounter,
+          complete: metadata.complete - deleteCounter,
+        })
+      );
+    // updateDoc(doc(metadataRef, props.currentList), {
+    //   total: metadata.total - deleteCounter,
+    //   complete: metadata.complete - deleteCounter,
+    // });
+  }
+
+  function handleToggleChecked(id) {
+    const isChecked = data.filter((task) => task.id === id)[0]["checked"];
+    updateDoc(doc(collectionRef, id), { checked: !isChecked })
+      .then(() => {
+        updateDoc(doc(metadataRef, props.currentList), {
+          complete: isChecked ? metadata.complete - 1 : metadata.complete + 1,
+        });
+      })
+      .catch((error) => console.error(error));
+  }
+
+  function handleChangePriority(id, priority) {
+    updateDoc(doc(collectionRef, id), { priority: priority });
+  }
+
+  function addNewTodo(text) {
+    const id = generateUniqueID();
+    if (text !== "") {
+      setDoc(doc(collectionRef, id), {
+        text: text,
+        priority: 0,
+        checked: false,
+        id: id,
+        created: serverTimestamp(),
+      }).then(() => {
+        updateDoc(doc(metadataRef, props.currentList), {
+          total: metadata.total + 1,
+        });
+        setToScroll(true);
+      });
+    }
+  }
+
+  function handleToggleCompleted() {
+    setShowCompleted(!showCompleted);
+  }
+
+  function handleSortType(newSortType) {
+    updateDoc(doc(metadataRef, props.currentList), { sort: newSortType });
+  }
+
+  //   These handlers need the collectionRef too
+  function handleDeleteTask(id) {
+    const isChecked = data.filter((task) => task.id === id)[0]["checked"];
+    deleteDoc(doc(collectionRef, id)).then(() => {
+      updateDoc(doc(metadataRef, props.currentList), {
+        total: metadata.total - 1,
+        complete: isChecked ? metadata.complete - 1 : metadata.complete,
+      });}
+    ).catch((error) => console.error(error));
+  }
+
+  function handleRemoveEditor(id, removeEditor) {
+    const currentEditors = metadata["editors"];
+    const removedEditors = currentEditors.filter(
+      (editor) => editor !== removeEditor
+    );
+    updateDoc(doc(metadataRef, id), { editors: removedEditors });
+  }
+
+  function handleChangeText(id, newText) {
+    props.handleChangeText(id, newText, collectionRef);
+  }
+
+  if (error) {
+    return <ListNotFound shared={props.shared} onShowHome={props.onShowHome} />;
+  }
+
   return (
     <>
       <TopBar
@@ -205,13 +241,15 @@ function ListView(props) {
         // onShowCompleted={handleShowCompleted}
         onChangeSortType={handleSortType}
         onDeleteCompleted={handleDeleteCompletedPopup}
-        // onTogglePriorityPopup={handlePriorityPopup}
+        onShare={handleSharingPopup}
         isNarrow={props.isNarrow}
         onShowHome={props.onShowHome}
+        sharingLevel={sharingLevel}
         homeScreen={false}
         title={title}
         filter={filter}
-      setFilter={setFilter}
+        setFilter={setFilter}
+        onSignOut={props.onSignOut}
       />
       {deleteCompletedPopup && (
         <>
@@ -221,6 +259,22 @@ function ListView(props) {
             onClosePopup={handleDeleteCompletedPopup}
             showCompleted={showCompleted}
             filter={filter}
+          />
+        </>
+      )}
+      {sharingPopup && (
+        <>
+          <Backdrop onClickBackdrop={handleSharingPopup} />
+          <SharingPopup
+            onClosePopup={handleSharingPopup}
+            editors={metadata["editors"]}
+            viewers={metadata["viewers"]}
+            sharingLevel={sharingLevel}
+            onAddEditors={handleAddEditors}
+            onRemoveEditor={handleRemoveEditor}
+            id={metadata["id"]}
+            owner={metadata["owner"]}
+            {...props}
           />
         </>
       )}
@@ -235,10 +289,11 @@ function ListView(props) {
         sortType={sortType}
       />
 
-      {props.isNarrow && <div id="search_bar_div"><SearchBar
-      filter={filter}
-      setFilter={setFilter}
-      /></div>}
+      {props.isNarrow && (
+        <div id="search_bar_div">
+          <SearchBar filter={filter} setFilter={setFilter} />
+        </div>
+      )}
 
       <ListContents
         data={filteredData}

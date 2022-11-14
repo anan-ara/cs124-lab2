@@ -36,40 +36,70 @@ function ListMainMenu(props) {
             />
           </div>
           <button
-            ref={end}
+            className="delete-completed bottom-line"
+            onClick={() => {
+              props.onShare();
+              props.onToggleDropdown();
+            }}
+            aria-label={"Share list"}
+          >
+            {props.sharingLevel === "owner" ? "Share List" : "View Sharing"}
+          </button>
+          <button
             className="delete-completed bottom-line delete"
             onClick={() => {
               props.onDeleteCompleted();
               props.onToggleDropdown();
-            }}
-            onKeyDown={(e) => {
-              if (e.key === "Tab" && !e.shiftKey) {
-                e.preventDefault();
-                start.current.focus();
-              }
             }}
           >
             Delete Completed
           </button>
         </>
       ) : (
-        <button
-          ref={start}
-          className="delete-completed bottom-line delete"
-          onClick={() => {
-            props.onDeleteCompleted();
-            props.onToggleDropdown();
-          }}
-          onKeyDown={(e) => {
-            if (e.key === "Tab") {
-              e.preventDefault();
-              // start.current.focus();
-            }
-          }}
-        >
-          Delete Completed
-        </button>
+        <>
+          <button
+            ref={start}
+            className="delete-completed bottom-line"
+            onClick={() => {
+              props.onShare();
+              props.onToggleDropdown();
+            }}
+            aria-label={"Share list"}
+            onKeyDown={(e) => {
+              if (e.key === "Tab" && e.shiftKey) {
+                e.preventDefault();
+                end.current.focus();
+              }
+            }}
+          >
+            {props.sharingLevel === "owner" ? "Share List" : "View Sharing"}
+          </button>
+          <button
+            className="delete-completed delete bottom-line"
+            onClick={() => {
+              props.onDeleteCompleted();
+              props.onToggleDropdown();
+            }}
+          >
+            Delete Completed
+          </button>
+        </>
       )}
+      <button
+        ref={end}
+        onClick={() => {
+          props.onToggleDropdown();
+          props.onSignOut();
+        }}
+        onKeyDown={(e) => {
+          if (e.key === "Tab" && !e.shiftKey) {
+            e.preventDefault();
+            start.current.focus();
+          }
+        }}
+      >
+        Sign Out
+      </button>
     </div>
   );
 }

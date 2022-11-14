@@ -1,12 +1,15 @@
-import "./todo.css";
-import Home from "./Home";
-import ListView from "./ListView";
-import { useState } from "react";
-import { useMediaQuery } from "react-responsive";
+import SignedInApp from "./SignedInApp";
+import SignUp from "./SignUp";
+import SignIn from "./SignIn";
+import { getAuth, signOut } from "firebase/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { getFirestore } from "firebase/firestore";
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, updateDoc, doc } from "firebase/firestore";
-import { useDocumentData } from "react-firebase-hooks/firestore";
-
+import { useState, useEffect } from "react";
+import SentVerification from "./SentVerification";
+import ResendVerification from "./ResendVerification";
+import PasswordReset from "./PasswordReset";
+import { sendEmailVerification } from "firebase/auth";
 // Ours
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -21,103 +24,135 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const auth = getAuth();
 
-function App() {
-  // Screen Width
-  const isNarrow = useMediaQuery({ maxWidth: "615px" });
-  const isMedium = useMediaQuery({ minWidth: "615px", maxWidth: "900px" });
-  const isWide = useMediaQuery({ minWidth: "900px" });
+function App(props) {
+  const [user, loading, error] = useAuthState(auth);
 
-  const [homeScreen, setHomeScreen] = useState(true);
-
-  const [currentList, setCurrentList] = useState("defaultList");
-
-  // Priority icons
-  function setLowPriorityIcon(newIcon) {
-    updateDoc(doc(metadataRef, "default"), { lowPriorityIcon: newIcon });
-  }
-  function setMedPriorityIcon(newIcon) {
-    updateDoc(doc(metadataRef, "default"), { midPriorityIcon: newIcon });
-  }
-  function setHighPriorityIcon(newIcon) {
-    updateDoc(doc(metadataRef, "default"), { highPriorityIcon: newIcon });
+  if (error) {
+    console.error(error);
   }
 
-  const metadataRef = collection(db, "users");
-  const [metadata, metadataLoading, metadataError] = useDocumentData(
-    doc(metadataRef, "default")
-  );
+  // we only care about when the verification email is sent but the user has not yet clicked on it. Everything else we can access using user.emailVerified
+  // True if the user has just signed up. Used to conditionally show a page that says to check their email for verification
+  // (verification is sent automatically upon sign up.)
+  const [verifyEmailSent, setVerifyEmailSent] = useState(false);
+  // Used to show a screen between sending and sent
+  const [verifyEmailSending, setVerifyEmailSending] = useState(false);
 
-  if (metadataError) {
-    console.log(metadataError);
+  const [signUp, setSignUp] = useState(false);
+  const [passwordReset, setPasswordReset] = useState(false);
+
+  function handleToggleSignUp() {
+    setSignUp(!signUp);
   }
 
-  let lowPriorityIcon = "💤";
-  let medPriorityIcon = "⚠️";
-  let highPriorityIcon = "🔥";
-  if (!metadataLoading) {
-    lowPriorityIcon = metadata.lowPriorityIcon;
-    medPriorityIcon = metadata.midPriorityIcon;
-    highPriorityIcon = metadata.highPriorityIcon;
+  function handleTogglePasswordReset() {
+    setPasswordReset(!passwordReset);
   }
 
-  // So that we can translate from priority number to the icon.
-  let priorityToAria = {
-    0: "Low Priority",
-    1: "Medium Priority",
-    2: "High Priority",
-  };
-
-  function handleChangeText(id, newText, collectionRef) {
-    updateDoc(doc(collectionRef, id), { text: newText });
+  function handleSignOut() {
+    signOut(auth);
   }
 
-  function handleShowHome() {
-    setHomeScreen(true);
+  useEffect(() => {
+    if (user && !user.emailVerified) {
+      if (!user.emailVerified) {
+        setVerifyEmailSending(true);
+        sendEmailVerification(user)
+          .then(() => {
+            // Verification email sent. Show new screen
+            setVerifyEmailSent(true); // make it so that the email verification thing shows up
+            setVerifyEmailSending(false);
+          })
+          .catch((error) => {
+            // Error occurred. Inspect error.code. TODO show actual error message
+            console.error("ERROR when trying to send email verification" + error);
+            setVerifyEmailSending(false);
+          });
+      }
+    }
+  }, [user]);
+
+  // This is here so that both sign up and go verify can use it.
+  function verifyEmail() {
+    if (!user.emailVerified) {
+      setVerifyEmailSending(true);
+      sendEmailVerification(user)
+        .then(() => {
+          // Verification email sent. Show new screen
+          setVerifyEmailSent(true); // make it so that the email verification thing shows up
+          setVerifyEmailSending(false);
+        })
+        .catch((error) => {
+          // Error occurred. Inspect error.code. TODO show actual error message
+          console.error("ERROR when trying to send email verification" + error);
+          setVerifyEmailSending(false);
+        });
+    }
   }
 
-  function handleSelectList(listId) {
-    setCurrentList(listId);
-    setHomeScreen(false);
-  }
+  if (loading) {
+    return <p>Checking...</p>;
+  } else if (user) {
+    return user.emailVerified ? (
+      <div>
+        {/* {user.displayName || user.email} */}
 
-  return homeScreen ? (
-    <Home
-      currentList={currentList}
-      db={db}
-      isNarrow={isNarrow}
-      isMedium={isMedium}
-      isWide={isWide}
-      onShowHome={handleShowHome}
-      handleChangeText={handleChangeText}
-      appMetadata={metadata}
-      appMetadataLoading={metadataLoading}
-      setLowPriorityIcon={setLowPriorityIcon}
-      setMedPriorityIcon={setMedPriorityIcon}
-      setHighPriorityIcon={setHighPriorityIcon}
-      lowPriorityIcon={lowPriorityIcon}
-      medPriorityIcon={medPriorityIcon}
-      highPriorityIcon={highPriorityIcon}
-      priorityToAria={priorityToAria}
-      homeScreen={true}
-      onSelectList={handleSelectList}
-    />
-  ) : (
-    <ListView
-      currentList={currentList}
-      db={db}
-      isNarrow={isNarrow}
-      isMedium={isMedium}
-      isWide={isWide}
-      onShowHome={handleShowHome}
-      handleChangeText={handleChangeText}
-      lowPriorityIcon={lowPriorityIcon}
-      medPriorityIcon={medPriorityIcon}
-      highPriorityIcon={highPriorityIcon}
-      homeScreen={false}
-      priorityToAria={priorityToAria}
-    />
-  );
+        <SignedInApp
+          {...props}
+          onSignOut={handleSignOut}
+          user={user}
+          auth={auth}
+          db={db}
+        />
+      </div>
+    ) : verifyEmailSent ? (
+      <SentVerification
+        signOut={signOut}
+        auth={auth}
+        setSignUp={setSignUp}
+        setVerifyEmailSent={setVerifyEmailSent}
+      />
+    ) : verifyEmailSending ? (
+      <div className="popup create-list-popup">
+        Hang Tight! We're sending your verification Email...
+      </div>
+    ) : (
+      <ResendVerification
+        verifyEmail={verifyEmail}
+        signOut={signOut}
+        auth={auth}
+        setSignUp={setSignUp}
+      />
+    );
+  } else {
+    return (
+      <>
+        {error && <p>Error App: {error.message}</p>}
+        {signUp ? (
+          <SignUp
+            key="Sign Up"
+            setSignUp={setSignUp}
+            auth={auth}
+            onToggleSignUp={handleToggleSignUp}
+          />
+        ) : passwordReset ? (
+          <PasswordReset
+            auth={auth}
+            onTogglePasswordReset={handleTogglePasswordReset}
+          />
+        ) : (
+          <SignIn
+            key="Sign In"
+            auth={auth}
+            onToggleSignUp={handleToggleSignUp}
+            onTogglePasswordReset={handleTogglePasswordReset}
+          />
+        )}
+      </>
+    );
+  }
 }
 
 export default App;

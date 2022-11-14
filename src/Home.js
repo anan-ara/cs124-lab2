@@ -1,7 +1,6 @@
 import "./todo.css";
 import TopBar from "./TopBar";
 import SearchBar from "./SearchBar";
-// import BottomBar from "./BottomBar";
 import PriorityPopup from "./PriorityPopup";
 import CreateListPopup from "./CreateListPopup";
 import HomeContents from "./HomeContents";
@@ -11,7 +10,6 @@ import { useState, useEffect, useRef } from "react";
 import { generateUniqueID } from "web-vitals/dist/modules/lib/generateUniqueID";
 import {
   useCollectionData,
-  // useDocumentData,
 } from "react-firebase-hooks/firestore";
 import {
   query,
@@ -20,26 +18,19 @@ import {
   deleteDoc,
   doc,
   orderBy,
-  // where,
+  where,
   serverTimestamp,
   collection,
   getDocs,
   // QuerySnapshot,
 } from "firebase/firestore";
-// import {
-//   initialLowPriorityIcon,
-//   initialMedPriorityIcon,
-//   initialHighPriorityIcon,
-//   lowPriorityOptions,
-//   medPriorityOptions,
-//   highPriorityOptions,
-// } from ".";
-import TOP_LEVEL_COLLECTION from "./firestore-config";
+
+import LIST_COLLECTION from "./firestore-config";
+import HiddenListsPopup from "./HiddenListsPopup";
 
 function Home(props) {
-  // const TOP_LEVEL_COLLECTION = "cs124-users/default/lists";
-  const collectionRef = collection(props.db, TOP_LEVEL_COLLECTION);
-  const metadataRef = collection(props.db, "users");
+  const collectionRef = collection(props.db, LIST_COLLECTION);
+  const usersRef = collection(props.db, "users");
 
   const [toScroll, setToScroll] = useState(false);
 
@@ -51,6 +42,12 @@ function Home(props) {
     setPriorityPopup(!priorityPopup);
   }
 
+  // Hidden lists popup
+  const [hiddenListsPopup, setHiddenListsPopup] = useState(false);
+  function handleHiddenListsPopup() {
+    setHiddenListsPopup(!hiddenListsPopup);
+  }
+
   // Create List Confirmation
   const [createListPopup, setCreateListPopup] = useState(false);
   function handleCreateListPopup() {
@@ -60,20 +57,37 @@ function Home(props) {
   let sortType = "created";
 
   // Get data from database.
-  if (!props.appMetadataLoading) {
-    sortType = props.appMetadata.sort;
+  if (!props.usersLoading && !props.usersError) {
+    sortType = props.usersData.sort;
   }
 
   let orderByParam = orderBy(sortType);
-  if (sortType === "priority") {
-    orderByParam = orderBy("created");
-  }
-  let queryParam = query(collectionRef, orderByParam);
-  const [data, loading, error] = useCollectionData(queryParam);
+  let myQueryParam = query(
+    collectionRef,
+    orderByParam,
+    where("owner", "==", props.user.email)
+  );
 
-  let filteredData = data;
-  if (!loading) {
-    filteredData = data.filter((item) => item.text.toLowerCase().includes(filter.toLowerCase()));
+  let editorQueryParam = query(
+    collectionRef,
+    orderByParam,
+    where("editors", "array-contains", props.user.email)
+  );
+
+  const [ownerData, ownerLoading, ownerError] = useCollectionData(myQueryParam);
+  const [editorData, editorLoading, editorError] =
+    useCollectionData(editorQueryParam);
+
+  // Search bar functionality
+  let ownerFilteredData = ownerData;
+  let editorFilteredData = editorData;
+  if (!ownerLoading && !editorLoading) {
+    ownerFilteredData = ownerData.filter((item) =>
+      item.text.toLowerCase().includes(filter.toLowerCase())
+    );
+    editorFilteredData = editorData.filter((item) =>
+      item.text.toLowerCase().includes(filter.toLowerCase())
+    );
   }
 
   // Needed so that we know when the submenu menu needs to pop up instead of down.
@@ -84,8 +98,12 @@ function Home(props) {
     return rect.top;
   }
 
-  if (error) {
-    console.log(error);
+  if (ownerError) {
+    console.error(ownerError);
+  }
+
+  if (editorError) {
+    console.error(editorError);
   }
 
   function addNewList(text) {
@@ -98,24 +116,37 @@ function Home(props) {
         sort: "created",
         complete: 0,
         total: 0,
+        owner: props.user.email,
+        viewers: [],
+        editors: [],
+        admins: [],
       }); //.then(() => setToScroll(true));
     }
   }
 
   function handleSortType(newSortType) {
-    updateDoc(doc(metadataRef, "default"), { sort: newSortType });
+    updateDoc(doc(usersRef, props.user.uid), { sort: newSortType });
+  }
+
+  function addHiddenListId(listId) {
+    updateDoc(doc(usersRef, props.user.uid), {
+      hiddenLists: props.usersData.hiddenLists.concat([listId]),
+    });
+    // currentEditors.concat(newEditorsList);
+  }
+
+  function removeHiddenListId(listId) {
+    updateDoc(doc(usersRef, props.user.uid), {
+      hiddenLists: props.usersData.hiddenLists.filter((id) => id !== listId),
+    });
+    // currentEditors.concat(newEditorsList);
   }
 
   //   These handlers need the collectionRef too
   function handleDeleteList(id) {
     deleteDoc(doc(collectionRef, id));
 
-    const subCollectionRef = collection(
-      props.db,
-      TOP_LEVEL_COLLECTION,
-      id,
-      "items"
-    );
+    const subCollectionRef = collection(props.db, LIST_COLLECTION, id, "items");
     const q = query(subCollectionRef);
     getDocs(q).then((querySnapshot) =>
       querySnapshot.forEach((listDoc) => {
@@ -126,6 +157,25 @@ function Home(props) {
 
   function handleChangeText(id, newText) {
     props.handleChangeText(id, newText, collectionRef);
+  }
+
+  function handleAddEditors(id, newEditors) {
+    const currentEditors = ownerData.filter((list) => list.id === id)[0]["editors"];
+    const owner = ownerData.filter((list) => list.id === id)[0]["owner"];
+    const newEditorsList = newEditors.map(object => object["value"]);
+    const allEditors = currentEditors.concat(newEditorsList);
+    const deduplicateAllEditors = allEditors.filter((item, pos) => (allEditors.indexOf(item) === pos) && item !== owner);
+    updateDoc(doc(collectionRef, id), { editors: deduplicateAllEditors });
+  }
+
+  function handleRemoveEditor(id, removeEditor) {
+    const currentEditors = ownerData.filter((list) => list.id === id)[0][
+      "editors"
+    ];
+    const removedEditors = currentEditors.filter(
+      (editor) => editor !== removeEditor
+    );
+    updateDoc(doc(collectionRef, id), { editors: removedEditors });
   }
 
   // end of list used for autoscrolling
@@ -153,6 +203,7 @@ function Home(props) {
         homeScreen={true}
         title={"My Lists"}
         onTogglePriorityPopup={handlePriorityPopup}
+        onToggleHiddenListsPopup={handleHiddenListsPopup}
         filter={filter}
         setFilter={setFilter}
         {...props}
@@ -160,10 +211,24 @@ function Home(props) {
       {priorityPopup && (
         <>
           <Backdrop onClickBackdrop={handlePriorityPopup} />
-          <PriorityPopup onTogglePriorityPopup={handlePriorityPopup} {...props} />
+          <PriorityPopup
+            onTogglePriorityPopup={handlePriorityPopup}
+            {...props}
+          />
         </>
       )}
 
+      {hiddenListsPopup && (
+        <>
+          <Backdrop onClickBackdrop={handleHiddenListsPopup} />
+          <HiddenListsPopup
+            onToggleHiddenListsPopup={handleHiddenListsPopup}
+            editorData={editorData}
+            onRemoveHiddenListId={removeHiddenListId}
+            {...props}
+          />
+        </>
+      )}
       {props.isNarrow && (
         <div id="search_bar_div">
           <SearchBar filter={filter} setFilter={setFilter} />
@@ -171,9 +236,11 @@ function Home(props) {
       )}
 
       <HomeContents
-        data={filteredData}
-        unfilteredData={data}
-        loading={props.appMetadataLoading || loading}
+        ownerData={ownerFilteredData}
+        ownerUnfilteredData={ownerData}
+        editorData={editorFilteredData}
+        editorUnfilteredData={editorData}
+        loading={props.appMetadataLoading || ownerLoading || editorLoading}
         listEnd={listEnd}
         onDeleteList={handleDeleteList}
         onChangeText={handleChangeText}
@@ -181,6 +248,10 @@ function Home(props) {
         homeScreen={props.homeScreen}
         isNarrow={props.isNarrow}
         getBottomBarLocation={getBottomBarLocation}
+        onAddEditors={handleAddEditors}
+        onRemoveEditor={handleRemoveEditor}
+        onAddHiddenListId={addHiddenListId}
+        {...props}
       />
       <HomeBottomBar
         handleAddList={handleCreateListPopup}
@@ -199,6 +270,7 @@ function Home(props) {
           <CreateListPopup
             onAddList={addNewList}
             onClosePopup={handleCreateListPopup}
+            {...props}
           />
         </>
       )}

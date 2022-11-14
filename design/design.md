@@ -15,6 +15,19 @@ After the user clicks on a list, the app shows all of the tasks for that list in
 
 More details about both of these views can be found in the section below.
 
+## Authentication
+Our app currently provides ways for users to login using their email and password, or using Google. Additionally, we have a sign up link which takes new users to a separate sign up page, and a password reset link which allows users to send a password reset email to themselves if they ever forget the password to the app.
+
+Because shared lists are accepted by default, we made it so that users must verify their emails before they are able to use the app.
+## Sharing Behavior
+On the main screen, lists owned by the user are shown first. This is intended behavior as we thought it would make more sense that most users would not want to group their personal lists with lists shared with them, even when following sorting rules. To differentiate between owned lists and shared lists, owned lists have the same 3 dots options menu, while shared lists have a person icon.
+Currently, owners of the list are able to expand the 3 dots out to show the "Share Lists" option, which opens up a popup that allows them to share the list with others. 
+For non list owners, they instead have the option the view the list sharing, which displays the owner of the list as well as all the other users the list is currently shared with.
+
+We thought that it wouldn't make sense for non-owners to leave a list that was shared with them that they do not want to be part of, as this would require them to be able to edit the shared permissions for that list, which implies that they would also be able to modify the permissions of other users. To circumvent this issue, we instead gave users the option to hide lists shared with them that they do not want to display instead. The user can then go into their main menu and unhide these shared lists at any time. 
+
+We also thought that is was important for users to be able to quickly identify who they are logged in as, but that it wasn't important enough to be taking up the main screen space, so we put it in the main menu of the app. The user is also able to log out from this same place.
+
 ## Home Screen
 The home screen has the following features:
 - Create/edit/delete lists
@@ -255,6 +268,22 @@ Alekz also didn't like how different our home view and list view were. He though
 
 Alekz also mentioned that on a phone, when people click the text, they likely want to rename the task rather than checking/unchecking the checkbox. He also showed us an example with Apple's Reminders app. We believe that he is right and we would like to make this the default functionality for the next lab.
 
+## Testing Group 11: Santiago Rodriguez and Tom Fu
+Tom and Santiago took a while to figure out how to create lists/tasks. A big criticism they had for the app was that it was hard to locate the "add new list/task" button because it is located at the very bottom of the screen, which is unintuitive for most people when testing on a laptop. This is an artifact of when the app was mobile-only. In the future, for larger screen sizes, it may make more sense to move the list/task creation bar up closer to the top of the page as this is more in line with traditional web pages meant for the desktop.
+
+They also suggested that the shared lists should show who the list owner/who shared the list with you is. This makes sense, and thanks to their feedback, we added this feature to our app, with a new pop up screen allowing non-owners of the list to view the owner of the list as well as other users the list is shared with.
+
+They also felt that some of the buttons/UI elements were smaller than what they were used to. Currently, our app does allow for zooming with many elements reacting and adjusting to the zoom level accordingly, but it the future, we will certainly look into setting up better default values for the sizes of different UI elements.
+
+Tom also mentioned that it would be helpful to see within the list who made which task. While we think this information could be useful, we decided that it is not useful for most and is not worth the screen space. In future iterations of our app, we may decide to add a feature which would give users the option of displaying the original task creator, but as of this moment, we do not believe this is a necessary feature.
+
+## Testing Group 12: Sydney Cornell and Solomen Valore-Caplan
+Sydney and Solomon had a bit of trouble signing into our app initially. They signed in using the regular email & password after making an account through the sign up page, and were able to verify their emails successfully. 
+
+A feature that Sydney and Solomon wanted to see was to sort by checked/unchecked. While we see the appeal of this feature, we were also not sure how we should implement it such that it is intuitive for all users. As we already have a show/hide all completed tasks, we are not sure if this feature would be redundant. Additionally, adding it as a sorting feature along with our existing sorting options would lead to a compound sorting heirarchy, which greatly increases the complexity in using our app. Because of this, we think we should not give users the option to sort by checked/unchecked, and to instead have this feature enabled/disabled by default. Since we were not able to get any more input on this from other users, we decided to keep the list sorting as is where checked status has no impact on the sorting, but if there is enough demand for this type of sorting in the future, then we will change the default sorting behavior to take into account the checked/unchecked status.
+
+Sydney and Solomon also liked the priority emoji feature, and thought it was cool that there was an option to hide lists shared with you.
+
 # Final Design
 
 Below are screenshots of our final design.
@@ -266,6 +295,17 @@ Below are screenshots of our final design.
 ![list-view-large](list-view-large.png)
 ![list-view-small](list-view-small.png)
 ![list-view-small-list](list-view-small-list.png)
+
+Below are some screenshots of the new sharing features.
+![login](login.png)
+![signup](signup.png)
+![passwordreset](passwordrest.png)
+![sharingempty](sharingempty.png)
+![sharingfilled](sharingfilled.png)
+![sharingshow](sharingshow.png)
+![sharingview](sharingview.png)
+![hiddenlists](hiddenlists.png)
+![submenunew](submenunew.png)
 
 # Challenges We Faced
 

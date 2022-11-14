@@ -21,22 +21,27 @@ function HomeMainMenu(props) {
         }
       }}
     >
+            <label id="name-label" className="bottom-line">{"Logged in as: " + (props.user.displayName || props.user.email)}</label>
+
       {props.isWide ? (
-        <button
-          ref={start}
-          onClick={() => {
-            props.onTogglePriorityPopup();
-            props.onToggleDropdown();
-          }}
-          onKeyDown={(e) => {
-            if (e.key === "Tab") {
-              e.preventDefault();
-              // start.current.focus();
-            }
-          }}
-        >
-          Change Priority Emoji
-        </button>
+        <>
+          <button
+            className="bottom-line"
+            ref={start}
+            onClick={() => {
+              props.onTogglePriorityPopup();
+              props.onToggleDropdown();
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Tab" && e.shiftKey) {
+                e.preventDefault();
+                end.current.focus();
+              }
+            }}
+          >
+            Change Priority Emoji
+          </button>
+        </>
       ) : (
         <>
           <div className="bottom-line">
@@ -53,22 +58,40 @@ function HomeMainMenu(props) {
             />
           </div>
           <button
-            ref={end}
+            className="bottom-line"
             onClick={() => {
               props.onTogglePriorityPopup();
               props.onToggleDropdown();
-            }}
-            onKeyDown={(e) => {
-              if (e.key === "Tab" && !e.shiftKey) {
-                e.preventDefault();
-                start.current.focus();
-              }
             }}
           >
             Change Priority Emoji
           </button>
         </>
       )}
+      <button className="bottom-line"
+        onClick={() => {
+          props.onToggleDropdown();
+          props.onToggleHiddenListsPopup();
+        }}
+      >
+        Edit/View Hidden Lists
+      </button>
+      {/* <label id="name-label" className="bottom-line">{"Logged in as: " + (props.user.displayName || props.user.email)}</label> */}
+      <button
+        ref={end}
+        onClick={() => {
+          props.onToggleDropdown();
+          props.onSignOut();
+        }}
+        onKeyDown={(e) => {
+          if (e.key === "Tab" && !e.shiftKey) {
+            e.preventDefault();
+            start.current.focus();
+          }
+        }}
+      >
+        Sign Out
+      </button>
     </div>
   );
 }

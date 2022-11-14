@@ -1,33 +1,20 @@
 
 #home-contents svg {
     height: 19px;
-    /* width: auto; */
-    /* margin-right: 10px; */
     fill: #494949;
-    /* margin-left: auto; */
 }
 
 #home-contents .complete-count {
-    /* width: auto; */
     margin-left: 10px;
     color: #494949;
-    /* margin-left: auto; */
 }
 
 div.bottom-line {
     border-bottom: 1.5px solid #494949;
   }
 
-/* #home-contents {
-    background-color: #494949;
-} */
-
 #home-contents li {
     min-height: 30px;
-    /* background: white; */
-    /* display: flex;
-    align-items: center; */
-    /* padding: 6px; */
     margin: 10px;
     border: 1.5px solid #494949;
     border-radius: 8px;

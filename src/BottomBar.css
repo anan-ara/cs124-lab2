@@ -1,6 +1,5 @@
 #bottom_bar {
     order: 10;
-    /* flex: 0 0 initial; */
     height: 60px;
     background: #494949;
     display: flex;
@@ -11,7 +10,6 @@
 
 #bottom_bar input {
     font-size: x-large;
-    /* 1.5rem; */
     width: 80vw;
     color: white; /* Text is white when shows up */
 
